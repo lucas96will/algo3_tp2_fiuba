@@ -6,7 +6,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 
 ## Grupo {N}
 
-* **Integrante 1** - [integrante1](https://github.com/integrante1)
+* **Integrante 1** - [Manuel Mendoza](https://github.com/crokibolt)
 * **Integrante 2** - [lucas williams](https://github.com/lucas96will)
 * **Integrante 3** - [Agustín de la Rosa](https://github.com/Rofertin)
 * **Integrante 4** - [Ariel Folgueira](https://github.com/ArielFol)
