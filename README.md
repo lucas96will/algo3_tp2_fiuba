@@ -7,7 +7,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 ## Grupo {N}
 
 * **Integrante 1** - [integrante1](https://github.com/integrante1)
-* **Lucas Williams** - [integrante2](https://github.com/lucas96will)
+* **Integrante 2** - [lucas williams](https://github.com/lucas96will)
 * **Integrante 3** - [integrante3](https://github.com/integrante3)
 * **Integrante 4** - [integrante4](https://github.com/integrante4)
 
