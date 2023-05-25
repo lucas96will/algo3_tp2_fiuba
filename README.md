@@ -10,6 +10,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 * **Integrante 2** - [lucas williams](https://github.com/lucas96will)
 * **Integrante 3** - [Agustín de la Rosa](https://github.com/Rofertin)
 * **Integrante 4** - [Ariel Folgueira](https://github.com/ArielFol)
+* **Integrante 5** - [Carlos Orqueda](https://github.com/CarlosOrqueda)
 
 Corrector: **{Corrector}**
 
