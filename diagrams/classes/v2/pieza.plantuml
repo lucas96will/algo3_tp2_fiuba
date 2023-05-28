@@ -1,0 +1,27 @@
+@startuml
+interface Pieza {
+    {abstract}+daniar(parcela:Parcela):void
+    {abstract}+recibirDanio(pieza:this):void
+}
+
+abstract Defensa {
+    -danio:int
+    -costo:int
+    +daniar(parcela:Parcela):void
+    +recibirDanio(pieza:Pieza):void
+    {abstract}+crearPieza(parcela:Parcela):void
+}
+
+abstract Enemigo {
+    -danio
+    -energia:int
+    -velocidad:int
+    +daniar(jugador: Jugador):void
+    +recibirDanio(defensa: Defensa):void
+    {abstract}+crearPieza(parcela:Parcela):void
+    {abstract}+obtenerCreditos(jugador:Jugador):int
+}
+
+Pieza <|.. Defensa
+Pieza <|.. Enemigo
+@enduml
