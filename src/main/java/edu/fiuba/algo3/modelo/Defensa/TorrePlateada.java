@@ -1,4 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Defensa;
+
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
 
 public class TorrePlateada extends Defensa {
     public TorrePlateada(int una_posicion_fila, int una_posicion_columna) {

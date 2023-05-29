@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Pasarela;
 
 public class Casilla extends Pasarela {
     public Casilla(Pasarela pasarela_anterior){

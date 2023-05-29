@@ -1,6 +1,11 @@
 package edu.fiuba.algo3.modelo;
 
 
+import edu.fiuba.algo3.modelo.Construible.*;
+import edu.fiuba.algo3.modelo.Pasarela.*;
+import edu.fiuba.algo3.modelo.Enemigo.*;
+import edu.fiuba.algo3.modelo.Defensa.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,7 +39,12 @@ public class Mapa {
 
     private void crearTierraGenerica(){
         for(int i = 0; i < 7; i++){
-            matriz[1][i] = new Construible();
+            matriz[1][i] = new Tierra();
+        }
+        for(int j = 2; j < 7; j++) {
+            for (int i = 0; i < 7; i++) {
+                matriz[j][i] = new Rocoso();
+            }
         }
     }
 
@@ -58,7 +68,7 @@ public class Mapa {
 
 
         while(columna <= tamanio_mapa) {
-            int direccion = random.nextInt(3);
+            int direccion = random.nextInt(4);
 
             switch (direccion) {
                 case 0: // Arriba
@@ -119,7 +129,7 @@ public class Mapa {
 
     public void construir(Defensa defensa, int posicionFila, int posicionColumna) {
         ((Construible)matriz[posicionFila][posicionColumna]).construir(defensa);
-        this.defensas.add(defensa);
+        defensas.add(defensa);
     }
 
     public void actualizarEstadoDefensas() {
@@ -127,10 +137,10 @@ public class Mapa {
     }
 
     public boolean construccionTerminadaEn(int posicionFila, int posicionColumna) {
-        return ((Construible) this.matriz[posicionFila][posicionColumna]).construccionTerminada();
+        return ((Construible) matriz[posicionFila][posicionColumna]).construccionTerminada();
     }
 
     public boolean hayConstruccionEn(int posicionFila, int posicionColumna) {
-        return ((Construible) this.matriz[posicionFila][posicionColumna]).tieneConstruccion();
+        return ((Construible) matriz[posicionFila][posicionColumna]).tieneConstruccion();
     }
 }

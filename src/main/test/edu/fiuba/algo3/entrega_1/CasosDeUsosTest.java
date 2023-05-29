@@ -1,6 +1,9 @@
 package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
+import edu.fiuba.algo3.modelo.Defensa.TorrePlateada;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -61,13 +64,16 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso3defensaSeConstruyeSoloSiElJugadorTieneLosCreditosNecesarios() {
+
         Partida partida = new Partida();
         Jugador jugador = new Jugador(10, 100, "Josecito");
         partida.crearPartidaGenerica(jugador);
+
         Defensa torreBlanca1 = new TorreBlanca(1, 5);
         Defensa torreBlanca2 = new TorreBlanca(1, 6);
         partida.construir(torreBlanca1, 1, 5);
         partida.construir(torreBlanca2, 1, 6);
+
         assertTrue(partida.hayConstruccionEn(1,5));
         assertFalse(partida.hayConstruccionEn(1,6));
 
@@ -75,5 +81,16 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso4DefensaSoloSePuedeConstruirSobreTierra() {
+        Partida partida = new Partida();
+        Jugador jugador = new Jugador(10, 100, "Josecito");
+        partida.crearPartidaGenerica(jugador);
+
+        Defensa torreBlanca1 = new TorreBlanca(1, 5);
+        Defensa torreBlanca2 = new TorreBlanca(1, 6);
+        partida.construir(torreBlanca1, 1, 5);
+        partida.construir(torreBlanca2, 2, 5); //construyo sobre rocoso
+
+        assertTrue(partida.hayConstruccionEn(1,5));
+        assertFalse(partida.hayConstruccionEn(2,5));
     }
 }

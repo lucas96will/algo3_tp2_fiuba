@@ -1,4 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Construible;
+
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
 
 public class Construible {
     private Defensa defensa;
@@ -7,8 +9,8 @@ public class Construible {
         this.defensa = null;
     }
 
-    public void construir(Defensa defensa){
-        this.defensa = defensa;
+    public void construir(Defensa unaDefensa){
+        defensa = unaDefensa;
     }
 
     public boolean construccionTerminada() {

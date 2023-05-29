@@ -1,16 +1,16 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
+
 public class Partida {
     private Jugador jugador;
     private Mapa mapa;
-    private Turno turno;
 
     public Partida(){}
     public void crearPartidaGenerica(Jugador jugador){
         this.jugador = jugador;
         mapa = new Mapa(7);
         mapa.crearMapaGenerico();
-        turno = new Turno();
     }
     public void comenzar(){}
     public void terminarTurno() {

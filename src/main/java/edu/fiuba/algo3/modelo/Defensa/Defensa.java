@@ -1,4 +1,6 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Defensa;
+
+import edu.fiuba.algo3.modelo.Recursos;
 
 public class Defensa {
     protected int costeEnCreditos;
@@ -21,7 +23,7 @@ public class Defensa {
 
     public void reducirCosteEnTurnos() {
         if(this.costeEnTurnos > 0){
-            this.costeEnTurnos -= 1;
+            costeEnTurnos -= 1;
         }
     }
 }

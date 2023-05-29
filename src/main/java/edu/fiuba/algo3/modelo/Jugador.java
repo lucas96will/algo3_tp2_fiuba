@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
+
 public class Jugador {
     private Recursos recursos;
     private int vida;
