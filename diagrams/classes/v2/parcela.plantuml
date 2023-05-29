@@ -1,0 +1,43 @@
+@startuml
+
+interface Parcela {
+    {abstract} +crearDefensa(defensa: Defensa):void
+    {abstract} +crearEnemigo(enemigo: Enemigo):void
+}
+
+abstract Pasarela {
+    -pasarelas:List<this>
+    +moverContenido():void
+    +mostrarContenido():void
+    +eliminarContenido(indice:int):void
+    +recibirDanio(defensa: Defensa):void
+    -obtenerCreditos(jugador:Jugador):int
+    +crearDefensa(defensa: Defensa):void
+    +crearEnemigo(enemigo: Enemigo):void
+}
+
+class Largada {
+    {static}Meta(List<Enemigo>)
+}
+
+class Rocoso {
+    +crearDefensa(defensa: Defensa):void
+    +crearEnemigo(enemigo: Enemigo):void
+}
+
+class Tierra {
+    +crearDefensa(defensa: Defensa):void
+    +crearEnemigo(enemigo: Enemigo):void
+}
+
+interface Enemigo {}
+interface Defensa {}
+
+Parcela <|.. Pasarela
+Parcela <|.. Rocoso
+Parcela <|.. Tierra
+Pasarela <|-- Largada
+Pasarela "0" o-- "*" Enemigo
+Tierra "0" o-- "1" Defensa
+
+@enduml
