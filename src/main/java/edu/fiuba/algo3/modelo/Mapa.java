@@ -1,15 +1,20 @@
 package edu.fiuba.algo3.modelo;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Mapa {
     private int tamanio_mapa;
     private Object[][] matriz;
     private Pasarela largada;
+    private List<Defensa> defensas;
 
     public Mapa(int tamanioMapa) {
         tamanio_mapa = tamanioMapa;
         matriz = new Object[tamanioMapa][tamanioMapa];
+        this.defensas = new ArrayList<>();
     }
     public void crearMapaGenerico(){
         crearPasarelasGenericas();
@@ -112,7 +117,16 @@ public class Mapa {
         largada.insertarEnemigo(enemigo);
     }
 
-    public void construir(Defensa defensa) {
+    public void construir(Defensa defensa, int posicionFila, int posicionColumna) {
+        ((Construible)matriz[posicionFila][posicionColumna]).construir(defensa);
+        this.defensas.add(defensa);
+    }
 
+    public void actualizarEstadoDefensas() {
+        defensas.forEach(Defensa::reducirCosteEnTurnos);
+    }
+
+    public boolean construccionTerminadaEn(int posicionFila, int posicionColumna) {
+        return ((Construible) this.matriz[posicionFila][posicionColumna]).construccionTerminada();
     }
 }

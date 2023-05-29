@@ -13,12 +13,19 @@ public class Partida {
         turno = new Turno();
     }
     public void comenzar(){}
-    public void terminarTurno(){}
-    public void construir(Defensa defensa){
+    public void terminarTurno() {
+        mapa.actualizarEstadoDefensas();
+    }
+    public void construir(Defensa defensa, int posicionFila, int posicionColumna){
         if(jugador.comprarDefensa(defensa)) {
-            mapa.construir(defensa);
+            mapa.construir(defensa, posicionFila, posicionColumna);
         }
     }
+
+    public boolean construccionTerminadaEn(int posicionFila, int posicionColumna) {
+        return mapa.construccionTerminadaEn(posicionFila, posicionColumna);
+    }
+
     public boolean terminarPartida(){
         return jugador.muerto();
     }

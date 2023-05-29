@@ -38,7 +38,23 @@ public class CasosDeUsosTest {
 
         partida.comenzar();
 
-        Defensa defensa = new Defensa(1,4);
-        partida.construir(defensa);
+        Defensa torreBlanca = new TorreBlanca(1,3);
+        Defensa torrePlateada = new TorrePlateada(1,6);
+        partida.construir(torreBlanca, 1, 3);
+        partida.construir(torrePlateada, 1, 6);
+
+        partida.terminarTurno();
+
+        /*Torre blanca ya terminada*/
+        assertTrue(partida.construccionTerminadaEn(1,3));
+
+        /*Torre plateada no se termino (2 turnos)*/
+        assertFalse(partida.construccionTerminadaEn(1,6));
+
+        partida.terminarTurno();
+
+        assertTrue(partida.construccionTerminadaEn(1,6));
+
     }
+    
 }
