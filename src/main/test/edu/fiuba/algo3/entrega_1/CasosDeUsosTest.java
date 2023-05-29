@@ -72,5 +72,8 @@ public class CasosDeUsosTest {
         assertFalse(partida.hayConstruccionEn(1,6));
 
     }
-    
+
+    @Test
+    public void caso4DefensaSoloSePuedeConstruirSobreTierra() {
+    }
 }
