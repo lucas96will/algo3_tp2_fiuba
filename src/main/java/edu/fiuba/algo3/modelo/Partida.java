@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 
 public class Partida {
     private Jugador jugador;
@@ -14,11 +15,13 @@ public class Partida {
     }
     public void comenzar(){}
     public void terminarTurno() {
+        mapa.defensasAtacar();
         mapa.actualizarEstadoDefensas();
+        mapa.moverEnemigos();
     }
-    public void construir(Defensa defensa, int posicionFila, int posicionColumna){
+    public void construir(Defensa defensa){
         if(jugador.comprarDefensa(defensa)) {
-            mapa.construir(defensa, posicionFila, posicionColumna);
+            mapa.construir(defensa);
         }
     }
 
@@ -37,4 +40,7 @@ public class Partida {
         return mapa.hayConstruccionEn(posicionFila, posicionColumna);
     }
 
+    public void insertarEnemigo(Enemigo enemigo) {
+        mapa.insertarEnemigo(enemigo);
+    }
 }

@@ -1,16 +1,22 @@
 package edu.fiuba.algo3.modelo.Defensa;
 
+import edu.fiuba.algo3.modelo.Pasarela.Pasarela;
+import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recursos;
 
-public class Defensa {
+public abstract class Defensa {
     protected int costeEnCreditos;
     protected int costeEnTurnos;
-    protected int posicion_fila;
-    protected int posicion_columna;
+    protected int rango;
+    public Posicion posicion;
+    protected int danio;
+
+    protected boolean noAtacoEnEsteTurno;
+
 
     public Defensa(int una_posicion_fila, int una_posicion_columna) {
-        posicion_columna = una_posicion_columna;
-        posicion_fila = una_posicion_fila;
+        posicion = new Posicion(una_posicion_fila, una_posicion_columna);
+        noAtacoEnEsteTurno = true;
     }
 
     public boolean comprate(Recursos recursos) {
@@ -18,12 +24,19 @@ public class Defensa {
     }
 
     public boolean estaTerminada() {
-        return this.costeEnTurnos == 0;
+        return costeEnTurnos == 0;
     }
 
     public void reducirCosteEnTurnos() {
-        if(this.costeEnTurnos > 0){
+        if(costeEnTurnos > 0){
             costeEnTurnos -= 1;
         }
+    }
+    public int atacarPasarela(Pasarela pasarela){
+        if(posicion.estaEnRango(rango, pasarela.posicion) && noAtacoEnEsteTurno){
+            noAtacoEnEsteTurno = false;
+            return pasarela.atacarAlPrimerEnemigo(danio);
+        }
+        return 0;
     }
 }

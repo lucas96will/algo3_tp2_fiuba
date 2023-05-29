@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Defensa.TorrePlateada;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -45,8 +46,8 @@ public class CasosDeUsosTest {
 
         Defensa torreBlanca = new TorreBlanca(1,3);
         Defensa torrePlateada = new TorrePlateada(1,6);
-        partida.construir(torreBlanca, 1, 3);
-        partida.construir(torrePlateada, 1, 6);
+        partida.construir(torreBlanca);
+        partida.construir(torrePlateada);
 
         partida.terminarTurno();
 
@@ -71,8 +72,8 @@ public class CasosDeUsosTest {
 
         Defensa torreBlanca1 = new TorreBlanca(1, 5);
         Defensa torreBlanca2 = new TorreBlanca(1, 6);
-        partida.construir(torreBlanca1, 1, 5);
-        partida.construir(torreBlanca2, 1, 6);
+        partida.construir(torreBlanca1);
+        partida.construir(torreBlanca2);
 
         assertTrue(partida.hayConstruccionEn(1,5));
         assertFalse(partida.hayConstruccionEn(1,6));
@@ -86,11 +87,32 @@ public class CasosDeUsosTest {
         partida.crearPartidaGenerica(jugador);
 
         Defensa torreBlanca1 = new TorreBlanca(1, 5);
-        Defensa torreBlanca2 = new TorreBlanca(1, 6);
-        partida.construir(torreBlanca1, 1, 5);
-        partida.construir(torreBlanca2, 2, 5); //construyo sobre rocoso
+        Defensa torreBlanca2 = new TorreBlanca(2, 5);
+        partida.construir(torreBlanca1);
+        partida.construir(torreBlanca2); //construyo sobre rocoso
 
         assertTrue(partida.hayConstruccionEn(1,5));
         assertFalse(partida.hayConstruccionEn(2,5));
+    }
+
+    @Test
+    public void caso5DefensasAtacanDentroDelRangoEsperado() {
+        /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
+
+        Partida partida = new Partida();
+        Jugador jugador = new Jugador(10, 100, "Josecito");
+        partida.crearPartidaGenerica(jugador);
+
+        Defensa torreBlanca1 = new TorreBlanca(1, 1);
+        partida.construir(torreBlanca1);
+
+        Enemigo hormiga = Enemigo.crearHormiga(1);
+        partida.insertarEnemigo(hormiga);
+
+        partida.terminarTurno();
+
+        assertTrue(partida.jugadorTieneTodaLaVidaYMaximosCreditos()); //hormiga no llego al final :D
+        assertTrue(partida.hayConstruccionEn(1,1));
+
     }
 }

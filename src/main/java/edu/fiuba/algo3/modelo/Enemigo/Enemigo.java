@@ -1,22 +1,60 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
+import edu.fiuba.algo3.modelo.Pasarela.Pasarela;
+
 public class Enemigo {
     private int danio;
     private int vida;
     private int velocidad;
     private int energia;
     private int recompensa;
-    public Enemigo(int unvida, int undanio, int unvelocidad, int unenergia,int unrecompensa){
+    private int id;
+
+    public Enemigo(int unvida, int undanio, int unvelocidad, int unenergia,int unrecompensa, int unId){
         vida = unvida;
         danio = undanio;
         velocidad = unvelocidad;
         energia = unenergia;
         recompensa = unrecompensa;
+        id = unId;
     }
-    public static Enemigo crearHormiga(){
-        return new Enemigo(1,1,1,1,1);
+
+    public int recibirDanio(int danio){
+        if(vida > danio){
+            vida = vida - danio;
+            return 0;
+        }
+        else{
+            return morir();
+        }
     }
-    public static Enemigo crearArania(){
-        return new Enemigo(2,2,2,2,1);
+    private int morir(){
+        return entregarRecompensa();
+    }
+
+    private int entregarRecompensa(){
+        return recompensa;
+    }
+
+    public int hacerDanio(){
+        return danio;
+    }
+
+    public static Enemigo crearHormiga(int id){
+        return new Enemigo(1,1,1,1,1,id);
+    }
+    public static Enemigo crearArania(int id){
+        return new Enemigo(2,2,2,2,1,id);
+    }
+
+    public void mover(Pasarela pasarela) {
+        Pasarela destino = pasarela;
+        for (int i = 0; i < velocidad; i++){
+            if (destino.siguiente != null) {
+                destino = pasarela.siguiente;
+            }
+        }
+        destino.insertarEnemigo(this);
+        pasarela.eliminarEnemigo(this);
     }
 }

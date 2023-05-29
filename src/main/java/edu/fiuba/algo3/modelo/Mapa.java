@@ -11,9 +11,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Mapa {
-    private int tamanio_mapa;
+    private final int tamanio_mapa;
     private Object[][] matriz;
     private Pasarela largada;
+    private Pasarela meta;
     private List<Defensa> defensas;
 
     public Mapa(int tamanioMapa) {
@@ -22,32 +23,37 @@ public class Mapa {
         this.defensas = new ArrayList<>();
     }
     public void crearMapaGenerico(){
+        /*
+        Mapa generico es una matriz 7x7, con un cuadro de 5x5 tierra, y la ultima linea rocoso
+        */
         crearPasarelasGenericas();
         crearTierraGenerica();
     }
 
     private void crearPasarelasGenericas(){
-        Pasarela anterior = new Largada(null);
-        matriz[0][0] = anterior;
+        Pasarela anterior = new Largada(null, new Posicion(0,0));
         largada = anterior;
+        matriz[0][0] = largada;
+
         for(int i = 1; i < 6; i++){
-            anterior = new Pasarela(anterior);
+            anterior = new Pasarela(anterior, new Posicion(0, i));
             matriz[0][i] = anterior;
         }
-        matriz[0][6] = new Meta(anterior);
+        meta = new Meta(anterior, new Posicion(0, 6));
+        matriz[0][6] = meta;
     }
 
     private void crearTierraGenerica(){
-        for(int i = 0; i < 7; i++){
-            matriz[1][i] = new Tierra();
-        }
-        for(int j = 2; j < 7; j++) {
+        for(int j = 1; j < 6; j++) {
             for (int i = 0; i < 7; i++) {
-                matriz[j][i] = new Rocoso();
+                matriz[j][i] = new Tierra();
             }
         }
+        for (int i = 0; i < 7; i++) {
+            matriz[6][i] = new Rocoso();
+        }
     }
-
+/* Parte de código aleatorio que se usara proximamente (seguro en la etapa gráfica)
     private void crearPasarelasAleatorias(){
 
         int mediador = 0;
@@ -122,13 +128,16 @@ public class Mapa {
         matriz[fila][columna] = pasarela;
         return pasarela;
     }
+    */
 
     public void insertarEnemigo(Enemigo enemigo){
         largada.insertarEnemigo(enemigo);
     }
 
-    public void construir(Defensa defensa, int posicionFila, int posicionColumna) {
-        ((Construible)matriz[posicionFila][posicionColumna]).construir(defensa);
+    public void construir(Defensa defensa) {
+        Posicion posicion = defensa.posicion;
+
+        ((Construible)matriz[posicion.fila][posicion.columna]).construir(defensa);
         defensas.add(defensa);
     }
 
@@ -142,5 +151,25 @@ public class Mapa {
 
     public boolean hayConstruccionEn(int posicionFila, int posicionColumna) {
         return ((Construible) matriz[posicionFila][posicionColumna]).tieneConstruccion();
+    }
+
+    public void defensasAtacar() {
+        Pasarela recorrido = meta;
+        while(recorrido.llegoAlaLargada()){
+            if(defensas.size() > 0) {
+                for (Defensa defensa : defensas) {
+                    defensa.atacarPasarela(recorrido);
+                }
+            }
+            recorrido = recorrido.anterior;
+        }
+    }
+
+    public void moverEnemigos(){
+        Pasarela recorrido = largada;
+        while(recorrido.llegoAlaMeta()){
+            recorrido.moverEnemigos();
+            recorrido = recorrido.siguiente;
+        }
     }
 }
