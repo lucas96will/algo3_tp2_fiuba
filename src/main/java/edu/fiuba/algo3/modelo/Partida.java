@@ -6,8 +6,8 @@ public class Partida {
     private Turno turno;
 
     public Partida(){}
-    public void crearPartidaGenerica(String nombre){
-        jugador = Jugador.crearJugadorBase(nombre);
+    public void crearPartidaGenerica(Jugador jugador){
+        this.jugador = jugador;
         mapa = new Mapa(7);
         mapa.crearMapaGenerico();
         turno = new Turno();
@@ -31,6 +31,10 @@ public class Partida {
     }
     public boolean jugadorTieneTodaLaVidaYMaximosCreditos(){
         return jugador.estaIntacto();
+    }
+
+    public boolean hayConstruccionEn(int posicionFila, int posicionColumna) {
+        return mapa.hayConstruccionEn(posicionFila, posicionColumna);
     }
 
 }

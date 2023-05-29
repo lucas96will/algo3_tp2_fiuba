@@ -21,7 +21,8 @@ public class CasosDeUsosTest {
         */
         //-------------------------------------------------------
         Partida partida = new Partida();
-        partida.crearPartidaGenerica("Joaquin");
+        Jugador jugador = Jugador.crearJugadorBase("Joaquin");
+        partida.crearPartidaGenerica(jugador);
 
         partida.comenzar();
 
@@ -34,7 +35,8 @@ public class CasosDeUsosTest {
         //Verificarquecadadefensatardeenconstruirse lo que dice que tarda y que recién están
         // “operativas” cuando ya se terminaron de construir.
         Partida partida = new Partida();
-        partida.crearPartidaGenerica("Joaquin");
+        Jugador jugador = Jugador.crearJugadorBase("Joaquin");
+        partida.crearPartidaGenerica(jugador);
 
         partida.comenzar();
 
@@ -54,6 +56,20 @@ public class CasosDeUsosTest {
         partida.terminarTurno();
 
         assertTrue(partida.construccionTerminadaEn(1,6));
+
+    }
+
+    @Test
+    public void caso3defensaSeConstruyeSoloSiElJugadorTieneLosCreditosNecesarios() {
+        Partida partida = new Partida();
+        Jugador jugador = new Jugador(10, 100, "Josecito");
+        partida.crearPartidaGenerica(jugador);
+        Defensa torreBlanca1 = new TorreBlanca(1, 5);
+        Defensa torreBlanca2 = new TorreBlanca(1, 6);
+        partida.construir(torreBlanca1, 1, 5);
+        partida.construir(torreBlanca2, 1, 6);
+        assertTrue(partida.hayConstruccionEn(1,5));
+        assertFalse(partida.hayConstruccionEn(1,6));
 
     }
     

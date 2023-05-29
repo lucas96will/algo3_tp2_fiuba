@@ -20,7 +20,8 @@ public class JugadorTest {
         */
         //-------------------------------------------------------
         Partida partida = new Partida();
-        partida.crearPartidaGenerica("Joaquin");
+        Jugador jugador = Jugador.crearJugadorBase("Joaquin");
+        partida.crearPartidaGenerica(jugador);
 
         partida.comenzar();
 

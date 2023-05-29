@@ -129,4 +129,8 @@ public class Mapa {
     public boolean construccionTerminadaEn(int posicionFila, int posicionColumna) {
         return ((Construible) this.matriz[posicionFila][posicionColumna]).construccionTerminada();
     }
+
+    public boolean hayConstruccionEn(int posicionFila, int posicionColumna) {
+        return ((Construible) this.matriz[posicionFila][posicionColumna]).tieneConstruccion();
+    }
 }
