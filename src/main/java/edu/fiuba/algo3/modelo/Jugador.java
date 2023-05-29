@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.modelo;
 
 public class Jugador {
-    private int creditos;
+    private Recursos recursos;
     private int vida;
     private String nombre;
     private boolean jugadorIntacto;
     public Jugador(int unosCreditos, int unaVida, String unNombre) {
-        creditos = unosCreditos;
+        recursos = new Recursos(unosCreditos);
         vida = unaVida;
         nombre = unNombre;
         jugadorIntacto = true;
@@ -22,13 +22,8 @@ public class Jugador {
         vida = vida - danio;
         jugadorInteractuo();
     }
-    public boolean gastarCreditos(int gasto){
-        if(creditos < gasto){
-            return false;
-        }
-        creditos = creditos - gasto;
-        jugadorInteractuo();
-        return true;
+    public boolean comprarDefensa(Defensa defensa){
+        return defensa.comprate(recursos);
     }
     public boolean muerto(){
         return vida <= 0;

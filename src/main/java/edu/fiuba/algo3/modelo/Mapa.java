@@ -13,6 +13,7 @@ public class Mapa {
     }
     public void crearMapaGenerico(){
         crearPasarelasGenericas();
+        crearTierraGenerica();
     }
 
     private void crearPasarelasGenericas(){
@@ -27,7 +28,9 @@ public class Mapa {
     }
 
     private void crearTierraGenerica(){
-
+        for(int i = 0; i < 7; i++){
+            matriz[1][i] = new Construible();
+        }
     }
 
     private void crearPasarelasAleatorias(){
@@ -50,7 +53,7 @@ public class Mapa {
 
 
         while(columna <= tamanio_mapa) {
-            int direccion = random.nextInt(4);
+            int direccion = random.nextInt(3);
 
             switch (direccion) {
                 case 0: // Arriba
@@ -107,5 +110,9 @@ public class Mapa {
 
     public void insertarEnemigo(Enemigo enemigo){
         largada.insertarEnemigo(enemigo);
+    }
+
+    public void construir(Defensa defensa) {
+
     }
 }

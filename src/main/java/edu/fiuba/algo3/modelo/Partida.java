@@ -14,7 +14,11 @@ public class Partida {
     }
     public void comenzar(){}
     public void terminarTurno(){}
-    public void construir(){}
+    public void construir(Defensa defensa){
+        if(jugador.comprarDefensa(defensa)) {
+            mapa.construir(defensa);
+        }
+    }
     public boolean terminarPartida(){
         return jugador.muerto();
     }
