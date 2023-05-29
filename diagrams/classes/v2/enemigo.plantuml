@@ -26,7 +26,7 @@ class Arania {
     -obtenerCreditos(jugador:Jugador):int
 }
 
-Enemigo <|.. Morir
+Morir <|.. Enemigo
 Enemigo <|-- Hormiga
 Enemigo <|-- Arania
 @enduml
