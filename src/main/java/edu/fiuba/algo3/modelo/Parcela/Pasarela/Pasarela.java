@@ -60,7 +60,7 @@ public class Pasarela implements Parcela {
 
 
     public boolean sinEnemigos() {
-        return enemigosEncima.size() > 0;
+        return enemigosEncima.size() == 0;
     }
 
 }

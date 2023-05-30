@@ -52,4 +52,8 @@ public class Partida {
     public boolean jugadorTieneTantosCreditos(int creditosValor) {
         return creditosValor == jugador.valorCreditos();
     }
+
+    public boolean seGano() {
+        return (!jugador.muerto() && mapa.sinEnemigos());
+    }
 }
