@@ -183,4 +183,15 @@ public class Mapa {
     public int danioDeEnemigos() {
         return meta.danioTotal();
     }
+
+    public boolean sinEnemigos() {
+        Pasarela recorrido = largada;
+        boolean pasarelaSinEnemigos = true;
+        while(pasarelaSinEnemigos && recorrido.llegoAlaMeta()) {
+            pasarelaSinEnemigos = recorrido.sinEnemigos();
+            recorrido = recorrido.siguiente;
+        }
+
+        return pasarelaSinEnemigos;
+    }
 }

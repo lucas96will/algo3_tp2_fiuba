@@ -46,4 +46,8 @@ public class Partida {
     public void aplicarDanioEnemigos() {
         jugador.recibirDanio(mapa.danioDeEnemigos());
     }
+
+    public boolean seGano() {
+        return ( !jugador.muerto() && mapa.sinEnemigos() );
+    }
 }
