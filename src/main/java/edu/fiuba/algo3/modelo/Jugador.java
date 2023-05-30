@@ -31,4 +31,12 @@ public class Jugador {
     public boolean estaIntacto(){
         return vida == vidaMaxima;
     }
+
+    public int valorCreditos() {
+        return recursos.valorMonetario();
+    }
+
+    public void sumarMonedas(int recompensa) {
+        recursos.sumarMonedas(recompensa);
+    }
 }

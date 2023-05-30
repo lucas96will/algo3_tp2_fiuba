@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Posicion;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Pasarela implements Parcela {
     public Pasarela anterior;
@@ -45,10 +46,12 @@ public class Pasarela implements Parcela {
     }
 
     public void moverEnemigos() {
-        for (Enemigo enemigo : enemigosEncima) {
-            enemigo.mover(this);
+        Iterator<Enemigo> iterador = enemigosEncima.iterator();
+        while(iterador.hasNext()) {
+            iterador.next().mover(this);
+            iterador.remove();
         }
-        enemigosEncima.clear();
+        /*enemigosEncima.clear();*/
     }
 
     public void eliminarEnemigo(Enemigo enemigo) {

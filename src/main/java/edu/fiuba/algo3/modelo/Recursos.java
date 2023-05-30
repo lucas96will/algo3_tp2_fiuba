@@ -15,4 +15,12 @@ public class Recursos {
         creditos = creditos - costeEnCreditos;
         return true;
     }
+
+    public int valorMonetario() {
+        return creditos;
+    }
+
+    public void sumarMonedas(int recompensa) {
+        creditos += recompensa;
+    }
 }
