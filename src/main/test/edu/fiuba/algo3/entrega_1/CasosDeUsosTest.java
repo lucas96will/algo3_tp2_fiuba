@@ -99,7 +99,7 @@ public class CasosDeUsosTest {
         Jugador jugador = new Jugador(10, 100, "Josecito");
         partida.crearPartidaGenerica(jugador);
 
-        Defensa torreBlanca1 = new TorreBlanca(1, 1);
+        Defensa torreBlanca1 = new TorreBlanca(1, 6);
         partida.construir(torreBlanca1);
 
         Enemigo hormiga = Enemigo.crearHormiga(1);
@@ -108,6 +108,5 @@ public class CasosDeUsosTest {
         partida.terminarTurno();
 
         assertTrue(partida.jugadorTieneTodaLaVidaYMaximosCreditos()); //hormiga no llego al final :D
-
     }
 }

@@ -29,10 +29,10 @@ public class Pasarela implements Parcela {
     }
 
     public int atacarAlPrimerEnemigo(int danio) {
-        for(Enemigo enemigo: enemigosEncima){
-            enemigo.recibirDanio(danio);
-            return danio;
+        if(enemigosEncima.size() > 0) {
+            return enemigosEncima.get(0).recibirDanio(danio, this);
         }
+
         return 0;
     }
 
@@ -48,10 +48,11 @@ public class Pasarela implements Parcela {
         for (Enemigo enemigo : enemigosEncima) {
             enemigo.mover(this);
         }
+        enemigosEncima.clear();
     }
 
     public void eliminarEnemigo(Enemigo enemigo) {
-        enemigosEncima.remove(enemigo);
+        enemigosEncima.remove(0);
     }
 
 

@@ -19,16 +19,17 @@ public class Enemigo {
         id = unId;
     }
 
-    public int recibirDanio(int danio){
+    public int recibirDanio(int danio, Pasarela pasarela){
         if(vida > danio){
             vida = vida - danio;
             return 0;
         }
         else{
-            return morir();
+            return morir(pasarela);
         }
     }
-    private int morir(){
+    private int morir(Pasarela pasarela){
+        pasarela.eliminarEnemigo(this);
         return entregarRecompensa();
     }
 
@@ -51,11 +52,10 @@ public class Enemigo {
         Pasarela destino = pasarela;
         for (int i = 0; i < velocidad; i++){
             if (destino.siguiente != null) {
-                destino = pasarela.siguiente;
+                destino = destino.siguiente;
             }
         }
         destino.insertarEnemigo(this);
-        pasarela.eliminarEnemigo(this);
     }
 
     public int sumarDanio(int unDanio) {

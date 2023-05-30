@@ -41,7 +41,7 @@ public class Mapa {
         matriz[0][0] = largada;
 
         for(int i = 1; i < 6; i++){
-            anterior = new Pasarela(anterior, new Posicion(0, i));
+            anterior = new Casilla(anterior, new Posicion(0, i));
             matriz[0][i] = anterior;
         }
         meta = new Meta(anterior, new Posicion(0, 6));

@@ -6,15 +6,14 @@ public class Jugador {
     private Recursos recursos;
     private int vida;
     private String nombre;
+    private int vidaMaxima;
     private boolean jugadorIntacto;
     public Jugador(int unosCreditos, int unaVida, String unNombre) {
         recursos = new Recursos(unosCreditos);
         vida = unaVida;
+        vidaMaxima = unaVida;
         nombre = unNombre;
         jugadorIntacto = true;
-    }
-    private void jugadorInteractuo(){
-        jugadorIntacto = false;
     }
     public static Jugador crearJugadorBase(String unNombre){
         return new Jugador(100, 10, unNombre);
@@ -22,7 +21,6 @@ public class Jugador {
 
     public void recibirDanio(int danio){
         vida = vida - danio;
-        jugadorInteractuo();
     }
     public boolean comprarDefensa(Defensa defensa){
         return defensa.comprate(recursos);
@@ -31,6 +29,6 @@ public class Jugador {
         return vida <= 0;
     }
     public boolean estaIntacto(){
-        return jugadorIntacto;
+        return vida == vidaMaxima;
     }
 }
