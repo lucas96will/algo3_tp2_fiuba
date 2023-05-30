@@ -4,6 +4,9 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 
 public class Partida {
+    public static final int SE_GANO = 1;
+    public static final int SE_SIGUE_JUGANDO = 2;
+    public static final int SE_PERDIO = 0;
     private Jugador jugador;
     private Mapa mapa;
 
@@ -53,7 +56,15 @@ public class Partida {
         return creditosValor == jugador.valorCreditos();
     }
 
-    public boolean seGano() {
-        return (!jugador.muerto() && mapa.sinEnemigos());
+    public int estado() {
+        if(!jugador.muerto() && mapa.sinEnemigos()) {
+            return SE_GANO; // se gano
+        }
+        else if (!jugador.muerto()) {
+            return SE_SIGUE_JUGANDO; // todavia se sigue jugando
+        }
+        else {
+            return SE_PERDIO; // se murio el jugador
+        }
     }
 }

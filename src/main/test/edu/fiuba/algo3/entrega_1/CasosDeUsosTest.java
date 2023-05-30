@@ -7,8 +7,7 @@ import edu.fiuba.algo3.modelo.Defensa.TorrePlateada;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CasosDeUsosTest {
     @Test
@@ -156,7 +155,7 @@ public class CasosDeUsosTest {
         partida.terminarTurno(); // Ataca una hormiga
         partida.terminarTurno(); // Ataca una segunda hormiga
 
-        assertTrue(partida.seGano());
+        assertEquals(partida.estado(), 1);
     }
 
     @Test
@@ -177,7 +176,28 @@ public class CasosDeUsosTest {
             partida.terminarTurno();
         }
 
-        assertTrue(partida.seGano());
+        assertEquals(partida.estado(), 1);
         assertFalse(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
+    }
+
+    @Test
+    public void caso11SePierdeElJuegoPorElDanioDeLosEnemigos() {
+        Partida partida = new Partida();
+        Jugador jugador = new Jugador(10, 10, "Ariel");
+
+        partida.crearPartidaGenerica(jugador);
+
+        Defensa torreBlanca1 = new TorreBlanca(1, 1);
+        partida.construir(torreBlanca1);
+
+        for(int i = 0; i < 15; i++) {
+            partida.insertarEnemigo(Enemigo.crearHormiga(1));
+        }
+
+        for(int i = 0; i < 10; i++){
+            partida.terminarTurno();
+        }
+
+        assertEquals(0, partida.estado());
     }
 }
