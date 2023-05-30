@@ -175,11 +175,11 @@ public class Mapa {
     }
 
     public void moverEnemigos(){
-        Pasarela recorrido = largada;
-        while(recorrido.llegoAlaMeta()){
+        Pasarela recorrido = meta;
+        do {
+            recorrido = recorrido.anterior;
             recorrido.moverEnemigos();
-            recorrido = recorrido.siguiente;
-        }
+        } while(recorrido.llegoAlaLargada());
     }
 
     public int danioDeEnemigos() {

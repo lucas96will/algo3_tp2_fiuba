@@ -10,9 +10,9 @@ public class Posicion {
     }
 
     public boolean estaEnRango(int rango,Posicion posicion){
-        int dist_vertical = fila - posicion.fila;
-        int dist_horizontal = columna - posicion.columna;
-        int dist = dist_horizontal + dist_vertical;
+        int dist_vertical = Math.abs(fila - posicion.fila);
+        int dist_horizontal = Math.abs(columna - posicion.columna);
+        int dist = Math.max(dist_horizontal, dist_vertical);
 
         return Math.abs(dist) <= rango;
     }

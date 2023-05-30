@@ -34,7 +34,7 @@ public class Pasarela implements Parcela {
             return enemigosEncima.get(0).recibirDanio(danio, this);
         }
 
-        return 0;
+        return -1;
     }
 
     public boolean llegoAlaLargada() {

@@ -7,5 +7,7 @@ public class TorrePlateada extends Defensa {
         super(una_posicion_fila, una_posicion_columna);
         this.costeEnTurnos = 2;
         this.costeEnCreditos = 20;
+        this.rango = 5;
+        this.danio = 2;
     }
 }

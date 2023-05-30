@@ -34,8 +34,11 @@ public abstract class Defensa {
     }
     public int atacarPasarela(Pasarela pasarela){
         if(posicion.estaEnRango(rango, pasarela.posicion) && noAtacoEnEsteTurno){
-            noAtacoEnEsteTurno = false;
-            return pasarela.atacarAlPrimerEnemigo(danio);
+            int creditos = pasarela.atacarAlPrimerEnemigo(danio);
+            if(creditos != -1){
+                noAtacoEnEsteTurno = false;
+                return creditos;
+            }
         }
         return 0;
     }
