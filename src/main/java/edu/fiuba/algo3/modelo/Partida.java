@@ -16,13 +16,16 @@ public class Partida {
     public void comenzar(){}
     public void terminarTurno() {
         mapa.defensasAtacar();
+        aplicarDanioEnemigos();
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
     }
-    public void construir(Defensa defensa){
+    public Boolean construir(Defensa defensa){
+        boolean seConstruyo = false;
         if(jugador.comprarDefensa(defensa)) {
-            mapa.construir(defensa);
+            seConstruyo = mapa.construir(defensa);
         }
+        return seConstruyo;
     }
 
     public boolean construccionTerminadaEn(int posicionFila, int posicionColumna) {
@@ -36,11 +39,11 @@ public class Partida {
         return jugador.estaIntacto();
     }
 
-    public boolean hayConstruccionEn(int posicionFila, int posicionColumna) {
-        return mapa.hayConstruccionEn(posicionFila, posicionColumna);
-    }
-
     public void insertarEnemigo(Enemigo enemigo) {
         mapa.insertarEnemigo(enemigo);
+    }
+
+    public void aplicarDanioEnemigos() {
+        jugador.recibirDanio(mapa.danioDeEnemigos());
     }
 }

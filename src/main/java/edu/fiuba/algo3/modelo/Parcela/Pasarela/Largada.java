@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.Pasarela;
+package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 
 import edu.fiuba.algo3.modelo.Posicion;
 

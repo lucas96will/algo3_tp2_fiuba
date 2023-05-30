@@ -1,14 +1,16 @@
-package edu.fiuba.algo3.modelo.Pasarela;
+package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Posicion;
 
 import java.util.ArrayList;
 
-public class Pasarela {
+public class Pasarela implements Parcela {
     public Pasarela anterior;
     public Pasarela siguiente;
-    private ArrayList<Enemigo> enemigosEncima;
+    protected ArrayList<Enemigo> enemigosEncima;
     public Posicion posicion;
 
     public Pasarela(Pasarela pasarela_anterior, Posicion unaPosicion){
@@ -16,6 +18,8 @@ public class Pasarela {
         enemigosEncima = new ArrayList<Enemigo>();
         posicion = unaPosicion;
     }
+
+    public boolean construirDefensa(Defensa defensa) { return false;}
     public void fijarSiguiente(Pasarela pasarela_siguiente){
         siguiente = pasarela_siguiente;
     }

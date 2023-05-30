@@ -1,25 +1,30 @@
 package edu.fiuba.algo3.modelo;
 
 
-import edu.fiuba.algo3.modelo.Construible.*;
-import edu.fiuba.algo3.modelo.Pasarela.*;
+import edu.fiuba.algo3.modelo.Parcela.Construible.Construible;
+import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
+import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.*;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Mapa {
     private final int tamanio_mapa;
-    private Object[][] matriz;
+    private Parcela[][] matriz;
     private Pasarela largada;
-    private Pasarela meta;
+    private Meta meta;
     private List<Defensa> defensas;
 
     public Mapa(int tamanioMapa) {
         tamanio_mapa = tamanioMapa;
-        matriz = new Object[tamanioMapa][tamanioMapa];
+        matriz = new Parcela[tamanioMapa][tamanioMapa];
         this.defensas = new ArrayList<>();
     }
     public void crearMapaGenerico(){
@@ -134,11 +139,16 @@ public class Mapa {
         largada.insertarEnemigo(enemigo);
     }
 
-    public void construir(Defensa defensa) {
+    public boolean construir(Defensa defensa) {
+
         Posicion posicion = defensa.posicion;
 
-        ((Construible)matriz[posicion.fila][posicion.columna]).construir(defensa);
-        defensas.add(defensa);
+        if (matriz[posicion.fila][posicion.columna].construirDefensa(defensa)) {
+            defensas.add(defensa);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void actualizarEstadoDefensas() {
@@ -149,9 +159,6 @@ public class Mapa {
         return ((Construible) matriz[posicionFila][posicionColumna]).construccionTerminada();
     }
 
-    public boolean hayConstruccionEn(int posicionFila, int posicionColumna) {
-        return ((Construible) matriz[posicionFila][posicionColumna]).tieneConstruccion();
-    }
 
     public void defensasAtacar() {
         Pasarela recorrido = meta;
@@ -171,5 +178,9 @@ public class Mapa {
             recorrido.moverEnemigos();
             recorrido = recorrido.siguiente;
         }
+    }
+
+    public int danioDeEnemigos() {
+        return meta.danioTotal();
     }
 }

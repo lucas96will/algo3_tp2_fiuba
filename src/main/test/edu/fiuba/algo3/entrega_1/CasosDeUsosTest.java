@@ -72,27 +72,23 @@ public class CasosDeUsosTest {
 
         Defensa torreBlanca1 = new TorreBlanca(1, 5);
         Defensa torreBlanca2 = new TorreBlanca(1, 6);
-        partida.construir(torreBlanca1);
-        partida.construir(torreBlanca2);
+        assertTrue(partida.construir(torreBlanca1));
+        assertFalse(partida.construir(torreBlanca2));
 
-        assertTrue(partida.hayConstruccionEn(1,5));
-        assertFalse(partida.hayConstruccionEn(1,6));
 
     }
 
     @Test
     public void caso4DefensaSoloSePuedeConstruirSobreTierra() {
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(10, 100, "Josecito");
+        Jugador jugador = Jugador.crearJugadorBase("Joaquin");
         partida.crearPartidaGenerica(jugador);
 
         Defensa torreBlanca1 = new TorreBlanca(1, 5);
-        Defensa torreBlanca2 = new TorreBlanca(2, 5);
-        partida.construir(torreBlanca1);
-        partida.construir(torreBlanca2); //construyo sobre rocoso
+        Defensa torreBlanca2 = new TorreBlanca(6, 5);
+        assertTrue(partida.construir(torreBlanca1));
+        assertFalse(partida.construir(torreBlanca2)); //construyo sobre rocoso
 
-        assertTrue(partida.hayConstruccionEn(1,5));
-        assertFalse(partida.hayConstruccionEn(2,5));
     }
 
     @Test
@@ -112,7 +108,6 @@ public class CasosDeUsosTest {
         partida.terminarTurno();
 
         assertTrue(partida.jugadorTieneTodaLaVidaYMaximosCreditos()); //hormiga no llego al final :D
-        assertTrue(partida.hayConstruccionEn(1,1));
 
     }
 }

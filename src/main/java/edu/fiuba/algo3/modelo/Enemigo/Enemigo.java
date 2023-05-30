@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
-import edu.fiuba.algo3.modelo.Pasarela.Pasarela;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 
 public class Enemigo {
     private int danio;
@@ -10,12 +10,12 @@ public class Enemigo {
     private int recompensa;
     private int id;
 
-    public Enemigo(int unvida, int undanio, int unvelocidad, int unenergia,int unrecompensa, int unId){
-        vida = unvida;
-        danio = undanio;
-        velocidad = unvelocidad;
-        energia = unenergia;
-        recompensa = unrecompensa;
+    public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia,int unaRecompensa, int unId){
+        vida = unaVida;
+        danio = unDanio;
+        velocidad = unaVelocidad;
+        energia = unaEnergia;
+        recompensa = unaRecompensa;
         id = unId;
     }
 
@@ -56,5 +56,9 @@ public class Enemigo {
         }
         destino.insertarEnemigo(this);
         pasarela.eliminarEnemigo(this);
+    }
+
+    public int sumarDanio(int unDanio) {
+        return danio + unDanio;
     }
 }
