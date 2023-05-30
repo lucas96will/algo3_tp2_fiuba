@@ -152,11 +152,32 @@ public class CasosDeUsosTest {
         Enemigo hormiga2 = Enemigo.crearHormiga(1);
         partida.insertarEnemigo(hormiga2);
 
-        partida.terminarTurno();
-        partida.terminarTurno();
-        partida.terminarTurno();
-
+        partida.terminarTurno(); // No ataca
+        partida.terminarTurno(); // Ataca una hormiga
+        partida.terminarTurno(); // Ataca una segunda hormiga
 
         assertTrue(partida.seGano());
+    }
+
+    @Test
+    public void caso11SeGanaElJuegoSobreviviendoAlDanioDeLosEnemigos() {
+        Partida partida = new Partida();
+        Jugador jugador = new Jugador(10, 100, "Ariel");
+
+        partida.crearPartidaGenerica(jugador);
+
+        Defensa torreBlanca1 = new TorreBlanca(1, 1);
+        partida.construir(torreBlanca1);
+
+        for(int i = 0; i < 10; i++) {
+            partida.insertarEnemigo(Enemigo.crearHormiga(1));
+        }
+
+        for(int i = 0; i < 10; i++){
+            partida.terminarTurno();
+        }
+
+        assertTrue(partida.seGano());
+        assertFalse(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
     }
 }
