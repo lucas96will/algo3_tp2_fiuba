@@ -181,7 +181,7 @@ public class CasosDeUsosTest {
     }
 
     @Test
-    public void caso11SePierdeElJuegoPorElDanioDeLosEnemigos() {
+    public void caso12SePierdeElJuegoPorElDanioDeLosEnemigos() {
         Partida partida = new Partida();
         Jugador jugador = new Jugador(10, 10, "Ariel");
 
