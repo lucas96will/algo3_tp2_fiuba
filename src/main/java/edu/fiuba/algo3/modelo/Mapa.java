@@ -160,16 +160,18 @@ public class Mapa {
     }
 
 
-    public void defensasAtacar() {
+    public int defensasAtacar() {
+        int recompensa = 0;
         Pasarela recorrido = meta;
         while(recorrido.llegoAlaLargada()){
             if(defensas.size() > 0) {
                 for (Defensa defensa : defensas) {
-                    defensa.atacarPasarela(recorrido);
+                    recompensa = recompensa + defensa.atacarPasarela(recorrido);
                 }
             }
             recorrido = recorrido.anterior;
         }
+        return recompensa;
     }
 
     public void moverEnemigos(){

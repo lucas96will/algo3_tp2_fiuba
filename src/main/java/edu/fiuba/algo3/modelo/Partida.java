@@ -15,7 +15,9 @@ public class Partida {
     }
     public void comenzar(){}
     public void terminarTurno() {
-        mapa.defensasAtacar();
+        int recompensa = 0;
+        recompensa = mapa.defensasAtacar();
+        jugador.sumarMonedas(recompensa);
         aplicarDanioEnemigos();
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
@@ -47,7 +49,7 @@ public class Partida {
         jugador.recibirDanio(mapa.danioDeEnemigos());
     }
 
-    public boolean seGano() {
-        return ( !jugador.muerto() && mapa.sinEnemigos() );
+    public boolean jugadorTieneTantosCreditos(int creditosValor) {
+        return creditosValor == jugador.valorCreditos();
     }
 }

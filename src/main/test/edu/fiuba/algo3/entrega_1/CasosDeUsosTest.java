@@ -111,19 +111,25 @@ public class CasosDeUsosTest {
     }
 
     @Test
-    public void caso10SeGanaElJuegoMatandoTodosLosEnemigosCorrectamente() {
+    public void caso8JugadorMataUnidadYCobraCreditoCorrespondiente(){
+
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(10, 100, "Josecito");
+        Jugador jugador = new Jugador(100, 100, "Josecito");
+        /*100*/
+
         partida.crearPartidaGenerica(jugador);
 
         Defensa torreBlanca1 = new TorreBlanca(1, 1);
         partida.construir(torreBlanca1);
+        // 100-10 = 90
 
         Enemigo hormiga = Enemigo.crearHormiga(1);
         partida.insertarEnemigo(hormiga);
+        // 1 credito
 
         partida.terminarTurno();
-
-        assertTrue(partida.seGano());
+        partida.terminarTurno();
+        //90 + 1 = 91
+        assertTrue(partida.jugadorTieneTantosCreditos(91));
     }
 }
