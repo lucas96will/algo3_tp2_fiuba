@@ -190,7 +190,7 @@ public class CasosDeUsosTest {
         Defensa torreBlanca1 = new TorreBlanca(1, 1);
         partida.construir(torreBlanca1);
 
-        for(int i = 0; i < 15; i++) {
+        for(int i = 0; i < 14; i++) {
             partida.insertarEnemigo(Enemigo.crearHormiga(1));
         }
 
