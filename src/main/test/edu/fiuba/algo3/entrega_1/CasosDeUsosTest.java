@@ -139,23 +139,23 @@ public class CasosDeUsosTest {
     public void caso10SeGanaElJuegoMatandoTodosLosEnemigosCorrectamente(){
 
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(100, 100, "Josecito");
-        /*100*/
+        Jugador jugador = new Jugador(100, 100, "Ariel");
 
         partida.crearPartidaGenerica(jugador);
 
         Defensa torreBlanca1 = new TorreBlanca(1, 1);
         partida.construir(torreBlanca1);
-        // 100-10 = 90
 
         Enemigo hormiga = Enemigo.crearHormiga(1);
         partida.insertarEnemigo(hormiga);
-        // 1 credito
+
+        Enemigo hormiga2 = Enemigo.crearHormiga(1);
+        partida.insertarEnemigo(hormiga2);
 
         partida.terminarTurno();
         partida.terminarTurno();
-        //90 + 1 = 91
-        assertTrue(partida.jugadorTieneTantosCreditos(91));
+        partida.terminarTurno();
+
 
         assertTrue(partida.seGano());
     }

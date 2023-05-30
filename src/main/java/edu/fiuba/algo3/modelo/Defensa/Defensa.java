@@ -42,4 +42,8 @@ public abstract class Defensa {
         }
         return 0;
     }
+
+    public void restablecerse() {
+        noAtacoEnEsteTurno = true;
+    }
 }
