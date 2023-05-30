@@ -155,7 +155,8 @@ public class CasosDeUsosTest {
         partida.terminarTurno(); // Ataca una hormiga
         partida.terminarTurno(); // Ataca una segunda hormiga
 
-        assertEquals(partida.estado(), 1);
+        CondicionPartida condicionPartida = partida.estado();
+        assertTrue(condicionPartida.gano());
     }
 
     @Test
@@ -176,7 +177,8 @@ public class CasosDeUsosTest {
             partida.terminarTurno();
         }
 
-        assertEquals(partida.estado(), 1);
+        CondicionPartida condicionPartida = partida.estado();
+        assertTrue(condicionPartida.gano());
         assertFalse(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
     }
 
@@ -197,7 +199,8 @@ public class CasosDeUsosTest {
         for(int i = 0; i < 10; i++){
             partida.terminarTurno();
         }
+        CondicionPartida condicionPartida = partida.estado();
 
-        assertEquals(0, partida.estado());
+        assertTrue(condicionPartida.perdio());
     }
 }
