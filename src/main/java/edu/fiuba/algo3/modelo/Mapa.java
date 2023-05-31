@@ -143,6 +143,8 @@ public class Mapa {
 
         Posicion posicion = defensa.posicion;
 
+        defensa.establecerPasarelasEnRango(meta);
+
         if (matriz[posicion.fila][posicion.columna].construirDefensa(defensa)) {
             defensas.add(defensa);
             return true;
@@ -162,10 +164,7 @@ public class Mapa {
 
             if(defensas.size() > 0) {
                 for (Defensa defensa : defensas) {
-                    while(recorrido.llegoAlaLargada()) {
-                        recompensa = recompensa + defensa.atacarPasarela(recorrido);
-                        recorrido = recorrido.anterior;
-                    }
+                    recompensa = recompensa + defensa.atacar();
                 }
 
             }

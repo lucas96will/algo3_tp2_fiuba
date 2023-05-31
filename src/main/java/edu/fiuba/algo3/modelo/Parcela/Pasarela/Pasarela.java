@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Defensa.EstadoDefensa;
+import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaCompleto;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Posicion;
@@ -63,4 +65,7 @@ public class Pasarela implements Parcela {
         return enemigosEncima.size() == 0;
     }
 
+    public int atacarConEstado(EstadoDefensaCompleto estado, int danio) {
+        return estado.atacarEnemigos(this, enemigosEncima, danio);
+    }
 }
