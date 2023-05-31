@@ -30,10 +30,6 @@ public class Partida {
         return seConstruyo;
     }
 
-    public boolean construccionTerminadaEn(int posicionFila, int posicionColumna) {
-        return mapa.construccionTerminadaEn(posicionFila, posicionColumna);
-    }
-
     public boolean terminarPartida(){
         return jugador.muerto();
     }

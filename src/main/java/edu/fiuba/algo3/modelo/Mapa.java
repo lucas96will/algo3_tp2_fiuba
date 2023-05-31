@@ -152,13 +152,8 @@ public class Mapa {
     }
 
     public void actualizarEstadoDefensas() {
-        defensas.forEach(Defensa::reducirCosteEnTurnos);
+        defensas.forEach(Defensa::siguienteEstado);
     }
-
-    public boolean construccionTerminadaEn(int posicionFila, int posicionColumna) {
-        return ((Construible) matriz[posicionFila][posicionColumna]).construccionTerminada();
-    }
-
 
     public int defensasAtacar() {
         int recompensa = 0;
@@ -171,7 +166,6 @@ public class Mapa {
                         recompensa = recompensa + defensa.atacarPasarela(recorrido);
                         recorrido = recorrido.anterior;
                     }
-                    defensa.restablecerse();
                 }
 
             }

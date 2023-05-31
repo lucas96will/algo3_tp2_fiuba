@@ -40,26 +40,25 @@ public class CasosDeUsosTest {
         Partida partida = new Partida();
         Jugador jugador = Jugador.crearJugadorBase("Joaquin");
         partida.crearPartidaGenerica(jugador);
-
+        CondicionPartida condicionPartida = partida.estado();
         partida.comenzar();
 
-        Defensa torreBlanca = new TorreBlanca(1,3);
+        Defensa torreBlanca = new TorreBlanca(1,1);
         Defensa torrePlateada = new TorrePlateada(1,6);
+        partida.insertarEnemigo(Enemigo.crearArania(1));
+        partida.construir(torrePlateada); // 2 turnos para construirse
+        partida.terminarTurno(); // arania en posicion (0,2)
         partida.construir(torreBlanca);
-        partida.construir(torrePlateada);
+        partida.terminarTurno(); // (0,4) , torre no construida , arania vida = 2, torrePlateada construida
 
-        partida.terminarTurno();
+        condicionPartida = partida.estado();
+        assertTrue(condicionPartida.sigueJugando());
 
-        /*Torre blanca ya terminada*/
-        assertTrue(partida.construccionTerminadaEn(1,3));
+        partida.terminarTurno(); // (0,6), muerte arania
 
-        /*Torre plateada no se termino (2 turnos)*/
-        assertFalse(partida.construccionTerminadaEn(1,6));
-
-        partida.terminarTurno();
-
-        assertTrue(partida.construccionTerminadaEn(1,6));
-
+        condicionPartida = partida.estado();
+        assertTrue(condicionPartida.gano());
+        assertTrue(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
     }
 
     @Test
@@ -83,8 +82,8 @@ public class CasosDeUsosTest {
         Jugador jugador = Jugador.crearJugadorBase("Joaquin");
         partida.crearPartidaGenerica(jugador);
 
-        Defensa torreBlanca1 = new TorreBlanca(1, 5);
-        Defensa torreBlanca2 = new TorreBlanca(6, 5);
+        Defensa torreBlanca1 = new TorreBlanca(1,5);
+        Defensa torreBlanca2 = new TorreBlanca(6,5);
         assertTrue(partida.construir(torreBlanca1));
         assertFalse(partida.construir(torreBlanca2)); //construyo sobre rocoso
 

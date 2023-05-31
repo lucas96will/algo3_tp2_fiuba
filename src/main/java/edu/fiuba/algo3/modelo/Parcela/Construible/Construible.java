@@ -17,10 +17,7 @@ public class Construible implements Parcela {
         }
         return false;
     }
-
-    public boolean construccionTerminada() {
-        return defensa.estaTerminada();
-    }
+    
 
     public boolean tieneConstruccion() {
         return (this.defensa != null);
