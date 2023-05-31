@@ -4,8 +4,6 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 
 public class Partida {
-
-    private CondicionPartida condicion;
     private Jugador jugador;
     private Mapa mapa;
 
@@ -14,7 +12,6 @@ public class Partida {
         this.jugador = jugador;
         mapa = new Mapa(7);
         mapa.crearMapaGenerico();
-        this.condicion = new CondicionPartida();
     }
     public void comenzar(){}
     public void terminarTurno() {
@@ -57,7 +54,6 @@ public class Partida {
     }
 
     public CondicionPartida estado() {
-
-        return this.condicion.estado(this.jugador, this.mapa);
+        return new CondicionPartida().estado(this.jugador, this.mapa);
     }
 }
