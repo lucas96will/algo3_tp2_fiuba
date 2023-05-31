@@ -112,6 +112,36 @@ public class CasosDeUsosTest {
     }
 
     @Test
+    public void caso6UnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
+        Partida partida = new Partida();
+        Jugador jugador = new Jugador(10, 10, "Ariel");
+
+        partida.crearPartidaGenerica(jugador);
+
+        Defensa torreBlanca1 = new TorreBlanca(1, 1);
+        partida.construir(torreBlanca1);
+
+        partida.insertarEnemigo(Enemigo.crearHormiga(1));
+        partida.terminarTurno(); // tarda 1 turno en construir la torre blanca
+        partida.terminarTurno(); // Muere la hormiga
+        CondicionPartida condicionPartida = partida.estado();
+        assertTrue(condicionPartida.gano()); // No hay enemigos en el mapa y el jugador tiene vida
+
+        partida.insertarEnemigo(Enemigo.crearArania(2)); // arania con 2 de vida
+        partida.terminarTurno(); //
+        partida.terminarTurno(); // se dania a la arania, queda con 1 de vida
+
+        condicionPartida = partida.estado();
+        assertTrue(condicionPartida.sigueJugando());
+
+        partida.terminarTurno(); // muere la arania
+
+        condicionPartida = partida.estado();
+        assertTrue(condicionPartida.gano());
+
+    }
+
+    @Test
     public void caso8JugadorMataUnidadYCobraCreditoCorrespondiente(){
 
         Partida partida = new Partida();
@@ -132,6 +162,31 @@ public class CasosDeUsosTest {
         partida.terminarTurno();
         //90 + 1 = 91
         assertTrue(partida.jugadorTieneTantosCreditos(91));
+    }
+
+    @Test
+    public void test9AlPasarTurnoLasUnidadesEnemigasSeMovieronSegunSusCapacidadesCorrectamente() {
+        Partida partida = new Partida();
+        Jugador jugador = new Jugador(10, 10, "Ariel");
+
+        partida.crearPartidaGenerica(jugador);
+
+        Defensa torreBlanca1 = new TorreBlanca(1, 1);
+        partida.construir(torreBlanca1);
+
+        /*rango de ataque de torre blanca = 0 - 4 fila ; 0 - 4 columna*/
+        partida.terminarTurno(); // Torre construida
+        partida.insertarEnemigo(Enemigo.crearArania(2));
+        partida.insertarEnemigo(Enemigo.crearArania(3));
+
+        partida.terminarTurno(); // enemigos en posicion (0,2)
+        partida.terminarTurno(); // enemigos en posicion (0, 4) (muere 1 arania)
+        partida.terminarTurno(); // enemigo en posicion (0, 6)
+        partida.terminarTurno(); // enemigo paso la meta que estaba en (0, 7)
+
+        CondicionPartida condicionPartida = partida.estado();
+        assertTrue(condicionPartida.gano());
+        assertFalse(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
     }
 
     @Test
@@ -204,58 +259,5 @@ public class CasosDeUsosTest {
         assertTrue(condicionPartida.perdio());
     }
 
-    @Test
-    public void caso6UnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
-        Partida partida = new Partida();
-        Jugador jugador = new Jugador(10, 10, "Ariel");
 
-        partida.crearPartidaGenerica(jugador);
-
-        Defensa torreBlanca1 = new TorreBlanca(1, 1);
-        partida.construir(torreBlanca1);
-
-        partida.insertarEnemigo(Enemigo.crearHormiga(1));
-        partida.terminarTurno(); // tarda 1 turno en construir la torre blanca
-        partida.terminarTurno(); // Muere la hormiga
-        CondicionPartida condicionPartida = partida.estado();
-        assertTrue(condicionPartida.gano()); // No hay enemigos en el mapa y el jugador tiene vida
-
-        partida.insertarEnemigo(Enemigo.crearArania(2)); // arania con 2 de vida
-        partida.terminarTurno(); //
-        partida.terminarTurno(); // se dania a la arania, queda con 1 de vida
-
-        condicionPartida = partida.estado();
-        assertTrue(condicionPartida.sigueJugando());
-
-        partida.terminarTurno(); // muere la arania
-
-        condicionPartida = partida.estado();
-        assertTrue(condicionPartida.gano());
-
-    }
-
-    @Test
-    public void test9AlPasarTurnoLasUnidadesEnemigasSeMovieronSegunSusCapacidadesCorrectamente() {
-        Partida partida = new Partida();
-        Jugador jugador = new Jugador(10, 10, "Ariel");
-
-        partida.crearPartidaGenerica(jugador);
-
-        Defensa torreBlanca1 = new TorreBlanca(1, 1);
-        partida.construir(torreBlanca1);
-
-        /*rango de ataque de torre blanca = 0 - 4 fila ; 0 - 4 columna*/
-        partida.terminarTurno(); // Torre construida
-        partida.insertarEnemigo(Enemigo.crearArania(2));
-        partida.insertarEnemigo(Enemigo.crearArania(3));
-
-        partida.terminarTurno(); // enemigos en posicion (0,2)
-        partida.terminarTurno(); // enemigos en posicion (0, 4) (muere 1 arania)
-        partida.terminarTurno(); // enemigo en posicion (0, 6)
-        partida.terminarTurno(); // enemigo paso la meta que estaba en (0, 7)
-
-        CondicionPartida condicionPartida = partida.estado();
-        assertTrue(condicionPartida.gano());
-        assertFalse(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
-    }
 }
