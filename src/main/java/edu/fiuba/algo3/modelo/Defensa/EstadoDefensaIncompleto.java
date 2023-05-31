@@ -22,7 +22,8 @@ public class EstadoDefensaIncompleto implements EstadoDefensa{
         if(nuevoTiempoConstruccion  == 0){
             defensa.establecerEstado(new EstadoDefensaCompleto());
         } else {
-            defensa.establecerEstado(new EstadoDefensaIncompleto(nuevoTiempoConstruccion));
+            tiempoConstruccion = nuevoTiempoConstruccion;
+            defensa.establecerEstado(this);
         }
     }
 }

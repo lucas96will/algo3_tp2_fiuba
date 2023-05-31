@@ -39,7 +39,7 @@ public class Pasarela implements Parcela {
         return -1;
     }
 
-    public boolean llegoAlaLargada() {
+    public boolean noLlegoAlaLargada() {
         return anterior != null;
     }
 

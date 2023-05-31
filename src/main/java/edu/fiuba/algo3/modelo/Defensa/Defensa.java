@@ -17,11 +17,16 @@ public abstract class Defensa {
     protected List<Pasarela> pasarelasEnRango;
 
 
-    public Defensa(int una_posicion_fila, int una_posicion_columna) {
-        posicion = new Posicion(una_posicion_fila, una_posicion_columna);
+    public Defensa(int unaPosicionFila, int unaPosicionColumna) {
+        posicion = new Posicion(unaPosicionFila, unaPosicionColumna);
         pasarelasEnRango = new ArrayList<>();
     }
 
+    public Defensa(int unaPosicionFila, int unaPosicionColumna, EstadoDefensa unEstadoDefensa) {
+        posicion = new Posicion(unaPosicionFila, unaPosicionColumna);
+        pasarelasEnRango = new ArrayList<>();
+        estado = unEstadoDefensa;
+    }
     public void establecerPasarelasEnRango(Meta meta){
         Pasarela pasarelaActual = meta;
         do{
@@ -29,7 +34,7 @@ public abstract class Defensa {
                 pasarelasEnRango.add(pasarelaActual);
             }
             pasarelaActual = pasarelaActual.anterior;
-        }while(pasarelaActual.llegoAlaLargada());
+        }while(pasarelaActual.noLlegoAlaLargada());
     }
 
     public boolean comprate(Recursos recursos) {
@@ -41,7 +46,7 @@ public abstract class Defensa {
     }
 
     public void siguienteEstado() {
-        estado.siguienteEstado(this);
+         estado.siguienteEstado(this);
     }
 
     public int atacar() {

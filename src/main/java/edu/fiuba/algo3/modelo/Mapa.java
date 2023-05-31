@@ -177,7 +177,7 @@ public class Mapa {
         do {
             recorrido = recorrido.anterior;
             recorrido.moverEnemigos();
-        } while(recorrido.llegoAlaLargada());
+        } while(recorrido.noLlegoAlaLargada());
     }
 
     public int danioDeEnemigos() {
