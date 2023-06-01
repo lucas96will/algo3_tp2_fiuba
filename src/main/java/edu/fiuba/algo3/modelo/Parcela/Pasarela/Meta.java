@@ -17,4 +17,5 @@ public class Meta extends Pasarela {
         enemigosEncima.clear();
         return danio;
     }
+
 }

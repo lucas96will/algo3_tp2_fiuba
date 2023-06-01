@@ -141,11 +141,11 @@ public class Mapa {
 
     public boolean construir(Defensa defensa) {
 
-        Posicion posicion = defensa.posicion;
+        Posicion posicion = defensa.getPosicion();
 
         defensa.establecerPasarelasEnRango(meta);
 
-        if (matriz[posicion.fila][posicion.columna].construirDefensa(defensa)) {
+        if (matriz[posicion.getFila()][posicion.getColumna()].construirDefensa(defensa)) {
             defensas.add(defensa);
             return true;
         } else {
@@ -175,7 +175,7 @@ public class Mapa {
     public void moverEnemigos(){
         Pasarela recorrido = meta;
         do {
-            recorrido = recorrido.anterior;
+            recorrido = recorrido.getAnterior();
             recorrido.moverEnemigos();
         } while(recorrido.noLlegoAlaLargada());
     }
@@ -189,7 +189,7 @@ public class Mapa {
         boolean pasarelaSinEnemigos = true;
         while(pasarelaSinEnemigos && recorrido.llegoAlaMeta()) {
             pasarelaSinEnemigos = recorrido.sinEnemigos();
-            recorrido = recorrido.siguiente;
+            recorrido = recorrido.getSiguiente();
         }
 
         return pasarelaSinEnemigos;

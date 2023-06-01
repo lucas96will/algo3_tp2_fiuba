@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class Defensa {
     protected int costeEnCreditos;
     protected int rango;
-    public Posicion posicion;
+    private Posicion posicion;
     protected int danio;
     protected EstadoDefensa estado;
     protected List<Pasarela> pasarelasEnRango;
@@ -51,5 +51,9 @@ public abstract class Defensa {
 
     public int atacar() {
         return estado.atacar(pasarelasEnRango, danio);
+    }
+
+    public Posicion getPosicion() {
+        return posicion;
     }
 }

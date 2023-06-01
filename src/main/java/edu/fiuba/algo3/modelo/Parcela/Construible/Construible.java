@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 
 public class Construible implements Parcela {
-    private Defensa defensa;
+    protected Defensa defensa;
 
     public Construible() {
         this.defensa = null;

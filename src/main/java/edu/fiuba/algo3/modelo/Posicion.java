@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 public class Posicion {
-    public int fila;
-    public int columna;
+    private int fila;
+    private int columna;
 
     public Posicion(int posFila, int posCol){
         fila = posFila;
@@ -15,5 +15,13 @@ public class Posicion {
         int dist = Math.max(dist_horizontal, dist_vertical);
 
         return Math.abs(dist) <= rango;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public int getColumna() {
+        return columna;
     }
 }

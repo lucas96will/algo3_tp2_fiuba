@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Pasarela implements Parcela {
+
+
     public Pasarela anterior;
     public Pasarela siguiente;
     protected ArrayList<Enemigo> enemigosEncima;
@@ -18,7 +20,7 @@ public class Pasarela implements Parcela {
 
     public Pasarela(Pasarela pasarela_anterior, Posicion unaPosicion){
         anterior = pasarela_anterior;
-        enemigosEncima = new ArrayList<Enemigo>();
+        enemigosEncima = new ArrayList<>();
         posicion = unaPosicion;
     }
 
@@ -68,4 +70,21 @@ public class Pasarela implements Parcela {
     public int atacarConEstado(EstadoDefensaCompleto estado, int danio) {
         return estado.atacarEnemigos(this, enemigosEncima, danio);
     }
+
+    public Pasarela getAnterior() {
+        return anterior;
+    }
+
+    public Pasarela getSiguiente() {
+        return siguiente;
+    }
+
+    public Posicion getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(Posicion posicion) {
+        this.posicion = posicion;
+    }
+
 }

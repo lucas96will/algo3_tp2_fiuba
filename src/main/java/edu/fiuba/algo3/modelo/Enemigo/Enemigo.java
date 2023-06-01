@@ -51,8 +51,8 @@ public class Enemigo {
     public void mover(Pasarela pasarela) {
         Pasarela destino = pasarela;
         for (int i = 0; i < velocidad; i++){
-            if (destino.siguiente != null) {
-                destino = destino.siguiente;
+            if (destino.getSiguiente() != null) {
+                destino = destino.getSiguiente();
             }
         }
         destino.insertarEnemigo(this);

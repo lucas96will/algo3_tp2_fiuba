@@ -4,7 +4,7 @@ public class CondicionPartida {
     public static final int SE_GANO = 1;
     public static final int SE_SIGUE_JUGANDO = 2;
     public static final int SE_PERDIO = 0;
-    public int estado;
+    private int estado;
 
     private void actualizar(Jugador jugador, Mapa mapa) {
         if(!jugador.muerto() && mapa.sinEnemigos()) {
