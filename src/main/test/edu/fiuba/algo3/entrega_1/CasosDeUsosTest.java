@@ -44,7 +44,7 @@ public class CasosDeUsosTest {
         Partida partida = new Partida();
         Jugador jugador = Jugador.crearJugadorBase("Joaquin");
         partida.crearPartidaGenerica(jugador);
-        CondicionPartida condicionPartida = partida.estado();
+        CondicionPartida condicionPartida;
         partida.comenzar();
 
         Defensa torreBlanca = new TorreBlanca(1,1);
@@ -144,19 +144,28 @@ public class CasosDeUsosTest {
     }
 
     @Test
-    public void caso7EnemigoSoloSePuedeCrearEnUnaPasarela() {
+    public void caso7LasUnidadesEnemigasSoloSeMuevenPorLaParcelaAutorizadaCorrectamente() {
+        Partida partida = new Partida();
+        Jugador jugador = new Jugador(10, 100, "Ariel");
 
-        Parcela pasarela = new Pasarela(null, new Posicion(0,0));
-        Parcela tierra = new Tierra();
-        Parcela rocoso = new Rocoso();
+        partida.crearPartidaGenerica(jugador);
+        /*Pasarelas en posiciones (0,0), (0,1), (0,2)....(0,6)*/
+        Defensa torreBlanca1 = new TorreBlanca(4, 1); // rango de ataque en pasarelas  (1,0) .. (1, 4)
+        Defensa torreBlanca2 = new TorreBlanca(4, 3); // rango de ataque en pasarelas (1, 0) .. (1, 6)
+        Defensa torreBlanca3 = new TorreBlanca(4, 5); // rango de ataque en pasarelas (1, 2) .. (1, 6)
+        partida.construir(torreBlanca1);
+        partida.construir(torreBlanca2);
+        partida.construir(torreBlanca3);
 
-        Exception exceptionTierra = assertThrows(Exception.class, () -> {tierra.insertarEnemigo(Enemigo.crearHormiga(1));});
-        Exception exceptionRocoso = assertThrows(Exception.class, () -> {rocoso.insertarEnemigo(Enemigo.crearHormiga(1));});
+        partida.insertarEnemigo(Enemigo.crearHormiga(1));
+        partida.insertarEnemigo(Enemigo.crearArania(2));
 
-        assertEquals("Solo la pasarela puede contener un enemigo", exceptionTierra.getMessage());
-        assertEquals("Solo la pasarela puede contener un enemigo", exceptionRocoso.getMessage());
-        assertDoesNotThrow(() -> pasarela.insertarEnemigo(Enemigo.crearHormiga(1)));
+        for(int i = 0; i < 7; i++) {
+            partida.terminarTurno();
+        }
 
+        /*Los enemigos deberian haber pasado por la meta, causando daño al jugador*/
+        assertFalse(jugador.estaIntacto());
     }
 
     @Test
