@@ -5,18 +5,23 @@ import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 public class JsonCargador {
     public boolean archivoEsCorrecto(String jsonEnemigos, String jsonMapa) {
         try {
             JSONParser parser = new JSONParser();
-            Object objeto = parser.parse(jsonEnemigos);
-            Object objeto2 = parser.parse(jsonMapa); //todavia no hace nada, solo los lee a ver q onda
+            Object obj = parser.parse(new FileReader(jsonEnemigos));
+            Object objeto2 = parser.parse(new FileReader(jsonMapa)); //todavia no hace nada, solo los lee a ver q onda
 
             return true;
         } catch (ParseException e) {
             return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

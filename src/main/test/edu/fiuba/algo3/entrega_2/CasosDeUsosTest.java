@@ -9,8 +9,23 @@ public class CasosDeUsosTest {
     @Test
     public void caso1VerificarElFormatoValidoDelJsonEnemigos() {
         //Verificar el formato valido del JSON enemigos.
-        String rutaJsonEnemigos = "../data/jsonTests/enemigos.json";
-        String rutaJsonMapa = "../data/jsonTests/mapa.json";
+        // algo3_tp2_fiuba\src\main\test\edu\fiuba\algo3\entrega_2
+            //algo3_tp2_fiuba
+            //├── src
+            //│   └── main
+            //│        └── test
+            //│             └── edu
+            //│                 └── fiuba
+            //│                     └── algo3
+            //│                         └── entrega_2
+            //│                             └── CasosDeUso,java
+            //│
+            //└── data
+            //│    └──jsonTests
+            //│         └──enemigos.json
+
+        String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
+        String rutaJsonMapa = "data/jsonTests/mapa.json";
 
         JsonCargador jsonCargador = new JsonCargador();
 
@@ -20,8 +35,8 @@ public class CasosDeUsosTest {
     @Test
     public void caso2VerificarElFormatoValidoDelJsonMapa() {
         //Verificar el formato valido del JSON MAPA.
-        String rutaJsonEnemigos = "../data/jsonTests/enemigos.json";
-        String rutaJsonMapa = "../data/jsonTests/mapa.json";
+        String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
+        String rutaJsonMapa = "data/jsonTests/mapa.json";
 
         JsonCargador jsonCargador = new JsonCargador();
 
