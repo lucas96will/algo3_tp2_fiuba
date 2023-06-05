@@ -1,7 +1,7 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.unitarias;
 
 import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Partida;
+import edu.fiuba.algo3.modelo.Partida.Partida;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -1,7 +1,9 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Partida;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Mapa;
 
 public class Partida {
     private Jugador jugador;
@@ -49,7 +51,7 @@ public class Partida {
         return creditosValor == jugador.valorCreditos();
     }
 
-    public CondicionPartida estado() {
-        return new CondicionPartida().estado(this.jugador, this.mapa);
+    public EstadoPartida estado() {
+        return new EstadoPartida(this.jugador, this.mapa);
     }
 }

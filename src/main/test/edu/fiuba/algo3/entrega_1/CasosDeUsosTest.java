@@ -5,10 +5,8 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Defensa.TorrePlateada;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
-import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
-import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
+import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
+import edu.fiuba.algo3.modelo.Partida.Partida;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,12 +42,12 @@ public class CasosDeUsosTest {
         Partida partida = new Partida();
         Jugador jugador = Jugador.crearJugadorBase("Joaquin");
         partida.crearPartidaGenerica(jugador);
-        CondicionPartida condicionPartida;
+        EstadoPartida condicionPartida;
         partida.comenzar();
 
         Defensa torreBlanca = new TorreBlanca(1,1);
         Defensa torrePlateada = new TorrePlateada(1,6);
-        partida.insertarEnemigo(Enemigo.crearArania(1));
+        partida.insertarEnemigo(Enemigo.crearArania());
         partida.construir(torrePlateada); // 2 turnos para construirse
         partida.terminarTurno(); // arania en posicion (0,2)
         partida.construir(torreBlanca);
@@ -103,7 +101,7 @@ public class CasosDeUsosTest {
         Defensa torreBlanca1 = new TorreBlanca(1, 1);
         partida.construir(torreBlanca1);
 
-        Enemigo hormiga = Enemigo.crearHormiga(1);
+        Enemigo hormiga = Enemigo.crearHormiga();
         partida.insertarEnemigo(hormiga);
 
         for(int i = 0; i < 8; i++){
@@ -123,13 +121,13 @@ public class CasosDeUsosTest {
         Defensa torreBlanca1 = new TorreBlanca(1, 1);
         partida.construir(torreBlanca1);
 
-        partida.insertarEnemigo(Enemigo.crearHormiga(1));
+        partida.insertarEnemigo(Enemigo.crearHormiga());
         partida.terminarTurno(); // tarda 1 turno en construir la torre blanca
         partida.terminarTurno(); // Muere la hormiga
-        CondicionPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano()); // No hay enemigos en el mapa y el jugador tiene vida
 
-        partida.insertarEnemigo(Enemigo.crearArania(2)); // arania con 2 de vida
+        partida.insertarEnemigo(Enemigo.crearArania()); // arania con 2 de vida
         partida.terminarTurno(); //
         partida.terminarTurno(); // se dania a la arania, queda con 1 de vida
 
@@ -157,8 +155,8 @@ public class CasosDeUsosTest {
         partida.construir(torreBlanca2);
         partida.construir(torreBlanca3);
 
-        partida.insertarEnemigo(Enemigo.crearHormiga(1));
-        partida.insertarEnemigo(Enemigo.crearArania(2));
+        partida.insertarEnemigo(Enemigo.crearHormiga());
+        partida.insertarEnemigo(Enemigo.crearArania());
 
         for(int i = 0; i < 7; i++) {
             partida.terminarTurno();
@@ -181,7 +179,7 @@ public class CasosDeUsosTest {
         partida.construir(torreBlanca1);
         // 100-10 = 90
 
-        Enemigo hormiga = Enemigo.crearHormiga(1);
+        Enemigo hormiga = Enemigo.crearHormiga();
         partida.insertarEnemigo(hormiga);
         // 1 credito
 
@@ -203,15 +201,15 @@ public class CasosDeUsosTest {
 
         /*rango de ataque de torre blanca = 0 - 4 fila ; 0 - 4 columna*/
         partida.terminarTurno(); // Torre construida
-        partida.insertarEnemigo(Enemigo.crearArania(2));
-        partida.insertarEnemigo(Enemigo.crearArania(3));
+        partida.insertarEnemigo(Enemigo.crearArania());
+        partida.insertarEnemigo(Enemigo.crearArania());
 
         partida.terminarTurno(); // enemigos en posicion (0,2)
         partida.terminarTurno(); // enemigos en posicion (0, 4) (muere 1 arania)
         partida.terminarTurno(); // enemigo en posicion (0, 6)
         partida.terminarTurno(); // enemigo paso la meta que estaba en (0, 7)
 
-        CondicionPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano());
         assertFalse(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
     }
@@ -227,17 +225,17 @@ public class CasosDeUsosTest {
         Defensa torreBlanca1 = new TorreBlanca(1, 1);
         partida.construir(torreBlanca1);
 
-        Enemigo hormiga = Enemigo.crearHormiga(1);
+        Enemigo hormiga = Enemigo.crearHormiga();
         partida.insertarEnemigo(hormiga);
 
-        Enemigo hormiga2 = Enemigo.crearHormiga(1);
+        Enemigo hormiga2 = Enemigo.crearHormiga();
         partida.insertarEnemigo(hormiga2);
 
         partida.terminarTurno(); // No ataca
         partida.terminarTurno(); // Ataca una hormiga
         partida.terminarTurno(); // Ataca una segunda hormiga
 
-        CondicionPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano());
     }
 
@@ -252,14 +250,14 @@ public class CasosDeUsosTest {
         partida.construir(torreBlanca1);
 
         for(int i = 0; i < 10; i++) {
-            partida.insertarEnemigo(Enemigo.crearHormiga(1));
+            partida.insertarEnemigo(Enemigo.crearHormiga());
         }
 
         for(int i = 0; i < 10; i++){
             partida.terminarTurno();
         }
 
-        CondicionPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano());
         assertFalse(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
     }
@@ -275,15 +273,15 @@ public class CasosDeUsosTest {
         partida.construir(torreBlanca1);
 
         for(int i = 0; i < 14; i++) {
-            partida.insertarEnemigo(Enemigo.crearHormiga(1));
+            partida.insertarEnemigo(Enemigo.crearHormiga());
         }
 
         for(int i = 0; i < 10; i++){
             partida.terminarTurno();
         }
-        CondicionPartida condicionPartida = partida.estado();
+        EstadoPartida estadoPartida = partida.estado();
 
-        assertTrue(condicionPartida.perdio());
+        assertTrue(estadoPartida.perdio());
     }
 
 

@@ -1,7 +1,8 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.unitarias;
 
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Message;
+import edu.fiuba.algo3.modelo.Partida.Partida;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
