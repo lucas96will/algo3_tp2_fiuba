@@ -26,7 +26,35 @@ public class Mapa {
         tamanio_mapa = tamanioMapa;
         matriz = new Parcela[tamanioMapa][tamanioMapa];
         this.defensas = new ArrayList<>();
+        crearPasarelas();
+        crearTierras();
     }
+
+    private void crearPasarelas() {
+        Pasarela anterior = new Largada(null, new Posicion(0,0));
+        largada = anterior;
+        matriz[0][0] = largada;
+        int limite = tamanio_mapa - 1;
+        for(int i = 1; i < limite; i++){
+            anterior = new Casilla(anterior, new Posicion(0, i));
+            matriz[0][i] = anterior;
+        }
+        meta = new Meta(anterior, new Posicion(0, limite));
+        matriz[0][limite] = meta;
+    }
+
+    private void crearTierras() {
+        int limite = tamanio_mapa - 1;
+        for(int j = 1; j < limite; j++) {
+            for (int i = 0; i < tamanio_mapa; i++) {
+                matriz[j][i] = new Tierra();
+            }
+        }
+        for (int i = 0; i < tamanio_mapa; i++) {
+            matriz[limite][i] = new Rocoso();
+        }
+    }
+
     public void crearMapaGenerico(){
         /*
         Mapa generico es una matriz 7x7, con un cuadro de 5x5 tierra, y la ultima linea rocoso

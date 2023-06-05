@@ -2,8 +2,6 @@ package edu.fiuba.algo3.modelo.Defensa;
 
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
-import edu.fiuba.algo3.modelo.Posicion;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -57,4 +55,12 @@ public class EstadoDefensaCompleto implements EstadoDefensa{
     public void siguienteEstado(Defensa defensa) {
         defensa.establecerEstado(new EstadoDefensaCompleto());
     }
+
+    @Override
+    public boolean puedeAtacar() {
+        return true;
+    }
+
+    @Override
+    public EstadoDefensa reconstruir() {return this;}
 }

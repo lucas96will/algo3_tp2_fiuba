@@ -1,10 +1,9 @@
 package edu.fiuba.algo3.modelo.Defensa;
 
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
-import edu.fiuba.algo3.modelo.Posicion;
 import java.util.List;
 
-public class EstadoDefensaIncompleto implements EstadoDefensa{
+public class  EstadoDefensaIncompleto implements EstadoDefensa{
 
     private int tiempoConstruccion;
 
@@ -25,5 +24,14 @@ public class EstadoDefensaIncompleto implements EstadoDefensa{
             tiempoConstruccion = nuevoTiempoConstruccion;
             defensa.establecerEstado(this);
         }
+    }
+
+    @Override
+    public boolean puedeAtacar() {return false;}
+
+    @Override
+    public EstadoDefensa reconstruir() {
+        tiempoConstruccion --;
+        return tiempoConstruccion <= 0 ? new EstadoDefensaCompleto() : this;
     }
 }

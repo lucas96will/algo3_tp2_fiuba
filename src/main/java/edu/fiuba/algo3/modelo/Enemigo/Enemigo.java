@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
+import edu.fiuba.algo3.modelo.Posicion;
 
 public class Enemigo {
     private int danio;
@@ -8,15 +9,15 @@ public class Enemigo {
     private int velocidad;
     private int energia;
     private int recompensa;
-    private int id;
+    private Posicion posicion;
 
-    public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia,int unaRecompensa, int unId){
+    public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa, Posicion unaPosicion){
         vida = unaVida;
         danio = unDanio;
         velocidad = unaVelocidad;
         energia = unaEnergia;
         recompensa = unaRecompensa;
-        id = unId;
+        posicion = unaPosicion;
     }
 
     public int recibirDanio(int danio, Pasarela pasarela){
@@ -41,11 +42,11 @@ public class Enemigo {
         return danio;
     }
 
-    public static Enemigo crearHormiga(int id){
-        return new Enemigo(1,1,1,1,1,id);
+    public static Enemigo crearHormiga(Posicion posicion){
+        return new Enemigo(1,1,1,1,1, posicion);
     }
-    public static Enemigo crearArania(int id){
-        return new Enemigo(2,2,2,2,1,id);
+    public static Enemigo crearArania(Posicion posicion){
+        return new Enemigo(2,2,2,2,1, posicion);
     }
 
     public void mover(Pasarela pasarela) {
