@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
-import edu.fiuba.algo3.modelo.Defensa.EstadoDefensa;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaCompleto;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
@@ -25,12 +24,17 @@ public class Pasarela implements Parcela {
     }
 
     public boolean construirDefensa(Defensa defensa) { return false;}
-    public void fijarSiguiente(Pasarela pasarela_siguiente){
-        siguiente = pasarela_siguiente;
+    public void fijarSiguiente(Pasarela pasarelaSiguiente){
+        siguiente = pasarelaSiguiente;
     }
 
     public void insertarEnemigo(Enemigo enemigo) {
         enemigosEncima.add(enemigo);
+    }
+
+    @Override
+    public void insertarDefensa(Defensa defensa) throws Exception {
+        throw new Exception("Solo la tierra puede contener una defensa");
     }
 
     public int atacarAlPrimerEnemigo(int danio) {
@@ -55,7 +59,6 @@ public class Pasarela implements Parcela {
             iterador.next().mover(this);
             iterador.remove();
         }
-        /*enemigosEncima.clear();*/
     }
 
     public void eliminarEnemigo(Enemigo enemigo) {

@@ -1,8 +1,11 @@
-package edu.fiuba.algo3.unitarias;
+package edu.fiuba.algo3.entrega_1;
 
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Partida.Partida;
+import edu.fiuba.algo3.modelo.Partida;
+import edu.fiuba.algo3.modelo.Recurso;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,10 +17,10 @@ public class EnemigoTest {
         /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
 
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(10, 100, "Josecito");
+        Jugador jugador = new Jugador(new Recurso(10), 100, "Josecito");
         partida.crearPartidaGenerica(jugador);
 
-        Enemigo hormiga = Enemigo.crearHormiga();
+        Enemigo hormiga = Enemigo.crearHormiga(null);
         partida.insertarEnemigo(hormiga);
 
         for(int i = 0; i < 8; i++){

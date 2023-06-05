@@ -32,7 +32,7 @@ public class TorrePlateadaTest {
         when(largadaMock.noLlegoAlaLargada()).thenReturn(false);
         when(estadoIncompletoMock.atacar(pasarelas, 1)).thenReturn(0); // estado incompleto siempre retorna 0
 
-        TorrePlateada torrePlateada = new TorrePlateada(1, 4, estadoIncompletoMock);
+        TorrePlateada torrePlateada = new TorrePlateada(new Posicion(1,4), estadoIncompletoMock);
 
         torrePlateada.establecerPasarelasEnRango(pasarelaMock);
         assertEquals(torrePlateada.atacar(), 0);
@@ -55,7 +55,7 @@ public class TorrePlateadaTest {
         when(largadaMock.noLlegoAlaLargada()).thenReturn(false);
         when(estadoCompletoMock.atacar(pasarelas, 1)).thenReturn(1);
 
-        TorrePlateada torrePlateada = new TorrePlateada(1, 4, estadoCompletoMock);
+        TorrePlateada torrePlateada = new TorrePlateada(new Posicion(1,4), estadoCompletoMock);
 
         torrePlateada.establecerPasarelasEnRango(pasarelaMock);
         assertEquals(torrePlateada.atacar(), 1);
@@ -67,7 +67,7 @@ public class TorrePlateadaTest {
     public void seConstruyeDespuesDeDosTurnos() {
         EstadoDefensaIncompleto incompletoMock= mock(EstadoDefensaIncompleto.class);
         EstadoDefensaCompleto completoMock = mock(EstadoDefensaCompleto.class);
-        TorrePlateada torrePlateada = new TorrePlateada(1, 5, incompletoMock);
+        TorrePlateada torrePlateada = new TorrePlateada(new Posicion(1,5), incompletoMock);
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {

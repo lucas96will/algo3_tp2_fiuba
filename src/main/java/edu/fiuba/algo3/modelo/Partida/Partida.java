@@ -15,6 +15,10 @@ public class Partida {
         mapa = new Mapa(7);
         mapa.crearMapaGenerico();
     }
+    public void crearPartida(Jugador jugador, Mapa mapa){
+        this.jugador = jugador;
+        this.mapa = mapa;
+    }
     public void comenzar(){}
     public void terminarTurno() {
         int recompensa = 0;

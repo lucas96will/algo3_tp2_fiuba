@@ -7,4 +7,9 @@ public class Rocoso extends Construible{
     public boolean construirDefensa(Defensa defensa){
         return false;
     }
+
+    @Override
+    public void insertarDefensa(Defensa defensa) throws Exception {
+        throw new Exception("Solo la tierra puede contener una defensa");
+    }
 }

@@ -7,6 +7,7 @@ interface Pieza {
 abstract Defensa {
     -danio:int
     -costo:int
+    -posicion:Posicion
     +daniar(parcela:Parcela):void
     +recibirDanio(pieza:Pieza):void
     {abstract}+crearPieza(parcela:Parcela):void
@@ -16,6 +17,7 @@ abstract Enemigo {
     -danio
     -energia:int
     -velocidad:int
+    -posicion:Posicion
     +daniar(jugador: Jugador):void
     +recibirDanio(defensa: Defensa):void
     {abstract}+crearPieza(parcela:Parcela):void
