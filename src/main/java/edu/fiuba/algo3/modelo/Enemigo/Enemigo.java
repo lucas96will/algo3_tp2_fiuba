@@ -8,15 +8,13 @@ public class Enemigo {
     private int velocidad;
     private int energia;
     private int recompensa;
-    private int id;
 
-    public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia,int unaRecompensa, int unId){
+    public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia,int unaRecompensa){
         vida = unaVida;
         danio = unDanio;
         velocidad = unaVelocidad;
         energia = unaEnergia;
         recompensa = unaRecompensa;
-        id = unId;
     }
 
     public int recibirDanio(int danio, Pasarela pasarela){
@@ -41,11 +39,11 @@ public class Enemigo {
         return danio;
     }
 
-    public static Enemigo crearHormiga(int id){
-        return new Enemigo(1,1,1,1,1,id);
+    public static Enemigo crearHormiga(){
+        return new Enemigo(1,1,1,1,1);
     }
-    public static Enemigo crearArania(int id){
-        return new Enemigo(2,2,2,2,1,id);
+    public static Enemigo crearArania(){
+        return new Enemigo(2,2,2,2,1);
     }
 
     public void mover(Pasarela pasarela) {

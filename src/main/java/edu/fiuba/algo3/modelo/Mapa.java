@@ -194,4 +194,8 @@ public class Mapa {
 
         return pasarelaSinEnemigos;
     }
+
+    public void agregarParcelaEnPosicion(Parcela parcela, int fila, int columna) {
+        matriz[fila][columna] = parcela;
+    }
 }
