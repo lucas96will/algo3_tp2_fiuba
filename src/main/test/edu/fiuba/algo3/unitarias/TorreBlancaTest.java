@@ -1,13 +1,9 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.unitarias;
 
-import edu.fiuba.algo3.modelo.CondicionPartida;
 import edu.fiuba.algo3.modelo.Defensa.*;
-import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
-import edu.fiuba.algo3.modelo.Partida;
 import edu.fiuba.algo3.modelo.Posicion;
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
