@@ -9,6 +9,10 @@ public class Hormiga extends Enemigo{
         super(unaVida, unDanio, unaVelocidad, unaEnergia, unaRecompensa, unaPosicion);
     }
 
+    public Hormiga(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa) {
+                super(unaVida, unDanio, unaVelocidad, unaEnergia, unaRecompensa);
+    }
+
     @Override
     protected int morir() {
         muerto = true;

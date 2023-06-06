@@ -70,22 +70,26 @@ public class CasosDeUsosTest {
         /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
 
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(new Recurso(10), 100, "Josecito");
+        Recurso recurso = new Recurso(100);
+        Jugador jugador = new Jugador(recurso, 100, "Josecito");
         Mapa mapa = new Mapa();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
-        partida.construir(torreBlanca1, new Posicion(1,1));
+        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        partida.construir(torreBlanca1, new Posicion(2,6));
 
         //Enemigo hormiga = Enemigo.crearHormiga(1,null);
-        Hormiga hormiga = new Hormiga(1,1,1,1,10, new Posicion(1,1));
+        Hormiga hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
+        partida.terminarTurno();
+        partida.terminarTurno();
 
-        for(int i = 0; i < 8; i++){
-            partida.terminarTurno();
-        }
 
-        assertTrue(jugador.estaIntacto()); //hormiga no llego al final :D
+        assertEquals(90, recurso.valorMonetario());
+
+        partida.terminarTurno();
+
+        assertEquals(91, recurso.valorMonetario());
     }
 
     @Test
@@ -186,8 +190,8 @@ public class CasosDeUsosTest {
         Mapa mapa = new Mapa();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
-        partida.construir(torreBlanca1, new Posicion(1,1));
+        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        partida.construir(torreBlanca1, new Posicion(2,2));
 
         Hormiga hormiga = new Hormiga(1,1,1,1,10, new Posicion(1,1));
         partida.insertarEnemigo(hormiga);

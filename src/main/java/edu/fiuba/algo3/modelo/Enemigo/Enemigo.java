@@ -26,6 +26,17 @@ public abstract class Enemigo {
         this.posicionAnterior = null;
         muerto = false;
     }
+    
+    public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa) {
+            vida = unaVida;
+            danio = unDanio;
+            velocidad = unaVelocidad;
+            energia = unaEnergia;
+            recompensa = unaRecompensa;
+            posicion = null;
+            this.posicionAnterior = null;
+            muerto = false;
+        }
 
     public int recibirDanio(int danio){
         vida = vida - danio;
@@ -85,5 +96,9 @@ public abstract class Enemigo {
         DatosJugador datosJugador = DatosJugador.getInstance();
         datosJugador.reducirVidaJugador(this.danio);
         this.muerto = true;
+    }
+
+    public boolean estaEnRango(int rango, Posicion posicion) {
+        return this.posicion.estaEnRango(rango, posicion);
     }
 }

@@ -26,9 +26,10 @@ public class Mapa {
         this.enemigos = new ArrayList<>();
         this.enemigosMuertos = new ArrayList<>();
 
-        crearMapaGenerico();
+        
     }
-
+    public static Mapa crearMapaGenerico(){
+    }
     /*private void crearPasarelas() {
         Pasarela anterior = new Largada(null, new Posicion(0,0));
         largada = anterior;

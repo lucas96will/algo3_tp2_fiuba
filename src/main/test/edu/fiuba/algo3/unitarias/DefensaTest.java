@@ -18,7 +18,7 @@ public class DefensaTest {
     public void defensaTardaEnConstruirseLoQueDice() {
         //Verificarquecadadefensatardeenconstruirse lo que dice que tarda y que recién están
         // “operativas” cuando ya se terminaron de construir.
-        Defensa torreBlanca = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        Defensa torreBlanca = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(1, 0));
         Largada largada = new Largada( new Posicion(0,0));
         Pasarela pasarela = new Casilla(new Posicion(0,1));
         Meta meta = new Meta(new Posicion(0,2));
@@ -26,7 +26,8 @@ public class DefensaTest {
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(0,0)); //Le habían puesto recompensa 10
         // Ojo con pasar recompenas por parametro.
 
-        assertEquals(0, torreBlanca.atacar(hormiga)); //cuando ataca se actualiza el estado de defensa
+        assertEquals(0, torreBlanca.atacar(hormiga)); 
+        torreBlanca.siguienteEstado();
         assertEquals(1, torreBlanca.atacar(hormiga));
     }
 

@@ -70,18 +70,18 @@ public class CargadorJson {
 
         // Guardo los enemigos
         for(long i = 0; i < cantidadHormigas; i++) {
-            enemigosTurnoActual.add(new Hormiga(1,1,1,1,1, new Posicion(0,0)));
+            enemigosTurnoActual.add(new Hormiga(1,1,1,1,1));
         }
 
         for(long i = 0; i < cantidadAranias; i++) {
-            enemigosTurnoActual.add(new Arania(2,2,2,2,2, new Posicion(0,0)));
+            enemigosTurnoActual.add(new Arania(2,2,2,2,2));
         }
 
         listaDeEnemigosPorTurno.add(enemigosTurnoActual);
     }
 
     public Mapa procesarMapa(String rutaJsonMapa) {
-        /*
+
         JSONParser parser = new JSONParser();
         try {
             FileReader lector = new FileReader(rutaJsonMapa);
@@ -106,7 +106,7 @@ public class CargadorJson {
             throw new RutaInvalidaException();
         } catch (ParseException p) {
             p.printStackTrace();
-        }*/
+        }
         return null;
 
     }

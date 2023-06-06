@@ -14,6 +14,15 @@ public abstract class Defensa {
     protected Posicion posicion;
     protected int danio;
     protected EstadoDefensa estado;
+
+
+    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, Posicion posicion) {
+        this.posicion = posicion;
+        this.estado = unEstadoDefensa;
+        this.costeEnCreditos = costo;
+        this.rango = rango;
+        this.danio = danio;
+    }
     
     public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa) {
         this.posicion = null;
@@ -37,10 +46,10 @@ public abstract class Defensa {
 
     public int atacar(Enemigo enemigo) {
         int creditos = 0;
-        if (estado.puedeAtacar()){
+        if (estado.puedeAtacar() && enemigo.estaEnRango(rango, posicion)){
             return creditos + enemigo.recibirDanio(danio);
         }
-        estado = estado.reconstruir();
+        //estado = estado.reconstruir();
         return 0;
     }
 
