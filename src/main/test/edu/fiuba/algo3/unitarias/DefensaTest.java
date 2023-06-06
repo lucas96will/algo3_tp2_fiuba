@@ -23,10 +23,10 @@ public class DefensaTest {
         Pasarela pasarela = new Casilla(new Posicion(0,1));
         Meta meta = new Meta(new Posicion(0,2));
 
-        Enemigo hormiga = new Hormiga(1,1,1,1,10, new Posicion(0,0));
-        
+        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(0,0)); //Le habían puesto recompensa 10
+        // Ojo con pasar recompenas por parametro.
 
-        assertEquals(0, torreBlanca.atacar(hormiga));
+        assertEquals(0, torreBlanca.atacar(hormiga)); //cuando ataca se actualiza el estado de defensa
         assertEquals(1, torreBlanca.atacar(hormiga));
     }
 

@@ -13,4 +13,6 @@ public class Meta extends Pasarela {
     public void insertarEnemigo(Enemigo unEnemigo) throws Exception {
         
     }
+
+
 }

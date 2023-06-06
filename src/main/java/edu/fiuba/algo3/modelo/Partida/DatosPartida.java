@@ -10,7 +10,9 @@ public class DatosPartida {
     private Contador contadorMuertes;
 
     private DatosPartida(){
-
+        vidaJugador = 100;
+        recursosJugador = new Recurso(0);
+        contadorMuertes = new Contador();
     }
 
     static public DatosPartida getInstance(){

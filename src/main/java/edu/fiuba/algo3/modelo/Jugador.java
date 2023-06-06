@@ -33,7 +33,8 @@ public class Jugador {
         return datosPartida.obtenerVidaJugador() <= 0;
     }
     public boolean estaIntacto(){
-        return vida == vidaMaxima;
+        DatosPartida datosPartida = DatosPartida.getInstance();
+        return datosPartida.obtenerVidaJugador() == vidaMaxima;
     }
 
     public int valorCreditos() {
