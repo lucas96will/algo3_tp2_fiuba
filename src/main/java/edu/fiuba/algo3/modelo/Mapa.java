@@ -25,10 +25,12 @@ public class Mapa {
         this.defensas = new ArrayList<>();
         this.enemigos = new ArrayList<>();
         this.enemigosMuertos = new ArrayList<>();
-
         
     }
-    public static Mapa crearMapaGenerico(){
+    public static Mapa generico(){
+        Mapa mapa = new Mapa();
+        mapa.crearMapaGenerico();
+        return mapa;
     }
     /*private void crearPasarelas() {
         Pasarela anterior = new Largada(null, new Posicion(0,0));
@@ -161,12 +163,8 @@ public class Mapa {
         //return enemigos.stream().allMatch(Enemigo::muerto);
     }
 
-    public void agregarParcelaEnPosicion(Parcela parcela, int fila, int columna) {
-        //matriz[fila][columna] = parcela;
-        /* forma 1
-        posiciones.add(posicion(parcela, fila, columna))
-           forma 2
-        parcela.establecerPosicion(fila,columna)
-        posiciones.add(parcela)*/
+    public void agregarParcelaEnPosicion(Parcela parcela, Posicion posicion) {
+        parcela.establecerPosicion(posicion);
+        parcelas.add(parcela);
     }
 }

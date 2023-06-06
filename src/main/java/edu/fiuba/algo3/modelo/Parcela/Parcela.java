@@ -10,4 +10,5 @@ public interface Parcela {
     boolean moveElEnemigo(Enemigo enemigo);
     boolean tieneLaMismaPosicion(Posicion ... posiciones);
     boolean estaEnRangoLateralesA(Posicion posicion);
+    void establecerPosicion(Posicion posicion);
 }

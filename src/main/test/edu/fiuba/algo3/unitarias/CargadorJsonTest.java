@@ -55,11 +55,7 @@ public class CargadorJsonTest {
 
         assertThrows(RutaInvalidaException.class, () -> cargadorJson.procesarMapa(rutaJsonMapaIncorrecto));
     }
-
-    @Test
-    public void formatoJsonEnemigosInvalidoTiraExcepcionFormatoInvalidoJsonEnemigos() {
-
-    }
+    
 
     @Test
     public void mapaSeCargaCorrectamente() {
@@ -69,8 +65,9 @@ public class CargadorJsonTest {
         TorreBlanca torreEnPosicionValida = new TorreBlanca(10, 1, 3,new EstadoDefensaIncompleto(1));
         TorreBlanca torreEnPosicionInvalida = new TorreBlanca(10, 1, 3,new EstadoDefensaIncompleto(1));
 
-        //assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida));
-
-        //assertTrue(mapa.sinEnemigos());
+        assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida, new Posicion(2,2)));
+        assertThrows(Exception.class, () -> mapa.construir(torreEnPosicionInvalida, new Posicion(1,1)));
+        assertTrue(mapa.sinEnemigos());
     }
+    
 }

@@ -29,7 +29,7 @@ public class CasosDeUsosTest {
         Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
         Jugador jugador = new Jugador(recurso, 10, "Joaquin");
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
         partida.comenzar();
 
@@ -72,7 +72,7 @@ public class CasosDeUsosTest {
         Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
         Jugador jugador = new Jugador(recurso, 100, "Josecito");
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
@@ -96,7 +96,7 @@ public class CasosDeUsosTest {
     public void caso6UnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(10), 10, "Ariel");
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
@@ -139,8 +139,8 @@ public class CasosDeUsosTest {
         Jugador jugador = new Jugador(recurso, 100, "Josecito");
         /*100*/
 
-        Mapa mapa = new Mapa();
-        partida.crearPartida(jugador,mapa);;
+        Mapa mapa = Mapa.generico();
+        partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
         partida.construir(torreBlanca1, new Posicion(2,2));
@@ -161,7 +161,7 @@ public class CasosDeUsosTest {
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(10), 10, "Ariel");
 
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new TorreBlanca( 10, 1, 3, new EstadoDefensaIncompleto(1));
@@ -187,7 +187,7 @@ public class CasosDeUsosTest {
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(100), 100, "Ariel");
 
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
@@ -229,14 +229,14 @@ public class CasosDeUsosTest {
         EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano());
         //assertFalse(jugador.estaIntacto());
-        assertFalse(DatosJugador.getInstance().obtenerVidaJugador() == 100);
+        assertNotEquals(100, DatosJugador.getInstance().obtenerVidaJugador());
     }
 
     @Test
     public void caso12SePierdeElJuegoPorElDanioDeLosEnemigos() {
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(10), 8, "Ariel");
-        Mapa mapa = new Mapa();
+        Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));

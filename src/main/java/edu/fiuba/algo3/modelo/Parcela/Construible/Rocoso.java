@@ -10,6 +10,7 @@ public class Rocoso extends Construible{
         super(unaPosicion);
     }
 
+
     @Override
     public void insertarDefensa(Defensa defensa) throws Exception {
         throw new Exception("Solo la tierra puede contener una defensa");
@@ -18,6 +19,11 @@ public class Rocoso extends Construible{
     @Override
     public boolean moveElEnemigo(Enemigo enemigo) {
         return false;
+    }
+
+    @Override
+    public void establecerPosicion(Posicion posicion) {
+        this.posicion = posicion;
     }
 
 

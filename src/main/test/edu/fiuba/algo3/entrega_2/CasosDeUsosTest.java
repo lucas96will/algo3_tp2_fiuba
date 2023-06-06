@@ -42,4 +42,5 @@ public class CasosDeUsosTest {
         assertTrue(cargadorJson.archivoEsCorrecto(rutaJsonEnemigos, rutaJsonMapa));
     }
 
+
 }

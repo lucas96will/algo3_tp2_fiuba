@@ -34,6 +34,10 @@ public class Tierra extends Construible{
         return false;
     }
 
+    @Override
+    public void establecerPosicion(Posicion posicion) {
+        
+    }
 
 
 }

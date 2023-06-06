@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Parcela.ParcelaFactory;
 import edu.fiuba.algo3.modelo.Posicion;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -82,23 +83,26 @@ public class CargadorJson {
 
     public Mapa procesarMapa(String rutaJsonMapa) {
 
-        JSONParser parser = new JSONParser();
+        Mapa mapa = new Mapa();
         try {
+            JSONParser parser = new JSONParser();
             FileReader lector = new FileReader(rutaJsonMapa);
             // Leo archivo JSON
-            JSONObject jsonMapa = (JSONObject) parser.parse(lector);
-            JSONArray filas = (JSONArray) jsonMapa.get("Mapa");
+            JSONObject json = (JSONObject) parser.parse(lector);
+            JSONObject mapaJson = (JSONObject) json.get("Mapa");
 
-            Mapa mapa = new Mapa(filas.size());
-            boolean largadaEncontrada = false;
-            for(int i = 0; i < filas.size(); i++){
-                JSONArray columna = (JSONArray) filas.get(i);
-                for(int j = 0; j < columna.size(); j++) {
-                    String nombreParcela = (String) columna.get(j);
-                    if(!largadaEncontrada && nombreParcela.equals("Pasarela")){
-                        nombreParcela = "Largada";
-                    }
-                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), i*//*Fila*//*, j*//*Columna*//*);
+
+            int contadorFila = 1;
+            int contadorColumna;
+            for(Object filaJson : mapaJson.keySet()){
+                String arrayKey = (String) filaJson;
+                JSONArray columna = (JSONArray) mapaJson.get(arrayKey);
+                contadorFila++;
+                contadorColumna = 1;
+                for(Object parcela : columna) {
+                    String nombreParcela = (String) parcela;
+                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), new Posicion(contadorFila/*fila*/, contadorColumna/*columna*/));
+                    contadorColumna++;
                 }
             }
 
@@ -107,7 +111,7 @@ public class CargadorJson {
         } catch (ParseException p) {
             p.printStackTrace();
         }
-        return null;
 
+        return mapa;
     }
 }

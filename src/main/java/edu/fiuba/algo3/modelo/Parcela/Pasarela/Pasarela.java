@@ -34,6 +34,11 @@ public abstract class Pasarela implements Parcela {
         enemigo.mover(posicion);
         return true;
     }
+    
+    @Override
+    public void establecerPosicion(Posicion posicion) {
+        this.posicion = posicion;
+    }
 
     @Override
     public boolean tieneLaMismaPosicion(Posicion... posiciones) {
