@@ -101,4 +101,5 @@ public abstract class Enemigo {
     public boolean estaEnRango(int rango, Posicion posicion) {
         return this.posicion.estaEnRango(rango, posicion);
     }
+    
 }

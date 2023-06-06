@@ -24,8 +24,6 @@ public class JugadorTest {
         Jugador jugador = Jugador.crearJugadorBase("Joaquin");
         partida.crearPartidaGenerica(jugador);
 
-        partida.comenzar();
-
         assertTrue(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
         assertFalse(partida.terminarPartida());
     }

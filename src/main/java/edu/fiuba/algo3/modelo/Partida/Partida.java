@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Posicion;
 
+import java.util.List;
+
 public class Partida {
     private Jugador jugador;
     private Mapa mapa;
@@ -21,7 +23,9 @@ public class Partida {
         this.jugador = jugador;
         this.mapa = mapa;
     }
-    public void comenzar(){}
+    public void iniciar(){
+        this.mapa.iniciarLargada();
+    }
     public void terminarTurno() {
         int recompensa = 0;
         recompensa = mapa.defensasAtacar();
@@ -55,5 +59,8 @@ public class Partida {
     public EstadoPartida estado() {
         return new EstadoPartida(this.jugador, this.mapa);
     }
-    
+
+    public void anadirEnemigos(List<Enemigo> enemigos) {
+        enemigos.forEach(e -> mapa.insertarEnemigo(e));
+    }
 }

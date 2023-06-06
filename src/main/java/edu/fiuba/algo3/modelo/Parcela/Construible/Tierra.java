@@ -36,7 +36,7 @@ public class Tierra extends Construible{
 
     @Override
     public void establecerPosicion(Posicion posicion) {
-        
+        this.posicion = posicion;
     }
 
 

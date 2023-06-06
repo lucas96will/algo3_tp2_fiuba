@@ -31,7 +31,6 @@ public class CasosDeUsosTest {
         Jugador jugador = new Jugador(recurso, 10, "Joaquin");
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
-        partida.comenzar();
 
 
         Defensa torrePlateada = new TorrePlateada(20, 2,5, new EstadoDefensaIncompleto(2));
@@ -213,6 +212,7 @@ public class CasosDeUsosTest {
         Jugador jugador = new Jugador(new Recurso(10), 100, "Ariel");
 
         Mapa mapa = new Mapa();
+        mapa.crearMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));

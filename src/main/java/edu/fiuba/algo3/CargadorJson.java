@@ -92,16 +92,14 @@ public class CargadorJson {
             JSONObject mapaJson = (JSONObject) json.get("Mapa");
 
 
-            int contadorFila = 1;
             int contadorColumna;
             for(Object filaJson : mapaJson.keySet()){
                 String arrayKey = (String) filaJson;
                 JSONArray columna = (JSONArray) mapaJson.get(arrayKey);
-                contadorFila++;
                 contadorColumna = 1;
                 for(Object parcela : columna) {
                     String nombreParcela = (String) parcela;
-                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), new Posicion(contadorFila/*fila*/, contadorColumna/*columna*/));
+                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), new Posicion(Integer.parseInt(arrayKey)/*fila*/, contadorColumna/*columna*/));
                     contadorColumna++;
                 }
             }

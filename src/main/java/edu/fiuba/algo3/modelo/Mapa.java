@@ -12,6 +12,7 @@ import edu.fiuba.algo3.modelo.Defensa.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Mapa {
@@ -19,6 +20,7 @@ public class Mapa {
     private List<Defensa> defensas;
     private List<Enemigo> enemigos;
     private List<Enemigo> enemigosMuertos;
+    private Parcela largada;
 
     public Mapa() {
         this.parcelas = new ArrayList<>();
@@ -32,36 +34,10 @@ public class Mapa {
         mapa.crearMapaGenerico();
         return mapa;
     }
-    /*private void crearPasarelas() {
-        Pasarela anterior = new Largada(null, new Posicion(0,0));
-        largada = anterior;
-        matriz[0][0] = largada;
-        int limite = tamanio_mapa - 1;
-        for(int i = 1; i < limite; i++){
-            anterior = new Casilla(anterior, new Posicion(0, i));
-            matriz[0][i] = anterior;
-        }
-        meta = new Meta(anterior, new Posicion(0, limite));
-        matriz[0][limite] = meta;
-    }
-
-    private void crearTierras() {
-        int limite = tamanio_mapa - 1;
-        for(int j = 1; j < limite; j++) {
-            for (int i = 0; i < tamanio_mapa; i++) {
-                matriz[j][i] = new Tierra();
-            }
-        }
-        for (int i = 0; i < tamanio_mapa; i++) {
-            matriz[limite][i] = new Rocoso();
-        }
-    }*/
-
-    public void crearParcela(Parcela unaParcela){
-        parcelas.add(unaParcela);
-    }
+    
 
     public void insertarEnemigo(Enemigo unEnemigo){
+        this.largada.moveElEnemigo(unEnemigo);
             enemigos.add(unEnemigo);
         }
 
@@ -78,12 +54,13 @@ public class Mapa {
         * . . . . . . . .
         * . . . . . . . .
         *8 R R R R R R R */
-        parcelas.add(new Largada(new Posicion(1,1)));
+        this.largada = new Largada(new Posicion(1,1));
+        parcelas.add(this.largada);
         for(int i = 2; i < 8; i++){
             parcelas.add(new Casilla(new Posicion(1,i)));
         }
         parcelas.add(new Meta(new Posicion(1,7)));
-
+        
 
     }
 
@@ -121,9 +98,9 @@ public class Mapa {
                     this.defensas.add(defensa);
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            throw new RuntimeException("No se puede construir");
         }
-
 
     }
 
@@ -147,24 +124,24 @@ public class Mapa {
         if(enemigos.isEmpty()){
             return;
         }
-        //int danioAcumulado = 0;
-        enemigos.stream().forEach(e -> /*contador +=*/ e.moverse(parcelas));
+        enemigos.forEach(e -> e.moverse(parcelas));
         enemigosMuertos.addAll(enemigos.stream().filter(Enemigo::muerto).collect(Collectors.toList()));
         enemigos.removeIf(Enemigo::muerto);
-        //return danioAcumulado;
+     
     }
-
-    public int danioDeEnemigos() {
-        return 0;
-    }
-
+    
     public boolean sinEnemigos() {
         return enemigos.size() == 0;
-        //return enemigos.stream().allMatch(Enemigo::muerto);
     }
 
     public void agregarParcelaEnPosicion(Parcela parcela, Posicion posicion) {
         parcela.establecerPosicion(posicion);
         parcelas.add(parcela);
+    }
+
+    public void iniciarLargada() {
+        // aca va la logica para encontrar la largada
+        //this.largada = parcelas.stream().filter(p -> p.puedeSerLargada()).findAny();
+        this.largada = new Largada(new Posicion(1,2)); // hardcodeada
     }
 }
