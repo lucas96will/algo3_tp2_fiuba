@@ -3,23 +3,23 @@ package edu.fiuba.algo3.modelo.Partida;
 import edu.fiuba.algo3.modelo.Contador;
 import edu.fiuba.algo3.modelo.Recurso;
 
-public class DatosPartida {
-    private static DatosPartida datosPartida;
+public class DatosJugador {
+    private static DatosJugador datosJugador;
     private int vidaJugador;
     private Recurso recursosJugador;
     private Contador contadorMuertes;
 
-    private DatosPartida(){
+    private DatosJugador(){
         vidaJugador = 100;
         recursosJugador = new Recurso(0);
         contadorMuertes = new Contador();
     }
 
-    static public DatosPartida getInstance(){
-        if(datosPartida == null) {
-            datosPartida = new DatosPartida();
+    static public DatosJugador getInstance(){
+        if(datosJugador == null) {
+            datosJugador = new DatosJugador();
         }
-        return datosPartida;
+        return datosJugador;
     }
 
     public void actualizarEstado(int vida, Recurso recursos, Contador contadorMuertes) {

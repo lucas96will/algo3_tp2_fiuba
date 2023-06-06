@@ -1,36 +1,42 @@
 package edu.fiuba.algo3.unitarias;
 
 import edu.fiuba.algo3.CargadorJson;
-import edu.fiuba.algo3.modelo.Turno;
+import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
+import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Posicion;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CargadorJsonTest {
     private final String rutaJsonEnemigos = "data/jsonTests/enemigosTest.json";
     private final String rutaJsonMapa = "data/jsonTests/mapaTest.json";
 
-    List<Turno> turnos = (new CargadorJson()).procesarEnemigos(rutaJsonEnemigos);
+    List<List<Enemigo>> enemigosPorTurno = (new CargadorJson()).procesarEnemigos(rutaJsonEnemigos);
 
     @Test
     public void laCantidadDeTurnosSeCarganCorrectamente() {
         int cantidadDeTurnosEsperada = 10;
-        //assertEquals(cantidadDeTurnosEsperada, turnos.size());
+        assertEquals(cantidadDeTurnosEsperada, enemigosPorTurno.size());
     }
 
     @Test
     public void lasUnidadesDeCadaTurnoSeCarganCorrectamente() {
-        /*assertTrue(turnos.get(0).cantidadDeMonstruosEsIgualA(1));
-        assertTrue(turnos.get(1).cantidadDeMonstruosEsIgualA(2));
-        assertTrue(turnos.get(2).cantidadDeMonstruosEsIgualA(3));
-        assertTrue(turnos.get(3).cantidadDeMonstruosEsIgualA(1));
-        assertTrue(turnos.get(4).cantidadDeMonstruosEsIgualA(2));
-        assertTrue(turnos.get(5).cantidadDeMonstruosEsIgualA(3));
-        assertTrue(turnos.get(6).cantidadDeMonstruosEsIgualA(1));
-        assertTrue(turnos.get(7).cantidadDeMonstruosEsIgualA(1));
-        assertTrue(turnos.get(8).cantidadDeMonstruosEsIgualA(1));
-        assertTrue(turnos.get(9).cantidadDeMonstruosEsIgualA(2));*/
+        assertEquals(1, enemigosPorTurno.get(0).size());
+        assertEquals(2, enemigosPorTurno.get(1).size());
+        assertEquals(3, enemigosPorTurno.get(2).size());
+        assertEquals(1, enemigosPorTurno.get(3).size());
+        assertEquals(2, enemigosPorTurno.get(4).size());
+        assertEquals(3, enemigosPorTurno.get(5).size());
+        assertEquals(1, enemigosPorTurno.get(6).size());
+        assertEquals(1, enemigosPorTurno.get(7).size());
+        assertEquals(1, enemigosPorTurno.get(8).size());
+        assertEquals(2, enemigosPorTurno.get(9).size());
     }
 
     @Test
@@ -38,7 +44,7 @@ public class CargadorJsonTest {
         CargadorJson cargadorJson = new CargadorJson();
         String rutaJsonEnemigosIncorrecto = "data/jsonTests/enemigosTestIncorrecto.json";
 
-//        assertThrows(RutaInvalidaException.class, () -> cargadorJson.procesarEnemigos(rutaJsonEnemigosIncorrecto));
+        assertThrows(RutaInvalidaException.class, () -> cargadorJson.procesarEnemigos(rutaJsonEnemigosIncorrecto));
     }
 
 
@@ -47,7 +53,7 @@ public class CargadorJsonTest {
         CargadorJson cargadorJson = new CargadorJson();
         String rutaJsonMapaIncorrecto = "data/jsonTests/mapaTestIncorrecto.json.json";
 
-//        assertThrows(RutaInvalidaException.class, () -> cargadorJson.procesarMapa(rutaJsonMapaIncorrecto));
+        assertThrows(RutaInvalidaException.class, () -> cargadorJson.procesarMapa(rutaJsonMapaIncorrecto));
     }
 
     @Test
@@ -60,8 +66,10 @@ public class CargadorJsonTest {
         CargadorJson cargadorJson = new CargadorJson();
         Mapa mapa = cargadorJson.procesarMapa(rutaJsonMapa);
 
-        //TorreBlanca torreBlanca = new TorreBlanca(1,7);
-       //mapa.construir(torreBlanca);
+        TorreBlanca torreEnPosicionValida = new TorreBlanca(10, 1, 3,new EstadoDefensaIncompleto(1));
+        TorreBlanca torreEnPosicionInvalida = new TorreBlanca(10, 1, 3,new EstadoDefensaIncompleto(1));
+
+        //assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida));
 
         //assertTrue(mapa.sinEnemigos());
     }

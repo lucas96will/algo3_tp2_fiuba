@@ -18,7 +18,7 @@ public class DefensaTest {
     public void defensaTardaEnConstruirseLoQueDice() {
         //Verificarquecadadefensatardeenconstruirse lo que dice que tarda y que recién están
         // “operativas” cuando ya se terminaron de construir.
-        Defensa torreBlanca = new TorreBlanca(new Posicion(1,1), new EstadoDefensaIncompleto(1));
+        Defensa torreBlanca = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
         Largada largada = new Largada( new Posicion(0,0));
         Pasarela pasarela = new Casilla(new Posicion(0,1));
         Meta meta = new Meta(new Posicion(0,2));

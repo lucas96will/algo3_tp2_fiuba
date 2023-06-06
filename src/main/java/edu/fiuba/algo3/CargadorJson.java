@@ -1,9 +1,12 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.modelo.Enemigo.Arania;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Mapa;
-import edu.fiuba.algo3.modelo.Turno;
+import edu.fiuba.algo3.modelo.Posicion;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -30,9 +33,9 @@ public class CargadorJson {
         }
     }
 
-    public List<Turno> procesarEnemigos(String rutaJsonEnemigos){
+    public List< List<Enemigo> > procesarEnemigos(String rutaJsonEnemigos){
         //recibe un json y procesa los enemigos para devolverlos en una lista.
-        List<Turno> turnos = new ArrayList<>();
+        List< List<Enemigo> > listaDeEnemigosPorTurno = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
         try {
@@ -41,8 +44,8 @@ public class CargadorJson {
             JSONArray listaDeEnemigosJson = (JSONArray) parser.parse(lector);
 
             //Itero sobre el archivo
-            listaDeEnemigosJson.forEach(enemigosJson -> guardarEnemigoEnLista(turnos, (JSONObject) enemigosJson));
-            return turnos;
+            listaDeEnemigosJson.forEach(enemigosJson -> guardarEnemigoEnLista(listaDeEnemigosPorTurno, (JSONObject) enemigosJson));
+            return listaDeEnemigosPorTurno;
 
         } catch (IOException e) {
             throw new RutaInvalidaException();
@@ -52,8 +55,8 @@ public class CargadorJson {
         }
     }
 
-    private void guardarEnemigoEnLista(List<Turno> turnos, JSONObject jsonEnemigos) {
-        /*// Leo numero de turno
+    private void guardarEnemigoEnLista(List< List<Enemigo> > listaDeEnemigosPorTurno, JSONObject jsonEnemigos) {
+        // Leo numero de turno
         long numeroDeTurno = (long) jsonEnemigos.get("turno");
 
         // Obtengo el objeto que contiene "enemigos:"
@@ -67,17 +70,14 @@ public class CargadorJson {
 
         // Guardo los enemigos
         for(long i = 0; i < cantidadHormigas; i++) {
-            enemigosTurnoActual.add(Enemigo.crearHormiga());
+            enemigosTurnoActual.add(new Hormiga(1,1,1,1,1, new Posicion(0,0)));
         }
 
         for(long i = 0; i < cantidadAranias; i++) {
-            enemigosTurnoActual.add(Enemigo.crearArania());
+            enemigosTurnoActual.add(new Arania(2,2,2,2,2, new Posicion(0,0)));
         }
 
-        // Creo el turno con el numero de turno y la lista de enemigos.
-        Turno turnoActual = new Turno(numeroDeTurno, enemigosTurnoActual);
-
-        turnos.add(turnoActual);*/
+        listaDeEnemigosPorTurno.add(enemigosTurnoActual);
     }
 
     public Mapa procesarMapa(String rutaJsonMapa) {

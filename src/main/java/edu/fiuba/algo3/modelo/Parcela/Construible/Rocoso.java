@@ -9,10 +9,6 @@ public class Rocoso extends Construible{
     public Rocoso(Posicion unaPosicion) {
         super(unaPosicion);
     }
-    @Override
-    public boolean construirDefensa(Defensa defensa){
-        return false;
-    }
 
     @Override
     public void insertarDefensa(Defensa defensa) throws Exception {
@@ -24,8 +20,5 @@ public class Rocoso extends Construible{
         return false;
     }
 
-    @Override
-    public Posicion getPosicion() {
-        return this.posicion;
-    }
+
 }

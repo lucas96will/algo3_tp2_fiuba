@@ -11,17 +11,16 @@ import java.util.List;
 public abstract class Defensa {
     protected int costeEnCreditos;
     protected int rango;
-    protected final Posicion posicion;
+    protected Posicion posicion;
     protected int danio;
     protected EstadoDefensa estado;
-
-    public Defensa(Posicion posicion) {
-        this.posicion = posicion;
-    }
-
-    public Defensa(Posicion posicion, EstadoDefensa unEstadoDefensa) {
-        this.posicion = posicion;
+    
+    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa) {
+        this.posicion = null;
         this.estado = unEstadoDefensa;
+        this.costeEnCreditos = costo;
+        this.rango = rango;
+        this.danio = danio;
     }
 
     public boolean comprate(Recurso recurso) {
@@ -47,5 +46,13 @@ public abstract class Defensa {
 
     public Posicion getPosicion() {
         return posicion;
+    }
+
+    public boolean tieneLaMismaPosicion(Posicion posicion) {
+        return this.posicion.esIgual(posicion);
+    }
+    
+    public void establecerPosicion(Posicion posicion) {
+        this.posicion = posicion;
     }
 }

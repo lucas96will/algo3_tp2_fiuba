@@ -25,4 +25,14 @@ public abstract class Construible implements Parcela {
     public boolean tieneConstruccion() {
         return (this.defensa != null);
     }
+
+    @Override
+    public boolean tieneLaMismaPosicion(Posicion... posiciones) {
+        return this.posicion.esIgual(posiciones);
+    }
+
+    @Override
+    public boolean estaEnRangoLateralesA(Posicion posicion) {
+        return this.posicion.estaEnRangoLaterales(posicion);
+    }
 }

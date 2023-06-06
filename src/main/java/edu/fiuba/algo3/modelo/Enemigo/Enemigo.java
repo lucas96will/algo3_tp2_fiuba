@@ -1,8 +1,7 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
-import edu.fiuba.algo3.modelo.Partida.DatosPartida;
+import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 import edu.fiuba.algo3.modelo.Posicion;
 
 import java.util.List;
@@ -63,21 +62,28 @@ public abstract class Enemigo {
             k = 0;
             while(k < parcelas.size() && !seMovio){
                 unaParcela = parcelas.get(k);
-                if(this.posicion.estaEnRangoLaterales(unaParcela.getPosicion())
-                                    && (posicionAnterior == null || !unaParcela.getPosicion().esIgual(this.posicion, this.posicionAnterior))){
+                if(this.mePuedoMoverAEstaParcela(unaParcela)){
                     seMovio = unaParcela.moveElEnemigo(this);
                 }
                 k++;
             }
-            if(!seMovio){
-                //lógica meta (podria ir un return danio)
-                DatosPartida datosPartida = DatosPartida.getInstance();
-                datosPartida.reducirVidaJugador(this.danio);
-                this.muerto = true;
-            }
+            this.daniarAlJugador(!seMovio);
         }
 
+    }
 
+    private boolean mePuedoMoverAEstaParcela(Parcela parcela) {
+        return parcela.estaEnRangoLateralesA(this.posicion)
+                && (posicionAnterior == null || !parcela.tieneLaMismaPosicion(this.posicion, this.posicionAnterior));
+    }
 
+    private void daniarAlJugador(boolean llegueALaMeta){
+        //lógica meta (podria ir un return danio)
+        if(!llegueALaMeta){
+            return;
+        }
+        DatosJugador datosJugador = DatosJugador.getInstance();
+        datosJugador.reducirVidaJugador(this.danio);
+        this.muerto = true;
     }
 }

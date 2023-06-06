@@ -10,21 +10,23 @@ public class Tierra extends Construible{
     }
 
     @Override
-    public void insertarDefensa(Defensa defensa) throws Exception {
-        if (this.defensa == null){
+    public void insertarDefensa(Defensa defensa){
+        /*if (defensa.tieneLaMismaPosicion(this.posicion)){
             this.defensa = defensa;
+            return true;
         } else {
-            throw new Exception("Defensa ya construida en ese posicion.");
-        }
-    }
+            throw new Exception("Defensa no se puede construir.");
+        }*/
 
-    @Override
-    public boolean construirDefensa(Defensa defensa){
-        if(!this.posicion.esIgual(defensa.getPosicion())){
-            return false;
-        }
-        this.defensa = defensa;
-        return true;
+        /*if(this.defensa == null && defensa.tieneLaMismaPosicion(this.posicion)){
+            this.defensa = defensa;
+            defensa.establecerPosicion(this.posicion);
+            
+        } else {
+            throw new Exception("Defensa no se puede construir.");
+        }*/
+        defensa.establecerPosicion(posicion);
+        
     }
 
     @Override
@@ -32,8 +34,6 @@ public class Tierra extends Construible{
         return false;
     }
 
-    @Override
-    public Posicion getPosicion() {
-        return this.posicion;
-    }
+
+
 }

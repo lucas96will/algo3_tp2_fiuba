@@ -26,10 +26,6 @@ public abstract class Pasarela implements Parcela {
     public void moverEnemigos() {
     }
 
-    public Posicion getPosicion() {
-        return posicion;
-    }
-
     public void setPosicion(Posicion posicion) {
         posicion = posicion;
     }
@@ -39,4 +35,13 @@ public abstract class Pasarela implements Parcela {
         return true;
     }
 
+    @Override
+    public boolean tieneLaMismaPosicion(Posicion... posiciones) {
+        return this.posicion.esIgual(posiciones);
+    }
+
+    @Override
+    public boolean estaEnRangoLateralesA(Posicion posicion) {
+        return this.posicion.estaEnRangoLaterales(posicion);
+    }
 }

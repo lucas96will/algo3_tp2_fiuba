@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Posicion;
 
 public class Partida {
     private Jugador jugador;
@@ -28,12 +29,10 @@ public class Partida {
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
     }
-    public Boolean construir(Defensa defensa){
-        boolean seConstruyo = false;
-        if(jugador.comprarDefensa(defensa)) {
-            seConstruyo = mapa.construir(defensa);
+    public void construir(Defensa defensa, Posicion posicion){
+        if (jugador.comprarDefensa(defensa)) {
+            mapa.construir(defensa, posicion);
         }
-        return seConstruyo;
     }
 
     public boolean terminarPartida(){

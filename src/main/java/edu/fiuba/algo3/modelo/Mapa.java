@@ -102,14 +102,26 @@ public class Mapa {
     }
 
 
-    public boolean construir(Defensa defensa){
+    public void construir(Defensa defensa, Posicion posicion) {
         // que no haya una defensa en la misma posicion
-        boolean condicion = false;
-        for(Parcela parcela: parcelas){
-            condicion = parcela.construirDefensa(defensa);
+        if(defensas.stream().anyMatch(d -> d.tieneLaMismaPosicion(posicion))){
+            return;
         }
-        defensas.add(defensa);
-        return condicion;
+        Parcela parcelaElegida = parcelas.stream()
+                .filter(p -> p.tieneLaMismaPosicion(posicion))
+                .findFirst().orElse(null);
+
+        try {
+            if(parcelaElegida != null){
+                parcelaElegida.insertarDefensa(defensa);
+                if(defensa.tieneLaMismaPosicion(posicion)){
+                    this.defensas.add(defensa);
+                }
+            }
+        } catch (Exception ignored) {
+        }
+
+
     }
 
     public void actualizarEstadoDefensas() {

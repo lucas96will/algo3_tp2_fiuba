@@ -67,7 +67,7 @@ public class TorrePlateadaTest {
     public void seConstruyeDespuesDeDosTurnos() {
         EstadoDefensaIncompleto incompletoMock= mock(EstadoDefensaIncompleto.class);
         EstadoDefensaCompleto completoMock = mock(EstadoDefensaCompleto.class);
-        TorrePlateada torrePlateada = new TorrePlateada(new Posicion(1,5), incompletoMock);
+        TorrePlateada torrePlateada = new TorrePlateada(20, 2, 5, incompletoMock);
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {

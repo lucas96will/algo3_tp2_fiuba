@@ -1,7 +1,7 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Mapa;
-import edu.fiuba.algo3.modelo.Turno;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class JuegoFacade {
         if(!archivoLoader.archivoEsCorrecto(jsonEnemigos, jsonMapa)){
             return false;
         }
-        List<Turno> turnos = archivoLoader.procesarEnemigos(jsonEnemigos);
+        List<List<Enemigo>> turnos = archivoLoader.procesarEnemigos(jsonEnemigos);
         Mapa mapa = archivoLoader.procesarMapa(jsonMapa);
 
         juegoControlador.correrPartida(turnos, mapa);

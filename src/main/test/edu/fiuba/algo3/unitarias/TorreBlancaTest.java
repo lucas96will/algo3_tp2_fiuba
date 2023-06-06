@@ -66,7 +66,7 @@ public class TorreBlancaTest {
     public void seConstruyeDespuesDeUnTurno() {
         EstadoDefensaIncompleto incompletoMock= mock(EstadoDefensaIncompleto.class);
         EstadoDefensaCompleto completoMock = mock(EstadoDefensaCompleto.class);
-        TorreBlanca torreBlanca = new TorreBlanca(new Posicion(1,5), incompletoMock);
+        TorreBlanca torreBlanca = new TorreBlanca(10, 1, 3, incompletoMock);
 
         doAnswer(new Answer() {
             @Override
