@@ -53,5 +53,8 @@ public class Partida {
         return creditosValor == jugador.valorCreditos();
     }
 
+    public EstadoPartida estado() {
+        return new EstadoPartida(this.jugador, this.mapa);
+    }
     
 }

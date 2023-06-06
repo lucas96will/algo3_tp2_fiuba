@@ -4,22 +4,14 @@ public class Contador {
 
     private int contadorAraniasMuertas;
     private int contadorHormigasMuertas;
-    private static Contador contador;
     
-    
-    private Contador() {
+    public Contador() {
         this.contadorAraniasMuertas = 0;
         this.contadorHormigasMuertas = 0;
     }
+  
     
-     public static Contador getInstance(){
-        if(Contador.contador == null){
-            return new Contador();
-        }
-        return Contador.contador;
-    }
-    
-    public void incrementarContadorArania(){
+    public void incrementarContadorAranias(){
         this.contadorAraniasMuertas++;
     }
     
@@ -27,7 +19,7 @@ public class Contador {
         this.contadorHormigasMuertas++;
     }
 
-    public int getMuertesHormiga() {
+    public int obtenerMuertesHormigas() {
         return contadorHormigasMuertas;
     }
 }

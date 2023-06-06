@@ -132,7 +132,11 @@ public class Mapa {
         if(enemigos.isEmpty()){
             return;
         }
-        enemigos.stream().forEach(e -> e.moverse(parcelas));
+        //int danioAcumulado = 0;
+        enemigos.stream().forEach(e -> /*contador +=*/ e.moverse(parcelas));
+        enemigosMuertos.addAll(enemigos.stream().filter(Enemigo::muerto).collect(Collectors.toList()));
+        enemigos.removeIf(Enemigo::muerto);
+        //return danioAcumulado;
     }
 
     public int danioDeEnemigos() {

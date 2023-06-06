@@ -10,12 +10,12 @@ public class DatosPartida {
     private Contador contadorMuertes;
 
     private DatosPartida(){
-        this.datosPartida = new DatosPartida();
+
     }
 
     static public DatosPartida getInstance(){
-        if(DatosPartida.datosPartida == null) {
-            return new DatosPartida();
+        if(datosPartida == null) {
+            datosPartida = new DatosPartida();
         }
         return datosPartida;
     }
@@ -26,4 +26,23 @@ public class DatosPartida {
         this.contadorMuertes = contadorMuertes;
     }
 
+    public void incrementarContadorAranias(){
+        contadorMuertes.incrementarContadorAranias();
+    }
+
+    public void incrementarContadorHormigas(){
+        contadorMuertes.incrementarContadorHormigas();
+    }
+
+    public int obtenerMuertesHormigas() {
+        return contadorMuertes.obtenerMuertesHormigas();
+    }
+
+    public int obtenerVidaJugador() {
+        return vidaJugador;
+    }
+
+    public void reducirVidaJugador(int danio) {
+        this.vidaJugador -= danio;
+    }
 }

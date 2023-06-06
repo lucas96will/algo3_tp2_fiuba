@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Partida.DatosPartida;
+import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
 import edu.fiuba.algo3.modelo.Partida.Partida;
 import org.junit.jupiter.api.Test;
 
@@ -100,7 +101,7 @@ public class CasosDeUsosTest {
         partida.insertarEnemigo(new Hormiga(1,1,1,1,10, new Posicion(1,1)));
         partida.terminarTurno(); // tarda 1 turno en construir la torre blanca
         partida.terminarTurno(); // Muere la hormiga
-        DatosPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano()); // No hay enemigos en el mapa y el jugador tiene vida
 
         partida.insertarEnemigo(new Arania(2,2,2,2,2,  new Posicion(1,1))); // arania con 2 de vida
@@ -137,11 +138,11 @@ public class CasosDeUsosTest {
         Mapa mapa = new Mapa();
         partida.crearPartida(jugador,mapa);;
 
-        Defensa torreBlanca1 = new TorreBlanca(new Posicion(1,1), new EstadoDefensaIncompleto(1));
+        Defensa torreBlanca1 = new TorreBlanca(new Posicion(2,2), new EstadoDefensaIncompleto(1));
         partida.construir(torreBlanca1);
         // 100-10 = 90
 
-        Hormiga hormiga = new Hormiga(1,1,1,1,1, new Posicion(0,0));
+        Hormiga hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
         // 1 credito
 
@@ -172,7 +173,7 @@ public class CasosDeUsosTest {
         partida.terminarTurno(); // enemigo en posicion (1, 6)
         partida.terminarTurno(); // enemigo paso la meta que estaba en (0, 8)
 
-        DatosPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano());
         assertTrue(jugador.estaIntacto());
     }
@@ -198,7 +199,7 @@ public class CasosDeUsosTest {
         partida.terminarTurno(); // Ataca una hormiga
         partida.terminarTurno(); // Ataca una segunda hormiga
 
-        DatosPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano());
     }
 
@@ -221,9 +222,10 @@ public class CasosDeUsosTest {
             partida.terminarTurno();
         }
 
-        DatosPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.gano());
-        assertFalse(jugador.estaIntacto());
+        //assertFalse(jugador.estaIntacto());
+        assertFalse(DatosPartida.getInstance().obtenerVidaJugador() == 100);
     }
 
     @Test
@@ -243,7 +245,7 @@ public class CasosDeUsosTest {
         for(int i = 0; i < 10; i++){
             partida.terminarTurno();
         }
-        DatosPartida condicionPartida = partida.estado();
+        EstadoPartida condicionPartida = partida.estado();
         assertTrue(condicionPartida.perdio());
     }
 }

@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Partida.DatosPartida;
 
 public class Jugador {
     private Recurso recurso;
@@ -14,6 +15,9 @@ public class Jugador {
         vidaMaxima = unaVida;
         nombre = unNombre;
         jugadorIntacto = true;
+        DatosPartida datosPartida = DatosPartida.getInstance();
+        Contador contador = new Contador();
+        datosPartida.actualizarEstado(this.vida, this.recurso, contador);
     }
     public static Jugador crearJugadorBase(String unNombre){
         return new Jugador(new Recurso(100), 10, unNombre);
@@ -24,7 +28,9 @@ public class Jugador {
         return defensa.comprate(recurso);
     }
     public boolean muerto(){
-        return vida <= 0;
+        //refactorizar
+        DatosPartida datosPartida = DatosPartida.getInstance();
+        return datosPartida.obtenerVidaJugador() <= 0;
     }
     public boolean estaIntacto(){
         return vida == vidaMaxima;
