@@ -1,10 +1,12 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.unitarias;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Partida;
+import edu.fiuba.algo3.modelo.Partida.Partida;
+import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +22,7 @@ public class EnemigoTest {
         Jugador jugador = new Jugador(new Recurso(10), 100, "Josecito");
         partida.crearPartidaGenerica(jugador);
 
-        Enemigo hormiga = Enemigo.crearHormiga(null);
+        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
 
         for(int i = 0; i < 8; i++){

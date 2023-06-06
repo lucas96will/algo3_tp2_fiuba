@@ -19,9 +19,7 @@ public class Jugador {
         return new Jugador(new Recurso(100), 10, unNombre);
     }
 
-    public void recibirDanio(int danio){
-        vida -= danio;
-    }
+
     public boolean comprarDefensa(Defensa defensa){
         return defensa.comprate(recurso);
     }

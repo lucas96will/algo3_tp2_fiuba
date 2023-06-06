@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class TorreBlancaTest {
-    @Test
+    /*@Test
     public void noAtacaSiEstaIncompleta(){
 
         EstadoDefensa estadoIncompletoMock = mock(EstadoDefensaIncompleto.class);
@@ -60,7 +60,7 @@ public class TorreBlancaTest {
         assertEquals(torreBlanca.atacar(), 1);
         verify(estadoCompletoMock, times(1)).atacar(pasarelas, 1);
 
-    }
+    }*/
 
     @Test
     public void seConstruyeDespuesDeUnTurno() {

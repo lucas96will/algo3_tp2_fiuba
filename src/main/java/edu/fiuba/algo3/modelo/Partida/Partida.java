@@ -12,8 +12,9 @@ public class Partida {
     public Partida(){}
     public void crearPartidaGenerica(Jugador jugador){
         this.jugador = jugador;
-        mapa = new Mapa(7);
+        mapa = new Mapa();
         mapa.crearMapaGenerico();
+        
     }
     public void crearPartida(Jugador jugador, Mapa mapa){
         this.jugador = jugador;
@@ -24,7 +25,6 @@ public class Partida {
         int recompensa = 0;
         recompensa = mapa.defensasAtacar();
         jugador.sumarMonedas(recompensa);
-        aplicarDanioEnemigos();
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
     }
@@ -47,15 +47,11 @@ public class Partida {
         mapa.insertarEnemigo(enemigo);
     }
 
-    public void aplicarDanioEnemigos() {
-        jugador.recibirDanio(mapa.danioDeEnemigos());
-    }
+
 
     public boolean jugadorTieneTantosCreditos(int creditosValor) {
         return creditosValor == jugador.valorCreditos();
     }
 
-    public EstadoPartida estado() {
-        return new EstadoPartida(this.jugador, this.mapa);
-    }
+    
 }

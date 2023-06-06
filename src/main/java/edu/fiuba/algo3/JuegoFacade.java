@@ -1,6 +1,7 @@
 package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Turno;
 
 import java.util.List;
 

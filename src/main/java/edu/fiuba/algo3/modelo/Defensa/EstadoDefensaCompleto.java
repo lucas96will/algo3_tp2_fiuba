@@ -14,41 +14,11 @@ public class EstadoDefensaCompleto implements EstadoDefensa{
     }
     @Override
     public int atacar(List<Pasarela> pasarelasEnRango, int danio) {
-        if (pasarelasEnRango.size() == 0){
-            return 0;
-        }
-
-        Iterator<Pasarela> iterador = pasarelasEnRango.iterator();
-        int creditos = 0;
-
-        while(noAtacoEnEsteTurno && iterador.hasNext()) {
-            creditos = creditos + iterador.next().atacarConEstado(this, danio);
-        }
-
-        noAtacoEnEsteTurno = true;
-        //En pasarela
-        /*if(posicion.estaEnRango(rango, pasarela.posicion) && noAtacoEnEsteTurno){
-            int creditos = pasarela.atacarAlPrimerEnemigo(danio);
-            if(creditos != -1){
-                noAtacoEnEsteTurno = false;
-                return creditos;
-            }
-        }*/
-        return creditos;
+        return 0;
     }
 
     public int atacarEnemigos(Pasarela pasarela, List<Enemigo> enemigos, int danio) {
-        if (enemigos.size() == 0) {
-            return 0;
-        }
-        int creditos = 0;
-        Iterator<Enemigo> iterador = enemigos.iterator();
-        while (noAtacoEnEsteTurno && iterador.hasNext()) {
-            creditos = creditos + iterador.next().recibirDanio(danio, pasarela);
-            noAtacoEnEsteTurno = false;
-        }
-
-        return creditos;
+        return 0;
     }
 
     @Override

@@ -1,13 +1,9 @@
 package edu.fiuba.algo3;
 
-import edu.fiuba.algo3.Excepciones.EnemigosJsonParseException;
-import edu.fiuba.algo3.Excepciones.RutaInvalidaException;
-import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
+import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Mapa;
-import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Parcela.ParcelaFactory;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
+import edu.fiuba.algo3.modelo.Turno;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -57,7 +53,7 @@ public class CargadorJson {
     }
 
     private void guardarEnemigoEnLista(List<Turno> turnos, JSONObject jsonEnemigos) {
-        // Leo numero de turno
+        /*// Leo numero de turno
         long numeroDeTurno = (long) jsonEnemigos.get("turno");
 
         // Obtengo el objeto que contiene "enemigos:"
@@ -81,10 +77,11 @@ public class CargadorJson {
         // Creo el turno con el numero de turno y la lista de enemigos.
         Turno turnoActual = new Turno(numeroDeTurno, enemigosTurnoActual);
 
-        turnos.add(turnoActual);
+        turnos.add(turnoActual);*/
     }
 
     public Mapa procesarMapa(String rutaJsonMapa) {
+        /*
         JSONParser parser = new JSONParser();
         try {
             FileReader lector = new FileReader(rutaJsonMapa);
@@ -101,7 +98,7 @@ public class CargadorJson {
                     if(!largadaEncontrada && nombreParcela.equals("Pasarela")){
                         nombreParcela = "Largada";
                     }
-                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), i/*Fila*/, j/*Columna*/);
+                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), i*//*Fila*//*, j*//*Columna*//*);
                 }
             }
 
@@ -109,7 +106,8 @@ public class CargadorJson {
             throw new RutaInvalidaException();
         } catch (ParseException p) {
             p.printStackTrace();
-        }
+        }*/
         return null;
+
     }
 }

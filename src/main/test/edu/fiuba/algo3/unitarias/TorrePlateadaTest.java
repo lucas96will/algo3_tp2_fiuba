@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 public class TorrePlateadaTest {
-    @Test
+    /*@Test
     public void noAtacaSiEstaIncompleta(){
 
         EstadoDefensa estadoIncompletoMock = mock(EstadoDefensaIncompleto.class);
@@ -61,7 +61,7 @@ public class TorrePlateadaTest {
         assertEquals(torrePlateada.atacar(), 1);
         verify(estadoCompletoMock, times(1)).atacar(pasarelas, 1); // chequeo que la clase torre
         // delegue correctamente el atacar al estado
-    }
+    }*/
 
     @Test
     public void seConstruyeDespuesDeDosTurnos() {

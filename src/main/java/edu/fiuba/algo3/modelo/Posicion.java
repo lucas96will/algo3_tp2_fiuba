@@ -1,5 +1,12 @@
 package edu.fiuba.algo3.modelo;
 
+
+
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class Posicion {
     private int fila;
     private int columna;
@@ -14,7 +21,25 @@ public class Posicion {
         int dist_horizontal = Math.abs(columna - posicion.columna);
         int dist = Math.max(dist_horizontal, dist_vertical);
 
-        return Math.abs(dist) <= rango;
+        return dist <= rango;
+    }
+
+    public boolean estaEnRangoLaterales(Posicion posicion){
+        //(2,2) -> (2,3) derecha (0,-1) true
+        //(2,2) -> (3,2) abajo (-1,0) true
+        //(2,2) -> (1,2) arriba (1,0) true
+        //(2,2) -> (2,1) izquierda (0,1) true
+        //(2,2) -> (3,3) diagonal abajo izquierda (1,1) false
+
+        //(2,2) -> (3,3) rango = 2 (-1,-1) -> = 2
+
+        int distLateral = Math.abs(fila - posicion.fila) + Math.abs(columna - posicion.columna);
+        return distLateral == 1;
+     }
+
+    public boolean esIgual(Posicion ... unasPosiciones) {
+        List<Posicion> posiciones = Arrays.asList(unasPosiciones);
+        return posiciones.stream().anyMatch(p -> p.fila == this.fila && p.columna == this.columna);
     }
 
     public int getFila() {

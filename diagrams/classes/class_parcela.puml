@@ -1,0 +1,53 @@
+@startuml
+class Parcela.Construible.Rocoso {
++ boolean construirDefensa(Defensa)
+}
+class Parcela.Pasarela.Pasarela {
++ Pasarela anterior
++ Pasarela siguiente
+# ArrayList<Enemigo> enemigosEncima
++ Posicion posicion
++ boolean construirDefensa(Defensa)
++ void fijarSiguiente(Pasarela)
++ void insertarEnemigo(Enemigo)
++ int atacarAlPrimerEnemigo(int)
++ boolean noLlegoAlaLargada()
++ boolean llegoAlaMeta()
++ void moverEnemigos()
++ void eliminarEnemigo(Enemigo)
++ boolean sinEnemigos()
++ int atacarConEstado(EstadoDefensaCompleto,int)
++ Pasarela getAnterior()
++ Pasarela getSiguiente()
++ Posicion getPosicion()
++ void setPosicion(Posicion)
+}
+class Parcela.Construible.Tierra {
+}
+interface Parcela.Parcela {
++ boolean construirDefensa(Defensa)
++ void insertarEnemigo(Enemigo)
+}
+class Parcela.Pasarela.Casilla {
+}
+class Parcela.Pasarela.Meta {
++ int danioTotal()
+}
+class Parcela.Construible.Construible {
+# Defensa defensa
++ boolean construirDefensa(Defensa)
++ void insertarEnemigo(Enemigo)
++ boolean tieneConstruccion()
+}
+class Parcela.Pasarela.Largada {
+}
+
+
+Parcela.Construible.Construible <|-- Parcela.Construible.Rocoso
+Parcela.Parcela <|.. Parcela.Pasarela.Pasarela
+Parcela.Construible.Construible <|-- Parcela.Construible.Tierra
+Parcela.Pasarela.Pasarela <|-- Parcela.Pasarela.Casilla
+Parcela.Pasarela.Pasarela <|-- Parcela.Pasarela.Meta
+Parcela.Parcela <|.. Parcela.Construible.Construible
+Parcela.Pasarela.Pasarela <|-- Parcela.Pasarela.Largada
+@enduml

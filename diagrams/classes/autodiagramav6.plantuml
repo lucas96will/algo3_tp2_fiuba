@@ -1,0 +1,187 @@
+@startuml
+class modelo.Enemigo.Enemigo {
+- int danio
+- int vida
+- int velocidad
+- int energia
+- int recompensa
+- int id
++ int recibirDanio(int,Pasarela)
+- int morir(Pasarela)
+- int entregarRecompensa()
++ int hacerDanio()
++ {static} Enemigo crearHormiga(int)
++ {static} Enemigo crearArania(int)
++ void mover(Pasarela)
++ int sumarDanio(int)
+}
+class modelo.Enemigo.Hormiga {
+}
+class modelo.CondicionPartida {
++ {static} int SE_GANO
++ {static} int SE_SIGUE_JUGANDO
++ {static} int SE_PERDIO
+- int estado
+- void actualizar(Jugador,Mapa)
++ boolean sigueJugando()
++ boolean gano()
++ boolean perdio()
++ CondicionPartida estado(Jugador,Mapa)
+}
+class modelo.Parcela.Pasarela.Pasarela {
++ Pasarela anterior
++ Pasarela siguiente
+# ArrayList<Enemigo> enemigosEncima
++ Posicion posicion
++ boolean construirDefensa(Defensa)
++ void fijarSiguiente(Pasarela)
++ void insertarEnemigo(Enemigo)
++ int atacarAlPrimerEnemigo(int)
++ boolean noLlegoAlaLargada()
++ boolean llegoAlaMeta()
++ void moverEnemigos()
++ void eliminarEnemigo(Enemigo)
++ boolean sinEnemigos()
++ int atacarConEstado(EstadoDefensaCompleto,int)
++ Pasarela getAnterior()
++ Pasarela getSiguiente()
++ Posicion getPosicion()
++ void setPosicion(Posicion)
+}
+abstract class modelo.Defensa.Defensa {
+# int costeEnCreditos
+# int rango
+- Posicion posicion
+# int danio
+# EstadoDefensa estado
+# List<Pasarela> pasarelasEnRango
++ void establecerPasarelasEnRango(Meta)
++ boolean comprate(Recursos)
++ void establecerEstado(EstadoDefensa)
++ void siguienteEstado()
++ int atacar()
++ Posicion getPosicion()
+}
+class modelo.Parcela.Construible.Construible {
+# Defensa defensa
++ boolean construirDefensa(Defensa)
++ void insertarEnemigo(Enemigo)
++ boolean tieneConstruccion()
+}
+class modelo.Defensa.EstadoDefensaCompleto {
+- boolean noAtacoEnEsteTurno
++ int atacar(List<Pasarela>,int)
++ int atacarEnemigos(Pasarela,List<Enemigo>,int)
++ void siguienteEstado(Defensa)
+}
+class modelo.Localize {
+# String esContent
+# String usContent
++ String greet(String)
+}
+class modelo.Recursos {
+- int creditos
++ boolean gastar(int)
++ int valorMonetario()
++ void sumarMonedas(int)
+}
+class modelo.Posicion {
+- int fila
+- int columna
++ boolean estaEnRango(int,Posicion)
++ int getFila()
++ int getColumna()
+}
+class modelo.Message {
++ String greet()
+}
+class modelo.Parcela.Construible.Rocoso {
++ boolean construirDefensa(Defensa)
+}
+class modelo.Parcela.Construible.Tierra {
+}
+class modelo.Defensa.EstadoDefensaIncompleto {
+- int tiempoConstruccion
++ int atacar(List<Pasarela>,int)
++ void siguienteEstado(Defensa)
+}
+interface modelo.Defensa.EstadoDefensa {
++ int atacar(List<Pasarela>,int)
++ void siguienteEstado(Defensa)
+}
+class modelo.Parcela.Pasarela.Casilla {
+}
+class modelo.Parcela.Pasarela.Meta {
++ int danioTotal()
+}
+class modelo.Partida {
+- Jugador jugador
+- Mapa mapa
++ void crearPartidaGenerica(Jugador)
++ void comenzar()
++ void terminarTurno()
++ Boolean construir(Defensa)
++ boolean terminarPartida()
++ boolean jugadorTieneTodaLaVidaYMaximosCreditos()
++ void insertarEnemigo(Enemigo)
++ void aplicarDanioEnemigos()
++ boolean jugadorTieneTantosCreditos(int)
++ CondicionPartida estado()
+}
+class modelo.Mapa {
+- int tamanio_mapa
+- Parcela[][] matriz
+- Pasarela largada
+- Meta meta
+- List<Defensa> defensas
++ void crearMapaGenerico()
+- void crearPasarelasGenericas()
+- void crearTierraGenerica()
++ void insertarEnemigo(Enemigo)
++ boolean construir(Defensa)
++ void actualizarEstadoDefensas()
++ int defensasAtacar()
++ void moverEnemigos()
++ int danioDeEnemigos()
++ boolean sinEnemigos()
+}
+interface modelo.Parcela.Parcela {
++ boolean construirDefensa(Defensa)
++ void insertarEnemigo(Enemigo)
+}
+class modelo.Jugador {
+- Recursos recursos
+- int vida
+- String nombre
+- int vidaMaxima
+- boolean jugadorIntacto
++ {static} Jugador crearJugadorBase(String)
++ void recibirDanio(int)
++ boolean comprarDefensa(Defensa)
++ boolean muerto()
++ boolean estaIntacto()
++ int valorCreditos()
++ void sumarMonedas(int)
+}
+class modelo.Parcela.Pasarela.Largada {
+}
+class modelo.Defensa.TorreBlanca {
+}
+class modelo.Defensa.TorrePlateada {
+}
+
+
+modelo.Enemigo.Enemigo <|-- modelo.Enemigo.Hormiga
+modelo.Parcela.Parcela <|.. modelo.Parcela.Pasarela.Pasarela
+modelo.Parcela.Parcela <|.. modelo.Parcela.Construible.Construible
+modelo.Defensa.EstadoDefensa <|.. modelo.Defensa.EstadoDefensaCompleto
+modelo.Localize <|-- modelo.Message
+modelo.Parcela.Construible.Construible <|-- modelo.Parcela.Construible.Rocoso
+modelo.Parcela.Construible.Construible <|-- modelo.Parcela.Construible.Tierra
+modelo.Defensa.EstadoDefensa <|.. modelo.Defensa.EstadoDefensaIncompleto
+modelo.Parcela.Pasarela.Pasarela <|-- modelo.Parcela.Pasarela.Casilla
+modelo.Parcela.Pasarela.Pasarela <|-- modelo.Parcela.Pasarela.Meta
+modelo.Parcela.Pasarela.Pasarela <|-- modelo.Parcela.Pasarela.Largada
+modelo.Defensa.Defensa <|-- modelo.Defensa.TorreBlanca
+modelo.Defensa.Defensa <|-- modelo.Defensa.TorrePlateada
+@enduml

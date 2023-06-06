@@ -1,36 +1,35 @@
 package edu.fiuba.algo3.modelo;
 
 
-import edu.fiuba.algo3.modelo.Parcela.Construible.Construible;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.*;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Mapa {
-    private final int tamanio_mapa;
-    private Parcela[][] matriz;
-    private Pasarela largada;
-    private Meta meta;
+    private List<Parcela> parcelas;
     private List<Defensa> defensas;
+    private List<Enemigo> enemigos;
+    private List<Enemigo> enemigosMuertos;
 
-    public Mapa(int tamanioMapa) {
-        tamanio_mapa = tamanioMapa;
-        matriz = new Parcela[tamanioMapa][tamanioMapa];
+    public Mapa() {
+        this.parcelas = new ArrayList<>();
         this.defensas = new ArrayList<>();
-        crearPasarelas();
-        crearTierras();
+        this.enemigos = new ArrayList<>();
+        this.enemigosMuertos = new ArrayList<>();
+
+        crearMapaGenerico();
     }
 
-    private void crearPasarelas() {
+    /*private void crearPasarelas() {
         Pasarela anterior = new Largada(null, new Posicion(0,0));
         largada = anterior;
         matriz[0][0] = largada;
@@ -53,132 +52,64 @@ public class Mapa {
         for (int i = 0; i < tamanio_mapa; i++) {
             matriz[limite][i] = new Rocoso();
         }
+    }*/
+
+    public void crearParcela(Parcela unaParcela){
+        parcelas.add(unaParcela);
     }
 
+    public void insertarEnemigo(Enemigo unEnemigo){
+            enemigos.add(unEnemigo);
+        }
+
     public void crearMapaGenerico(){
-        /*
-        Mapa generico es una matriz 7x7, con un cuadro de 5x5 tierra, y la ultima linea rocoso
-        */
+        //Mapa generico es una matriz 7x7, con un cuadro de 5x5 tierra, y la ultima linea rocoso
         crearPasarelasGenericas();
         crearTierraGenerica();
     }
 
     private void crearPasarelasGenericas(){
-        Pasarela anterior = new Largada(null, new Posicion(0,0));
-        largada = anterior;
-        matriz[0][0] = largada;
-
-        for(int i = 1; i < 6; i++){
-            anterior = new Casilla(anterior, new Posicion(0, i));
-            matriz[0][i] = anterior;
+        /* 1 2 3 4 5 6 7 
+        *1 P P P P P P P 
+        *2 T T T T T T T 
+        * . . . . . . . .
+        * . . . . . . . .
+        *8 R R R R R R R */
+        parcelas.add(new Largada(new Posicion(1,1)));
+        for(int i = 2; i < 8; i++){
+            parcelas.add(new Casilla(new Posicion(1,i)));
         }
-        meta = new Meta(anterior, new Posicion(0, 6));
-        matriz[0][6] = meta;
+        parcelas.add(new Meta(new Posicion(1,7)));
+
+
     }
 
     private void crearTierraGenerica(){
-        for(int j = 1; j < 6; j++) {
-            for (int i = 0; i < 7; i++) {
-                matriz[j][i] = new Tierra();
+        /* 1 2 3 4 5 6 7 
+         *1 P P P P P P P 
+         *2 T T T T T T T 
+         * . . . . . . . .
+         * . . . . . . . .
+         *8 R R R R R R R */
+        for(int j = 2; j < 8; j++) {
+            for(int k = 1; k < 8; k++) {
+                parcelas.add(new Tierra(new Posicion(j, k)));
             }
         }
-        for (int i = 0; i < 7; i++) {
-            matriz[6][i] = new Rocoso();
+        for(int h = 1; h < 8; h++) {
+            parcelas.add(new Rocoso(new Posicion(7, h)));
         }
     }
-/* Parte de código aleatorio que se usara proximamente (seguro en la etapa gráfica)
-    private void crearPasarelasAleatorias(){
-
-        int mediador = 0;
-        int mediador_atras = 0;
-        int medio = tamanio_mapa/2;
-
-        int fila = medio;
-        int columna = 1;
-
-        int direccion_anterior =-1;
-
-        Pasarela primer_pasarela = new Largada(null);
-        largada = primer_pasarela;
-        Pasarela pasarela_anterior = crearEnMatriz(fila, columna, primer_pasarela);
-
-        // Generar dirección aleatoria
-        Random random = new Random();
 
 
-        while(columna <= tamanio_mapa) {
-            int direccion = random.nextInt(4);
-
-            switch (direccion) {
-                case 0: // Arriba
-                    if(direccion_anterior == 1){
-                        break;
-                    }
-                    if (mediador >= medio) {
-                        break;
-                    }
-                    fila--;
-                    mediador++;
-                    pasarela_anterior = crearEnMatriz(fila, columna, pasarela_anterior);
-                    break;
-                case 1: // Abajo
-                    if(direccion_anterior == 0){
-                        break;
-                    }
-                    if (mediador <= medio) {
-                        break;
-                    }
-                    fila++;
-                    mediador--;
-                    pasarela_anterior = crearEnMatriz(fila, columna, pasarela_anterior);
-                    break;
-                case 2: // Izquierda, quiero que sea la menos probable
-                    if(direccion_anterior == 3){
-                        break;
-                    }
-                    if (mediador_atras == 1) {
-                        break;
-                    }
-                    columna--;
-                    mediador_atras++;
-                    pasarela_anterior = crearEnMatriz(fila, columna, pasarela_anterior);
-                    break;
-                case 3: // Derecha
-                    if(direccion_anterior == 2){
-                        break;
-                    }
-                    columna++;
-                    mediador_atras--;
-                    pasarela_anterior = crearEnMatriz(fila, columna, pasarela_anterior);
-                    break;
-            }
-            direccion_anterior = direccion;
+    public boolean construir(Defensa defensa){
+        // que no haya una defensa en la misma posicion
+        boolean condicion = false;
+        for(Parcela parcela: parcelas){
+            condicion = parcela.construirDefensa(defensa);
         }
-
-    }
-    private Pasarela crearEnMatriz(int fila, int columna, Pasarela pasarela_anterior){
-        Pasarela pasarela = new Pasarela(pasarela_anterior);
-        matriz[fila][columna] = pasarela;
-        return pasarela;
-    }
-    */
-
-    public void insertarEnemigo(Enemigo enemigo){
-        largada.insertarEnemigo(enemigo);
-    }
-
-    public boolean construir(Defensa defensa) {
-
-        Posicion posicion = defensa.getPosicion();
-
-        defensa.establecerPasarelasEnRango(meta);
-
-        if (matriz[posicion.getFila()][posicion.getColumna()].construirDefensa(defensa)) {
-            defensas.add(defensa);
-            return true;
-        } else {
-            return false;
-        }
+        defensas.add(defensa);
+        return condicion;
     }
 
     public void actualizarEstadoDefensas() {
@@ -187,43 +118,38 @@ public class Mapa {
 
     public int defensasAtacar() {
         int recompensa = 0;
-        Pasarela recorrido = meta;
-
-
-            if(defensas.size() > 0) {
-                for (Defensa defensa : defensas) {
-                    recompensa = recompensa + defensa.atacar();
-                }
-
+        for (Defensa defensa : defensas){
+            for(Enemigo enemigo : enemigos){
+                recompensa = recompensa + defensa.atacar(enemigo);
             }
-
+            enemigosMuertos.addAll(enemigos.stream().filter(Enemigo::muerto).collect(Collectors.toList()));
+            enemigos.removeIf(Enemigo::muerto);
+        }
         return recompensa;
     }
 
     public void moverEnemigos(){
-        Pasarela recorrido = meta;
-        do {
-            recorrido = recorrido.getAnterior();
-            recorrido.moverEnemigos();
-        } while(recorrido.noLlegoAlaLargada());
+        if(enemigos.isEmpty()){
+            return;
+        }
+        enemigos.stream().forEach(e -> e.moverse(parcelas));
     }
 
     public int danioDeEnemigos() {
-        return meta.danioTotal();
+        return 0;
     }
 
     public boolean sinEnemigos() {
-        Pasarela recorrido = largada;
-        boolean pasarelaSinEnemigos = true;
-        while(pasarelaSinEnemigos && recorrido.llegoAlaMeta()) {
-            pasarelaSinEnemigos = recorrido.sinEnemigos();
-            recorrido = recorrido.getSiguiente();
-        }
-
-        return pasarelaSinEnemigos;
+        return enemigos.size() == 0;
+        //return enemigos.stream().allMatch(Enemigo::muerto);
     }
 
     public void agregarParcelaEnPosicion(Parcela parcela, int fila, int columna) {
-        matriz[fila][columna] = parcela;
+        //matriz[fila][columna] = parcela;
+        /* forma 1
+        posiciones.add(posicion(parcela, fila, columna))
+           forma 2
+        parcela.establecerPosicion(fila,columna)
+        posiciones.add(parcela)*/
     }
 }
