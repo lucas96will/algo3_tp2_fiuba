@@ -204,4 +204,24 @@ public class CasosDeUsosTest {
         estadoPartida = juego.estado();
         assertTrue(estadoPartida.gano());
     }
+
+    @Test
+    public void caso19JugadorPierdeUnaPartidaSimulada(){
+        JuegoFacade juego = new JuegoFacade();
+        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        Recurso recurso = new Recurso(20);
+        Jugador jugador = new Jugador(recurso, 20, "Messi");
+        juego.cargarJugador(jugador);
+        juego.iniciar();
+
+
+        for (int i = 0; i < 30 ; i++) {
+            juego.terminarTurno();
+        }
+
+        EstadoPartida estadoPartida = juego.estado();
+        assertFalse(estadoPartida.sigueJugando());
+        assertTrue(estadoPartida.perdio());
+
+    }
 }
