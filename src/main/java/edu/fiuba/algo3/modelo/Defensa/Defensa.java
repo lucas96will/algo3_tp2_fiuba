@@ -1,12 +1,8 @@
 package edu.fiuba.algo3.modelo.Defensa;
 
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Defensa {
     protected int costeEnCreditos;

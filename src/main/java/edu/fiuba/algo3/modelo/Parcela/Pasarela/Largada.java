@@ -14,7 +14,6 @@ public class Largada extends Pasarela {
 
     @Override
     public void insertarEnemigo(Enemigo unEnemigo) throws Exception {
-    //Hacer lógica para establecer la posicion del enemigo
     }
 
     @Override
