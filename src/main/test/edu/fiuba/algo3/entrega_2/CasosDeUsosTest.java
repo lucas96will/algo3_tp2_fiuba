@@ -130,4 +130,36 @@ public class CasosDeUsosTest {
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde deberian y la torre fue construida en tierra
     }
 
+
+    @Test
+    public void caso17JuegoSeCreaAcordeConAmbosJson() {
+        JuegoFacade juego = new JuegoFacade();
+        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        Recurso recurso = new Recurso(20);
+        Jugador jugador = new Jugador(recurso, 20, "#Singleton");
+        juego.cargarJugador(jugador);
+        juego.iniciar();
+
+        TorrePlateada torrePlateada1 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+        TorrePlateada torrePlateada2 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+
+
+        assertThrows(Exception.class, () -> {juego.construir(torrePlateada1, new Posicion(15, 2));} ); //reviso que construir tire excepcion en la parcela rocoso
+
+        juego.construir(torrePlateada2, new Posicion(10, 12));
+
+        for (int i = 0; i < 16 ; i++) {
+            juego.terminarTurno();
+        }
+
+        int muertesHormigaEsperada = 7;
+        int muertesAraniaEsperada = 7;
+
+        int contadorMuertesHormiga = DatosJugador.getInstance().obtenerMuertesHormigas();
+        int contadorMuertesArania = DatosJugador.getInstance().obtenerMuertesArania();
+
+        assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde y cuando deberian y
+        assertEquals(muertesAraniaEsperada, contadorMuertesArania);   // la torre fue construida en tierra
+
+    }
 }
