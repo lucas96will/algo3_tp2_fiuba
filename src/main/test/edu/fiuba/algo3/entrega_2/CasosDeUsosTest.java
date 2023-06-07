@@ -2,6 +2,7 @@ package edu.fiuba.algo3.entrega_2;
 
 import edu.fiuba.algo3.CargadorJson;
 import edu.fiuba.algo3.JuegoFacade;
+import edu.fiuba.algo3.modelo.Contador;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaCompleto;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
@@ -11,6 +12,7 @@ import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
 import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +20,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CasosDeUsosTest {
     private final String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
     private final String rutaJsonMapa = "data/jsonTests/mapa.json";
+    private DatosJugador datosPartidaSingleton;
+
+    @BeforeEach
+    public void setup() {
+        datosPartidaSingleton = DatosJugador.getInstance();
+        datosPartidaSingleton.actualizarEstado(20, new Recurso(100), new Contador());
+    }
 
     @Test
     public void caso13VerificarElFormatoValidoDelJsonEnemigos() {
@@ -74,13 +83,18 @@ public class CasosDeUsosTest {
     public void caso15unidadesCargadasAlMapaSonCorrectasDandoCreditosAlJugador() {
         JuegoFacade juego = new JuegoFacade();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
-        Recurso recurso = new Recurso(20);
+        Recurso recurso = new Recurso(60);
         Jugador jugador = new Jugador(recurso, 20, "#Singleton");
         juego.cargarJugador(jugador);
         juego.iniciar();
 
         TorrePlateada torrePlateada = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+        TorrePlateada torrePlateadaDos = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+        TorrePlateada torrePlateadaTres = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+
         juego.construir(torrePlateada, new Posicion(3,3));
+        juego.construir(torrePlateadaDos, new Posicion(8,3));
+        juego.construir(torrePlateadaTres, new Posicion(12,10));
 
         for(int i = 0; i < 50; i++) { // Juego termina, danio causado al jugador = 22
             juego.terminarTurno();
@@ -97,6 +111,7 @@ public class CasosDeUsosTest {
         EstadoPartida estadoPartida = juego.estado();
         assertTrue(estadoPartida.gano());
         assertTrue(recurso.valorMonetario() > 0);
+        assertEquals(20, datosJugador.obtenerVidaJugador());
 
         assertEquals(muertesAraniaEsperada, contadorMuertesArania);
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga);
@@ -116,7 +131,7 @@ public class CasosDeUsosTest {
         TorrePlateada torrePlateada2 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
 
 
-        assertThrows(Exception.class, () -> {juego.construir(torrePlateada1, new Posicion(1, 1));} ); //reviso que construir tire excepcion en la parcela rocoso
+        assertThrows(Exception.class, () -> juego.construir(torrePlateada1, new Posicion(1, 1))); //reviso que construir tire excepcion en la parcela rocoso
 
         juego.construir(torrePlateada2, new Posicion(10, 12));
 
@@ -144,7 +159,7 @@ public class CasosDeUsosTest {
         TorrePlateada torrePlateada2 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
 
 
-        assertThrows(Exception.class, () -> {juego.construir(torrePlateada1, new Posicion(15, 2));} ); //reviso que construir tire excepcion en la parcela rocoso
+        assertThrows(Exception.class, () -> juego.construir(torrePlateada1, new Posicion(15, 2))); //reviso que construir tire excepcion en la parcela rocoso
 
         juego.construir(torrePlateada2, new Posicion(10, 12));
 
@@ -152,12 +167,13 @@ public class CasosDeUsosTest {
             juego.terminarTurno();
         }
 
-        int muertesHormigaEsperada = 7;
-        int muertesAraniaEsperada = 7;
+        int muertesHormigaEsperada = 8;
+        int muertesAraniaEsperada = 6;
 
         int contadorMuertesHormiga = DatosJugador.getInstance().obtenerMuertesHormigas();
         int contadorMuertesArania = DatosJugador.getInstance().obtenerMuertesArania();
-
+        int vidaEsperada = 20;
+        assertEquals(vidaEsperada, datosPartidaSingleton.obtenerVidaJugador());
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde y cuando deberian y
         assertEquals(muertesAraniaEsperada, contadorMuertesArania);   // la torre fue construida en tierra
 

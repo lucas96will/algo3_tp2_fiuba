@@ -64,11 +64,13 @@ public abstract class Enemigo {
     }
 
     public void moverse(List<Parcela> parcelas) {
-        boolean seMovio = false;
+        //refactorizar este metodo
+        boolean seMovio;
         int k;
         Parcela unaParcela;
         for(int i = 0; i < velocidad; i++){
             k = 0;
+            seMovio = false;
             while(k < parcelas.size() && !seMovio){
                 unaParcela = parcelas.get(k);
                 if(this.mePuedoMoverAEstaParcela(unaParcela)){
@@ -76,7 +78,7 @@ public abstract class Enemigo {
                 }
                 k++;
             }
-            this.daniarAlJugador(!seMovio);
+            this.daniarAlJugador(!seMovio && (i == velocidad - 1));
         }
 
     }
