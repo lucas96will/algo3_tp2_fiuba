@@ -22,4 +22,8 @@ public class Contador {
     public int obtenerMuertesHormigas() {
         return contadorHormigasMuertas;
     }
+
+    public int obtenerMuertesAranias() {
+        return contadorAraniasMuertas;
+    }
 }

@@ -1,9 +1,11 @@
 package edu.fiuba.algo3;
 
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
+import edu.fiuba.algo3.modelo.Posicion;
 
 import java.util.List;
 
@@ -41,6 +43,10 @@ public class JuegoFacade {
 
     public EstadoPartida estado() {
         return juegoControlador.estado();
+    }
+
+    public void construir(Defensa torre, Posicion posicion) {
+        juegoControlador.construir(torre, posicion);
     }
 }
 

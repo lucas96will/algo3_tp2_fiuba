@@ -100,7 +100,7 @@ public class CargadorJson {
                 contadorColumna = 1;
                 for(Object parcela : columna) {
                     String nombreParcela = (String) parcela;
-                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), new Posicion(i+1/*fila*/, contadorColumna/*columna*/));
+                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), new Posicion(Integer.parseInt((String) filas[i])/*fila*/, contadorColumna/*columna*/));
                     contadorColumna++;
                 }
             }

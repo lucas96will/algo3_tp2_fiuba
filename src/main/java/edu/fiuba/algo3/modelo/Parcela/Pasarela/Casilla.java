@@ -24,6 +24,6 @@ public class Casilla extends Pasarela {
 
     @Override
     public boolean puedeSerLargada(List<Parcela> pasarelas) {
-        return this.posicion.cantidadDePasarelasAlrededor(pasarelas) == 1;
+        return this.posicion.cantidadDePasarelasAlrededor(pasarelas) <= 1;
     }
 }

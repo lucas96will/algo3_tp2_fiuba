@@ -47,4 +47,8 @@ public class DatosJugador {
     public void reducirVidaJugador(int danio) {
         this.vidaJugador -= danio;
     }
+
+    public int obtenerMuertesArania() {
+        return contadorMuertes.obtenerMuertesAranias();
+    }
 }
