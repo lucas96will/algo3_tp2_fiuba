@@ -87,7 +87,7 @@ public class CasosDeUsosTest {
             juego.terminarTurno();
         }
 
-        //10 hormigas 7 aranias
+        //11 hormigas 10 aranias
         DatosJugador datosJugador = DatosJugador.getInstance();
         int contadorMuertesArania = datosJugador.obtenerMuertesArania();
         int contadorMuertesHormiga = datosJugador.obtenerMuertesHormigas();;
