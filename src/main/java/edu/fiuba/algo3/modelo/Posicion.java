@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 
 
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,5 +48,20 @@ public class Posicion {
 
     public int getColumna() {
         return columna;
+    }
+
+    public boolean esLateral(int cantColumnas, int cantFilas) {
+        return (fila == 1 || fila == cantFilas || columna == 1 || columna == cantColumnas);
+    }
+
+    public int cantidadDePasarelasAlrededor(List<Parcela> pasarelas) {
+        int contador = 0;
+
+        for(Parcela pasarela : pasarelas){
+            if(pasarela.estaEnRangoLateralesA(this)){
+                contador++;
+            }
+        }
+        return contador;
     }
 }

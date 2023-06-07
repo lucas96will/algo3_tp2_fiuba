@@ -12,10 +12,11 @@ import edu.fiuba.algo3.modelo.Defensa.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Mapa {
+    private final int cantColumnas;
+    private final int cantFilas;
     private List<Parcela> parcelas;
     private List<Defensa> defensas;
     private List<Enemigo> enemigos;
@@ -27,10 +28,21 @@ public class Mapa {
         this.defensas = new ArrayList<>();
         this.enemigos = new ArrayList<>();
         this.enemigosMuertos = new ArrayList<>();
-        
+        cantColumnas = 0;
+        cantFilas = 0;
     }
+
+    public Mapa(int tamanio) {
+        this.parcelas = new ArrayList<>();
+        this.defensas = new ArrayList<>();
+        this.enemigos = new ArrayList<>();
+        this.enemigosMuertos = new ArrayList<>();
+        this.cantColumnas = tamanio;
+        this.cantFilas = tamanio;
+    }
+    
     public static Mapa generico(){
-        Mapa mapa = new Mapa();
+        Mapa mapa = new Mapa(7);
         mapa.crearMapaGenerico();
         return mapa;
     }
@@ -39,12 +51,13 @@ public class Mapa {
     public void insertarEnemigo(Enemigo unEnemigo){
         this.largada.moveElEnemigo(unEnemigo);
             enemigos.add(unEnemigo);
-        }
+    }
 
     public void crearMapaGenerico(){
         //Mapa generico es una matriz 7x7, con un cuadro de 5x5 tierra, y la ultima linea rocoso
         crearPasarelasGenericas();
         crearTierraGenerica();
+        iniciarLargada();
     }
 
     private void crearPasarelasGenericas(){
@@ -54,14 +67,12 @@ public class Mapa {
         * . . . . . . . .
         * . . . . . . . .
         *8 R R R R R R R */
-        this.largada = new Largada(new Posicion(1,1));
-        parcelas.add(this.largada);
+        parcelas.add(new Casilla(new Posicion(1,1)));
+        
         for(int i = 2; i < 8; i++){
             parcelas.add(new Casilla(new Posicion(1,i)));
         }
-        parcelas.add(new Meta(new Posicion(1,7)));
-        
-
+        parcelas.add(new Casilla(new Posicion(1,7)));
     }
 
     private void crearTierraGenerica(){
@@ -141,7 +152,17 @@ public class Mapa {
 
     public void iniciarLargada() {
         // aca va la logica para encontrar la largada
-        //this.largada = parcelas.stream().filter(p -> p.puedeSerLargada()).findAny();
-        this.largada = new Largada(new Posicion(1,2)); // hardcodeada
+        List<Parcela> pasarelasLaterales = parcelas.stream()
+                .filter(p -> p.esLateral(cantColumnas, cantFilas)).collect(Collectors.toList());
+        
+        this.largada = pasarelasLaterales.stream()
+                .filter(p-> p.puedeSerLargada(pasarelasLaterales))
+                .findFirst()
+                .orElse(null);
+        
+        if(largada == null) {
+            throw new RuntimeException("No se pudo inicializar la largada");
+        }
+        //this.largada = new Largada(new Posicion(1,2)); // hardcodeada la del json mapa catedra
     }
 }

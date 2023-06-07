@@ -16,19 +16,11 @@ public abstract class Pasarela implements Parcela {
     public Pasarela(Posicion unaPosicion){
         posicion = unaPosicion;
     }
-
-    public boolean construirDefensa(Defensa defensa) { return false;}
-
+    
     public void insertarDefensa(Defensa defensa) throws Exception {
         throw new Exception("No se puede construir una defensa en una pasarela");
     }
-
-    public void moverEnemigos() {
-    }
-
-    public void setPosicion(Posicion posicion) {
-        posicion = posicion;
-    }
+    
 
     public boolean moveElEnemigo(Enemigo enemigo){
         enemigo.mover(posicion);

@@ -83,7 +83,6 @@ public class CargadorJson {
 
     public Mapa procesarMapa(String rutaJsonMapa) {
 
-        Mapa mapa = new Mapa();
         try {
             JSONParser parser = new JSONParser();
             FileReader lector = new FileReader(rutaJsonMapa);
@@ -92,24 +91,26 @@ public class CargadorJson {
             JSONObject mapaJson = (JSONObject) json.get("Mapa");
 
 
+            Object[] filas = mapaJson.keySet().toArray();
+            Mapa mapa = new Mapa(filas.length);
+            int i;
             int contadorColumna;
-            for(Object filaJson : mapaJson.keySet()){
-                String arrayKey = (String) filaJson;
-                JSONArray columna = (JSONArray) mapaJson.get(arrayKey);
+            for(i = 0; i < filas.length; i++) {
+                JSONArray columna = (JSONArray) mapaJson.get(filas[i]);
                 contadorColumna = 1;
                 for(Object parcela : columna) {
                     String nombreParcela = (String) parcela;
-                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), new Posicion(Integer.parseInt(arrayKey)/*fila*/, contadorColumna/*columna*/));
+                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), new Posicion(i+1/*fila*/, contadorColumna/*columna*/));
                     contadorColumna++;
                 }
             }
-
+            return mapa;
         } catch (IOException e) {
             throw new RutaInvalidaException();
         } catch (ParseException p) {
             p.printStackTrace();
         }
 
-        return mapa;
+        return null;
     }
 }

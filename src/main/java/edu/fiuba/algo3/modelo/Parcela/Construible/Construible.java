@@ -5,6 +5,8 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Posicion;
 
+import java.util.List;
+
 public abstract class Construible implements Parcela {
     protected Posicion posicion;
     protected Defensa defensa;
@@ -35,4 +37,16 @@ public abstract class Construible implements Parcela {
     public boolean estaEnRangoLateralesA(Posicion posicion) {
         return this.posicion.estaEnRangoLaterales(posicion);
     }
+    
+    @Override
+    public boolean esLateral(int cantColumnas, int cantFilas){
+        return false;
+    }
+
+
+    @Override
+    public boolean puedeSerLargada(List<Parcela> pasarelas) {
+        return false;
+    }
+    
 }
