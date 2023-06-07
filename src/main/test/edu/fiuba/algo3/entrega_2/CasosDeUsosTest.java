@@ -13,8 +13,7 @@ import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CasosDeUsosTest {
     private final String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
@@ -102,6 +101,33 @@ public class CasosDeUsosTest {
         assertEquals(muertesAraniaEsperada, contadorMuertesArania);
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga);
 
+    }
+
+    @Test
+    public void caso16UnidadesDelMapaSonCargadasCorrectamente() {
+        JuegoFacade juego = new JuegoFacade();
+        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        Recurso recurso = new Recurso(100);
+        Jugador jugador = new Jugador(recurso, 20, "#Singleton");
+        juego.cargarJugador(jugador);
+        juego.iniciar();
+
+        TorrePlateada torrePlateada1 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+        TorrePlateada torrePlateada2 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+
+
+        assertThrows(Exception.class, () -> {juego.construir(torrePlateada1, new Posicion(1, 1));} ); //reviso que construir tire excepcion en la parcela rocoso
+
+        juego.construir(torrePlateada2, new Posicion(10, 12));
+
+        for (int i = 0; i < 3 ; i++) {
+            juego.terminarTurno();
+        }
+
+        int muertesHormigaEsperada = 2;
+        int contadorMuertesHormiga = DatosJugador.getInstance().obtenerMuertesHormigas();
+
+        assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde deberian y la torre fue construida en tierra
     }
 
 }
