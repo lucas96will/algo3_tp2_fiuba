@@ -9,7 +9,7 @@ abstract Defensa {
     +comprate(Recurso recurso):bool
     +establecerEstado(EstadoDefensa nuevoEstado):void
     +siguienteEstado():void
-    +atacar(Enemigo enemigo):int
+    +atacar(List<Enemigo> enemigos):int
     +tieneLaMismaPosicion(Posicion posicion):bool
     +establecerPosicion(Posicion posicion)
 }
@@ -29,7 +29,6 @@ interface EstadoDefensa {
     {abstract}+siguienteEstado(Defensa defensa):void
     {abstract}+puedeAtacar():bool
     {abstract}+reconstruir():this
-    {abstract}+registrarAtaque():void
 }
 
 class EstadoDefensaCompleto {
@@ -39,7 +38,6 @@ class EstadoDefensaCompleto {
     +siguienteEstado(Defensa defensa):void
     +puedeAtacar():bool
     +reconstruir():this
-    +registrarAtaque():void
 }
 
 class EstadoDefensaIncompleto {
@@ -48,7 +46,6 @@ class EstadoDefensaIncompleto {
     +siguienteEstado(Defensa defensa):void
     +puedeAtacar():bool
     +reconstruir():this
-    registrarAtaque():void
 }
 
 class Posicion {

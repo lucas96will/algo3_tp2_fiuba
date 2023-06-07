@@ -26,12 +26,11 @@ public class JuegoControlador {
     }
 
     public void terminarTurno() {
-        partida.terminarTurno();
-        if(enemigosPorTurno.size() == 0) {
-            return;
+        if(enemigosPorTurno.size() != 0) {
+            partida.anadirEnemigos(enemigosPorTurno.get(0));
+            enemigosPorTurno.remove(0);
         }
-        partida.anadirEnemigos(enemigosPorTurno.get(0));
-        enemigosPorTurno.remove(0);
+        partida.terminarTurno();
     }
 
     public void iniciar() {

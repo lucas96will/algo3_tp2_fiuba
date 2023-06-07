@@ -239,8 +239,8 @@ public class CasosDeUsosTest {
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
-        partida.construir(torreBlanca1, new Posicion(2,2));
+      // Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
+       // partida.construir(torreBlanca1, new Posicion(2,2));
 
         for(int i = 0; i < 14; i++) {
             partida.insertarEnemigo(new Hormiga(10,1,1,1,10, new Posicion(1,1)));

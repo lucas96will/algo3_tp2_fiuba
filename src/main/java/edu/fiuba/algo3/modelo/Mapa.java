@@ -15,14 +15,12 @@ public class Mapa {
     private final List<Parcela> parcelas;
     private final List<Defensa> defensas;
     private final List<Enemigo> enemigos;
-    private final List<Enemigo> enemigosMuertos;
     private Parcela largada;
 
     public Mapa() {
         this.parcelas = new ArrayList<>();
         this.defensas = new ArrayList<>();
         this.enemigos = new ArrayList<>();
-        this.enemigosMuertos = new ArrayList<>();
         cantColumnas = 0;
         cantFilas = 0;
     }
@@ -31,13 +29,12 @@ public class Mapa {
         this.parcelas = new ArrayList<>();
         this.defensas = new ArrayList<>();
         this.enemigos = new ArrayList<>();
-        this.enemigosMuertos = new ArrayList<>();
         this.cantColumnas = tamanio;
         this.cantFilas = tamanio;
     }
     
     public static Mapa generico(){
-        Mapa mapa = new Mapa(7);
+        Mapa mapa = new Mapa(8);
         mapa.crearMapaGenerico();
         return mapa;
     }
@@ -116,10 +113,10 @@ public class Mapa {
     public int defensasAtacar() {
         int recompensa = 0;
         for (Defensa defensa : defensas){
-            for(Enemigo enemigo : enemigos){
+            /*for(Enemigo enemigo : enemigos){
                 recompensa = recompensa + defensa.atacar(enemigo);
-            }
-            enemigosMuertos.addAll(enemigos.stream().filter(Enemigo::muerto).collect(Collectors.toList()));
+            }*/
+            recompensa += defensa.atacar(enemigos);
             enemigos.removeIf(Enemigo::muerto);
         }
         return recompensa;
@@ -130,7 +127,6 @@ public class Mapa {
             return;
         }
         enemigos.forEach(e -> e.moverse(parcelas));
-        enemigosMuertos.addAll(enemigos.stream().filter(Enemigo::muerto).collect(Collectors.toList()));
         enemigos.removeIf(Enemigo::muerto);
      
     }

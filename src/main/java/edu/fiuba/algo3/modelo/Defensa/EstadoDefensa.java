@@ -9,6 +9,4 @@ public interface EstadoDefensa {
 
     boolean puedeAtacar();
     EstadoDefensa reconstruir();
-
-    public void registrarAtaque();
 }

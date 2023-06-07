@@ -49,10 +49,10 @@ public abstract class Enemigo {
 
     abstract protected int entregarRecompensa();
 
+
     public int hacerDanio(){
         return danio;
     }
-
 
     public void mover(Posicion posicion) {
         this.posicionAnterior = this.posicion;
@@ -78,7 +78,7 @@ public abstract class Enemigo {
                 }
                 k++;
             }
-            this.daniarAlJugador(!seMovio && (i == velocidad - 1));
+            this.daniarAlJugador(!seMovio && i == velocidad - 1);
         }
 
     }

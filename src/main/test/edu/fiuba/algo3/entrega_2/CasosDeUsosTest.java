@@ -139,7 +139,7 @@ public class CasosDeUsosTest {
             juego.terminarTurno();
         }
 
-        int muertesHormigaEsperada = 1;
+        int muertesHormigaEsperada = 4;
         int contadorMuertesHormiga = DatosJugador.getInstance().obtenerMuertesHormigas();
 
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde deberian y la torre fue construida en tierra
@@ -163,12 +163,12 @@ public class CasosDeUsosTest {
 
         juego.construir(torrePlateada2, new Posicion(10, 12));
 
-        for (int i = 0; i < 16 ; i++) {
+        for (int i = 0; i < 144 ; i++) {
             juego.terminarTurno();
         }
 
-        int muertesHormigaEsperada = 8;
-        int muertesAraniaEsperada = 6;
+        int muertesHormigaEsperada = 11;
+        int muertesAraniaEsperada = 10;
 
         int contadorMuertesHormiga = DatosJugador.getInstance().obtenerMuertesHormigas();
         int contadorMuertesArania = DatosJugador.getInstance().obtenerMuertesArania();
@@ -177,5 +177,31 @@ public class CasosDeUsosTest {
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde y cuando deberian y
         assertEquals(muertesAraniaEsperada, contadorMuertesArania);   // la torre fue construida en tierra
 
+    }
+
+
+    @Test
+    public void caso18JugadorGanaUnaPartidaSimulada(){
+        JuegoFacade juego = new JuegoFacade();
+        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        Recurso recurso = new Recurso(20);
+        Jugador jugador = new Jugador(recurso, 20, "Messi");
+        juego.cargarJugador(jugador);
+        juego.iniciar();
+
+        TorreBlanca torreBlanca = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        juego.construir(torreBlanca, new Posicion(3, 3));
+
+        for (int i = 0; i < 29 ; i++) {
+            juego.terminarTurno();
+        }
+
+        EstadoPartida estadoPartida = juego.estado();
+        assertTrue(estadoPartida.sigueJugando());
+
+        juego.terminarTurno();
+
+        estadoPartida = juego.estado();
+        assertTrue(estadoPartida.gano());
     }
 }

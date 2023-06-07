@@ -3,6 +3,10 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public abstract class Defensa {
     protected int costeEnCreditos;
     protected int rango;
@@ -43,14 +47,23 @@ public abstract class Defensa {
          estado.siguienteEstado(this);
     }
 
-    public int atacar(Enemigo enemigo) {
+    public int atacar(List<Enemigo> enemigos) {
         int creditos = 0;
+        List<Enemigo> enemigosEnRango = enemigos.stream().filter(e->e.estaEnRango(rango, posicion)).collect(Collectors.toList());
+        for(Enemigo enemigo : enemigosEnRango){
+            if (estado.puedeAtacar()) {
+                creditos += enemigo.recibirDanio(danio);
+            }
+        }
+        return creditos;
+
+
+        /*
         if (estado.puedeAtacar() && enemigo.estaEnRango(rango, posicion)){
-            estado.registrarAtaque();
             return creditos + enemigo.recibirDanio(danio);
         }
         //estado = estado.reconstruir();
-        return 0;
+        return 0;*/
     }
 
     /*public Posicion getPosicion() {

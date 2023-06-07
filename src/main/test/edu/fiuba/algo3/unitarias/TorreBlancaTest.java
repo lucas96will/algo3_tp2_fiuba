@@ -1,12 +1,16 @@
 package edu.fiuba.algo3.unitarias;
 
 import edu.fiuba.algo3.modelo.Defensa.*;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Posicion;
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,7 +28,10 @@ public class TorreBlancaTest {
 
         TorreBlanca torrePlateada = new TorreBlanca(20,2,5, estadoIncompletoMock, new Posicion(1,4));
 
-        assertEquals(torrePlateada.atacar(hormigaMock), 0);
+        List<Enemigo> enemigos = new ArrayList<Enemigo>();
+        enemigos.add(hormigaMock);
+
+        assertEquals(torrePlateada.atacar(enemigos), 0);
         verify(estadoIncompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
     }
 
@@ -38,8 +45,10 @@ public class TorreBlancaTest {
         when(estadoCompletoMock.puedeAtacar()).thenReturn(true); // estado incompleto siempre retorna 0
 
         TorrePlateada torrePlateada = new TorrePlateada(20,2,5, estadoCompletoMock, new Posicion(1,4));
+        List<Enemigo> enemigos = new ArrayList<Enemigo>();
+        enemigos.add(hormigaMock);
 
-        assertEquals(torrePlateada.atacar(hormigaMock), 1);
+        assertEquals(torrePlateada.atacar(enemigos), 1);
         verify(estadoCompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
 
     }

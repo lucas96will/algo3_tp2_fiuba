@@ -11,6 +11,10 @@ import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DefensaTest {
@@ -28,9 +32,12 @@ public class DefensaTest {
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(2,2));
 
-        assertEquals(0, torreBlanca.atacar(hormiga)); 
+        List<Enemigo> enemigos = new ArrayList<Enemigo>();
+        enemigos.add(hormiga);
+
+        assertEquals(0, torreBlanca.atacar(enemigos));
         torreBlanca.siguienteEstado();
-        assertEquals(1, torreBlanca.atacar(hormiga));
+        assertEquals(1, torreBlanca.atacar(enemigos));
     }
 
 }
