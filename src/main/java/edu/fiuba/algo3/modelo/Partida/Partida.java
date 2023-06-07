@@ -35,7 +35,12 @@ public class Partida {
     }
     public void construir(Defensa defensa, Posicion posicion){
         if (jugador.comprarDefensa(defensa)) {
-            mapa.construir(defensa, posicion);
+            try {
+                mapa.construir(defensa, posicion);
+            } catch (Exception e) {
+                jugador.obtenerReembolso(defensa);
+                throw new RuntimeException("No se puede construir");
+            }
         }
     }
 

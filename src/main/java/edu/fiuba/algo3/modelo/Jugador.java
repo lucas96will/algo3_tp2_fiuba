@@ -26,6 +26,10 @@ public class Jugador {
     public boolean comprarDefensa(Defensa defensa){
         return defensa.comprate(recurso);
     }
+
+    public void obtenerReembolso(Defensa defensa){
+        defensa.reembolsarCreditos(recurso);
+    }
     public boolean muerto(){
         //refactorizar
         DatosJugador datosJugador = DatosJugador.getInstance();

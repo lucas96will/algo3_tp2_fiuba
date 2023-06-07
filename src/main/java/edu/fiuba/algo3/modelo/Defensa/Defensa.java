@@ -32,6 +32,10 @@ public abstract class Defensa {
         return recurso.gastar(costeEnCreditos);
     }
 
+    public void reembolsarCreditos(Recurso recurso) {
+        recurso.sumarMonedas(costeEnCreditos);
+    }
+
     public void establecerEstado(EstadoDefensa nuevoEstado) {
         estado = nuevoEstado;
     }
@@ -43,6 +47,7 @@ public abstract class Defensa {
     public int atacar(Enemigo enemigo) {
         int creditos = 0;
         if (estado.puedeAtacar() && enemigo.estaEnRango(rango, posicion)){
+            estado.registrarAtaque();
             return creditos + enemigo.recibirDanio(danio);
         }
         //estado = estado.reconstruir();

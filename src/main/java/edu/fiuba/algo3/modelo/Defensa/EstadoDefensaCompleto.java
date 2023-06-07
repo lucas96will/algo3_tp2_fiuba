@@ -28,9 +28,12 @@ public class EstadoDefensaCompleto implements EstadoDefensa{
 
     @Override
     public boolean puedeAtacar() {
-        return true;
+        return noAtacoEnEsteTurno;
     }
 
     @Override
     public EstadoDefensa reconstruir() {return this;}
+
+    @Override
+    public void registrarAtaque() {noAtacoEnEsteTurno = false;}
 }

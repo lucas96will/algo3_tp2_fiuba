@@ -34,4 +34,7 @@ public class  EstadoDefensaIncompleto implements EstadoDefensa{
         tiempoConstruccion --;
         return tiempoConstruccion <= 0 ? new EstadoDefensaCompleto() : this;
     }
+
+    @Override
+    public void registrarAtaque() {}
 }

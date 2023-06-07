@@ -89,7 +89,7 @@ public class CasosDeUsosTest {
         //11 hormigas 10 aranias
         DatosJugador datosJugador = DatosJugador.getInstance();
         int contadorMuertesArania = datosJugador.obtenerMuertesArania();
-        int contadorMuertesHormiga = datosJugador.obtenerMuertesHormigas();;
+        int contadorMuertesHormiga = datosJugador.obtenerMuertesHormigas();
 
         int muertesAraniaEsperada = 10;
         int muertesHormigaEsperada = 11;
@@ -107,7 +107,7 @@ public class CasosDeUsosTest {
     public void caso16UnidadesDelMapaSonCargadasCorrectamente() {
         JuegoFacade juego = new JuegoFacade();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
-        Recurso recurso = new Recurso(100);
+        Recurso recurso = new Recurso(20);
         Jugador jugador = new Jugador(recurso, 20, "#Singleton");
         juego.cargarJugador(jugador);
         juego.iniciar();
@@ -124,7 +124,7 @@ public class CasosDeUsosTest {
             juego.terminarTurno();
         }
 
-        int muertesHormigaEsperada = 2;
+        int muertesHormigaEsperada = 1;
         int contadorMuertesHormiga = DatosJugador.getInstance().obtenerMuertesHormigas();
 
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde deberian y la torre fue construida en tierra
