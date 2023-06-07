@@ -12,7 +12,7 @@ interface Parcela {
 }
 
 abstract Pasarela {
-    {static}+Pasarela(posicion)
+    +Pasarela(posicion)
     +insertarDefensa(Defensa defensa):void
     +moveElEnemigo(Enemigo enemigo):bool
     +establecerPosicion(Posicion posicion):void
@@ -21,21 +21,21 @@ abstract Pasarela {
 }
 
 class Largada {
-    {static}+Largada(Posicion posicion)
+    +Largada(Posicion posicion)
     +insertarEnemigo(Enemigo unEnemigo):void
     +esLateral(int cantColumnas, int cantFilas):bool
     +puedeSerLargada(List<Parcela> pasarelas):bool
 }
 
 class Meta {
-    {static}+Meta(Posicion posicion)
+    +Meta(Posicion posicion)
     +insertarEnemigo(Enemigo enemigo):void
     +esLateral(int cantColumnas, int cantFilas):bool
     +puedeSerLargada(List<Parcela> pasarelas):bool
 }
 
 class Casilla {
-    {static}+Casilla(Posicion posicion)
+    +Casilla(Posicion posicion)
     +insertarEnemigo(Enemigo unEnemigo):void
     +esLateral(int cantColumnas, int cantFilas):bool
     +puedeSerLargada(List<Parcela> pasarelas):bool
@@ -51,14 +51,14 @@ abstract Construible {
 }
 
 class Rocoso {
-    {static}+Rocoso(Posicion posicion)
+    +Rocoso(Posicion posicion)
     +insertarDefensa(Defensa defensa):void
     +moveElEnemigo(Enemigo enemigo):bool
     +establecerPosicion(Posicion posicion):void
 }
 
 class Tierra {
-    {static}+Tierra(Posicion posicion)
+    +Tierra(Posicion posicion)
     +insertarDefensa(Defensa defensa):void
     +moveElEnemigo(Enemigo enemigo):bool
     +establecerPosicion(Posicion posicion):void

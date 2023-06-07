@@ -7,8 +7,8 @@ abstract Enemigo {
     -energia:int
     #recompensa:int
     #muerto:bool
-    +{static}Enemigo(vida,danio,velocidad,energia,recompensa,posicion)
-    +{static}Enemigo(vida,danio,velocidad,energia,recompensa)
+    +Enemigo(vida,danio,velocidad,energia,recompensa,posicion)
+    +Enemigo(vida,danio,velocidad,energia,recompensa)
     +recibirDanio(int danio):int
     {abstract}#morir():int
     +muerto():bool
@@ -23,15 +23,15 @@ abstract Enemigo {
 }
 
 class Hormiga {
-    {static}+Hormiga(vida,danio,velocidad,energia,recompensa,posicion)
-    {static}+Hormiga(vida,danio,velocidad,energia,recompensa)
+    +Hormiga(vida,danio,velocidad,energia,recompensa,posicion)
+    +Hormiga(vida,danio,velocidad,energia,recompensa)
     #morir():int
     #entregarRecompensa():int
 }
 
 class Arania {
-    {static}+Arania(vida,danio,velocidad,energia,recompensa,posicion)
-    {static}+Arania(vida,danio,velocidad,energia,recompensa)
+    +Arania(vida,danio,velocidad,energia,recompensa,posicion)
+    +Arania(vida,danio,velocidad,energia,recompensa)
     #morir():int
     #entregarRecompensa():int
 }

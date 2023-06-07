@@ -4,8 +4,8 @@ abstract Defensa {
     -costeEnCreditos:int
     -rango:int
     -danio:int
-    {static}+Defensa(costo,rango,danio,estadoDefensa,posicion)
-    {static}+Defensa(costo,rango,danio,estadoDefensa)
+    +Defensa(costo,rango,danio,estadoDefensa,posicion)
+    +Defensa(costo,rango,danio,estadoDefensa)
     +comprate(Recurso recurso):bool
     +establecerEstado(EstadoDefensa nuevoEstado):void
     +siguienteEstado():void
@@ -15,13 +15,13 @@ abstract Defensa {
 }
 
 class TorreBlanca {
-    {static}+TorreBlanca(costo, danio, rango, estado, posicion)
-    {static}+TorreBlanca(costo, danio, rango, estado)
+    +TorreBlanca(costo, danio, rango, estado, posicion)
+    +TorreBlanca(costo, danio, rango, estado)
 }
 
 class TorrePlateada {
-    {static}+TorrePlateada(costo, danio, rango, estado, posicion)
-    {static}+TorrePlateada(costo, danio, rango, estado)
+    +TorrePlateada(costo, danio, rango, estado, posicion)
+    +TorrePlateada(costo, danio, rango, estado)
 }
 
 interface EstadoDefensa {
@@ -54,7 +54,7 @@ class EstadoDefensaIncompleto {
 class Posicion {
     -fila:int
     -columna:int
-    {static}+Posicion(int posFila, int posCol)
+    +Posicion(int posFila, int posCol)
     +estaEnRango(int rango,Posicion posicion):bool
     +estaEnRangoLaterales(Posicion posicion):bool
     +esIgual(Posicion ... unasPosiciones):bool

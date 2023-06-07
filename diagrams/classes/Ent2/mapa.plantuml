@@ -3,7 +3,7 @@
 class Mapa {
     -cantColumnas:int
     -cantF:int
-    {static}+Mapa(int tamanio)
+    +Mapa(int tamanio)
     +insertarEnemigo(Enemigo unEnemigo):void
     +construir(Defensa defensa, Posicion posicion):void
     +actualizarEstadoDefensas():void

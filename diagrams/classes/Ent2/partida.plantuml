@@ -1,7 +1,7 @@
 @startuml
 
 class Partida {
-    {static}+Partida(Jugador jugador, Mapa mapa)
+    +Partida(Jugador jugador, Mapa mapa)
     +iniciar():void
     +terminarTurno():void
     +construir(Defensa defensa, Posicion posicion):void
@@ -16,7 +16,7 @@ class EstadoPartida {
     -gano:bool
     -perdio:bool
     -sigueJugando:bool
-    {static}+EstadoPartida(Jugador jugador, Mapa mapa)
+    +EstadoPartida(Jugador jugador, Mapa mapa)
     +sigueJugando():bool
     +perdio():bool
     +gano():bool

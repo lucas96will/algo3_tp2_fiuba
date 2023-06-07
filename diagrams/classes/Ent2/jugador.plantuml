@@ -4,7 +4,7 @@ class Jugador {
     -vida:int
     -vidaMaxima:int
     -nombre:String
-    {static}+Jugador(recurso,vida,nombre)
+    +Jugador(recurso,vida,nombre)
     +comprarDefensa(Defensa defensa):bool
     +obtenerReembolso(Defensa defensa):void
     +muerto():bool
@@ -15,7 +15,7 @@ class Jugador {
 
 class Recurso {
     -creditos:int
-    {static}+Recurso(int creditos)
+    +Recurso(int creditos)
     +gastar(int costeEnCreditos):bool
     +valorMonetario():int
     +sumarMonedas(int recompensa):void
@@ -27,6 +27,7 @@ class DatosJugador {
     -vidaJugador:int
     -recursosJugador:Recurso
     -contadorMuertes:Contador
+    -DatosJugador()
     {static}+getInstance():this
     +actualizarEstado(int vida, Recurso recursos, Contador contadorMuertes):void
     +incrementarContadorAranias():void
@@ -40,6 +41,7 @@ class DatosJugador {
 class Contador {
     -contadorAraniasMuertas:int
     -contadorHormigasMuertas:int
+    +Contador()
     +incrementarContadorAranias():void
     +incrementarContadorHormigas():void
     +obtenerMuertesHormigas():int

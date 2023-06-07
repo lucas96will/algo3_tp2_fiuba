@@ -24,7 +24,6 @@ public class TorreBlancaTest {
 
         TorreBlanca torrePlateada = new TorreBlanca(20,2,5, estadoIncompletoMock, new Posicion(1,4));
 
-
         assertEquals(torrePlateada.atacar(hormigaMock), 0);
         verify(estadoIncompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
     }
@@ -51,13 +50,10 @@ public class TorreBlancaTest {
         EstadoDefensaCompleto completoMock = mock(EstadoDefensaCompleto.class);
         TorreBlanca torreBlanca = new TorreBlanca(10, 1, 3, incompletoMock);
 
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocationOnMock) throws Throwable {
-                Object[] args = invocationOnMock.getArguments();
-                ((TorreBlanca)args[0]).establecerEstado(completoMock);
-                return null;
-            }
+        doAnswer(invocationOnMock -> {
+            Object[] args = invocationOnMock.getArguments();
+            ((TorreBlanca)args[0]).establecerEstado(completoMock);
+            return null;
         }).when(incompletoMock).siguienteEstado(torreBlanca);
 
         torreBlanca.siguienteEstado();
