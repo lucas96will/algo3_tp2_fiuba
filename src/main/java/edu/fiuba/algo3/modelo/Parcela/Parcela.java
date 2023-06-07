@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.modelo.Parcela;
-
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Posicion;
-
 import java.util.List;
 
 public interface Parcela {
@@ -13,8 +11,6 @@ public interface Parcela {
     boolean tieneLaMismaPosicion(Posicion ... posiciones);
     boolean estaEnRangoLateralesA(Posicion posicion);
     void establecerPosicion(Posicion posicion);
-
     boolean esLateral(int cantColumnas, int cantFilas);
-
     boolean puedeSerLargada(List<Parcela> pasarelas);
 }

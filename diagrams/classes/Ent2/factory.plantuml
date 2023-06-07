@@ -1,0 +1,33 @@
+@startuml
+
+class Casilla {
+    {static}+Casilla(Posicion posicion)
+    +insertarEnemigo(Enemigo unEnemigo):void
+    +esLateral(int cantColumnas, int cantFilas):bool
+    +puedeSerLargada(List<Parcela> pasarelas):bool
+}
+
+class ParcelaFactory {
+    -tipoDeParcelas:HashMap<String, Parcela>
+    {static}+obtenerParcela(String nombreParcela):Parcela
+}
+
+class Rocoso {
+    {static}+Rocoso(Posicion posicion)
+    +insertarDefensa(Defensa defensa):void
+    +moveElEnemigo(Enemigo enemigo):bool
+    +establecerPosicion(Posicion posicion):void
+}
+
+class Tierra {
+    {static}+Tierra(Posicion posicion)
+    +insertarDefensa(Defensa defensa):void
+    +moveElEnemigo(Enemigo enemigo):bool
+    +establecerPosicion(Posicion posicion):void
+}
+
+ParcelaFactory "1" *-- "1" Tierra
+ParcelaFactory "1" *-- "1" Rocoso
+ParcelaFactory "1" *-- "1" Casilla
+
+@enduml

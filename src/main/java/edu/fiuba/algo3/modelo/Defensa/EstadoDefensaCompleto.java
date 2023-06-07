@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo.Defensa;
-
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
-import java.util.Iterator;
 import java.util.List;
 
 public class EstadoDefensaCompleto implements EstadoDefensa{

@@ -1,0 +1,31 @@
+@startuml
+
+class Partida {
+    {static}+Partida(Jugador jugador, Mapa mapa)
+    +iniciar():void
+    +terminarTurno():void
+    +construir(Defensa defensa, Posicion posicion):void
+    +terminarPartida():bool
+    +jugadorTieneTodaLaVidaYMaximosCreditos():bool
+    +insertarEnemigo(Enemigo enemigo):void
+    +estado():EstadoPartida
+    +anadirEnemigos(List<Enemigo> enemigos):void
+}
+
+class EstadoPartida {
+    -gano:bool
+    -perdio:bool
+    -sigueJugando:bool
+    {static}+EstadoPartida(Jugador jugador, Mapa mapa)
+    +sigueJugando():bool
+    +perdio():bool
+    +gano():bool
+}
+
+
+Partida -> EstadoPartida
+Partida "1" o-- "1" Mapa
+Partida "1" o-- "1" Jugador
+
+
+@enduml

@@ -1,15 +1,11 @@
 package edu.fiuba.algo3.modelo;
-
-
-
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-
 import java.util.Arrays;
 import java.util.List;
 
 public class Posicion {
-    private int fila;
-    private int columna;
+    private final int fila;
+    private final int columna;
 
     public Posicion(int posFila, int posCol){
         fila = posFila;
@@ -42,13 +38,13 @@ public class Posicion {
         return posiciones.stream().anyMatch(p -> p.fila == this.fila && p.columna == this.columna);
     }
 
-    public int getFila() {
+    /*public int getFila() {
         return fila;
-    }
+    }*/
 
-    public int getColumna() {
+    /*public int getColumna() {
         return columna;
-    }
+    }*/
 
     public boolean esLateral(int cantColumnas, int cantFilas) {
         return (fila == 1 || fila == cantFilas || columna == 1 || columna == cantColumnas);

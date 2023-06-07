@@ -1,5 +1,4 @@
 package edu.fiuba.algo3.modelo.Defensa;
-
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import java.util.List;
 

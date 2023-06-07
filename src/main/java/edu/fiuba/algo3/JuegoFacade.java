@@ -10,8 +10,8 @@ import edu.fiuba.algo3.modelo.Posicion;
 import java.util.List;
 
 public class JuegoFacade {
-    private CargadorJson archivoLoader;
-    private JuegoControlador juegoControlador;
+    private final CargadorJson archivoLoader;
+    private final JuegoControlador juegoControlador;
 
     public JuegoFacade() {
         archivoLoader = new CargadorJson();

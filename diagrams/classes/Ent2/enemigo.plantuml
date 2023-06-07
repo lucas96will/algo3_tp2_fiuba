@@ -1,0 +1,41 @@
+@startuml
+
+abstract Enemigo {
+    -danio:int
+    -vida:int
+    -velocidad:int
+    -energia:int
+    #recompensa:int
+    #muerto:bool
+    +{static}Enemigo(vida,danio,velocidad,energia,recompensa,posicion)
+    +{static}Enemigo(vida,danio,velocidad,energia,recompensa)
+    +recibirDanio(int danio):int
+    {abstract}#morir():int
+    +muerto():bool
+    {abstract}#entregarRecompensa():int
+    +hacerDanio():int
+    +mover(Posicion posicion):void
+    +sumarDanio(int unDanio):int
+    +moverse(List<Parcela> parcelas):void
+    -mePuedoMoverAEstaParcela(Parcela parcela):bool
+    -daniarAlJugador(boolean llegueALaMeta):void
+    +estaEnRango(int rango, Posicion posicion):bool
+}
+
+class Hormiga {
+    {static}+Hormiga(vida,danio,velocidad,energia,recompensa,posicion)
+    {static}+Hormiga(vida,danio,velocidad,energia,recompensa)
+    #morir():int
+    #entregarRecompensa():int
+}
+
+class Arania {
+    {static}+Arania(vida,danio,velocidad,energia,recompensa,posicion)
+    {static}+Arania(vida,danio,velocidad,energia,recompensa)
+    #morir():int
+    #entregarRecompensa():int
+}
+
+Enemigo <|-- Hormiga
+Enemigo <|-- Arania
+@enduml

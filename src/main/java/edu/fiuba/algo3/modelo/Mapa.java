@@ -1,13 +1,10 @@
 package edu.fiuba.algo3.modelo;
-
-
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.*;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,10 +12,10 @@ import java.util.stream.Collectors;
 public class Mapa {
     private final int cantColumnas;
     private final int cantFilas;
-    private List<Parcela> parcelas;
-    private List<Defensa> defensas;
-    private List<Enemigo> enemigos;
-    private List<Enemigo> enemigosMuertos;
+    private final List<Parcela> parcelas;
+    private final List<Defensa> defensas;
+    private final List<Enemigo> enemigos;
+    private final List<Enemigo> enemigosMuertos;
     private Parcela largada;
 
     public Mapa() {
@@ -44,11 +41,10 @@ public class Mapa {
         mapa.crearMapaGenerico();
         return mapa;
     }
-    
 
     public void insertarEnemigo(Enemigo unEnemigo){
         this.largada.moveElEnemigo(unEnemigo);
-            enemigos.add(unEnemigo);
+        enemigos.add(unEnemigo);
     }
 
     public void crearMapaGenerico(){

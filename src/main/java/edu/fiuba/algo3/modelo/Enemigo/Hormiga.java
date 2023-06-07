@@ -1,5 +1,4 @@
 package edu.fiuba.algo3.modelo.Enemigo;
-
 import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 import edu.fiuba.algo3.modelo.Posicion;
 

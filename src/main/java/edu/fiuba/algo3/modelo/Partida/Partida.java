@@ -1,11 +1,9 @@
 package edu.fiuba.algo3.modelo.Partida;
-
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Posicion;
-
 import java.util.List;
 
 public class Partida {
@@ -47,6 +45,7 @@ public class Partida {
     public boolean terminarPartida(){
         return jugador.muerto();
     }
+
     public boolean jugadorTieneTodaLaVidaYMaximosCreditos(){
         return jugador.estaIntacto();
     }
@@ -55,11 +54,9 @@ public class Partida {
         mapa.insertarEnemigo(enemigo);
     }
 
-
-
-    public boolean jugadorTieneTantosCreditos(int creditosValor) {
+    /*public boolean jugadorTieneTantosCreditos(int creditosValor) {
         return creditosValor == jugador.valorCreditos();
-    }
+    }*/
 
     public EstadoPartida estado() {
         return new EstadoPartida(this.jugador, this.mapa);

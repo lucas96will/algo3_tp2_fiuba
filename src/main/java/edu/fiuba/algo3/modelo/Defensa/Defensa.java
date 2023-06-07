@@ -1,5 +1,4 @@
 package edu.fiuba.algo3.modelo.Defensa;
-
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
@@ -54,9 +53,9 @@ public abstract class Defensa {
         return 0;
     }
 
-    public Posicion getPosicion() {
+    /*public Posicion getPosicion() {
         return posicion;
-    }
+    }*/
 
     public boolean tieneLaMismaPosicion(Posicion posicion) {
         return this.posicion.esIgual(posicion);

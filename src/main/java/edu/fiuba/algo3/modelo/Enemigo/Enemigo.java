@@ -1,16 +1,14 @@
 package edu.fiuba.algo3.modelo.Enemigo;
-
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 import edu.fiuba.algo3.modelo.Posicion;
-
 import java.util.List;
 
 public abstract class Enemigo {
-    private int danio;
+    private final int danio;
     private int vida;
-    private int velocidad;
-    private int energia;
+    private final int velocidad;
+    private final int energia;
     protected int recompensa;
     protected boolean muerto;
     private Posicion posicion;

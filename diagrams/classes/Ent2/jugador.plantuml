@@ -1,0 +1,54 @@
+@startuml
+
+class Jugador {
+    -vida:int
+    -vidaMaxima:int
+    -nombre:String
+    {static}+Jugador(recurso,vida,nombre)
+    +comprarDefensa(Defensa defensa):bool
+    +obtenerReembolso(Defensa defensa):void
+    +muerto():bool
+    +estaIntacto():bool
+    +valorCreditos():int
+    +sumarMonedas(int recompensa):void
+}
+
+class Recurso {
+    -creditos:int
+    {static}+Recurso(int creditos)
+    +gastar(int costeEnCreditos):bool
+    +valorMonetario():int
+    +sumarMonedas(int recompensa):void
+
+}
+
+class DatosJugador {
+    {static}-datosJugador:this
+    -vidaJugador:int
+    -recursosJugador:Recurso
+    -contadorMuertes:Contador
+    {static}+getInstance():this
+    +actualizarEstado(int vida, Recurso recursos, Contador contadorMuertes):void
+    +incrementarContadorAranias():void
+    +incrementarContadorHormigas():void
+    +obtenerMuertesHormigas():int
+    +obtenerVidaJugador():int
+    +reducirVidaJugador(int danio):void
+    +obtenerMuertesArania():int
+}
+
+class Contador {
+    -contadorAraniasMuertas:int
+    -contadorHormigasMuertas:int
+    +incrementarContadorAranias():void
+    +incrementarContadorHormigas():void
+    +obtenerMuertesHormigas():int
+    +obtenerMuertesAranias():int
+}
+
+Jugador "1" o-- "1" Recurso
+DatosJugador "1" *-- "1" Recurso
+DatosJugador "1" *-- "1" Contador
+Jugador -> DatosJugador
+
+@enduml

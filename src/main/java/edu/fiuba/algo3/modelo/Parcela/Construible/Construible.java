@@ -1,10 +1,8 @@
 package edu.fiuba.algo3.modelo.Parcela.Construible;
-
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Posicion;
-
 import java.util.List;
 
 public abstract class Construible implements Parcela {
@@ -23,10 +21,9 @@ public abstract class Construible implements Parcela {
 
     abstract public void insertarDefensa(Defensa defensa) throws Exception;
 
-
-    public boolean tieneConstruccion() {
+    /*public boolean tieneConstruccion() {
         return (this.defensa != null);
-    }
+    }*/
 
     @Override
     public boolean tieneLaMismaPosicion(Posicion... posiciones) {
@@ -42,7 +39,6 @@ public abstract class Construible implements Parcela {
     public boolean esLateral(int cantColumnas, int cantFilas){
         return false;
     }
-
 
     @Override
     public boolean puedeSerLargada(List<Parcela> pasarelas) {

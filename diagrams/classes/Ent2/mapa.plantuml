@@ -1,0 +1,26 @@
+@startuml
+
+class Mapa {
+    -cantColumnas:int
+    -cantF:int
+    {static}+Mapa(int tamanio)
+    +insertarEnemigo(Enemigo unEnemigo):void
+    +construir(Defensa defensa, Posicion posicion):void
+    +actualizarEstadoDefensas():void
+    +defensasAtacar():int
+    +moverEnemigos():void
+    +sinEnemigos():bool
+    +agregarParcelaEnPosicion(Parcela parcela, Posicion posicion):void
+    +iniciarLargada():void
+}
+
+interface Parcela {}
+abstract Enemigo {}
+abstract Defensa {}
+
+Mapa "1" *-- "1" Largada
+Mapa "1" *-- "*" Parcela
+Mapa "1" *-- "*" Enemigo
+Mapa "1" *-- "*" Defensa
+
+@enduml

@@ -1,0 +1,80 @@
+@startuml
+
+interface Parcela {
+    {abstract}insertarEnemigo(Enemigo unEnemigo):void
+    {abstract}insertarDefensa(Defensa defensa):void
+    {abstract}moveElEnemigo(Enemigo enemigo):bool
+    {abstract}tieneLaMismaPosicion(Posicion ... posiciones):bool
+    {abstract}estaEnRangoLateralesA(Posicion posicion):bool
+    {abstract}establecerPosicion(Posicion posicion):void
+    {abstract}esLateral(int cantColumnas, int cantFilas):bool
+    {abstract}puedeSerLargada(List<Parcela> pasarelas):bool
+}
+
+abstract Pasarela {
+    {static}+Pasarela(posicion)
+    +insertarDefensa(Defensa defensa):void
+    +moveElEnemigo(Enemigo enemigo):bool
+    +establecerPosicion(Posicion posicion):void
+    +tieneLaMismaPosicion(Posicion... posiciones):bool
+    +estaEnRangoLateralesA(Posicion posicion):bool
+}
+
+class Largada {
+    {static}+Largada(Posicion posicion)
+    +insertarEnemigo(Enemigo unEnemigo):void
+    +esLateral(int cantColumnas, int cantFilas):bool
+    +puedeSerLargada(List<Parcela> pasarelas):bool
+}
+
+class Meta {
+    {static}+Meta(Posicion posicion)
+    +insertarEnemigo(Enemigo enemigo):void
+    +esLateral(int cantColumnas, int cantFilas):bool
+    +puedeSerLargada(List<Parcela> pasarelas):bool
+}
+
+class Casilla {
+    {static}+Casilla(Posicion posicion)
+    +insertarEnemigo(Enemigo unEnemigo):void
+    +esLateral(int cantColumnas, int cantFilas):bool
+    +puedeSerLargada(List<Parcela> pasarelas):bool
+}
+
+abstract Construible {
+    +insertarEnemigo(Enemigo unEnemigo):void
+    {abstract}+insertarDefensa(Defensa defensa):void
+    +tieneLaMismaPosicion(Posicion... posiciones):bool
+    +estaEnRangoLateralesA(Posicion posicion):bool
+    +esLateral(int cantColumnas, int cantFilas):bool
+    +puedeSerLargada(List<Parcela> pasarelas):bool
+}
+
+class Rocoso {
+    {static}+Rocoso(Posicion posicion)
+    +insertarDefensa(Defensa defensa):void
+    +moveElEnemigo(Enemigo enemigo):bool
+    +establecerPosicion(Posicion posicion):void
+}
+
+class Tierra {
+    {static}+Tierra(Posicion posicion)
+    +insertarDefensa(Defensa defensa):void
+    +moveElEnemigo(Enemigo enemigo):bool
+    +establecerPosicion(Posicion posicion):void
+}
+
+interface Defensa {}
+
+Parcela <|.. Pasarela
+Parcela <|.. Construible
+Construible <|-- Tierra
+Construible <|-- Rocoso
+Pasarela "1" o-- "1" Posicion
+Construible "1" o-- "1" Posicion
+Construible "1" o-- "1" Defensa
+Pasarela <|-- Largada
+Pasarela <|-- Meta
+Pasarela <|-- Casilla
+
+@enduml

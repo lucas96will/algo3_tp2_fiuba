@@ -7,7 +7,6 @@ public class Recurso {
         creditos = unosCreditos;
     }
 
-
     public boolean gastar(int costeEnCreditos) {
         if(creditos < costeEnCreditos){
             return false;

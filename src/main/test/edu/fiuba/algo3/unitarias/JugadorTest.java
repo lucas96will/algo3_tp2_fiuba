@@ -1,5 +1,4 @@
 package edu.fiuba.algo3.unitarias;
-
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Message;
 import edu.fiuba.algo3.modelo.Partida.Partida;
@@ -21,8 +20,9 @@ public class JugadorTest {
         */
         //-------------------------------------------------------
         Partida partida = new Partida();
-        Jugador jugador = Jugador.crearJugadorBase("Joaquin");
-        partida.crearPartidaGenerica(jugador);
+        Jugador jugador = new Jugador(new Recurso(100),10,"Joaquin");
+        Mapa mapa = Mapa.generico();
+        partida.crearPartida(jugador,mapa);
 
         assertTrue(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
         assertFalse(partida.terminarPartida());
