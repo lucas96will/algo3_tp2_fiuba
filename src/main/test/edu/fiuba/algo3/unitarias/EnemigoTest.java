@@ -189,7 +189,8 @@ public class EnemigoTest {
         assertTrue(hormiga.muerto());
     }
 
-    @Test void test5HormigaHaceElDanioQueTieneAlJugadorCorrectamente() {
+    @Test
+    public void test5HormigaHaceElDanioQueTieneAlJugadorCorrectamente() {
         Parcela parcela = new Casilla(new Posicion(1,2));
         Enemigo hormiga = new Hormiga(1,3,1,1,1,new Posicion(5,5));
 
@@ -203,7 +204,8 @@ public class EnemigoTest {
         assertEquals(vidaEsperada, datosJugador.obtenerVidaJugador());
     }
 
-    @Test void test6HormigaNoHaceElDanioQueTieneAlJugadorCorrectamente() {
+    @Test
+    public void test6HormigaNoHaceElDanioQueTieneAlJugadorCorrectamente() {
         Parcela parcela = new Casilla(new Posicion(1,2));
         Enemigo hormiga = new Hormiga(1,2,1,1,1,new Posicion(1,1));
 
@@ -217,7 +219,8 @@ public class EnemigoTest {
         assertEquals(vidaEsperada, datosJugador.obtenerVidaJugador());
     }
 
-    @Test void test5AraniaSeMueveCorrectamenteDosCasilleros() {
+    @Test
+    public void test5AraniaSeMueveCorrectamenteDosCasilleros() {
         Parcela primeraParcela = new Casilla(new Posicion(1,2));
         Parcela segundaParcela = new Casilla(new Posicion(1,3));
         Parcela terceraParcela = new Casilla(new Posicion(1,4));
@@ -229,15 +232,17 @@ public class EnemigoTest {
         parcelas.add(terceraParcela);
 
         arania.moverse(parcelas);
+        DatosJugador datosJugador = DatosJugador.getInstance();
 
         assertFalse(arania.estaEnRango(1, new Posicion(1,1)));
         assertTrue(arania.estaEnRango(1,new Posicion(1,4)));
         assertFalse(arania.estaEnRango(1, new Posicion(1,5)));
-        assertEquals(20, datosPartidaSingleton.obtenerVidaJugador());
+        assertEquals(20, datosJugador.obtenerVidaJugador());
         assertFalse(arania.muerto());
     }
 
-    @Test void test6AraniaSeMueveSoloUnEspacioYLuegoMuereCorrectamente() {
+    @Test
+    public void test6AraniaSeMueveSoloUnEspacioYLuegoMuereCorrectamente() {
         Parcela primeraParcela = new Casilla(new Posicion(1,2));
 
 
@@ -247,13 +252,15 @@ public class EnemigoTest {
         parcelas.add(primeraParcela);
 
         arania.moverse(parcelas);
+        DatosJugador datosJugador = DatosJugador.getInstance();
 
         assertTrue(arania.estaEnRango(1, new Posicion(1,3)));
-        assertEquals(18, datosPartidaSingleton.obtenerVidaJugador());
+        assertEquals(18, datosJugador.obtenerVidaJugador());
         assertTrue(arania.muerto());
     }
 
-    @Test void test7AraniaNoPuedeMoverseEnNingunCasilleroYMuere() {
+    @Test
+    public void test7AraniaNoPuedeMoverseEnNingunCasilleroYMuere() {
         Parcela primeraParcela = new Casilla(new Posicion(1,3)); // no alcanzable por enemigo
 
         Enemigo arania = new Arania(2,2,2,2,2,new Posicion(1,1));
@@ -263,8 +270,10 @@ public class EnemigoTest {
 
         arania.moverse(parcelas);
 
+        DatosJugador datosJugador = DatosJugador.getInstance();
+
         assertTrue(arania.estaEnRango(1, new Posicion(0,0)));
-        assertEquals(18, datosPartidaSingleton.obtenerVidaJugador());
+        assertEquals(18, datosJugador.obtenerVidaJugador());
         assertTrue(arania.muerto());
     }
 
