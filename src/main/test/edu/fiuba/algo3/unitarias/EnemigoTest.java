@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
 import edu.fiuba.algo3.modelo.Partida.DatosJugador;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Partida.Partida;
 import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
@@ -36,6 +37,7 @@ public class EnemigoTest {
 
     @Test
     public void test1HormigaSeMueveParaDelanteYHaceDanio() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 1 hormiga se mueve para delante y hace daño.");
         /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
 
         Partida partida = new Partida();
@@ -55,6 +57,7 @@ public class EnemigoTest {
 
     @Test
     public void test2HormigaSeMueveCorrectamenteALaSiguientePosicion(){
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 2 hormiga se mueve correctamente a la siguiente posición");
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
 
@@ -80,6 +83,7 @@ public class EnemigoTest {
 
     @Test
     public void test3HormigaQueSeMovioSeMueveAUnaSiguientePosicionCorrectamente(){
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 3 Hormiga se movió se mueve después correctamente");
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
         List<Parcela> parcelas = new ArrayList<>();
@@ -119,6 +123,7 @@ public class EnemigoTest {
 
     @Test
     public void test4HormigaNoSeMueveALaSiguienteParcelaCorrectamenteYMuere(){
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 4 Hormiga se mueve a la siguiente parcela correctamente y muere");
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
 
@@ -144,6 +149,7 @@ public class EnemigoTest {
 
     @Test
     public void test2BisHormigaSeMueveCorrectamenteALaSiguientePosicion() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 2B Hormiga se mueve correctamente a la siguiente posición");
         Parcela parcela = new Casilla(new Posicion(1,2));
         Enemigo hormiga = new Hormiga(1,1,1,1,1,new Posicion(1,1));
 
@@ -158,6 +164,7 @@ public class EnemigoTest {
 
     @Test
     public void test3BisHormigaQueSeMovioSeMueveAUnaSiguientePosicionCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 3B Hormiga que se movió se mueve a una siguiente posición correctamente");
         Parcela primeraParcela = new Casilla(new Posicion(1,2));
         Parcela segundaParcela = new Casilla(new Posicion(1,3));
         Enemigo hormiga = new Hormiga(1,1,1,1,1,new Posicion(1,1));
@@ -176,6 +183,7 @@ public class EnemigoTest {
 
     @Test
     public void test4BisHormigaNoSeMueveALaSiguienteParcelaCorrectamenteYMuere(){
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 4B Hormiga se mueve a la siguiente parcela y muere");
 
         Parcela parcela = new Casilla(new Posicion(1,2));
         Enemigo hormiga = new Hormiga(1,1,1,1,1,new Posicion(5,5));
@@ -191,6 +199,7 @@ public class EnemigoTest {
 
     @Test
     public void test5HormigaHaceElDanioQueTieneAlJugadorCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 5 Hormiga hace daño al jugador correctamente");
         Parcela parcela = new Casilla(new Posicion(1,2));
         Enemigo hormiga = new Hormiga(1,3,1,1,1,new Posicion(5,5));
 
@@ -206,6 +215,7 @@ public class EnemigoTest {
 
     @Test
     public void test6HormigaNoHaceElDanioQueTieneAlJugadorCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 6 Hormiga no hace el daño que tiene al jugador correctamente");
         Parcela parcela = new Casilla(new Posicion(1,2));
         Enemigo hormiga = new Hormiga(1,2,1,1,1,new Posicion(1,1));
 
@@ -221,6 +231,7 @@ public class EnemigoTest {
 
     @Test
     public void test5AraniaSeMueveCorrectamenteDosCasilleros() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 7 Araña se mueve correctamente dos casilleros");
         Parcela primeraParcela = new Casilla(new Posicion(1,2));
         Parcela segundaParcela = new Casilla(new Posicion(1,3));
         Parcela terceraParcela = new Casilla(new Posicion(1,4));
@@ -243,6 +254,7 @@ public class EnemigoTest {
 
     @Test
     public void test6AraniaSeMueveSoloUnEspacioYLuegoMuereCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 8 Araña se mueve un espacio y luego muere");
         Parcela primeraParcela = new Casilla(new Posicion(1,2));
 
 
@@ -261,6 +273,7 @@ public class EnemigoTest {
 
     @Test
     public void test7AraniaNoPuedeMoverseEnNingunCasilleroYMuere() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 9 Araña no puedo moverse y luego muere");
         Parcela primeraParcela = new Casilla(new Posicion(1,3)); // no alcanzable por enemigo
 
         Enemigo arania = new Arania(2,2,2,2,2,new Posicion(1,1));

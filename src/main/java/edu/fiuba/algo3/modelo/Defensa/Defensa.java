@@ -53,8 +53,8 @@ public abstract class Defensa {
         List<Enemigo> enemigosEnRango = enemigos.stream().filter(e->e.estaEnRango(rango, posicion)).collect(Collectors.toList());
         for(Enemigo enemigo : enemigosEnRango){
             if (estado.puedeAtacar()) {
-                creditos += enemigo.recibirDanio(danio);
                 Logger.getInstance().logExitoso(this + " ataco a " + enemigo);
+                creditos += enemigo.recibirDanio(danio);
             }
         }
         return creditos;

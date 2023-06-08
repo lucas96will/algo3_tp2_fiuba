@@ -19,6 +19,8 @@ public final class Logger {
     public void logError(String mensaje) {
         System.out.println("\u001B[31m" + mensaje + "\u001B[0m");
     }
+
+    public void logEstado(String mensaje){ System.out.println(""+mensaje+"");}
 }
 
 

@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Partida.DatosJugador;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +29,7 @@ public class DefensaTest {
 
     @Test
     public void defensaTardaEnConstruirseLoQueDice() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO Defensa tarda en construirse lo que dice.");
         Defensa torreBlanca = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(1, 1));
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(2,2));

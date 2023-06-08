@@ -3,6 +3,7 @@ package edu.fiuba.algo3.unitarias;
 import edu.fiuba.algo3.modelo.Defensa.*;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicion;
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.times;
 public class TorrePlateadaTest {
     @Test
     public void noAtacaSiEstaIncompleta(){
-
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO TorrePlateada test 1: Torre no ataca si está incompleta");
         EstadoDefensa estadoIncompletoMock = mock(EstadoDefensaIncompleto.class);
         Hormiga hormigaMock = mock(Hormiga.class);
 
@@ -38,7 +39,7 @@ public class TorrePlateadaTest {
 
     @Test
     public void atacaSiEstaCompleta(){
-
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO TorrePlateada test 2: Torre ataca si está incompleta");
         EstadoDefensa estadoCompletoMock = mock(EstadoDefensaCompleto.class);
         Hormiga hormigaMock = mock(Hormiga.class);
 
@@ -57,6 +58,7 @@ public class TorrePlateadaTest {
 
     @Test
     public void seConstruyeDespuesDeDosTurnos() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO TorrePlateada test 3: Torre se construye después de dos turnos");
         EstadoDefensaIncompleto incompletoMock= mock(EstadoDefensaIncompleto.class);
         EstadoDefensaCompleto completoMock = mock(EstadoDefensaCompleto.class);
         TorrePlateada torrePlateada = new TorrePlateada(20, 2, 5, incompletoMock);

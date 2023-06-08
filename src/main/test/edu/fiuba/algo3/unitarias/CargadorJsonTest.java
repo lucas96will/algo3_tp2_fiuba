@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicion;
 import org.junit.jupiter.api.Test;
 
@@ -21,12 +22,14 @@ public class CargadorJsonTest {
 
     @Test
     public void laCantidadDeTurnosSeCarganCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO La cantidad de turnos se cargan correctamente.");
         int cantidadDeTurnosEsperada = 10;
         assertEquals(cantidadDeTurnosEsperada, enemigosPorTurno.size());
     }
 
     @Test
     public void lasUnidadesDeCadaTurnoSeCarganCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO Las unidades de cada turno se cargan correctamente.");
         assertEquals(1, enemigosPorTurno.get(0).size());
         assertEquals(2, enemigosPorTurno.get(1).size());
         assertEquals(3, enemigosPorTurno.get(2).size());
@@ -41,6 +44,7 @@ public class CargadorJsonTest {
 
     @Test
     public void cargadorRutaJsonEnemigosIncorrectaLanzaExcepcion() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO Cargador ruta json enemigos incorrecta lanza Excepcion.");
         CargadorJson cargadorJson = new CargadorJson();
         String rutaJsonEnemigosIncorrecto = "data/jsonTests/enemigosTestIncorrecto.json";
 
@@ -50,6 +54,7 @@ public class CargadorJsonTest {
 
     @Test
     public void cargadorRutaJsonMapaIncorrectaLanzaExcepcion() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO Cargador ruta json mapa incorrecta lanza Excepcion.");
         CargadorJson cargadorJson = new CargadorJson();
         String rutaJsonMapaIncorrecto = "data/jsonTests/mapaTestIncorrecto.json.json";
 
@@ -59,6 +64,7 @@ public class CargadorJsonTest {
 
     @Test
     public void mapaSeCargaCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO Mapa se carga correctamente.");
         CargadorJson cargadorJson = new CargadorJson();
         Mapa mapa = cargadorJson.procesarMapa(rutaJsonMapa);
 

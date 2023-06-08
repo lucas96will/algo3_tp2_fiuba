@@ -10,6 +10,7 @@ import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Partida.Partida;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CasosDeUsosTest {
     @Test
     public void caso1jugadorEmpiezaConVidaYCreditosCorrespondientes() {
+        Logger.getInstance().logEstado("\n--> Caso 1 jugador empieza con la vida y los créditos correspondientes.");
         Jugador jugador = new Jugador(new Recurso(100), 10, "Joaquin");
 
         assertTrue(jugador.estaIntacto());
@@ -26,6 +28,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso2defensaTardaEnConstruirseLoQueDice(){
+        Logger.getInstance().logEstado("\n--> Caso 2 Cada defensa tarde en construirse lo que dice que tarda.");
         Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
         Jugador jugador = new Jugador(recurso, 10, "Joaquin");
@@ -47,6 +50,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso3defensaSeConstruyeSoloSiElJugadorTieneLosCreditosNecesarios() {
+        Logger.getInstance().logEstado("\n--> Caso 3 Defensa solo se construye si el jugador tiene los créditos necesarios.");
         Jugador jugador = new Jugador(new Recurso(10), 10, "Josecito");
 
         Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
@@ -57,6 +61,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso4DefensaSoloSePuedeConstruirSobreTierra() {
+        Logger.getInstance().logEstado("\n--> Caso 4 Defensa solo se puedo contruir sobre tierra.");
         Tierra tierra = new Tierra(new Posicion(1,1));
         Rocoso rocoso = new Rocoso(new Posicion(2,2));
 
@@ -66,6 +71,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso5DefensasAtacanDentroDelRangoEsperado() {
+        Logger.getInstance().logEstado("\n--> Caso 5 Defensa Atacan dentro del rango esperado.");
         /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
 
         Partida partida = new Partida();
@@ -93,6 +99,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso6UnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
+        Logger.getInstance().logEstado("\n--> Caso 6 Las unidades enemigos son Dañadas acorde al daño recibido.");
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(10), 10, "Ariel");
         Mapa mapa = Mapa.generico();
@@ -121,6 +128,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso7LasUnidadesEnemigasSoloSeMuevenPorLaParcelaAutorizadaCorrectamente() {
+        Logger.getInstance().logEstado("\n--> Caso 7 Defensa solo se puedo contruir sobre tierra.");
         Pasarela pasarela = new Casilla(new Posicion(1,1));
         Tierra tierra = new Tierra(new Posicion(1,1));
         Rocoso rocoso = new Rocoso(new Posicion(1,1));
@@ -132,6 +140,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso8JugadorMataUnidadYCobraCreditoCorrespondiente(){
+        Logger.getInstance().logEstado("\n--> Caso 8 Jugador recibe los créditos correspondientes luego de matar a una unidad.");
 
         Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
@@ -157,6 +166,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void test9AlPasarTurnoLasUnidadesEnemigasSeMovieronSegunSusCapacidadesCorrectamente() {
+        Logger.getInstance().logEstado("\n--> Caso 9 Al pasar el turno, los enemigos se mueven lo que debían.");
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(10), 10, "Ariel");
 
@@ -183,6 +193,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso10SeGanaElJuegoMatandoTodosLosEnemigosCorrectamente(){
+        Logger.getInstance().logEstado("\n--> Caso 10 Se gana el juego matando todos los enemigos.");
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(100), 100, "Ariel");
 
@@ -208,6 +219,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso11SeGanaElJuegoSobreviviendoAlDanioDeLosEnemigos() {
+        Logger.getInstance().logEstado("\n--> Caso 11 Se gana el juego sobreviviendo al daño de los enemigos");
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(10), 100, "Ariel");
 
@@ -234,6 +246,7 @@ public class CasosDeUsosTest {
 
     @Test
     public void caso12SePierdeElJuegoPorElDanioDeLosEnemigos() {
+        Logger.getInstance().logEstado("\n--> Caso 12 Se pierde el juego por el daño de los enemigos.");
         Partida partida = new Partida();
         Jugador jugador = new Jugador(new Recurso(10), 8, "Ariel");
         Mapa mapa = Mapa.generico();

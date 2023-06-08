@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Parcela.Construible;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicion;
 
 public class Tierra extends Construible{
@@ -26,6 +27,7 @@ public class Tierra extends Construible{
             throw new Exception("Defensa no se puede construir.");
         }*/
         defensa.establecerPosicion(posicion);
+        Logger.getInstance().logExitoso(defensa + " construida en " + posicion);
         
     }
 
