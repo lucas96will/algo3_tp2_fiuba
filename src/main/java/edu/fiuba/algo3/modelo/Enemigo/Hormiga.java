@@ -27,4 +27,10 @@ public class Hormiga extends Enemigo{
         return datosJugador.obtenerMuertesHormigas() > 10 ?  2 : this.recompensa;
     }
 
+    @Override
+    public String toString() {
+
+        return ("Hormiga en " +  posicion.toString());
+    }
+
 }

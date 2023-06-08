@@ -60,4 +60,10 @@ public class Posicion {
         }
         return contador;
     }
+
+    @Override
+    public String toString() {
+
+        return ("( " + fila + ", " + columna + " )");
+    }
 }

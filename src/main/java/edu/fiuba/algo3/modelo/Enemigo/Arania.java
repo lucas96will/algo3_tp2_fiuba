@@ -24,4 +24,10 @@ public class Arania extends Enemigo{
     protected int entregarRecompensa() {
         return ( (int) Math.floor(Math.random()) * (10) + 1);
     }
+
+    @Override
+    public String toString() {
+
+        return ("Araña en " +  posicion.toString());
+    }
 }

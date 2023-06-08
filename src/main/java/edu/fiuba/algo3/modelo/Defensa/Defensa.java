@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicion;
 import edu.fiuba.algo3.modelo.Recurso;
 
@@ -53,6 +54,7 @@ public abstract class Defensa {
         for(Enemigo enemigo : enemigosEnRango){
             if (estado.puedeAtacar()) {
                 creditos += enemigo.recibirDanio(danio);
+                Logger.getInstance().logExitoso(this + " ataco a " + enemigo);
             }
         }
         return creditos;

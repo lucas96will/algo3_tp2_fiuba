@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.DatosJugador;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicion;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public abstract class Enemigo {
     private final int energia;
     protected int recompensa;
     protected boolean muerto;
-    private Posicion posicion;
+    protected Posicion posicion;
     private Posicion posicionAnterior;
 
     public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa, Posicion unaPosicion) {
@@ -96,6 +97,7 @@ public abstract class Enemigo {
         DatosJugador datosJugador = DatosJugador.getInstance();
         datosJugador.reducirVidaJugador(this.danio);
         this.muerto = true;
+        Logger.getInstance().logError(this + " hizo " + danio + " de daño al jugador");
     }
 
     public boolean estaEnRango(int rango, Posicion posicion) {

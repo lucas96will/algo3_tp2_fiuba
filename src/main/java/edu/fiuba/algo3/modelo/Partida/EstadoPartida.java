@@ -24,10 +24,16 @@ public class EstadoPartida {
     }
 
     public boolean perdio(){
+        if(perdio) {
+            Logger.getInstance().logError("Jugador perdio la partida");
+        }
         return perdio;
     }
 
     public boolean gano(){
+        if(gano) {
+            Logger.getInstance().logExitoso("Jugador gano la partida");
+        }
         return gano;
     }
 }
