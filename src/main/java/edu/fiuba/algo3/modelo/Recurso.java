@@ -1,12 +1,11 @@
 package edu.fiuba.algo3.modelo;
 
-public class Recursos {
+public class Recurso {
     private int creditos;
 
-    public Recursos(int unosCreditos){
+    public Recurso(int unosCreditos){
         creditos = unosCreditos;
     }
-
 
     public boolean gastar(int costeEnCreditos) {
         if(creditos < costeEnCreditos){

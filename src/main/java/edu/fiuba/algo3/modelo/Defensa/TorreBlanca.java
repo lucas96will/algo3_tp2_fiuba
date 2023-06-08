@@ -1,18 +1,18 @@
 package edu.fiuba.algo3.modelo.Defensa;
 
+import edu.fiuba.algo3.modelo.Posicion;
+
 public class TorreBlanca extends Defensa {
-    public TorreBlanca(int unaPosicionFila, int unaPosicionColumna) {
-        super(unaPosicionFila, unaPosicionColumna);
-        this.costeEnCreditos = 10;
-        this.rango = 3;
-        this.danio = 1;
-        this.estado = new EstadoDefensaIncompleto(1);
+
+    public TorreBlanca(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, Posicion posicion) {
+        super(costo, danio, rango, unEstadoDefensa, posicion);
+    }
+    public TorreBlanca(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa) {
+        super(costo, danio, rango, unEstadoDefensa);
     }
 
-    public TorreBlanca(int unaPosicionFila, int unaPosicionColumna, EstadoDefensa unEstadoDefensa) {
-        super(unaPosicionFila, unaPosicionColumna, unEstadoDefensa);
-        this.costeEnCreditos = 10;
-        this.rango = 3;
-        this.danio = 1;
+    @Override
+    public String toString() {
+        return "Torre blanca";
     }
 }

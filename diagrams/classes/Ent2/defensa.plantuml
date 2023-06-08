@@ -1,0 +1,69 @@
+@startuml
+
+abstract Defensa {
+    -costeEnCreditos:int
+    -rango:int
+    -danio:int
+    +Defensa(costo,rango,danio,estadoDefensa,posicion)
+    +Defensa(costo,rango,danio,estadoDefensa)
+    +comprate(Recurso recurso):bool
+    +establecerEstado(EstadoDefensa nuevoEstado):void
+    +siguienteEstado():void
+    +atacar(List<Enemigo> enemigos):int
+    +tieneLaMismaPosicion(Posicion posicion):bool
+    +establecerPosicion(Posicion posicion)
+}
+
+class TorreBlanca {
+    +TorreBlanca(costo, danio, rango, estado, posicion)
+    +TorreBlanca(costo, danio, rango, estado)
+}
+
+class TorrePlateada {
+    +TorrePlateada(costo, danio, rango, estado, posicion)
+    +TorrePlateada(costo, danio, rango, estado)
+}
+
+interface EstadoDefensa {
+    {abstract}+atacar(List<Pasarela> pasarelasEnRango,int danio):int
+    {abstract}+siguienteEstado(Defensa defensa):void
+    {abstract}+puedeAtacar():bool
+    {abstract}+reconstruir():this
+}
+
+class EstadoDefensaCompleto {
+    -noAtacoEnEsteTurno:bool
+    +atacar(List<Pasarela> pasarelasEnRango, int danio):int
+    +atacarEnemigos(Pasarela pasarela, List<Enemigo> enemigos, int danio):int
+    +siguienteEstado(Defensa defensa):void
+    +puedeAtacar():bool
+    +reconstruir():this
+}
+
+class EstadoDefensaIncompleto {
+    -tiempoConstruccion:int
+    +atacar(List<Pasarela> pasarelasEnRango, int danio):int
+    +siguienteEstado(Defensa defensa):void
+    +puedeAtacar():bool
+    +reconstruir():this
+}
+
+class Posicion {
+    -fila:int
+    -columna:int
+    +Posicion(int posFila, int posCol)
+    +estaEnRango(int rango,Posicion posicion):bool
+    +estaEnRangoLaterales(Posicion posicion):bool
+    +esIgual(Posicion ... unasPosiciones):bool
+    +esLateral(int cantColumnas, int cantFilas):bool
+    +cantidadDePasarelasAlrededor(List<Parcela> pasarelas):int
+}
+
+EstadoDefensa <|.. EstadoDefensaCompleto
+EstadoDefensa <|.. EstadoDefensaIncompleto
+Defensa <|-- TorreBlanca
+Defensa <|-- TorrePlateada
+Defensa "1" o-- "1" EstadoDefensa
+Defensa "1" o-- "0.1" Posicion
+
+@enduml

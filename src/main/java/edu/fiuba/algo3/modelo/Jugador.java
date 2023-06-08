@@ -1,42 +1,51 @@
 package edu.fiuba.algo3.modelo;
-
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 
 public class Jugador {
-    private Recursos recursos;
+    private final Recurso recurso;
     private int vida;
-    private String nombre;
+    private final String nombre;
     private int vidaMaxima;
-    private boolean jugadorIntacto;
-    public Jugador(int unosCreditos, int unaVida, String unNombre) {
-        recursos = new Recursos(unosCreditos);
+
+    public Jugador(Recurso unRecurso, int unaVida, String unNombre) {
+        recurso = unRecurso;
         vida = unaVida;
         vidaMaxima = unaVida;
         nombre = unNombre;
-        jugadorIntacto = true;
+        DatosJugador datosJugador = DatosJugador.getInstance();
+        Contador contador = new Contador();
+        datosJugador.actualizarEstado(this.vida, this.recurso, contador);
     }
-    public static Jugador crearJugadorBase(String unNombre){
-        return new Jugador(100, 10, unNombre);
+    /*public static Jugador crearJugadorBase(String unNombre){
+        return new Jugador(new Recurso(100), 10, unNombre);
+    }*/
+
+    public boolean comprarDefensa(Defensa defensa){
+        return defensa.comprate(recurso);
     }
 
-    public void recibirDanio(int danio){
-        vida = vida - danio;
+    public void obtenerReembolso(Defensa defensa){
+        defensa.reembolsarCreditos(recurso);
     }
-    public boolean comprarDefensa(Defensa defensa){
-        return defensa.comprate(recursos);
-    }
+
     public boolean muerto(){
-        return vida <= 0;
+        //refactorizar
+        DatosJugador datosJugador = DatosJugador.getInstance();
+        return datosJugador.obtenerVidaJugador() <= 0;
     }
+
     public boolean estaIntacto(){
-        return vida == vidaMaxima;
+        DatosJugador datosJugador = DatosJugador.getInstance();
+        return datosJugador.obtenerVidaJugador() == vidaMaxima;
     }
 
     public int valorCreditos() {
-        return recursos.valorMonetario();
+        return recurso.valorMonetario();
     }
 
     public void sumarMonedas(int recompensa) {
-        recursos.sumarMonedas(recompensa);
+        recurso.sumarMonedas(recompensa);
     }
+
 }

@@ -1,90 +1,38 @@
 package edu.fiuba.algo3.modelo.Parcela.Pasarela;
-
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
-import edu.fiuba.algo3.modelo.Defensa.EstadoDefensa;
-import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaCompleto;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Posicion;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+public abstract class Pasarela implements Parcela {
 
-public class Pasarela implements Parcela {
-
-
-    public Pasarela anterior;
-    public Pasarela siguiente;
-    protected ArrayList<Enemigo> enemigosEncima;
     public Posicion posicion;
 
-    public Pasarela(Pasarela pasarela_anterior, Posicion unaPosicion){
-        anterior = pasarela_anterior;
-        enemigosEncima = new ArrayList<>();
+    public Pasarela(Posicion unaPosicion){
         posicion = unaPosicion;
     }
-
-    public boolean construirDefensa(Defensa defensa) { return false;}
-    public void fijarSiguiente(Pasarela pasarela_siguiente){
-        siguiente = pasarela_siguiente;
+    
+    public void insertarDefensa(Defensa defensa) throws Exception {
+        throw new Exception("No se puede construir una defensa en una pasarela");
     }
 
-    public void insertarEnemigo(Enemigo enemigo) {
-        enemigosEncima.add(enemigo);
+    public boolean moveElEnemigo(Enemigo enemigo){
+        enemigo.mover(posicion);
+        return true;
     }
-
-    public int atacarAlPrimerEnemigo(int danio) {
-        if(enemigosEncima.size() > 0) {
-            return enemigosEncima.get(0).recibirDanio(danio, this);
-        }
-
-        return -1;
-    }
-
-    public boolean noLlegoAlaLargada() {
-        return anterior != null;
-    }
-
-    public boolean llegoAlaMeta() {
-        return siguiente != null;
-    }
-
-    public void moverEnemigos() {
-        Iterator<Enemigo> iterador = enemigosEncima.iterator();
-        while(iterador.hasNext()) {
-            iterador.next().mover(this);
-            iterador.remove();
-        }
-        /*enemigosEncima.clear();*/
-    }
-
-    public void eliminarEnemigo(Enemigo enemigo) {
-        enemigosEncima.remove(0);
-    }
-
-
-    public boolean sinEnemigos() {
-        return enemigosEncima.size() == 0;
-    }
-
-    public int atacarConEstado(EstadoDefensaCompleto estado, int danio) {
-        return estado.atacarEnemigos(this, enemigosEncima, danio);
-    }
-
-    public Pasarela getAnterior() {
-        return anterior;
-    }
-
-    public Pasarela getSiguiente() {
-        return siguiente;
-    }
-
-    public Posicion getPosicion() {
-        return posicion;
-    }
-
-    public void setPosicion(Posicion posicion) {
+    
+    @Override
+    public void establecerPosicion(Posicion posicion) {
         this.posicion = posicion;
     }
 
+    @Override
+    public boolean tieneLaMismaPosicion(Posicion... posiciones) {
+        return this.posicion.esIgual(posiciones);
+    }
+
+    @Override
+    public boolean estaEnRangoLateralesA(Posicion posicion) {
+        return this.posicion.estaEnRangoLaterales(posicion);
+    }
 }

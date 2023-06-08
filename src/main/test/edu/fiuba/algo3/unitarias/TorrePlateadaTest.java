@@ -1,13 +1,14 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.unitarias;
 
 import edu.fiuba.algo3.modelo.Defensa.*;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicion;
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,55 +20,48 @@ import static org.mockito.Mockito.times;
 public class TorrePlateadaTest {
     @Test
     public void noAtacaSiEstaIncompleta(){
-
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO TorrePlateada test 1: Torre no ataca si está incompleta");
         EstadoDefensa estadoIncompletoMock = mock(EstadoDefensaIncompleto.class);
-        Posicion posicion = new Posicion(0, 2);
-        Meta pasarelaMock = mock(Meta.class);
-        Largada largadaMock = mock(Largada.class);
-        List<Pasarela> pasarelas = new ArrayList<>();
-        pasarelas.add(pasarelaMock);
+        Hormiga hormigaMock = mock(Hormiga.class);
 
-        pasarelaMock.posicion = posicion;
-        pasarelaMock.anterior = largadaMock;
-        when(largadaMock.noLlegoAlaLargada()).thenReturn(false);
-        when(estadoIncompletoMock.atacar(pasarelas, 1)).thenReturn(0); // estado incompleto siempre retorna 0
+        when(hormigaMock.estaEnRango(anyInt(), any(Posicion.class))).thenReturn(true);
+        when(estadoIncompletoMock.puedeAtacar()).thenReturn(false); // estado incompleto siempre retorna 0
 
-        TorrePlateada torrePlateada = new TorrePlateada(1, 4, estadoIncompletoMock);
+        TorrePlateada torrePlateada = new TorrePlateada(20,2,5, estadoIncompletoMock, new Posicion(1,4));
 
-        torrePlateada.establecerPasarelasEnRango(pasarelaMock);
-        assertEquals(torrePlateada.atacar(), 0);
-        verify(estadoIncompletoMock, times(1)).atacar(pasarelas, 1); // chequeo que la clase torre
-        // delegue correctamente el atacar al estado
+        List<Enemigo> enemigos = new ArrayList<Enemigo>();
+        enemigos.add(hormigaMock);
+
+        assertEquals(torrePlateada.atacar(enemigos), 0);
+        verify(estadoIncompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
+
     }
 
     @Test
     public void atacaSiEstaCompleta(){
-
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO TorrePlateada test 2: Torre ataca si está incompleta");
         EstadoDefensa estadoCompletoMock = mock(EstadoDefensaCompleto.class);
-        Posicion posicion = new Posicion(0, 2);
-        Meta pasarelaMock = mock(Meta.class);
-        Largada largadaMock = mock(Largada.class);
-        List<Pasarela> pasarelas = new ArrayList<>();
-        pasarelas.add(pasarelaMock);
+        Hormiga hormigaMock = mock(Hormiga.class);
 
-        pasarelaMock.posicion = posicion;
-        pasarelaMock.anterior = largadaMock;
-        when(largadaMock.noLlegoAlaLargada()).thenReturn(false);
-        when(estadoCompletoMock.atacar(pasarelas, 1)).thenReturn(1);
+        when(hormigaMock.estaEnRango(anyInt(), any(Posicion.class))).thenReturn(true);
+        when(hormigaMock.recibirDanio(anyInt())).thenReturn(1);
+        when(estadoCompletoMock.puedeAtacar()).thenReturn(true); // estado incompleto siempre retorna 0
 
-        TorrePlateada torrePlateada = new TorrePlateada(1, 4, estadoCompletoMock);
+        TorrePlateada torrePlateada = new TorrePlateada(20,2,5, estadoCompletoMock, new Posicion(1,4));
 
-        torrePlateada.establecerPasarelasEnRango(pasarelaMock);
-        assertEquals(torrePlateada.atacar(), 1);
-        verify(estadoCompletoMock, times(1)).atacar(pasarelas, 1); // chequeo que la clase torre
-        // delegue correctamente el atacar al estado
+        List<Enemigo> enemigos = new ArrayList<Enemigo>();
+        enemigos.add(hormigaMock);
+
+        assertEquals(torrePlateada.atacar(enemigos), 1);
+        verify(estadoCompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
     }
 
     @Test
     public void seConstruyeDespuesDeDosTurnos() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO TorrePlateada test 3: Torre se construye después de dos turnos");
         EstadoDefensaIncompleto incompletoMock= mock(EstadoDefensaIncompleto.class);
         EstadoDefensaCompleto completoMock = mock(EstadoDefensaCompleto.class);
-        TorrePlateada torrePlateada = new TorrePlateada(1, 5, incompletoMock);
+        TorrePlateada torrePlateada = new TorrePlateada(20, 2, 5, incompletoMock);
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocationOnMock) throws Throwable {

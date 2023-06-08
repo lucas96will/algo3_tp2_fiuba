@@ -1,7 +1,7 @@
-package edu.fiuba.algo3.entrega_1;
-
+package edu.fiuba.algo3.unitarias;
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Message;
+import edu.fiuba.algo3.modelo.Partida.Partida;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,10 +20,9 @@ public class JugadorTest {
         */
         //-------------------------------------------------------
         Partida partida = new Partida();
-        Jugador jugador = Jugador.crearJugadorBase("Joaquin");
-        partida.crearPartidaGenerica(jugador);
-
-        partida.comenzar();
+        Jugador jugador = new Jugador(new Recurso(100),10,"Joaquin");
+        Mapa mapa = Mapa.generico();
+        partida.crearPartida(jugador,mapa);
 
         assertTrue(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
         assertFalse(partida.terminarPartida());

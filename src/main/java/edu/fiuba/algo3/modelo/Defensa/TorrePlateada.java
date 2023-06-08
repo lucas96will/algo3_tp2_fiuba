@@ -1,18 +1,19 @@
 package edu.fiuba.algo3.modelo.Defensa;
 
+import edu.fiuba.algo3.modelo.Posicion;
+
 public class TorrePlateada extends Defensa {
-    public TorrePlateada(int unaPosicionFila, int unaPosicionColumna) {
-        super(unaPosicionFila, unaPosicionColumna);
-        this.costeEnCreditos = 20;
-        this.rango = 5;
-        this.danio = 2;
-        this.estado = new EstadoDefensaIncompleto(2);
+
+
+    public TorrePlateada(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, Posicion posicion) {
+        super(costo, danio, rango, unEstadoDefensa, posicion);
+    }
+    public TorrePlateada(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa) {
+        super(costo, danio,rango, unEstadoDefensa);
     }
 
-    public TorrePlateada(int unaPosicionFila, int unaPosicionColumna, EstadoDefensa unEstadoDefensa) {
-        super(unaPosicionFila, unaPosicionColumna, unEstadoDefensa);
-        this.costeEnCreditos = 10;
-        this.rango = 3;
-        this.danio = 1;
+    @Override
+    public String toString() {
+        return "Torre plateada";
     }
 }

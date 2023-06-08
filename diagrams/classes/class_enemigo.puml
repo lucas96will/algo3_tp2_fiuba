@@ -1,0 +1,23 @@
+@startuml
+class Enemigo.Hormiga {
+}
+class Enemigo.Enemigo {
+- int danio
+- int vida
+- int velocidad
+- int energia
+- int recompensa
+- int id
++ int recibirDanio(int,Pasarela)
+- int morir(Pasarela)
+- int entregarRecompensa()
++ int hacerDanio()
++ {static} Enemigo crearHormiga(int)
++ {static} Enemigo crearArania(int)
++ void mover(Pasarela)
++ int sumarDanio(int)
+}
+
+
+Enemigo.Enemigo <|-- Enemigo.Hormiga
+@enduml
