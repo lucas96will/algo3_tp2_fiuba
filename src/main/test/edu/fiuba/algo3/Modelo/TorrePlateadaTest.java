@@ -1,10 +1,10 @@
-package edu.fiuba.algo3.unitarias;
+package edu.fiuba.algo3.Modelo;
 
 import edu.fiuba.algo3.modelo.Defensa.*;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Partida.Logger;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;

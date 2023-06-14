@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.Parcela.Construible;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Partida.Logger;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class Tierra extends Construible{
     public Tierra(Posicion unaPosicion) {

@@ -1,7 +1,8 @@
-package edu.fiuba.algo3.modelo.Parcela;
+package edu.fiuba.algo3.modelo.Factory;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoIdentificadaException;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
 import java.util.HashMap;
 

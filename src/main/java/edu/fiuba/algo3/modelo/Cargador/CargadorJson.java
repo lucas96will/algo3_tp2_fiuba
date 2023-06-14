@@ -1,13 +1,13 @@
-package edu.fiuba.algo3;
+package edu.fiuba.algo3.modelo.Cargador;
 
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
-import edu.fiuba.algo3.modelo.Mapa;
-import edu.fiuba.algo3.modelo.Parcela.ParcelaFactory;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Mapa;
+import edu.fiuba.algo3.modelo.Factory.ParcelaFactory;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

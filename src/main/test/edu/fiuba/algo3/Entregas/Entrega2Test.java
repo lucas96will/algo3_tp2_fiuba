@@ -1,24 +1,23 @@
-package edu.fiuba.algo3.entrega_2;
+package edu.fiuba.algo3.Entregas;
 
-import edu.fiuba.algo3.CargadorJson;
-import edu.fiuba.algo3.JuegoFacade;
-import edu.fiuba.algo3.modelo.Contador;
-import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaCompleto;
+import edu.fiuba.algo3.modelo.Cargador.CargadorJson;
+import edu.fiuba.algo3.modelo.Cargador.JuegoFacade;
+import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Defensa.TorrePlateada;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
 import edu.fiuba.algo3.modelo.Partida.Logger;
-import edu.fiuba.algo3.modelo.Posicion;
-import edu.fiuba.algo3.modelo.Recurso;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CasosDeUsosTest {
+public class Entrega2Test {
     private final String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
     private final String rutaJsonMapa = "data/jsonTests/mapa.json";
     private DatosJugador datosPartidaSingleton;

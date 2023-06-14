@@ -1,13 +1,13 @@
-package edu.fiuba.algo3.unitarias;
+package edu.fiuba.algo3.Modelo;
 
-import edu.fiuba.algo3.CargadorJson;
+import edu.fiuba.algo3.modelo.Cargador.CargadorJson;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
-import edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Partida.Logger;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

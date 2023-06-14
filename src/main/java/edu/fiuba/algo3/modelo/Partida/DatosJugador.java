@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.Partida;
 
-import edu.fiuba.algo3.modelo.Contador;
-import edu.fiuba.algo3.modelo.Recurso;
+import edu.fiuba.algo3.modelo.Jugador.Contador;
+import edu.fiuba.algo3.modelo.Jugador.Recurso;
 
 public class DatosJugador {
     private static DatosJugador datosJugador;

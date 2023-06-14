@@ -1,10 +1,11 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.*;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

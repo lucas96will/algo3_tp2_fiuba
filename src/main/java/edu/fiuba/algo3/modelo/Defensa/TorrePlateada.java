@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Defensa;
 
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class TorrePlateada extends Defensa {
 

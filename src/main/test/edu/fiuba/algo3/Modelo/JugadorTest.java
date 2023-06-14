@@ -1,7 +1,8 @@
-package edu.fiuba.algo3.unitarias;
-import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.Message;
+package edu.fiuba.algo3.Modelo;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Partida.Partida;
+import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,10 +29,4 @@ public class JugadorTest {
         assertFalse(partida.terminarPartida());
     }
 
-    @Test
-    public void messageGreetingDefaultLanguage() {
-        Message message = new Message("Hola Mundo!", "Hello world!");
-
-        assertEquals("Hola Mundo!", message.greet());
-    }
 }

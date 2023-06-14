@@ -1,9 +1,12 @@
-package edu.fiuba.algo3.entrega_1;
+package edu.fiuba.algo3.Entregas;
 
-import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Jugador.Recurso;
+import edu.fiuba.algo3.modelo.Mapa.Mapa;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
@@ -16,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CasosDeUsosTest {
+public class Entrega1Test {
     @Test
     public void caso1jugadorEmpiezaConVidaYCreditosCorrespondientes() {
         Logger.getInstance().logEstado("\n--> Caso 1 jugador empieza con la vida y los créditos correspondientes.");

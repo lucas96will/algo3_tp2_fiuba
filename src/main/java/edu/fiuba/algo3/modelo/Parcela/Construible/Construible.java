@@ -2,7 +2,7 @@ package edu.fiuba.algo3.modelo.Parcela.Construible;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import java.util.List;
 
 public abstract class Construible implements Parcela {
