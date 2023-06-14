@@ -24,7 +24,7 @@ public class CargadorJson {
         try {
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader(rutaJsonEnemigos));
-            Object objeto2 = parser.parse(new FileReader(rutaJsonMapa)); //todavia no hace nada, solo los lee a ver q onda
+            Object objeto2 = parser.parse(new FileReader(rutaJsonMapa));
 
             return true;
         } catch (ParseException e) {
@@ -35,16 +35,13 @@ public class CargadorJson {
     }
 
     public List< List<Enemigo> > procesarEnemigos(String rutaJsonEnemigos){
-        //recibe un json y procesa los enemigos para devolverlos en una lista.
         List< List<Enemigo> > listaDeEnemigosPorTurno = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
         try {
             FileReader lector = new FileReader(rutaJsonEnemigos);
-            // Leo archivo JSON
             JSONArray listaDeEnemigosJson = (JSONArray) parser.parse(lector);
 
-            //Itero sobre el archivo
             listaDeEnemigosJson.forEach(enemigosJson -> guardarEnemigoEnLista(listaDeEnemigosPorTurno, (JSONObject) enemigosJson));
             return listaDeEnemigosPorTurno;
 
@@ -57,19 +54,14 @@ public class CargadorJson {
     }
 
     private void guardarEnemigoEnLista(List< List<Enemigo> > listaDeEnemigosPorTurno, JSONObject jsonEnemigos) {
-        // Leo numero de turno
         long numeroDeTurno = (long) jsonEnemigos.get("turno");
 
-        // Obtengo el objeto que contiene "enemigos:"
         JSONObject cantidadEnemigos = (JSONObject) jsonEnemigos.get("enemigos");
 
-        // Creo los enemigos
         List<Enemigo> enemigosTurnoActual = new ArrayList<>();
         long cantidadHormigas = (long) cantidadEnemigos.get("hormiga");
         long cantidadAranias = (long) cantidadEnemigos.get("arana");
 
-
-        // Guardo los enemigos
         for(long i = 0; i < cantidadHormigas; i++) {
             enemigosTurnoActual.add(new Hormiga(1,1,1,1,1));
         }
@@ -86,7 +78,6 @@ public class CargadorJson {
         try {
             JSONParser parser = new JSONParser();
             FileReader lector = new FileReader(rutaJsonMapa);
-            // Leo archivo JSON
             JSONObject json = (JSONObject) parser.parse(lector);
             JSONObject mapaJson = (JSONObject) json.get("Mapa");
 

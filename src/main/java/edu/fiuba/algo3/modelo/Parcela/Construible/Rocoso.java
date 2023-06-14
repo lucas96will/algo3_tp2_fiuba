@@ -4,6 +4,9 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class Rocoso extends Construible{
+    public Rocoso() {
+        super();
+    }
 
     public Rocoso(Posicion unaPosicion) {
         super(unaPosicion);

@@ -7,11 +7,12 @@ import edu.fiuba.algo3.modelo.Mapa.Posicion;
 public abstract class Pasarela implements Parcela {
 
     public Posicion posicion;
-
     public Pasarela(Posicion unaPosicion){
         posicion = unaPosicion;
     }
-    
+
+    public Pasarela() {}
+
     public void insertarDefensa(Defensa defensa) throws Exception {
         throw new Exception("No se puede construir una defensa en una pasarela");
     }

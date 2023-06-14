@@ -50,11 +50,6 @@ public abstract class Enemigo {
 
     abstract protected int entregarRecompensa();
 
-
-    public int hacerDanio(){
-        return danio;
-    }
-
     public void mover(Posicion posicion) {
         this.posicionAnterior = this.posicion;
         this.posicion = posicion;

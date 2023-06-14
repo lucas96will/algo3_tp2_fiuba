@@ -10,6 +10,10 @@ public class Meta extends Pasarela {
         super(unaPosicion);
     }
 
+    public Meta() {
+        super();
+    }
+
     @Override
     public void insertarEnemigo(Enemigo unEnemigo) throws Exception {
         

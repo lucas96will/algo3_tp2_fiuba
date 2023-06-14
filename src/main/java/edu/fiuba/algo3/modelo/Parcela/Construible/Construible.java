@@ -9,6 +9,10 @@ public abstract class Construible implements Parcela {
     protected Posicion posicion;
     protected Defensa defensa;
 
+    public Construible() {
+        this.defensa = null;
+    }
+
     public Construible(Posicion unaPosicion) {
         this.defensa = null;
         this.posicion = unaPosicion;

@@ -11,9 +11,9 @@ public class ParcelaFactory {
 
     public ParcelaFactory(){
         this.tipoDeParcelas = new HashMap<>();
-        this.tipoDeParcelas.put("Rocoso", new Rocoso(null));
-        this.tipoDeParcelas.put("Tierra", new Tierra(null));
-        this.tipoDeParcelas.put("Pasarela", new Casilla(null));
+        this.tipoDeParcelas.put("Rocoso", new Rocoso());
+        this.tipoDeParcelas.put("Tierra", new Tierra());
+        this.tipoDeParcelas.put("Pasarela", new Casilla());
     }
 
     static public Parcela obtenerParcela(String nombreParcela){

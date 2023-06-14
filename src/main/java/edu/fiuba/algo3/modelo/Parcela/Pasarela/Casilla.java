@@ -10,6 +10,11 @@ public class Casilla extends Pasarela {
         super(unaPosicion);
     }
 
+    public Casilla() {
+        super();
+    }
+
+
     @Override
     public void insertarEnemigo(Enemigo unEnemigo) throws Exception {
         

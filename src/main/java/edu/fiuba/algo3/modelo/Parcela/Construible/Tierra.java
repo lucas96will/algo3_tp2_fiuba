@@ -10,6 +10,10 @@ public class Tierra extends Construible{
         super(unaPosicion);
     }
 
+    public Tierra() {
+        super();
+    }
+
     @Override
     public void insertarDefensa(Defensa defensa){
         /*if (defensa.tieneLaMismaPosicion(this.posicion)){
