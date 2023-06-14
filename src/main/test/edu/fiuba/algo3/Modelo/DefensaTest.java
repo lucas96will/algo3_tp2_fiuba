@@ -1,11 +1,11 @@
 package edu.fiuba.algo3.Modelo;
 
-import edu.fiuba.algo3.modelo.Jugador.Contador;
+import edu.fiuba.algo3.modelo.Defensa.Torre;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
-import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
+import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -25,12 +25,13 @@ public class DefensaTest {
     public void setup() {
         jugadorSingleton = Jugador.getInstance();
         jugadorSingleton.actualizarEstado(20, new Recurso(100), "PEPE");
+        jugadorSingleton.actualizarContador(new Contador());
     }
 
     @Test
     public void defensaTardaEnConstruirseLoQueDice() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO Defensa tarda en construirse lo que dice.");
-        Defensa torreBlanca = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(1, 1));
+        Defensa torreBlanca = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(1, 1), "Torre Blanca");
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(2,2));
 

@@ -2,10 +2,9 @@ package edu.fiuba.algo3.Entregas;
 
 import edu.fiuba.algo3.modelo.Cargador.CargadorJson;
 import edu.fiuba.algo3.modelo.Cargador.JuegoFacade;
-import edu.fiuba.algo3.modelo.Jugador.Contador;
+import edu.fiuba.algo3.modelo.Defensa.Torre;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
-import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
-import edu.fiuba.algo3.modelo.Defensa.TorrePlateada;
+import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Partida.*;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -88,12 +87,13 @@ public class Entrega2Test {
         Recurso recurso = new Recurso(60);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, recurso, "#Singleton");
+        jugador.actualizarContador(new Contador());
         juego.cargarJugador(jugador);
         juego.iniciar();
 
-        TorrePlateada torrePlateada = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
-        TorrePlateada torrePlateadaDos = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
-        TorrePlateada torrePlateadaTres = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+        Torre torrePlateada = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
+        Torre torrePlateadaDos = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
+        Torre torrePlateadaTres = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
 
         juego.construir(torrePlateada, new Posicion(3,3));
         juego.construir(torrePlateadaDos, new Posicion(8,3));
@@ -128,11 +128,12 @@ public class Entrega2Test {
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, recurso, "#Singleton");
+        jugador.actualizarContador(new Contador());
         juego.cargarJugador(jugador);
         juego.iniciar();
 
-        TorrePlateada torrePlateada1 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
-        TorrePlateada torrePlateada2 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+        Torre torrePlateada1 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
+        Torre torrePlateada2 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
 
 
         assertThrows(Exception.class, () -> juego.construir(torrePlateada1, new Posicion(1, 1))); //reviso que construir tire excepcion en la parcela rocoso
@@ -158,11 +159,12 @@ public class Entrega2Test {
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, recurso, "#Singleton");
+        jugador.actualizarContador(new Contador());
         juego.cargarJugador(jugador);
         juego.iniciar();
 
-        TorrePlateada torrePlateada1 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
-        TorrePlateada torrePlateada2 = new TorrePlateada(20,2,5,new EstadoDefensaIncompleto(2));
+        Torre torrePlateada1 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
+        Torre torrePlateada2 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
 
 
         assertThrows(Exception.class, () -> juego.construir(torrePlateada1, new Posicion(15, 2))); //reviso que construir tire excepcion en la parcela rocoso
@@ -196,7 +198,7 @@ public class Entrega2Test {
         juego.cargarJugador(jugador);
         juego.iniciar();
 
-        TorreBlanca torreBlanca = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        Torre torreBlanca = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         juego.construir(torreBlanca, new Posicion(3, 3));
 
         for (int i = 0; i < 29 ; i++) {

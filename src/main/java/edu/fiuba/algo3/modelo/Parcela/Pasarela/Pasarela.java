@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo.Parcela.Pasarela;
+
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
@@ -7,30 +8,32 @@ import edu.fiuba.algo3.modelo.Mapa.Posicion;
 public abstract class Pasarela implements Parcela {
 
     public Posicion posicion;
-    public Pasarela(Posicion unaPosicion){
+
+    public Pasarela(Posicion unaPosicion) {
         posicion = unaPosicion;
     }
 
-    public Pasarela() {}
+    public Pasarela() {
+    }
 
     public void insertarDefensa(Defensa defensa) throws Exception {
         throw new Exception("No se puede construir una defensa en una pasarela");
     }
 
-    public boolean moveElEnemigo(Enemigo enemigo){
+    public boolean moveElEnemigo(Enemigo enemigo) {
         enemigo.mover(posicion);
         return true;
     }
 
-    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior){
-            if(estaEnRangoLateralesA(actual) && (anterior.esNull() || !tieneLaMismaPosicion(actual, anterior) )) {
-                enemigo.mover(posicion);
-                return true;
-            }
-            return false;
+    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior) {
+        if (estaEnRangoLateralesA(actual) && (anterior.esNull() || !tieneLaMismaPosicion(actual, anterior))) {
+            enemigo.mover(posicion);
+            return true;
+        }
+        return false;
 
     }
-    
+
     @Override
     public void establecerPosicion(Posicion posicion) {
         this.posicion = posicion;

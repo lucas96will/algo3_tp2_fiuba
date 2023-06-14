@@ -26,12 +26,13 @@ public abstract class Defensa {
         this.nombre = nombre;
     }
     
-    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa) {
+    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, String nombre) {
         this.posicion = NullPosicion.obtenerNullPosicion();
         this.estado = unEstadoDefensa;
         this.costeEnCreditos = costo;
         this.rango = rango;
         this.danio = danio;
+        this.nombre = nombre;
     }
 
     public boolean comprate(Recurso recurso) {

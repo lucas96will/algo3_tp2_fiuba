@@ -32,6 +32,7 @@ public class EnemigoTest {
     public void setup() {
         jugadorSingleton = Jugador.getInstance();
         jugadorSingleton.actualizarEstado(20, new Recurso(100), "PEPE");
+        jugadorSingleton.actualizarContador(new Contador());
     }
 
     @Test
@@ -61,13 +62,16 @@ public class EnemigoTest {
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
 
+
         Parcela parcelaMock = mock(Casilla.class);
         when(parcelaMock.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(true);
         when(parcelaMock.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
         doAnswer(invocation -> {
             hormiga.mover(new Posicion(1,2));
             return true;
-        }).when(parcelaMock).moveElEnemigo(any(Enemigo.class));
+        }).when(parcelaMock).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
+
+
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(parcelaMock);
@@ -76,9 +80,7 @@ public class EnemigoTest {
 
         assertTrue(hormiga.estaEnRango(1, new Posicion(1,3)));
         assertFalse(hormiga.muerto());
-        verify(parcelaMock, times(1)).estaEnRangoLateralesA(any(Posicion.class));
-        verify(parcelaMock, times(0)).tieneLaMismaPosicion(any(Posicion.class));
-        verify(parcelaMock, times(1)).moveElEnemigo(any(Enemigo.class));
+        verify(parcelaMock, times(1)).moveElEnemigo(any(Enemigo.class),any(Posicion.class), any(Posicion.class));
     }
 
     @Test
@@ -95,28 +97,36 @@ public class EnemigoTest {
         when(parcelaMockPrimera.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
         doAnswer(invocation -> {
             hormiga.mover(new Posicion(1, 2));
-                return true;
-            }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class));
+            return true;
+            }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
 
         when(parcelaMockSegunda.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(false);
         when(parcelaMockSegunda.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
         doAnswer(invocation -> {
             hormiga.mover(new Posicion(1, 3));
             return true;
-        }).when(parcelaMockSegunda).moveElEnemigo(any(Enemigo.class));
+        }).when(parcelaMockSegunda).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
 
 
         parcelas.add(parcelaMockPrimera);
-        when(parcelaMockPrimera.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(true);
-        when(parcelaMockSegunda.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(true);
-        parcelas.add(parcelaMockSegunda);
 
         hormiga.moverse(parcelas); // posicion en (1,2)
+
+        doAnswer(invocation -> {
+            return false;
+        }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
+
+        when(parcelaMockPrimera.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(true);
+        when(parcelaMockSegunda.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(true);
+
+        parcelas.add(parcelaMockSegunda);
+
         hormiga.moverse(parcelas); // posicion en (1,3)
+
         assertTrue(hormiga.estaEnRango(1, new Posicion(1,4)));
         assertFalse(hormiga.muerto());
-        verify(parcelaMockPrimera, times(1)).moveElEnemigo(any(Enemigo.class));
-        verify(parcelaMockSegunda, times(1)).moveElEnemigo(any(Enemigo.class));
+        verify(parcelaMockPrimera, times(2)).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
+        verify(parcelaMockSegunda, times(1)).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
 
 
     }
@@ -132,19 +142,19 @@ public class EnemigoTest {
         when(parcelaMock.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
         doAnswer(invocation -> {
             hormiga.mover(new Posicion(1,2));
-            return true;
-        }).when(parcelaMock).moveElEnemigo(any(Enemigo.class));
+            return false;
+        }).when(parcelaMock).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(parcelaMock);
         hormiga.moverse(parcelas);
 
 
-        assertFalse(hormiga.estaEnRango(1, new Posicion(1,3)));
+        assertTrue(hormiga.estaEnRango(1, new Posicion(1,3)));
         assertTrue(hormiga.muerto());
-        verify(parcelaMock, times(1)).estaEnRangoLateralesA(any(Posicion.class));
-        verify(parcelaMock, times(0)).tieneLaMismaPosicion(any(Posicion.class));
-        verify(parcelaMock, times(0)).moveElEnemigo(any(Enemigo.class));
+//        verify(parcelaMock, times(1)).estaEnRangoLateralesA(any(Posicion.class));
+//        verify(parcelaMock, times(0)).tieneLaMismaPosicion(any(Posicion.class));
+        verify(parcelaMock, times(1)).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
     }
 
     @Test

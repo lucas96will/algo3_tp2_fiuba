@@ -38,7 +38,7 @@ public class Entrega1Test {
         partida.crearPartida(jugador,mapa);
 
 
-        Defensa torrePlateada = new TorrePlateada(20, 2,5, new EstadoDefensaIncompleto(2));
+        Defensa torrePlateada = new Torre(20, 2,5, new EstadoDefensaIncompleto(2), "Torre Plateada");
         partida.insertarEnemigo(new Hormiga(2,2,2,2,2,new Posicion(1, 1)));
         partida.construir(torrePlateada, new Posicion(2,6)); // 2 turnos para construirse
         partida.terminarTurno(); // arania en posicion (1,3)
@@ -57,8 +57,8 @@ public class Entrega1Test {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(10), "Josesito");
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
-        Defensa torreBlanca2 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
+        Defensa torreBlanca2 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
         assertTrue(jugador.comprarDefensa(torreBlanca1));
         assertFalse(jugador.comprarDefensa(torreBlanca2));
     }
@@ -69,8 +69,8 @@ public class Entrega1Test {
         Tierra tierra = new Tierra(new Posicion(1,1));
         Rocoso rocoso = new Rocoso(new Posicion(2,2));
 
-        assertDoesNotThrow(() -> tierra.insertarDefensa(new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2))));
-        assertThrows(Exception.class,() -> rocoso.insertarDefensa(new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2))));
+        assertDoesNotThrow(() -> tierra.insertarDefensa(new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca")));
+        assertThrows(Exception.class,() -> rocoso.insertarDefensa(new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca")));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class Entrega1Test {
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,6));
 
         //Enemigo hormiga = Enemigo.crearHormiga(1,null);
@@ -111,7 +111,7 @@ public class Entrega1Test {
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
 
         partida.insertarEnemigo(new Hormiga(1,1,1,1,10, new Posicion(1,1)));
@@ -157,7 +157,7 @@ public class Entrega1Test {
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
         // 100-10 = 90
 
@@ -181,7 +181,7 @@ public class Entrega1Test {
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca( 10, 1, 3, new EstadoDefensaIncompleto(1));
+        Defensa torreBlanca1 = new Torre( 10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
 
         /*rango de ataque de torre blanca = 0 - 4 fila ; 0 - 4 columna*/
@@ -209,7 +209,7 @@ public class Entrega1Test {
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(1));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
 
         Hormiga hormiga = new Hormiga(1,1,1,1,10, new Posicion(1,1));
@@ -237,7 +237,7 @@ public class Entrega1Test {
         mapa.crearMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
-        Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
 
         for(int i = 0; i < 10; i++) {
