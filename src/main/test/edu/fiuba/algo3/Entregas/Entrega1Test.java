@@ -11,10 +11,7 @@ import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
-import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
-import edu.fiuba.algo3.modelo.Partida.Logger;
-import edu.fiuba.algo3.modelo.Partida.Partida;
+import edu.fiuba.algo3.modelo.Partida.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -114,19 +111,19 @@ public class Entrega1Test {
         partida.insertarEnemigo(new Hormiga(1,1,1,1,10, new Posicion(1,1)));
         partida.terminarTurno(); // tarda 1 turno en construir la torre blanca
         partida.terminarTurno(); // Muere la hormiga
-        EstadoPartida condicionPartida = partida.estado();
-        assertTrue(condicionPartida.gano()); // No hay enemigos en el mapa y el jugador tiene vida
+        EstadoPartida estadoPartida = partida.estado();
+        assertEquals(estadoPartida, new EstadoPartidaGanada()); // No hay enemigos en el mapa y el jugador tiene vida
 
         partida.insertarEnemigo(new Arania(2,2,2,2,2,  new Posicion(1,1))); // arania con 2 de vida
         partida.terminarTurno(); // se dania a la arania, queda con 1 de vida
 
-        condicionPartida = partida.estado();
-        assertTrue(condicionPartida.sigueJugando());
+        estadoPartida = partida.estado();
+        assertEquals(estadoPartida, new EstadoPartidaSigueJugando());
 
         partida.terminarTurno(); // muere la arania
 
-        condicionPartida = partida.estado();
-        assertTrue(condicionPartida.gano());
+        estadoPartida = partida.estado();
+        assertEquals(estadoPartida, new EstadoPartidaGanada());
     }
 
     @Test
@@ -189,8 +186,8 @@ public class Entrega1Test {
         partida.terminarTurno(); // enemigo en posicion (1, 6)
         partida.terminarTurno(); // enemigo paso la meta que estaba en (0, 8)
 
-        EstadoPartida condicionPartida = partida.estado();
-        assertTrue(condicionPartida.gano());
+        EstadoPartida estadoPartida = partida.estado();
+        assertEquals(estadoPartida, new EstadoPartidaGanada());
         assertTrue(jugador.estaIntacto());
     }
 
@@ -216,8 +213,8 @@ public class Entrega1Test {
         partida.terminarTurno(); // Ataca una hormiga
         partida.terminarTurno(); // Ataca una segunda hormiga
 
-        EstadoPartida condicionPartida = partida.estado();
-        assertTrue(condicionPartida.gano());
+        EstadoPartida estadoPartida = partida.estado();
+        assertEquals(estadoPartida, new EstadoPartidaGanada());
     }
 
     @Test
@@ -241,8 +238,8 @@ public class Entrega1Test {
             partida.terminarTurno();
         }
 
-        EstadoPartida condicionPartida = partida.estado();
-        assertTrue(condicionPartida.gano());
+        EstadoPartida estadoPartida = partida.estado();
+        assertEquals(estadoPartida, new EstadoPartidaGanada());
         //assertFalse(jugador.estaIntacto());
         assertNotEquals(100, DatosJugador.getInstance().obtenerVidaJugador());
     }
@@ -265,7 +262,7 @@ public class Entrega1Test {
         for(int i = 0; i < 10; i++){
             partida.terminarTurno();
         }
-        EstadoPartida condicionPartida = partida.estado();
-        assertTrue(condicionPartida.perdio());
+        EstadoPartida estadoPartida = partida.estado();
+        assertEquals(estadoPartida, new EstadoPartidaPerdida());
     }
 }

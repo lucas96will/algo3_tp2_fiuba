@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Partida;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Factory.EstadoPartidaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -9,12 +10,14 @@ import java.util.List;
 public class Partida {
     private Jugador jugador;
     private Mapa mapa;
+    private EstadoPartida estadoPartida;
 
     public Partida(){}
     public void crearPartidaGenerica(Jugador jugador){
         this.jugador = jugador;
         mapa = new Mapa();
         mapa.crearMapaGenerico();
+        this.estadoPartida = new EstadoPartidaSigueJugando();
         
     }
     public void crearPartida(Jugador jugador, Mapa mapa){
@@ -59,7 +62,7 @@ public class Partida {
     }*/
 
     public EstadoPartida estado() {
-        return new EstadoPartida(this.jugador, this.mapa);
+        return EstadoPartidaFactory.obtenerEstadoPartida(this.jugador, this.mapa);
     }
 
     public void anadirEnemigos(List<Enemigo> enemigos) {

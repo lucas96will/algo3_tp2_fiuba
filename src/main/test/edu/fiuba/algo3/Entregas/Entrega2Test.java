@@ -7,9 +7,7 @@ import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Defensa.TorrePlateada;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
-import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
-import edu.fiuba.algo3.modelo.Partida.Logger;
+import edu.fiuba.algo3.modelo.Partida.*;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import org.junit.jupiter.api.BeforeEach;
@@ -77,7 +75,7 @@ public class Entrega2Test {
         }
 
         EstadoPartida estadoPartida = juego.estado();
-        assertTrue(estadoPartida.perdio());
+        assertEquals(estadoPartida, new EstadoPartidaPerdida());
     }
 
     @Test
@@ -111,7 +109,7 @@ public class Entrega2Test {
         int muertesHormigaEsperada = 11;
 
         EstadoPartida estadoPartida = juego.estado();
-        assertTrue(estadoPartida.gano());
+        assertEquals(estadoPartida, new EstadoPartidaGanada());
         assertTrue(recurso.valorMonetario() > 0);
         assertEquals(20, datosJugador.obtenerVidaJugador());
 
@@ -202,12 +200,12 @@ public class Entrega2Test {
         }
 
         EstadoPartida estadoPartida = juego.estado();
-        assertTrue(estadoPartida.sigueJugando());
+        assertEquals(estadoPartida, new EstadoPartidaSigueJugando());
 
         juego.terminarTurno();
 
         estadoPartida = juego.estado();
-        assertTrue(estadoPartida.gano());
+        assertEquals(estadoPartida, new EstadoPartidaGanada());
     }
 
     @Test
@@ -226,8 +224,8 @@ public class Entrega2Test {
         }
 
         EstadoPartida estadoPartida = juego.estado();
-        assertFalse(estadoPartida.sigueJugando());
-        assertTrue(estadoPartida.perdio());
+        assertNotEquals(estadoPartida, new EstadoPartidaSigueJugando());
+        assertEquals(estadoPartida, new EstadoPartidaPerdida());
 
     }
 }
