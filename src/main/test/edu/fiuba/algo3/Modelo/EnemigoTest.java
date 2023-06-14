@@ -7,7 +7,6 @@ import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Partida.Partida;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -27,12 +26,12 @@ import static org.mockito.Mockito.*;
 
 public class EnemigoTest {
 
-    private DatosJugador datosPartidaSingleton;
+    private Jugador jugadorSingleton;
 
     @BeforeEach
     public void setup() {
-        datosPartidaSingleton = DatosJugador.getInstance();
-        datosPartidaSingleton.actualizarEstado(20, new Recurso(100), new Contador());
+        jugadorSingleton = Jugador.getInstance();
+        jugadorSingleton.actualizarEstado(20, new Recurso(100), "PEPE");
     }
 
     @Test
@@ -41,7 +40,8 @@ public class EnemigoTest {
         /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
 
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(new Recurso(10), 100, "Josecito");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(100, new Recurso(10), "Josecito");
         partida.crearPartidaGenerica(jugador);
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
@@ -207,10 +207,10 @@ public class EnemigoTest {
         parcelas.add(parcela);
         hormiga.moverse(parcelas);
 
-        DatosJugador datosJugador = DatosJugador.getInstance();
+        Jugador jugador = Jugador.getInstance();
         int vidaEsperada = 17;
         assertTrue(hormiga.muerto());
-        assertEquals(vidaEsperada, datosJugador.obtenerVidaJugador());
+        assertEquals(vidaEsperada, jugador.obtenerVidaJugador());
     }
 
     @Test
@@ -223,10 +223,10 @@ public class EnemigoTest {
         parcelas.add(parcela);
         hormiga.moverse(parcelas);
 
-        DatosJugador datosJugador = DatosJugador.getInstance();
+        Jugador jugador = Jugador.getInstance();
         int vidaEsperada = 20;
         assertFalse(hormiga.muerto());
-        assertEquals(vidaEsperada, datosJugador.obtenerVidaJugador());
+        assertEquals(vidaEsperada, jugador.obtenerVidaJugador());
     }
 
     @Test
@@ -243,12 +243,12 @@ public class EnemigoTest {
         parcelas.add(terceraParcela);
 
         arania.moverse(parcelas);
-        DatosJugador datosJugador = DatosJugador.getInstance();
+        Jugador jugador = Jugador.getInstance();
 
         assertFalse(arania.estaEnRango(1, new Posicion(1,1)));
         assertTrue(arania.estaEnRango(1,new Posicion(1,4)));
         assertFalse(arania.estaEnRango(1, new Posicion(1,5)));
-        assertEquals(20, datosJugador.obtenerVidaJugador());
+        assertEquals(20, jugador.obtenerVidaJugador());
         assertFalse(arania.muerto());
     }
 
@@ -264,10 +264,10 @@ public class EnemigoTest {
         parcelas.add(primeraParcela);
 
         arania.moverse(parcelas);
-        DatosJugador datosJugador = DatosJugador.getInstance();
+        Jugador jugador = Jugador.getInstance();
 
         assertTrue(arania.estaEnRango(1, new Posicion(1,3)));
-        assertEquals(18, datosJugador.obtenerVidaJugador());
+        assertEquals(18, jugador.obtenerVidaJugador());
         assertTrue(arania.muerto());
     }
 
@@ -283,10 +283,10 @@ public class EnemigoTest {
 
         arania.moverse(parcelas);
 
-        DatosJugador datosJugador = DatosJugador.getInstance();
+        Jugador jugador = Jugador.getInstance();
 
         assertTrue(arania.estaEnRango(1, new Posicion(0,0)));
-        assertEquals(18, datosJugador.obtenerVidaJugador());
+        assertEquals(18, jugador.obtenerVidaJugador());
         assertTrue(arania.muerto());
     }
 

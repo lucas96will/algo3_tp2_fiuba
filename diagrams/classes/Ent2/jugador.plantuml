@@ -4,7 +4,18 @@ class Jugador {
     -vida:int
     -vidaMaxima:int
     -nombre:String
-    +Jugador(recurso,vida,nombre)
+    -jugador:Jugador
+    -contador:Contador
+    +Jugador()
+    +getInstance():Jugador
+    +actualizarEstado(Int vida, Recurso recurso, String nombre)
+    +actualizarContador(Contador contador)
+    +incrementarContadorAranias()
+    +incrementarContadorHormigas()
+    +obtenerMuertesArania()
+    +obtenerMuertesHormigas()
+    +obtenerVidaJugador()
+    +reducirVidaJugador()
     +comprarDefensa(Defensa defensa):bool
     +obtenerReembolso(Defensa defensa):void
     +muerto():bool

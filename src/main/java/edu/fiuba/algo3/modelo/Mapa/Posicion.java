@@ -38,6 +38,10 @@ public class Posicion {
         return posiciones.stream().anyMatch(p -> p.fila == this.fila && p.columna == this.columna);
     }
 
+    public boolean esNull() {
+        return false;
+    }
+
     /*public int getFila() {
         return fila;
     }*/

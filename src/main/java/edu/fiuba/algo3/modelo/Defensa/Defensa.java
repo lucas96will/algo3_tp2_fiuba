@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 
 import java.util.List;
@@ -13,18 +14,20 @@ public abstract class Defensa {
     protected Posicion posicion;
     protected int danio;
     protected EstadoDefensa estado;
+    protected String nombre;
 
 
-    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, Posicion posicion) {
+    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, Posicion posicion, String nombre) {
         this.posicion = posicion;
         this.estado = unEstadoDefensa;
         this.costeEnCreditos = costo;
         this.rango = rango;
         this.danio = danio;
+        this.nombre = nombre;
     }
     
     public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa) {
-        this.posicion = null;
+        this.posicion = NullPosicion.obtenerNullPosicion();
         this.estado = unEstadoDefensa;
         this.costeEnCreditos = costo;
         this.rango = rango;
@@ -77,5 +80,10 @@ public abstract class Defensa {
     
     public void establecerPosicion(Posicion posicion) {
         this.posicion = posicion;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

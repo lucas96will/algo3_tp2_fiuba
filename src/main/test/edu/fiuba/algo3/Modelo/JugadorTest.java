@@ -21,7 +21,8 @@ public class JugadorTest {
         */
         //-------------------------------------------------------
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(new Recurso(100),10,"Joaquin");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(10, new Recurso(100),"Joaquin");
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 

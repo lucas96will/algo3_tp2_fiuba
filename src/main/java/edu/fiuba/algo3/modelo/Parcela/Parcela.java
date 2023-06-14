@@ -8,6 +8,7 @@ public interface Parcela {
     void insertarEnemigo(Enemigo unEnemigo) throws Exception;
     void insertarDefensa(Defensa defensa) throws Exception;
     boolean moveElEnemigo(Enemigo enemigo);
+    boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior);
     boolean tieneLaMismaPosicion(Posicion ... posiciones);
     boolean estaEnRangoLateralesA(Posicion posicion);
     void establecerPosicion(Posicion posicion);

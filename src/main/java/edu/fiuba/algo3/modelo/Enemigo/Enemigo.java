@@ -1,8 +1,9 @@
 package edu.fiuba.algo3.modelo.Enemigo;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import java.util.List;
 
 public abstract class Enemigo {
@@ -11,7 +12,7 @@ public abstract class Enemigo {
     private final int velocidad;
     private final int energia;
     protected int recompensa;
-    protected boolean muerto;
+    protected EstadoEnemigo estado;
     protected Posicion posicion;
     private Posicion posicionAnterior;
 
@@ -22,8 +23,8 @@ public abstract class Enemigo {
         energia = unaEnergia;
         recompensa = unaRecompensa;
         posicion = unaPosicion;
-        this.posicionAnterior = null;
-        muerto = false;
+        this.posicionAnterior = NullPosicion.obtenerNullPosicion();
+        estado = new Vivo();
     }
     
     public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa) {
@@ -32,9 +33,9 @@ public abstract class Enemigo {
             velocidad = unaVelocidad;
             energia = unaEnergia;
             recompensa = unaRecompensa;
-            posicion = null;
-            this.posicionAnterior = null;
-            muerto = false;
+            posicion = NullPosicion.obtenerNullPosicion();
+            this.posicionAnterior = NullPosicion.obtenerNullPosicion();
+            estado = new Vivo();
         }
 
     public int recibirDanio(int danio){
@@ -45,7 +46,7 @@ public abstract class Enemigo {
     abstract protected int morir();
 
     public boolean muerto(){
-        return muerto;
+        return estado.muerto();
     }
 
     abstract protected int entregarRecompensa();
@@ -69,9 +70,9 @@ public abstract class Enemigo {
             seMovio = false;
             while(k < parcelas.size() && !seMovio){
                 unaParcela = parcelas.get(k);
-                if(this.mePuedoMoverAEstaParcela(unaParcela)){
-                    seMovio = unaParcela.moveElEnemigo(this);
-                }
+                
+                seMovio = unaParcela.moveElEnemigo(this, posicion, posicionAnterior);
+                
                 k++;
             }
             this.daniarAlJugador(!seMovio && i == velocidad - 1);
@@ -80,8 +81,8 @@ public abstract class Enemigo {
     }
 
     private boolean mePuedoMoverAEstaParcela(Parcela parcela) {
-        return parcela.estaEnRangoLateralesA(this.posicion)
-                && (posicionAnterior == null || !parcela.tieneLaMismaPosicion(this.posicion, this.posicionAnterior));
+        return estado.vivo() && parcela.estaEnRangoLateralesA(this.posicion)
+                && (posicionAnterior.esNull() || !parcela.tieneLaMismaPosicion(this.posicion, this.posicionAnterior));
     }
 
     private void daniarAlJugador(boolean llegueALaMeta){
@@ -89,9 +90,9 @@ public abstract class Enemigo {
         if(!llegueALaMeta){
             return;
         }
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        datosJugador.reducirVidaJugador(this.danio);
-        this.muerto = true;
+        Jugador jugador = Jugador.getInstance();
+        jugador.reducirVidaJugador(this.danio);
+        this.estado = new Muerto();
         Logger.getInstance().logError(this + " hizo " + danio + " de daño al jugador");
     }
 

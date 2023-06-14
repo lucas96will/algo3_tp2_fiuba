@@ -18,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Entrega2Test {
     private final String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
     private final String rutaJsonMapa = "data/jsonTests/mapa.json";
-    private DatosJugador datosPartidaSingleton;
+    private Jugador jugadorSingleton;
 
     @BeforeEach
     public void setup() {
-        datosPartidaSingleton = DatosJugador.getInstance();
-        datosPartidaSingleton.actualizarEstado(20, new Recurso(100), new Contador());
+        jugadorSingleton = Jugador.getInstance();
+        jugadorSingleton.actualizarEstado(20, new Recurso(100), "PEPE");
     }
 
     @Test
@@ -65,7 +65,9 @@ public class Entrega2Test {
         JuegoFacade juego = new JuegoFacade();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
 
-        Jugador jugador = new Jugador(new Recurso(100), 20, "#Singleton");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(20, new Recurso(100), "#Singleton");
+
         juego.cargarJugador(jugador);
 
         juego.iniciar();
@@ -84,7 +86,8 @@ public class Entrega2Test {
         JuegoFacade juego = new JuegoFacade();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(60);
-        Jugador jugador = new Jugador(recurso, 20, "#Singleton");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(20, recurso, "#Singleton");
         juego.cargarJugador(jugador);
         juego.iniciar();
 
@@ -101,9 +104,8 @@ public class Entrega2Test {
         }
 
         //11 hormigas 10 aranias
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        int contadorMuertesArania = datosJugador.obtenerMuertesArania();
-        int contadorMuertesHormiga = datosJugador.obtenerMuertesHormigas();
+        int contadorMuertesArania = jugador.obtenerMuertesArania();
+        int contadorMuertesHormiga = jugador.obtenerMuertesHormigas();
 
         int muertesAraniaEsperada = 10;
         int muertesHormigaEsperada = 11;
@@ -111,7 +113,7 @@ public class Entrega2Test {
         EstadoPartida estadoPartida = juego.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada());
         assertTrue(recurso.valorMonetario() > 0);
-        assertEquals(20, datosJugador.obtenerVidaJugador());
+        assertEquals(20, jugador.obtenerVidaJugador());
 
         assertEquals(muertesAraniaEsperada, contadorMuertesArania);
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga);
@@ -124,7 +126,8 @@ public class Entrega2Test {
         JuegoFacade juego = new JuegoFacade();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
-        Jugador jugador = new Jugador(recurso, 20, "#Singleton");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(20, recurso, "#Singleton");
         juego.cargarJugador(jugador);
         juego.iniciar();
 
@@ -141,7 +144,7 @@ public class Entrega2Test {
         }
 
         int muertesHormigaEsperada = 4;
-        int contadorMuertesHormiga = DatosJugador.getInstance().obtenerMuertesHormigas();
+        int contadorMuertesHormiga = Jugador.getInstance().obtenerMuertesHormigas();
 
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde deberian y la torre fue construida en tierra
     }
@@ -153,7 +156,8 @@ public class Entrega2Test {
         JuegoFacade juego = new JuegoFacade();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
-        Jugador jugador = new Jugador(recurso, 20, "#Singleton");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(20, recurso, "#Singleton");
         juego.cargarJugador(jugador);
         juego.iniciar();
 
@@ -172,13 +176,12 @@ public class Entrega2Test {
         int muertesHormigaEsperada = 11;
         int muertesAraniaEsperada = 10;
 
-        int contadorMuertesHormiga = DatosJugador.getInstance().obtenerMuertesHormigas();
-        int contadorMuertesArania = DatosJugador.getInstance().obtenerMuertesArania();
+        int contadorMuertesHormiga = Jugador.getInstance().obtenerMuertesHormigas();
+        int contadorMuertesArania = Jugador.getInstance().obtenerMuertesArania();
         int vidaEsperada = 20;
-        assertEquals(vidaEsperada, datosPartidaSingleton.obtenerVidaJugador());
+        assertEquals(vidaEsperada, jugadorSingleton.obtenerVidaJugador());
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde y cuando deberian y
         assertEquals(muertesAraniaEsperada, contadorMuertesArania);   // la torre fue construida en tierra
-
     }
 
 
@@ -188,7 +191,8 @@ public class Entrega2Test {
         JuegoFacade juego = new JuegoFacade();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
-        Jugador jugador = new Jugador(recurso, 20, "Messi");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(20, recurso, "Messi");
         juego.cargarJugador(jugador);
         juego.iniciar();
 
@@ -214,7 +218,8 @@ public class Entrega2Test {
         JuegoFacade juego = new JuegoFacade();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
-        Jugador jugador = new Jugador(recurso, 20, "Messi");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(20, recurso, "Messi");
         juego.cargarJugador(jugador);
         juego.iniciar();
 

@@ -20,7 +20,8 @@ public class Entrega1Test {
     @Test
     public void caso1jugadorEmpiezaConVidaYCreditosCorrespondientes() {
         Logger.getInstance().logEstado("\n--> Caso 1 jugador empieza con la vida y los créditos correspondientes.");
-        Jugador jugador = new Jugador(new Recurso(100), 10, "Joaquin");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(10, new Recurso(100), "Joaquín");
 
         assertTrue(jugador.estaIntacto());
         assertEquals(100, jugador.valorCreditos());
@@ -31,7 +32,8 @@ public class Entrega1Test {
         Logger.getInstance().logEstado("\n--> Caso 2 Cada defensa tarde en construirse lo que dice que tarda.");
         Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
-        Jugador jugador = new Jugador(recurso, 10, "Joaquin");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(10, recurso, "Joaquín");
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
@@ -51,7 +53,9 @@ public class Entrega1Test {
     @Test
     public void caso3defensaSeConstruyeSoloSiElJugadorTieneLosCreditosNecesarios() {
         Logger.getInstance().logEstado("\n--> Caso 3 Defensa solo se construye si el jugador tiene los créditos necesarios.");
-        Jugador jugador = new Jugador(new Recurso(10), 10, "Josecito");
+
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(10, new Recurso(10), "Josesito");
 
         Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
         Defensa torreBlanca2 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
@@ -76,7 +80,8 @@ public class Entrega1Test {
 
         Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
-        Jugador jugador = new Jugador(recurso, 100, "Josecito");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(100, recurso, "Josesito");
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
@@ -101,7 +106,8 @@ public class Entrega1Test {
     public void caso6UnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
         Logger.getInstance().logEstado("\n--> Caso 6 Las unidades enemigos son Dañadas acorde al daño recibido.");
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(new Recurso(10), 10, "Ariel");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(10, new Recurso(10), "Ariel");
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
@@ -144,7 +150,8 @@ public class Entrega1Test {
 
         Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
-        Jugador jugador = new Jugador(recurso, 100, "Josecito");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(100, recurso, "Josesito");
         /*100*/
 
         Mapa mapa = Mapa.generico();
@@ -168,7 +175,8 @@ public class Entrega1Test {
     public void test9AlPasarTurnoLasUnidadesEnemigasSeMovieronSegunSusCapacidadesCorrectamente() {
         Logger.getInstance().logEstado("\n--> Caso 9 Al pasar el turno, los enemigos se mueven lo que debían.");
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(new Recurso(10), 10, "Ariel");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(10, new Recurso(10), "Josesito");
 
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
@@ -195,7 +203,8 @@ public class Entrega1Test {
     public void caso10SeGanaElJuegoMatandoTodosLosEnemigosCorrectamente(){
         Logger.getInstance().logEstado("\n--> Caso 10 Se gana el juego matando todos los enemigos.");
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(new Recurso(100), 100, "Ariel");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(100, new Recurso(100), "Ariel");
 
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
@@ -221,7 +230,8 @@ public class Entrega1Test {
     public void caso11SeGanaElJuegoSobreviviendoAlDanioDeLosEnemigos() {
         Logger.getInstance().logEstado("\n--> Caso 11 Se gana el juego sobreviviendo al daño de los enemigos");
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(new Recurso(10), 100, "Ariel");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(100, new Recurso(10), "Diego");
 
         Mapa mapa = new Mapa();
         mapa.crearMapaGenerico();
@@ -241,14 +251,15 @@ public class Entrega1Test {
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada());
         //assertFalse(jugador.estaIntacto());
-        assertNotEquals(100, DatosJugador.getInstance().obtenerVidaJugador());
+        assertNotEquals(100, Jugador.getInstance().obtenerVidaJugador());
     }
 
     @Test
     public void caso12SePierdeElJuegoPorElDanioDeLosEnemigos() {
         Logger.getInstance().logEstado("\n--> Caso 12 Se pierde el juego por el daño de los enemigos.");
         Partida partida = new Partida();
-        Jugador jugador = new Jugador(new Recurso(10), 8, "Ariel");
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarEstado(8, new Recurso(10), "Diego");
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 

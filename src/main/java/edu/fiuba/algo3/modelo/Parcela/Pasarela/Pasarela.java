@@ -21,6 +21,15 @@ public abstract class Pasarela implements Parcela {
         enemigo.mover(posicion);
         return true;
     }
+
+    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior){
+            if(estaEnRangoLateralesA(actual) && (anterior.esNull() || !tieneLaMismaPosicion(actual, anterior) )) {
+                enemigo.mover(posicion);
+                return true;
+            }
+            return false;
+
+    }
     
     @Override
     public void establecerPosicion(Posicion posicion) {

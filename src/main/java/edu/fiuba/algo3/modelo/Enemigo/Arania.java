@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
@@ -15,9 +15,9 @@ public class Arania extends Enemigo{
 
     @Override
     protected int morir() {
-        muerto = true;
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        datosJugador.incrementarContadorAranias();
+        estado = new Muerto();
+        Jugador jugador = Jugador.getInstance();
+        jugador.incrementarContadorAranias();
         Logger.getInstance().logExitoso(this + " ha muerto.");
         return entregarRecompensa();
     }

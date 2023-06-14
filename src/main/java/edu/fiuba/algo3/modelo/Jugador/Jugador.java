@@ -1,26 +1,60 @@
 package edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
 
 public class Jugador {
-    private final Recurso recurso;
+
+    private static Jugador jugador = new Jugador();
+    private Recurso recurso;
     private int vida;
-    private final String nombre;
+    private String nombre;
     private int vidaMaxima;
-
-    public Jugador(Recurso unRecurso, int unaVida, String unNombre) {
-        recurso = unRecurso;
-        vida = unaVida;
-        vidaMaxima = unaVida;
-        nombre = unNombre;
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        Contador contador = new Contador();
-        datosJugador.actualizarEstado(this.vida, this.recurso, contador);
+    private Contador contadorMuertes;
+    
+    private Jugador() {
+        recurso = new Recurso(100);
+        vida = 100;
+        vidaMaxima = 100;
+        nombre = "Mario";
+        contadorMuertes = new Contador();
     }
-    /*public static Jugador crearJugadorBase(String unNombre){
-        return new Jugador(new Recurso(100), 10, unNombre);
-    }*/
 
+    static public Jugador getInstance(){
+        return jugador;
+    }
+
+    public void actualizarEstado(int vida, Recurso recursos, String nombre) {
+        vidaMaxima= vida;
+        this.vida = vida;
+        this.recurso = recursos;
+        this.nombre = nombre;
+    }
+    public void actualizarContador(Contador contador){
+        contadorMuertes = contador;
+    }
+
+    public void incrementarContadorAranias(){
+        contadorMuertes.incrementarContadorAranias();
+    }
+
+    public void incrementarContadorHormigas(){
+        contadorMuertes.incrementarContadorHormigas();
+    }
+
+    public int obtenerMuertesHormigas() {
+        return contadorMuertes.obtenerMuertesHormigas();
+    }
+
+    public int obtenerVidaJugador() {
+        return vida;
+    }
+
+    public void reducirVidaJugador(int danio) {
+        vida -= danio;
+    }
+
+    public int obtenerMuertesArania() {
+        return contadorMuertes.obtenerMuertesAranias();
+    }
     public boolean comprarDefensa(Defensa defensa){
         return defensa.comprate(recurso);
     }
@@ -31,13 +65,13 @@ public class Jugador {
 
     public boolean muerto(){
         //refactorizar
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        return datosJugador.obtenerVidaJugador() <= 0;
+        Jugador jugador = Jugador.getInstance();
+        return jugador.obtenerVidaJugador() <= 0;
     }
 
     public boolean estaIntacto(){
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        return datosJugador.obtenerVidaJugador() == vidaMaxima;
+        Jugador jugador = Jugador.getInstance();
+        return jugador.obtenerVidaJugador() == vidaMaxima;
     }
 
     public int valorCreditos() {

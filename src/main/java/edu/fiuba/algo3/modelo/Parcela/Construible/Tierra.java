@@ -5,7 +5,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
-public class Tierra extends Construible{
+public class Tierra extends Construible {
     public Tierra(Posicion unaPosicion) {
         super(unaPosicion);
     }
@@ -15,7 +15,7 @@ public class Tierra extends Construible{
     }
 
     @Override
-    public void insertarDefensa(Defensa defensa){
+    public void insertarDefensa(Defensa defensa) {
         /*if (defensa.tieneLaMismaPosicion(this.posicion)){
             this.defensa = defensa;
             return true;
@@ -32,11 +32,16 @@ public class Tierra extends Construible{
         }*/
         defensa.establecerPosicion(posicion);
         Logger.getInstance().logExitoso(defensa + " construida en " + posicion);
-        
+
     }
 
     @Override
     public boolean moveElEnemigo(Enemigo enemigo) {
+        return false;
+    }
+
+    @Override
+    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior) {
         return false;
     }
 

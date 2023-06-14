@@ -1,5 +1,5 @@
 package edu.fiuba.algo3.modelo.Enemigo;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
@@ -15,9 +15,9 @@ public class Hormiga extends Enemigo{
 
     @Override
     protected int morir() {
-        muerto = true;
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        datosJugador.incrementarContadorHormigas();
+        estado = new Muerto();
+        Jugador jugador = Jugador.getInstance();
+        jugador.incrementarContadorHormigas();
         Logger.getInstance().logExitoso(this + " ha muerto.");
         return entregarRecompensa();
 
@@ -25,8 +25,8 @@ public class Hormiga extends Enemigo{
 
     @Override
     protected int entregarRecompensa() {
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        return datosJugador.obtenerMuertesHormigas() > 10 ?  2 : this.recompensa;
+        Jugador jugador = Jugador.getInstance();
+        return jugador.obtenerMuertesHormigas() > 10 ?  2 : this.recompensa;
     }
 
     @Override

@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Defensa.TorreBlanca;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DefensaTest {
-    private DatosJugador datosPartidaSingleton;
+    private Jugador jugadorSingleton;
 
     @BeforeEach
     public void setup() {
-        datosPartidaSingleton = DatosJugador.getInstance();
-        datosPartidaSingleton.actualizarEstado(20, new Recurso(100), new Contador());
+        jugadorSingleton = Jugador.getInstance();
+        jugadorSingleton.actualizarEstado(20, new Recurso(100), "PEPE");
     }
 
     @Test
@@ -41,5 +41,4 @@ public class DefensaTest {
         torreBlanca.siguienteEstado();
         assertEquals(1, torreBlanca.atacar(enemigos));
     }
-
 }
