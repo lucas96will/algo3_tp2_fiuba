@@ -41,7 +41,6 @@ public class Mapa {
     }
 
     public void construir(Defensa defensa, Posicion posicion) {
-        // que no haya una defensa en la misma posicion
         if(defensas.stream().anyMatch(d -> d.tieneLaMismaPosicion(posicion))){
             return;
         }
@@ -93,7 +92,6 @@ public class Mapa {
     }
 
     public void iniciarLargada() {
-        // aca va la logica para encontrar la largada
         List<Parcela> pasarelasLaterales = parcelas.stream()
                 .filter(p -> p.esLateral(cantColumnas, cantFilas)).collect(Collectors.toList());
         
@@ -105,6 +103,5 @@ public class Mapa {
         if(largada == null) {
             throw new RuntimeException("No se pudo inicializar la largada");
         }
-        //this.largada = new Largada(new Posicion(1,2)); // hardcodeada la del json mapa catedra
     }
 }
