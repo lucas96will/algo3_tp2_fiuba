@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.Entregas;
 
 import edu.fiuba.algo3.modelo.Cargador.CargadorJson;
-import edu.fiuba.algo3.modelo.Cargador.JuegoFacade;
+import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Defensa.Torre;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
@@ -46,7 +46,7 @@ public class Entrega2Test {
 
         CargadorJson cargadorJson = new CargadorJson();
 
-        assertTrue(cargadorJson.archivoEsCorrecto(rutaJsonEnemigos, rutaJsonMapa));
+        assertDoesNotThrow(() -> cargadorJson.archivoEsCorrecto(rutaJsonEnemigos, rutaJsonMapa));
     }
 
     @Test
@@ -55,13 +55,14 @@ public class Entrega2Test {
         Logger.getInstance().logEstado("\n--> Caso 14 Verificar formato json de mapa.");
 
         CargadorJson cargadorJson = new CargadorJson();
-        assertTrue(cargadorJson.archivoEsCorrecto(rutaJsonEnemigos, rutaJsonMapa));
+
+        assertDoesNotThrow(() -> cargadorJson.archivoEsCorrecto(rutaJsonEnemigos, rutaJsonMapa));
     }
 
     @Test
     public void caso15unidadesCargadasAlMapaSonCorrectasMatandoAlJugadorDespuesDeVariosTurnos() {
         Logger.getInstance().logEstado("\n--> Caso 15 Unidades cargadas al mapa json son correctas matando al jugador despues de varios turnos.");
-        JuegoFacade juego = new JuegoFacade();
+        Juego juego = new Juego();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
 
         Jugador jugador = Jugador.getInstance();
@@ -82,7 +83,7 @@ public class Entrega2Test {
     @Test
     public void caso16unidadesCargadasAlMapaSonCorrectasDandoCreditosAlJugador() {
         Logger.getInstance().logEstado("\n--> Caso 16 Unidades cargadas al mapa json son correctas dando créditos al jugador.");
-        JuegoFacade juego = new JuegoFacade();
+        Juego juego = new Juego();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(60);
         Jugador jugador = Jugador.getInstance();
@@ -123,7 +124,7 @@ public class Entrega2Test {
     @Test
     public void caso16UnidadesDelMapaSonCargadasCorrectamente() {
         Logger.getInstance().logEstado("\n--> Caso 16 Unidades cargadas al mapa json son correctas dando créditos al jugador.");
-        JuegoFacade juego = new JuegoFacade();
+        Juego juego = new Juego();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
@@ -154,7 +155,7 @@ public class Entrega2Test {
     @Test
     public void caso17JuegoSeCreaAcordeConAmbosJson() {
         Logger.getInstance().logEstado("\n--> Caso 17 Juego se crea acorde a ambos json.");
-        JuegoFacade juego = new JuegoFacade();
+        Juego juego = new Juego();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
@@ -190,7 +191,7 @@ public class Entrega2Test {
     @Test
     public void caso18JugadorGanaUnaPartidaSimulada(){
         Logger.getInstance().logEstado("\n--> Caso 18 Jugador gana una partida simulada.");
-        JuegoFacade juego = new JuegoFacade();
+        Juego juego = new Juego();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
@@ -217,7 +218,7 @@ public class Entrega2Test {
     @Test
     public void caso19JugadorPierdeUnaPartidaSimulada(){
         Logger.getInstance().logEstado("\n--> Caso 19 Jugador pierde una partida simulada.");
-        JuegoFacade juego = new JuegoFacade();
+        Juego juego = new Juego();
         juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();

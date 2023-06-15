@@ -19,16 +19,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CargadorJson {
-    public boolean archivoEsCorrecto(String rutaJsonEnemigos, String rutaJsonMapa) {
+public class CargadorJson implements Cargador {
+    public void archivoEsCorrecto(String rutaJsonEnemigos, String rutaJsonMapa) {
         try {
             JSONParser parser = new JSONParser();
-            Object obj = parser.parse(new FileReader(rutaJsonEnemigos));
-            Object objeto2 = parser.parse(new FileReader(rutaJsonMapa));
+            parser.parse(new FileReader(rutaJsonEnemigos));
+            parser.parse(new FileReader(rutaJsonMapa));
 
-            return true;
         } catch (ParseException e) {
-            return false;
+            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
