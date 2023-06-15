@@ -40,12 +40,19 @@ public abstract class Enemigo {
         estado = new Vivo();
     }
 
-    public int recibirDanio(int danio) {
-        vida = vida - danio;
-        return vida > 0 ? 0 : morir();
+    public void recibirAtaque(int danio,int rangoAtacante, Posicion posicionAtacante) {
+        if(posicion.estaEnRango(rangoAtacante, posicionAtacante)) {
+            vida -= danio;
+            Logger.getInstance().logExitoso(this + " recibio ataque de Torre en " + posicionAtacante);
+            if(vida <= 0) {
+                morir();
+            }
+
+        }
     }
 
-    abstract protected int morir();
+//    abstract protected int morir();
+    abstract protected void morir();
 
     public boolean muerto() {
         return estado.muerto();

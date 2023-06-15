@@ -1,5 +1,10 @@
 package edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Enemigo.Arania;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
+
+import java.util.Random;
 
 public class Jugador {
 
@@ -79,6 +84,23 @@ public class Jugador {
     }
 
     public void sumarMonedas(int recompensa) {
+        recurso.sumarMonedas(recompensa);
+    }
+
+//    public void obtenerRecompensa(Enemigo enemigo){
+//    };
+    public void obtenerRecompensa(Arania arania) {
+        int recompensa = new Random().nextInt(10) + 1;
+        recurso.sumarMonedas(recompensa);
+    };
+    public void obtenerRecompensa(Hormiga hormiga) {
+        int recompensa;
+        if(contadorMuertes.obtenerMuertesHormigas() > 10 ){
+            recompensa = 2;
+        } else {
+            recompensa = 1;
+        }
+
         recurso.sumarMonedas(recompensa);
     }
 

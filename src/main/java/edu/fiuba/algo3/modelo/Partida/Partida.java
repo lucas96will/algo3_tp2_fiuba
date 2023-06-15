@@ -28,9 +28,9 @@ public class Partida {
         this.mapa.iniciarLargada();
     }
     public void terminarTurno() {
-        int recompensa = 0;
-        recompensa = mapa.defensasAtacar();
-        jugador.sumarMonedas(recompensa);
+//        int recompensa = 0;
+        mapa.defensasAtacar();
+//        jugador.sumarMonedas(recompensa);
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
     }

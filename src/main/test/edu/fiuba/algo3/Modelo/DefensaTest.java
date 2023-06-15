@@ -38,8 +38,9 @@ public class DefensaTest {
         List<Enemigo> enemigos = new ArrayList<Enemigo>();
         enemigos.add(hormiga);
 
-        assertEquals(0, torreBlanca.atacar(enemigos));
+        assertFalse(hormiga.muerto());
         torreBlanca.siguienteEstado();
-        assertEquals(1, torreBlanca.atacar(enemigos));
+        torreBlanca.atacar(enemigos);
+        assertTrue(hormiga.muerto());
     }
 }

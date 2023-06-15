@@ -111,16 +111,15 @@ public class Mapa {
         defensas.forEach(Defensa::siguienteEstado);
     }
 
-    public int defensasAtacar() {
-        int recompensa = 0;
+    public void defensasAtacar() {
+//        int recompensa = 0;
         for (Defensa defensa : defensas){
-            /*for(Enemigo enemigo : enemigos){
-                recompensa = recompensa + defensa.atacar(enemigo);
-            }*/
-            recompensa += defensa.atacar(enemigos);
+
+            defensa.atacar(enemigos);
+//            enemigos.stream().map(x)
             enemigos.removeIf(Enemigo::muerto);
         }
-        return recompensa;
+//        return recompensa;
     }
 
     public void moverEnemigos(){

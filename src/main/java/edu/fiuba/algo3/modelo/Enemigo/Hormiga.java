@@ -13,14 +13,15 @@ public class Hormiga extends Enemigo{
                 super(unaVida, unDanio, unaVelocidad, unaEnergia, unaRecompensa);
     }
 
-    @Override
-    protected int morir() {
-        estado = new Muerto();
-        Jugador jugador = Jugador.getInstance();
-        jugador.incrementarContadorHormigas();
-        Logger.getInstance().logExitoso(this + " ha muerto.");
-        return entregarRecompensa();
 
+    @Override
+    protected void morir() {
+        Jugador jugador = Jugador.getInstance();
+
+        jugador.obtenerRecompensa(this);
+        jugador.incrementarContadorHormigas();
+        this.estado = new Muerto();
+        Logger.getInstance().logExitoso(this + " murio.");
     }
 
     @Override

@@ -51,29 +51,25 @@ public abstract class Defensa {
          estado.siguienteEstado(this);
     }
 
-    public int atacar(List<Enemigo> enemigos) {
-        int creditos = 0;
-        List<Enemigo> enemigosEnRango = enemigos.stream().filter(e->e.estaEnRango(rango, posicion)).collect(Collectors.toList());
-        for(Enemigo enemigo : enemigosEnRango){
-            if (estado.puedeAtacar()) {
-                Logger.getInstance().logExitoso(this + " ataco a " + enemigo);
-                creditos += enemigo.recibirDanio(danio);
+//    public int atacar(List<Enemigo> enemigos) {
+//        int creditos = 0;
+//        List<Enemigo> enemigosEnRango = enemigos.stream().filter(e->e.estaEnRango(rango, posicion)).collect(Collectors.toList());
+//        for(Enemigo enemigo : enemigosEnRango){
+//            if (estado.puedeAtacar()) {
+//                Logger.getInstance().logExitoso(this + " ataco a " + enemigo);
+//                creditos += enemigo.recibirDanio(danio);
+//            }
+//        }
+//        return creditos;
+//    }
+
+    public void atacar(List<Enemigo> enemigos) {
+        for(Enemigo enemigo : enemigos) {
+            if (estado.puedeAtacar()){
+                enemigo.recibirAtaque(danio, rango, posicion);
             }
         }
-        return creditos;
-
-
-        /*
-        if (estado.puedeAtacar() && enemigo.estaEnRango(rango, posicion)){
-            return creditos + enemigo.recibirDanio(danio);
-        }
-        //estado = estado.reconstruir();
-        return 0;*/
     }
-
-    /*public Posicion getPosicion() {
-        return posicion;
-    }*/
 
     public boolean tieneLaMismaPosicion(Posicion posicion) {
         return this.posicion.esIgual(posicion);

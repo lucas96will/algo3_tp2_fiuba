@@ -37,8 +37,8 @@ public final class NullTorre extends Defensa {
         return;
     }
 
-    public int atacar(List<Enemigo> enemigos) {
-        return 0;
+    public void atacar(List<Enemigo> enemigos) {
+        return;
     }
 
 
