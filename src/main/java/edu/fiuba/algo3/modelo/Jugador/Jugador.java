@@ -89,17 +89,11 @@ public class Jugador {
     }
 
     public void obtenerRecompensa(Arania arania) {
-        int recompensa = new Random().nextInt(10) + 1;
+        int recompensa = contadorMuertes.obtenerRecompensaArania();
         recurso.sumarMonedas(recompensa);
     };
     public void obtenerRecompensa(Hormiga hormiga) {
-        int recompensa;
-        if(contadorMuertes.obtenerMuertesHormigas() > 10 ){
-            recompensa = 2;
-        } else {
-            recompensa = 1;
-        }
-
+        int recompensa = contadorMuertes.obtenerRecompensaHormiga();
         recurso.sumarMonedas(recompensa);
     }
 

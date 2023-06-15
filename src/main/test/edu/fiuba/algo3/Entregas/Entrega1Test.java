@@ -22,8 +22,33 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Entrega1Test {
 
     @BeforeEach
-    public void setUp() {
+    public void SetUp() {
+
+
         Jugador.getInstance().actualizarContador(new Contador());
+    }
+
+    public Mapa obtenerMapaGenerico() {
+        Mapa mapa = new Mapa(8);
+
+        mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,1));
+
+        for(int i = 2; i < 8; i++){
+            mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,i));
+        }
+        mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,7));
+
+        for(int j = 2; j < 8; j++) {
+            for(int k = 1; k < 8; k++) {
+                mapa.agregarParcelaEnPosicion(new Tierra(), new Posicion(j, k));
+            }
+        }
+        for(int h = 1; h < 8; h++) {
+            mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
+        }
+
+        mapa.iniciarLargada();
+        return mapa;
     }
     @Test
     public void caso1jugadorEmpiezaConVidaYCreditosCorrespondientes() {
@@ -42,7 +67,7 @@ public class Entrega1Test {
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, recurso, "Joaquín");
-        Mapa mapa = Mapa.generico();
+        Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
 
@@ -91,7 +116,7 @@ public class Entrega1Test {
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, recurso, "Josesito");
-        Mapa mapa = Mapa.generico();
+        Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
@@ -117,7 +142,7 @@ public class Entrega1Test {
         Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(10), "Ariel");
-        Mapa mapa = Mapa.generico();
+        Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
@@ -163,7 +188,7 @@ public class Entrega1Test {
         jugador.actualizarEstado(100, recurso, "Josesito");
         /*100*/
 
-        Mapa mapa = Mapa.generico();
+        Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
@@ -187,7 +212,7 @@ public class Entrega1Test {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(10), "Josesito");
 
-        Mapa mapa = Mapa.generico();
+        Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre( 10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
@@ -215,7 +240,7 @@ public class Entrega1Test {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, new Recurso(100), "Ariel");
 
-        Mapa mapa = Mapa.generico();
+        Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
@@ -242,8 +267,7 @@ public class Entrega1Test {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, new Recurso(10), "Diego");
 
-        Mapa mapa = new Mapa();
-        mapa.crearMapaGenerico();
+        Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
@@ -268,7 +292,7 @@ public class Entrega1Test {
         Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(8, new Recurso(10), "Diego");
-        Mapa mapa = Mapa.generico();
+        Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
 
 

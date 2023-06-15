@@ -34,57 +34,11 @@ public class Mapa {
         this.cantColumnas = tamanio;
         this.cantFilas = tamanio;
     }
-    
-    public static Mapa generico(){
-        Mapa mapa = new Mapa(8);
-        mapa.crearMapaGenerico();
-        return mapa;
-    }
 
     public void insertarEnemigo(Enemigo unEnemigo){
         this.largada.moveElEnemigo(unEnemigo);
         enemigos.add(unEnemigo);
     }
-
-    public void crearMapaGenerico(){
-        //Mapa generico es una matriz 7x7, con un cuadro de 5x5 tierra, y la ultima linea rocoso
-        crearPasarelasGenericas();
-        crearTierraGenerica();
-        iniciarLargada();
-    }
-
-    private void crearPasarelasGenericas(){
-        /* 1 2 3 4 5 6 7 
-        *1 P P P P P P P 
-        *2 T T T T T T T 
-        * . . . . . . . .
-        * . . . . . . . .
-        *8 R R R R R R R */
-        parcelas.add(new Casilla(new Posicion(1,1)));
-        
-        for(int i = 2; i < 8; i++){
-            parcelas.add(new Casilla(new Posicion(1,i)));
-        }
-        parcelas.add(new Casilla(new Posicion(1,7)));
-    }
-
-    private void crearTierraGenerica(){
-        /* 1 2 3 4 5 6 7 
-         *1 P P P P P P P 
-         *2 T T T T T T T 
-         * . . . . . . . .
-         * . . . . . . . .
-         *8 R R R R R R R */
-        for(int j = 2; j < 8; j++) {
-            for(int k = 1; k < 8; k++) {
-                parcelas.add(new Tierra(new Posicion(j, k)));
-            }
-        }
-        for(int h = 1; h < 8; h++) {
-            parcelas.add(new Rocoso(new Posicion(7, h)));
-        }
-    }
-
 
     public void construir(Defensa defensa, Posicion posicion) {
         // que no haya una defensa en la misma posicion

@@ -5,6 +5,9 @@ import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Mapa.Mapa;
+import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
+import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
 import edu.fiuba.algo3.modelo.Partida.Logger;
@@ -35,6 +38,28 @@ public class EnemigoTest {
         jugadorSingleton.actualizarContador(new Contador());
     }
 
+    public Mapa obtenerMapaGenerico() {
+        Mapa mapa = new Mapa(8);
+
+        mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,1));
+
+        for(int i = 2; i < 8; i++){
+            mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,i));
+        }
+        mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,7));
+
+        for(int j = 2; j < 8; j++) {
+            for(int k = 1; k < 8; k++) {
+                mapa.agregarParcelaEnPosicion(new Tierra(), new Posicion(j, k));
+            }
+        }
+        for(int h = 1; h < 8; h++) {
+            mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
+        }
+
+        mapa.iniciarLargada();
+        return mapa;
+    }
     @Test
     public void test1HormigaSeMueveParaDelanteYHaceDanio() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 1 hormiga se mueve para delante y hace daño.");
@@ -43,7 +68,8 @@ public class EnemigoTest {
         Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, new Recurso(10), "Josecito");
-        partida.crearPartidaGenerica(jugador);
+        Mapa mapa = obtenerMapaGenerico();
+        partida.crearPartida(jugador, mapa);
 
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
