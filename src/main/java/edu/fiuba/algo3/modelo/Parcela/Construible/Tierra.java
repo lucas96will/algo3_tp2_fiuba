@@ -16,20 +16,7 @@ public class Tierra extends Construible {
 
     @Override
     public void insertarDefensa(Defensa defensa) {
-        /*if (defensa.tieneLaMismaPosicion(this.posicion)){
-            this.defensa = defensa;
-            return true;
-        } else {
-            throw new Exception("Defensa no se puede construir.");
-        }*/
 
-        /*if(this.defensa == null && defensa.tieneLaMismaPosicion(this.posicion)){
-            this.defensa = defensa;
-            defensa.establecerPosicion(this.posicion);
-            
-        } else {
-            throw new Exception("Defensa no se puede construir.");
-        }*/
         defensa.establecerPosicion(posicion);
         Logger.getInstance().logExitoso(defensa + " construida en " + posicion);
 

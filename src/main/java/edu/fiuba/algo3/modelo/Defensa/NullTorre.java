@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Defensa;
 
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
@@ -21,8 +22,8 @@ public final class NullTorre extends Defensa {
         return torre;
     }
 
-    public boolean comprate(Recurso recursos) {
-        return false;
+    public void comprate(Recurso recursos) {
+        throw new NoSePudoComprarException();
     }
 
     public void reembolsarCreditos(Recurso recurso) {
@@ -37,8 +38,8 @@ public final class NullTorre extends Defensa {
         return;
     }
 
-    public int atacar(List<Enemigo> enemigos) {
-        return 0;
+    public void atacar(List<Enemigo> enemigos) {
+        return;
     }
 
 

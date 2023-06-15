@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import org.junit.jupiter.api.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 
 import java.util.ArrayList;
@@ -21,16 +23,19 @@ public class TorreTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO TorreBlanca test 1: Torre no ataca si está incompleta");
         EstadoDefensa estadoIncompletoMock = mock(EstadoDefensaIncompleto.class);
         Hormiga hormigaMock = mock(Hormiga.class);
+        boolean recibioAtaque;
 
         when(hormigaMock.estaEnRango(anyInt(), any(Posicion.class))).thenReturn(true);
+
+
         when(estadoIncompletoMock.puedeAtacar()).thenReturn(false); // estado incompleto siempre retorna 0
 
         Torre torreBlanca = new Torre(20,2,5, estadoIncompletoMock, new Posicion(1,4), "Torre Blanca");
 
         List<Enemigo> enemigos = new ArrayList<Enemigo>();
         enemigos.add(hormigaMock);
-
-        assertEquals(torreBlanca.atacar(enemigos), 0);
+        torreBlanca.atacar(enemigos);
+        verify(hormigaMock, never()).recibirAtaque(any(int.class), any(int.class), any(Posicion.class));
         verify(estadoIncompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
     }
 
@@ -41,14 +46,13 @@ public class TorreTest {
         Hormiga hormigaMock = mock(Hormiga.class);
 
         when(hormigaMock.estaEnRango(anyInt(), any(Posicion.class))).thenReturn(true);
-        when(hormigaMock.recibirDanio(anyInt())).thenReturn(1);
         when(estadoCompletoMock.puedeAtacar()).thenReturn(true); // estado incompleto siempre retorna 0
 
         Torre torrePlateada = new Torre(20,2,5, estadoCompletoMock, new Posicion(1,4), "Torre Blanca");
         List<Enemigo> enemigos = new ArrayList<Enemigo>();
         enemigos.add(hormigaMock);
-
-        assertEquals(torrePlateada.atacar(enemigos), 1);
+        torrePlateada.atacar(enemigos);
+        verify(hormigaMock).recibirAtaque(any(int.class), any(int.class), any(Posicion.class));
         verify(estadoCompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
 
     }

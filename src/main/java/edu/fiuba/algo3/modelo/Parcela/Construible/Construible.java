@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Parcela.Construible;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Defensa.NullTorre;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -10,11 +11,11 @@ public abstract class Construible implements Parcela {
     protected Defensa defensa;
 
     public Construible() {
-        this.defensa = null;
+        this.defensa = NullTorre.obtenerNullTorre();
     }
 
     public Construible(Posicion unaPosicion) {
-        this.defensa = null;
+        this.defensa = NullTorre.obtenerNullTorre();
         this.posicion = unaPosicion;
     }
 
@@ -25,9 +26,6 @@ public abstract class Construible implements Parcela {
 
     abstract public void insertarDefensa(Defensa defensa) throws Exception;
 
-    /*public boolean tieneConstruccion() {
-        return (this.defensa != null);
-    }*/
 
     @Override
     public boolean tieneLaMismaPosicion(Posicion... posiciones) {

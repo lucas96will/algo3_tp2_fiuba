@@ -14,12 +14,13 @@ public class Arania extends Enemigo{
     }
 
     @Override
-    protected int morir() {
-        estado = new Muerto();
+    protected void morir() {
         Jugador jugador = Jugador.getInstance();
+
+        jugador.obtenerRecompensa(this);
         jugador.incrementarContadorAranias();
-        Logger.getInstance().logExitoso(this + " ha muerto.");
-        return entregarRecompensa();
+        this.estado = new Muerto();
+        Logger.getInstance().logExitoso(this + " murio.");
     }
 
     @Override

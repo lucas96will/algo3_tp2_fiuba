@@ -3,6 +3,8 @@ package edu.fiuba.algo3.Entregas;
 import edu.fiuba.algo3.modelo.Defensa.*;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
@@ -12,11 +14,17 @@ import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Partida.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Entrega1Test {
+
+    @BeforeEach
+    public void setUp() {
+        Jugador.getInstance().actualizarContador(new Contador());
+    }
     @Test
     public void caso1jugadorEmpiezaConVidaYCreditosCorrespondientes() {
         Logger.getInstance().logEstado("\n--> Caso 1 jugador empieza con la vida y los créditos correspondientes.");
@@ -46,8 +54,9 @@ public class Entrega1Test {
         partida.terminarTurno(); // (1,5) , torre no construida , arania vida = 2, torrePlateada construida
         assertEquals(80, recurso.valorMonetario());
 
+        int monedasAntesDeMatar = recurso.valorMonetario();
         partida.terminarTurno(); // (1,6), muerte arania
-        assertEquals(82, recurso.valorMonetario());
+        assertTrue((monedasAntesDeMatar < recurso.valorMonetario()));
     }
 
     @Test
@@ -59,8 +68,8 @@ public class Entrega1Test {
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
         Defensa torreBlanca2 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
-        assertTrue(jugador.comprarDefensa(torreBlanca1));
-        assertFalse(jugador.comprarDefensa(torreBlanca2));
+        assertDoesNotThrow(() ->jugador.comprarDefensa(torreBlanca1));
+        assertThrows(NoSePudoComprarException.class, ()-> jugador.comprarDefensa(torreBlanca2));
     }
 
     @Test
@@ -250,7 +259,6 @@ public class Entrega1Test {
 
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada());
-        //assertFalse(jugador.estaIntacto());
         assertNotEquals(100, Jugador.getInstance().obtenerVidaJugador());
     }
 
@@ -263,8 +271,6 @@ public class Entrega1Test {
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
-      // Defensa torreBlanca1 = new TorreBlanca(10, 1, 3, new EstadoDefensaIncompleto(2));
-       // partida.construir(torreBlanca1, new Posicion(2,2));
 
         for(int i = 0; i < 14; i++) {
             partida.insertarEnemigo(new Hormiga(10,1,1,1,10, new Posicion(1,1)));

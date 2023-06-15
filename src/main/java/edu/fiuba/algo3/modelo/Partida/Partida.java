@@ -12,36 +12,39 @@ public class Partida {
     private Mapa mapa;
     private EstadoPartida estadoPartida;
 
-    public Partida(){}
-    public void crearPartidaGenerica(Jugador jugador){
+    public Partida() {
+    }
+
+    public void crearPartidaGenerica(Jugador jugador) {
         this.jugador = jugador;
         mapa = new Mapa();
         mapa.crearMapaGenerico();
         this.estadoPartida = new EstadoPartidaSigueJugando();
-        
+
     }
-    public void crearPartida(Jugador jugador, Mapa mapa){
+
+    public void crearPartida(Jugador jugador, Mapa mapa) {
         this.jugador = jugador;
         this.mapa = mapa;
     }
-    public void iniciar(){
+
+    public void iniciar() {
         this.mapa.iniciarLargada();
     }
+
     public void terminarTurno() {
-        int recompensa = 0;
-        recompensa = mapa.defensasAtacar();
-        jugador.sumarMonedas(recompensa);
+        mapa.defensasAtacar();
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
     }
-    public void construir(Defensa defensa, Posicion posicion){
-        if (jugador.comprarDefensa(defensa)) {
-            try {
-                mapa.construir(defensa, posicion);
-            } catch (Exception e) {
-                jugador.obtenerReembolso(defensa);
-                throw new RuntimeException("No se puede construir");
-            }
+
+    public void construir(Defensa defensa, Posicion posicion) {
+        try {
+            jugador.comprarDefensa(defensa);
+            mapa.construir(defensa, posicion);
+        } catch (Exception e) {
+            jugador.obtenerReembolso(defensa);
+            throw new RuntimeException("No se puede construir");
         }
     }
 
