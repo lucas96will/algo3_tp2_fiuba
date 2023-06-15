@@ -22,7 +22,7 @@ public class Juego {
         archivoLoader = new CargadorJson();
     }
 
-    public boolean cargarConJson(String jsonEnemigos,String jsonMapa){
+    public void cargarConJson(String jsonEnemigos,String jsonMapa){
         try {
             archivoLoader.archivoEsCorrecto(jsonEnemigos, jsonMapa);
         } catch (RuntimeException e) {
@@ -32,7 +32,6 @@ public class Juego {
         Mapa mapa = archivoLoader.procesarMapa(jsonMapa);
         this.enemigosPorTurno = enemigosPorTurno;
         this.mapa = mapa;
-        return true;
     }
 
 

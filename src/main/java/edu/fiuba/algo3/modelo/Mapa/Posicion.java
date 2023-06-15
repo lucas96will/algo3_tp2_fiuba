@@ -42,14 +42,6 @@ public class Posicion {
         return false;
     }
 
-    /*public int getFila() {
-        return fila;
-    }*/
-
-    /*public int getColumna() {
-        return columna;
-    }*/
-
     public boolean esLateral(int cantColumnas, int cantFilas) {
         return (fila == 1 || fila == cantFilas || columna == 1 || columna == cantColumnas);
     }

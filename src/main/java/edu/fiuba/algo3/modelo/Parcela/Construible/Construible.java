@@ -26,9 +26,6 @@ public abstract class Construible implements Parcela {
 
     abstract public void insertarDefensa(Defensa defensa) throws Exception;
 
-    /*public boolean tieneConstruccion() {
-        return (this.defensa != null);
-    }*/
 
     @Override
     public boolean tieneLaMismaPosicion(Posicion... posiciones) {

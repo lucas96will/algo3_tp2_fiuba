@@ -64,7 +64,6 @@ public abstract class Defensa {
             if (estado.puedeAtacar()){
                 try {
                     enemigo.recibirAtaque(danio, rango, posicion);
-                    Logger.getInstance().logExitoso(this + " ataco a " + enemigo );
                 } catch (RuntimeException e) {
 
                 }

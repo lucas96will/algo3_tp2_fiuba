@@ -44,7 +44,7 @@ public abstract class Enemigo {
     public void recibirAtaque(int danio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
         if(posicion.estaEnRango(rangoAtacante, posicionAtacante)) {
             vida -= danio;
-
+            Logger.getInstance().logExitoso(this + " recibio ataque de Torre en " + posicionAtacante );
             if(vida <= 0) {
                 morir();
             }
@@ -54,7 +54,6 @@ public abstract class Enemigo {
         }
     }
 
-//    abstract protected int morir();
     abstract protected void morir();
 
     public boolean muerto() {
@@ -73,7 +72,6 @@ public abstract class Enemigo {
     }
 
     public void moverse(List<Parcela> parcelas) {
-        //refactorizar este metodo
         boolean seMovio;
         int k;
         Parcela unaParcela;

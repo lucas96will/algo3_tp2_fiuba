@@ -89,8 +89,6 @@ public class Jugador {
         recurso.sumarMonedas(recompensa);
     }
 
-//    public void obtenerRecompensa(Enemigo enemigo){
-//    };
     public void obtenerRecompensa(Arania arania) {
         int recompensa = new Random().nextInt(10) + 1;
         recurso.sumarMonedas(recompensa);

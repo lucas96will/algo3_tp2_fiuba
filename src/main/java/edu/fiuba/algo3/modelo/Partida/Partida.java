@@ -35,9 +35,7 @@ public class Partida {
     }
 
     public void terminarTurno() {
-//        int recompensa = 0;
         mapa.defensasAtacar();
-//        jugador.sumarMonedas(recompensa);
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
     }
@@ -64,10 +62,6 @@ public class Partida {
     public void insertarEnemigo(Enemigo enemigo) {
         mapa.insertarEnemigo(enemigo);
     }
-
-    /*public boolean jugadorTieneTantosCreditos(int creditosValor) {
-        return creditosValor == jugador.valorCreditos();
-    }*/
 
     public EstadoPartida estado() {
         return EstadoPartidaFactory.obtenerEstadoPartida(this.jugador, this.mapa);
