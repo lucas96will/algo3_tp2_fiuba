@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.Partida;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
 import edu.fiuba.algo3.modelo.Factory.EstadoPartidaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
@@ -10,7 +12,7 @@ import java.util.List;
 public class Partida {
     private Jugador jugador;
     private Mapa mapa;
-    private EstadoPartida estadoPartida;
+    private EstadoPartida estado;
 
     public Partida() {
     }
@@ -19,13 +21,14 @@ public class Partida {
         this.jugador = jugador;
         mapa = new Mapa();
         mapa.crearMapaGenerico();
-        this.estadoPartida = new EstadoPartidaSigueJugando();
+        this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
 
     }
 
     public void crearPartida(Jugador jugador, Mapa mapa) {
         this.jugador = jugador;
         this.mapa = mapa;
+        this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
     }
 
     public void iniciar() {
@@ -33,30 +36,51 @@ public class Partida {
     }
 
     public void terminarTurno() {
-        mapa.defensasAtacar();
-        mapa.actualizarEstadoDefensas();
-        mapa.moverEnemigos();
+        try {
+            estado.terminarTurno(mapa);
+/*            mapa.defensasAtacar();
+            mapa.actualizarEstadoDefensas();
+            mapa.moverEnemigos();*/
+        } catch (RuntimeException e) {
+
+        }
+
     }
 
     public void construir(Defensa defensa, Posicion posicion) {
         try {
-            jugador.comprarDefensa(defensa);
-            mapa.construir(defensa, posicion);
-        } catch (Exception e) {
+            estado.construir(defensa, posicion, jugador, mapa);
+        } catch (DefensaNoSePudoComprarException a) {
+            throw new RuntimeException("No se pudo comprar defensa");
+        } catch (DefensaNoSePudoConstruir e) {
             jugador.obtenerReembolso(defensa);
             throw new RuntimeException("No se puede construir");
         }
     }
 
     public void insertarEnemigo(Enemigo enemigo) {
-        mapa.insertarEnemigo(enemigo);
+        try{
+            estado.insertarEnemigo(enemigo, mapa);
+            actualizarEstado();
+        } catch (RuntimeException e){
+
+        }
     }
 
     public EstadoPartida estado() {
-        return EstadoPartidaFactory.obtenerEstadoPartida(this.jugador, this.mapa);
+        return EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
     }
 
     public void anadirEnemigos(List<Enemigo> enemigos) {
-        enemigos.forEach(e -> mapa.insertarEnemigo(e));
+        try {
+            estado.insertarEnemigos(enemigos, mapa);
+            actualizarEstado();
+        } catch (RuntimeException e){
+
+        }
+    }
+
+    public void actualizarEstado(){
+        this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
     }
 }

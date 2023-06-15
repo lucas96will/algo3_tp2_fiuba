@@ -1,14 +1,12 @@
 package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoComprarException;
 import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
-import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class Defensa {
     protected int costeEnCreditos;
@@ -37,12 +35,12 @@ public abstract class Defensa {
         this.nombre = nombre;
     }
 
-    public void comprate(Recurso recurso) throws NoSePudoComprarException {
+    public void comprate(Recurso recurso) throws DefensaNoSePudoComprarException {
         try {
             recurso.gastar(costeEnCreditos);
 
         } catch (RecursosInsuficientesException e) {
-            throw new NoSePudoComprarException();
+            throw new DefensaNoSePudoComprarException();
         }
     }
 

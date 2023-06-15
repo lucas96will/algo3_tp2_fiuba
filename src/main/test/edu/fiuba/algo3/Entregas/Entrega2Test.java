@@ -112,7 +112,7 @@ public class Entrega2Test {
         int muertesHormigaEsperada = 11;
 
         EstadoPartida estadoPartida = juego.estado();
-        assertEquals(estadoPartida, new EstadoPartidaGanada());
+        assertEquals(new EstadoPartidaGanada(), estadoPartida);
         assertTrue(recurso.valorMonetario() > 0);
         assertEquals(20, jugador.obtenerVidaJugador());
 

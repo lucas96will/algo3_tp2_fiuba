@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
@@ -102,7 +103,7 @@ public class Mapa {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException("No se puede construir");
+            throw new DefensaNoSePudoConstruir();
         }
 
     }
