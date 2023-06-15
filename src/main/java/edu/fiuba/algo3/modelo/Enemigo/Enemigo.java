@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
+import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.Logger;
@@ -40,14 +41,16 @@ public abstract class Enemigo {
         estado = new Vivo();
     }
 
-    public void recibirAtaque(int danio,int rangoAtacante, Posicion posicionAtacante) {
+    public void recibirAtaque(int danio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
         if(posicion.estaEnRango(rangoAtacante, posicionAtacante)) {
             vida -= danio;
-            Logger.getInstance().logExitoso(this + " recibio ataque de Torre en " + posicionAtacante);
+
             if(vida <= 0) {
                 morir();
             }
 
+        } else {
+            throw new FueraDeRangoException();
         }
     }
 

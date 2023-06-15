@@ -112,14 +112,11 @@ public class Mapa {
     }
 
     public void defensasAtacar() {
-//        int recompensa = 0;
         for (Defensa defensa : defensas){
 
             defensa.atacar(enemigos);
-//            enemigos.stream().map(x)
             enemigos.removeIf(Enemigo::muerto);
         }
-//        return recompensa;
     }
 
     public void moverEnemigos(){

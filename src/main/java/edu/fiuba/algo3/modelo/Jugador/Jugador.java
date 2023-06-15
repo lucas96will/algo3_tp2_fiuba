@@ -3,6 +3,7 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
 
 import java.util.Random;
 
@@ -60,8 +61,9 @@ public class Jugador {
     public int obtenerMuertesArania() {
         return contadorMuertes.obtenerMuertesAranias();
     }
-    public boolean comprarDefensa(Defensa defensa){
-        return defensa.comprate(recurso);
+    public void comprarDefensa(Defensa defensa) throws NoSePudoComprarException {
+        defensa.comprate(recurso);
+
     }
 
     public void obtenerReembolso(Defensa defensa){

@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
@@ -35,8 +37,13 @@ public abstract class Defensa {
         this.nombre = nombre;
     }
 
-    public boolean comprate(Recurso recurso) {
-        return recurso.gastar(costeEnCreditos);
+    public void comprate(Recurso recurso) throws NoSePudoComprarException {
+        try {
+            recurso.gastar(costeEnCreditos);
+
+        } catch (RecursosInsuficientesException e) {
+            throw new NoSePudoComprarException();
+        }
     }
 
     public void reembolsarCreditos(Recurso recurso) {
@@ -51,22 +58,16 @@ public abstract class Defensa {
          estado.siguienteEstado(this);
     }
 
-//    public int atacar(List<Enemigo> enemigos) {
-//        int creditos = 0;
-//        List<Enemigo> enemigosEnRango = enemigos.stream().filter(e->e.estaEnRango(rango, posicion)).collect(Collectors.toList());
-//        for(Enemigo enemigo : enemigosEnRango){
-//            if (estado.puedeAtacar()) {
-//                Logger.getInstance().logExitoso(this + " ataco a " + enemigo);
-//                creditos += enemigo.recibirDanio(danio);
-//            }
-//        }
-//        return creditos;
-//    }
 
     public void atacar(List<Enemigo> enemigos) {
         for(Enemigo enemigo : enemigos) {
             if (estado.puedeAtacar()){
-                enemigo.recibirAtaque(danio, rango, posicion);
+                try {
+                    enemigo.recibirAtaque(danio, rango, posicion);
+                    Logger.getInstance().logExitoso(this + " ataco a " + enemigo );
+                } catch (RuntimeException e) {
+
+                }
             }
         }
     }
