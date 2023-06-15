@@ -30,9 +30,7 @@ public class Partida {
     public void terminarTurno() {
         try {
             estado.terminarTurno(mapa);
-/*            mapa.defensasAtacar();
-            mapa.actualizarEstadoDefensas();
-            mapa.moverEnemigos();*/
+            actualizarEstado();
         } catch (RuntimeException e) {
 
         }
@@ -60,7 +58,7 @@ public class Partida {
     }
 
     public EstadoPartida estado() {
-        return EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
+        return estado;
     }
 
     public void anadirEnemigos(List<Enemigo> enemigos) {

@@ -92,6 +92,7 @@ public class PartidaTest {
         partida.crearPartida(Jugador.getInstance(), mapa);
 
         Jugador.getInstance().actualizarEstado(0, new Recurso(100), "Joaquin");
+        partida.actualizarEstado();
 
 
         EstadoPartida estadoEsperado = new EstadoPartidaPerdida();
