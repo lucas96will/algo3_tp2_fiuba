@@ -17,14 +17,6 @@ public class Partida {
     public Partida() {
     }
 
-    public void crearPartidaGenerica(Jugador jugador) {
-        this.jugador = jugador;
-        mapa = new Mapa();
-        mapa.crearMapaGenerico();
-        this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
-
-    }
-
     public void crearPartida(Jugador jugador, Mapa mapa) {
         this.jugador = jugador;
         this.mapa = mapa;
