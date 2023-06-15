@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.Jugador;
 
+import java.util.Random;
+
 public class Contador {
 
     private int contadorAraniasMuertas;
@@ -25,5 +27,17 @@ public class Contador {
 
     public int obtenerMuertesAranias() {
         return contadorAraniasMuertas;
+    }
+
+    public int obtenerRecompensaHormiga() {
+        if(contadorHormigasMuertas > 10) {
+            return 2;
+        }
+        return 1;
+    }
+
+    public int obtenerRecompensaArania() {
+        int recompensa = new Random().nextInt(10) + 1;
+        return recompensa;
     }
 }
