@@ -45,21 +45,9 @@ public class Partida {
         }
     }
 
-    public boolean terminarPartida(){
-        return jugador.muerto();
-    }
-
-    public boolean jugadorTieneTodaLaVidaYMaximosCreditos(){
-        return jugador.estaIntacto();
-    }
-
     public void insertarEnemigo(Enemigo enemigo) {
         mapa.insertarEnemigo(enemigo);
     }
-
-    /*public boolean jugadorTieneTantosCreditos(int creditosValor) {
-        return creditosValor == jugador.valorCreditos();
-    }*/
 
     public EstadoPartida estado() {
         return EstadoPartidaFactory.obtenerEstadoPartida(this.jugador, this.mapa);

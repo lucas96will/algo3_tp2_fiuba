@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.mockito.Mockito.*;
 
-public class TorreBlancaTest {
+public class TorreTest {
     @Test
     public void noAtacaSiEstaIncompleta(){
         Logger.getInstance().logEstado("\n--> TESTUNITARIO TorreBlanca test 1: Torre no ataca si está incompleta");

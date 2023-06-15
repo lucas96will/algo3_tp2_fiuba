@@ -26,8 +26,8 @@ public class JugadorTest {
         Mapa mapa = Mapa.generico();
         partida.crearPartida(jugador,mapa);
 
-        assertTrue(partida.jugadorTieneTodaLaVidaYMaximosCreditos());
-        assertFalse(partida.terminarPartida());
+        assertTrue(jugador.estaIntacto());
+        assertFalse(jugador.muerto());
     }
 
 }

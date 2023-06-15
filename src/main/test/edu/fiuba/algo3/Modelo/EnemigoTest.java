@@ -52,7 +52,7 @@ public class EnemigoTest {
             partida.terminarTurno();
         }
 
-        assertFalse(partida.jugadorTieneTodaLaVidaYMaximosCreditos()); //hormiga llego al final :c
+        assertFalse(jugador.estaIntacto()); //hormiga llego al final :c
 
     }
 
