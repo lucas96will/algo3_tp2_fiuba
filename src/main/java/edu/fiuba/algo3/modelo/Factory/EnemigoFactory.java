@@ -11,10 +11,10 @@ public class EnemigoFactory {
 
     private final HashMap<String, Enemigo> tipoDeEnemigos = new HashMap<>();
 
-    public Enemigo EnemigoFactory(String nombreEnemigo){
+    public static Enemigo obtener(String nombreEnemigo){
 
-        crearEnemigos();
-        Enemigo enemigo = tipoDeEnemigos.get(nombreEnemigo);
+        EnemigoFactory factory = new EnemigoFactory();
+        Enemigo enemigo = factory.tipoDeEnemigos.get(nombreEnemigo);
 
         if(enemigo == null) {
             throw new EnemigoNoIdentificadaException();
@@ -22,7 +22,8 @@ public class EnemigoFactory {
         return enemigo;
     }
 
-    private void crearEnemigos (){
+
+    private EnemigoFactory (){
         this.tipoDeEnemigos.put("Hormiga", new Hormiga(1,1,1,1,1));
         this.tipoDeEnemigos.put("Arania", new Arania(2,2,2,2,2));
     }

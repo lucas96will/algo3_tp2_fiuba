@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
+import edu.fiuba.algo3.modelo.Factory.EnemigoFactory;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Factory.ParcelaFactory;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -62,11 +63,11 @@ public class CargadorJson implements Cargador {
         long cantidadAranias = (long) cantidadEnemigos.get("arana");
 
         for(long i = 0; i < cantidadHormigas; i++) {
-            enemigosTurnoActual.add(new Hormiga(1,1,1,1,1));
+            enemigosTurnoActual.add(EnemigoFactory.obtener("Hormiga"));
         }
 
         for(long i = 0; i < cantidadAranias; i++) {
-            enemigosTurnoActual.add(new Arania(2,2,2,2,2));
+            enemigosTurnoActual.add(EnemigoFactory.obtener("Arania"));
         }
 
         listaDeEnemigosPorTurno.add(enemigosTurnoActual);
