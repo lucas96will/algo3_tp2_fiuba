@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
 import java.util.List;
 
 public interface Parcela {
-    void insertarEnemigo(Enemigo unEnemigo);
+    void insertarEnemigo(Enemigo unEnemigo) throws Exception;
     void insertarDefensa(Defensa defensa) throws Exception;
     boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior);
     boolean tieneLaMismaPosicion(Posicion ... posiciones);

@@ -36,8 +36,12 @@ public class Mapa {
     }
 
     public void insertarEnemigo(Enemigo unEnemigo){
-        for(Parcela parcela: parcelas){
-            parcela.insertarEnemigo(unEnemigo);
+        for(Parcela parcela : parcelas) {
+            try {
+                parcela.insertarEnemigo(unEnemigo);
+            } catch (Exception e) {
+
+            }
         }
         enemigos.add(unEnemigo);
     }

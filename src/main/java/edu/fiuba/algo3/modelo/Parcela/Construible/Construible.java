@@ -19,10 +19,7 @@ public abstract class Construible implements Parcela {
         this.posicion = unaPosicion;
     }
 
-    @Override
-    public void insertarEnemigo(Enemigo unEnemigo) {
 
-    }
 
     abstract public void insertarDefensa(Defensa defensa) throws Exception;
 

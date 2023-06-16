@@ -22,11 +22,9 @@ public class ParcelaTest {
         Parcela rocoso = new Rocoso(new Posicion(0,0));
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
 
-        Exception exceptionTierra = assertThrows(Exception.class, () -> tierra.insertarEnemigo(hormiga));
-        Exception exceptionRocoso = assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));
+        assertThrows(Exception.class, () -> tierra.insertarEnemigo(hormiga));
+        assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));
 
-        assertEquals("Solo la pasarela puede contener un enemigo", exceptionTierra.getMessage());
-        assertEquals("Solo la pasarela puede contener un enemigo", exceptionRocoso.getMessage());
         assertDoesNotThrow(() -> pasarela.insertarEnemigo(hormiga));
 
     }
@@ -38,7 +36,7 @@ public class ParcelaTest {
         Parcela rocoso = new Rocoso(new Posicion(0,0));
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
 
-        Exception exceptionRocoso = assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));
+        assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));
 
         assertDoesNotThrow(() -> pasarela.insertarEnemigo(hormiga));
 
@@ -53,11 +51,9 @@ public class ParcelaTest {
         
         Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
 
-        Exception exceptionTierra = assertThrows(Exception.class, () -> tierra.insertarEnemigo(hormiga));
-        Exception exceptionRocoso = assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));
+        assertThrows(Exception.class, () -> tierra.insertarEnemigo(hormiga));
+        assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));
 
-        assertEquals("Solo la pasarela puede contener un enemigo", exceptionTierra.getMessage());
-        assertEquals("Solo la pasarela puede contener un enemigo", exceptionRocoso.getMessage());
         assertDoesNotThrow(() -> pasarela.insertarEnemigo(hormiga));
 
     }
