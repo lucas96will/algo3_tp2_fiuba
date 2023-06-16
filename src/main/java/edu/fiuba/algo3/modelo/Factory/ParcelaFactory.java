@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import java.util.HashMap;
 
 public class ParcelaFactory {
@@ -13,7 +14,7 @@ public class ParcelaFactory {
         this.tipoDeParcelas = new HashMap<>();
         this.tipoDeParcelas.put("Rocoso", new Rocoso());
         this.tipoDeParcelas.put("Tierra", new Tierra());
-        this.tipoDeParcelas.put("Pasarela", new Casilla());
+        this.tipoDeParcelas.put("Pasarela", new Pasarela(new Casilla()));
     }
 
     static public Parcela obtenerParcela(String nombreParcela){

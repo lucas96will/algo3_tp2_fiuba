@@ -4,30 +4,12 @@ import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import java.util.List;
 
-public class Casilla extends Pasarela {
-    
-    public Casilla(Posicion unaPosicion){
-        super(unaPosicion);
+public class Casilla implements EstadoPasarela {
+
+    public boolean moverEnemigo(Enemigo enemigo, Posicion posicion) {
+            enemigo.mover(posicion);
+            return true;
     }
-
-    public Casilla() {
-        super();
-    }
-
-
     @Override
-    public void insertarEnemigo(Enemigo unEnemigo) throws Exception {
-        
-    }
-
-    @Override
-    public boolean esLateral(int cantColumnas, int cantFilas) {
-        return this.posicion.esLateral(cantColumnas, cantFilas);
-    }
-
-    @Override
-    public boolean puedeSerLargada(List<Parcela> pasarelas) {
-        return this.posicion.cantidadDePasarelasAlrededor(pasarelas) <= 1;
-    }
-
+    public void insertarEnemigo(Enemigo unEnemigo, Posicion posicion){}
 }

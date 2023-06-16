@@ -24,7 +24,7 @@ public class Partida {
     }
 
     public void iniciar() {
-        this.mapa.iniciarLargada();
+        this.mapa.configurarCamino();
     }
 
     public void terminarTurno() {

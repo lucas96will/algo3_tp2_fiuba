@@ -20,8 +20,8 @@ public abstract class Construible implements Parcela {
     }
 
     @Override
-    public void insertarEnemigo(Enemigo unEnemigo) throws Exception {
-        throw new Exception("Solo la pasarela puede contener un enemigo");
+    public void insertarEnemigo(Enemigo unEnemigo) {
+
     }
 
     abstract public void insertarDefensa(Defensa defensa) throws Exception;
@@ -37,13 +37,13 @@ public abstract class Construible implements Parcela {
         return this.posicion.estaEnRangoLaterales(posicion);
     }
     
-    @Override
+    /*@Override
     public boolean esLateral(int cantColumnas, int cantFilas){
         return false;
-    }
+    }*/
 
     @Override
-    public boolean puedeSerLargada(List<Parcela> pasarelas) {
+    public boolean esExtremo(List<Parcela> pasarelas) {
         return false;
     }
     

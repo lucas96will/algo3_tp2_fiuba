@@ -16,6 +16,8 @@ import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Partida.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,12 +33,12 @@ public class Entrega1Test {
     public Mapa obtenerMapaGenerico() {
         Mapa mapa = new Mapa(8);
 
-        mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,1));
+        mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
 
-        for(int i = 2; i < 8; i++){
-            mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,i));
+        for(int i = 2; i < 7; i++){
+            mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,i));
         }
-        mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,7));
+        mapa.agregarParcelaEnPosicion(new Pasarela(new Meta()), new Posicion(1,7));
 
         for(int j = 2; j < 8; j++) {
             for(int k = 1; k < 8; k++) {
@@ -47,7 +49,7 @@ public class Entrega1Test {
             mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
         }
 
-        mapa.iniciarLargada();
+        mapa.configurarCamino();
         return mapa;
     }
     @Test
@@ -169,7 +171,7 @@ public class Entrega1Test {
     @Test
     public void caso7LasUnidadesEnemigasSoloSeMuevenPorLaParcelaAutorizadaCorrectamente() {
         Logger.getInstance().logEstado("\n--> Caso 7 Defensa solo se puedo contruir sobre tierra.");
-        Pasarela pasarela = new Casilla(new Posicion(1,1));
+        Pasarela pasarela = new Pasarela(new Posicion(1,1), new Casilla());
         Tierra tierra = new Tierra(new Posicion(1,1));
         Rocoso rocoso = new Rocoso(new Posicion(1,1));
 

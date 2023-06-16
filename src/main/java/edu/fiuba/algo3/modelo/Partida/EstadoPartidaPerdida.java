@@ -32,13 +32,13 @@ public class EstadoPartidaPerdida implements EstadoPartida{
     }
 
     @Override
-    public void insertarEnemigo(Enemigo enemigo, Mapa mapa) {
-        throw new RuntimeException("No se insertar enemigo, la partida esta perdida");
+    public void insertarEnemigo(Enemigo enemigo, Mapa mapa){
+        throw new RuntimeException("No se puede insertar enemigo, la partida esta perdida");
     }
 
     @Override
-    public void insertarEnemigos(List<Enemigo> enemigos, Mapa mapa) {
-        throw new RuntimeException("No se insertar enemigo, la partida esta perdida");
+    public void insertarEnemigos(List<Enemigo> enemigos, Mapa mapa){
+        throw new RuntimeException("No se puede insertar enemigo, la partida esta perdida");
     }
 
 

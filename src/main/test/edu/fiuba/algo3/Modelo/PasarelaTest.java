@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class PasarelaTest {
     @Test
     public void enemigoSoloSePuedeCrearEnUnaPasarela() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO Pasarela test 1: Enemigo solo se puede crear en una pasarela");
-        Parcela pasarela = new Casilla(new Posicion(0,0));
+        Parcela pasarela = new Pasarela(new Posicion(0,0), new Casilla());
         Parcela tierra = new Tierra(new Posicion(0,0));
         Parcela rocoso = new Rocoso(new Posicion(0,0));
         

@@ -76,16 +76,17 @@ public abstract class Enemigo {
         int k;
         Parcela unaParcela;
         for (int i = 0; i < velocidad; i++) {
-            k = 0;
-            seMovio = false;
-            while (k < parcelas.size() && !seMovio) {
-                unaParcela = parcelas.get(k);
+            if(!this.muerto()) {
+                k = 0;
+                seMovio = false;
+                while (k < parcelas.size() && !seMovio) {
+                    unaParcela = parcelas.get(k);
 
-                seMovio = unaParcela.moveElEnemigo(this, posicion, posicionAnterior);
+                    seMovio = unaParcela.moveElEnemigo(this, posicion, posicionAnterior);
 
-                k++;
+                    k++;
+                }
             }
-            this.daniarAlJugador(!seMovio && i == velocidad - 1);
         }
 
     }
@@ -95,11 +96,8 @@ public abstract class Enemigo {
                 && (posicionAnterior.esNull() || !parcela.tieneLaMismaPosicion(this.posicion, this.posicionAnterior));
     }
 
-    private void daniarAlJugador(boolean llegueALaMeta) {
+    public void daniarAlJugador() {
         //lógica meta (podria ir un return danio)
-        if (!llegueALaMeta) {
-            return;
-        }
         Jugador jugador = Jugador.getInstance();
         jugador.reducirVidaJugador(this.danio);
         this.estado = new Muerto();

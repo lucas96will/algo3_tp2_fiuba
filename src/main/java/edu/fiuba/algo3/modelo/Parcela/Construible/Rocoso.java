@@ -17,12 +17,12 @@ public class Rocoso extends Construible {
     public void insertarDefensa(Defensa defensa) throws Exception {
         throw new Exception("Solo la tierra puede contener una defensa");
     }
-
+/*
     @Override
     public boolean moveElEnemigo(Enemigo enemigo) {
         return false;
     }
-
+*/
     @Override
     public boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior) {
         return false;

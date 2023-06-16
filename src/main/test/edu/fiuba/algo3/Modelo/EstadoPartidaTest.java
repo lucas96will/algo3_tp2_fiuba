@@ -17,6 +17,9 @@ import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartidaGanada;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartidaPerdida;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartidaSigueJugando;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,12 +38,12 @@ public class EstadoPartidaTest {
     public Mapa obtenerMapaGenerico() {
         Mapa mapa = new Mapa(8);
 
-        mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,1));
+        mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
 
         for(int i = 2; i < 8; i++){
-            mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,i));
+            mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,i));
         }
-        mapa.agregarParcelaEnPosicion(new Casilla(), new Posicion(1,7));
+        mapa.agregarParcelaEnPosicion(new Pasarela(new Meta()), new Posicion(1,7));
 
         for(int j = 2; j < 8; j++) {
             for(int k = 1; k < 8; k++) {
@@ -51,7 +54,7 @@ public class EstadoPartidaTest {
             mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
         }
 
-        mapa.iniciarLargada();
+        mapa.configurarCamino();
         return mapa;
     }
 

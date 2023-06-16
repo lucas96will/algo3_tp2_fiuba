@@ -4,34 +4,47 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 
-public abstract class Pasarela implements Parcela {
+import java.util.List;
+import java.util.stream.Collectors;
 
-    public Posicion posicion;
+public class Pasarela implements Parcela {
 
-    public Pasarela(Posicion unaPosicion) {
+    private Posicion posicion;
+    private EstadoPasarela estado;
+    public Pasarela(Posicion unaPosicion, EstadoPasarela unEstado) {
         posicion = unaPosicion;
+        estado = unEstado;
     }
 
-    public Pasarela() {
+    public Pasarela(EstadoPasarela unEstado) {
+        estado = unEstado;
+        posicion = NullPosicion.obtenerNullPosicion();
     }
 
     public void insertarDefensa(Defensa defensa) throws Exception {
         throw new Exception("No se puede construir una defensa en una pasarela");
     }
-
+/*
     public boolean moveElEnemigo(Enemigo enemigo) {
-        enemigo.mover(posicion);
+        estado.moverEnemigo(enemigo, posicion);
         return true;
-    }
+    }*/
 
     public boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior) {
         if (estaEnRangoLateralesA(actual) && (anterior.esNull() || !tieneLaMismaPosicion(actual, anterior))) {
-            enemigo.mover(posicion);
-            return true;
+            return estado.moverEnemigo(enemigo, posicion);
         }
         return false;
+    }
 
+    public void insertarEnemigo (Enemigo unEnemigo) {
+        estado.insertarEnemigo(unEnemigo, posicion);
+    }
+
+    public boolean esExtremo(List<Parcela> pasarelas) {
+        return this.posicion.cantidadDePasarelasAlrededor(pasarelas.stream().filter(p->p.getClass().equals(this.getClass())).collect(Collectors.toList())) <= 1;
     }
 
     @Override
@@ -47,5 +60,9 @@ public abstract class Pasarela implements Parcela {
     @Override
     public boolean estaEnRangoLateralesA(Posicion posicion) {
         return this.posicion.estaEnRangoLaterales(posicion);
+    }
+
+    public void establecerEstado(EstadoPasarela nuevoEstado){
+        estado = nuevoEstado;
     }
 }

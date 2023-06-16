@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
-import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
-import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.*;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
 
@@ -17,12 +14,14 @@ public class Mapa {
     private final List<Parcela> parcelas;
     private final List<Defensa> defensas;
     private final List<Enemigo> enemigos;
-    private Parcela largada;
+
+    private DetectorExtremos detectorExtremos;
 
     public Mapa() {
         this.parcelas = new ArrayList<>();
         this.defensas = new ArrayList<>();
         this.enemigos = new ArrayList<>();
+        this.detectorExtremos = new DetectorExtremos();
         cantColumnas = 0;
         cantFilas = 0;
     }
@@ -33,10 +32,13 @@ public class Mapa {
         this.enemigos = new ArrayList<>();
         this.cantColumnas = tamanio;
         this.cantFilas = tamanio;
+        this.detectorExtremos = new DetectorExtremos();
     }
 
     public void insertarEnemigo(Enemigo unEnemigo){
-        this.largada.moveElEnemigo(unEnemigo);
+        for(Parcela parcela: parcelas){
+            parcela.insertarEnemigo(unEnemigo);
+        }
         enemigos.add(unEnemigo);
     }
 
@@ -91,17 +93,7 @@ public class Mapa {
         parcelas.add(parcela);
     }
 
-    public void iniciarLargada() {
-        List<Parcela> pasarelasLaterales = parcelas.stream()
-                .filter(p -> p.esLateral(cantColumnas, cantFilas)).collect(Collectors.toList());
-        
-        this.largada = pasarelasLaterales.stream()
-                .filter(p-> p.puedeSerLargada(pasarelasLaterales))
-                .findFirst()
-                .orElse(null);
-        
-        if(largada == null) {
-            throw new RuntimeException("No se pudo inicializar la largada");
-        }
+    public void configurarCamino() {
+        detectorExtremos.configurarCamino(parcelas);
     }
 }
