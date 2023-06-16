@@ -3,6 +3,7 @@ import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +99,11 @@ public class Mapa {
     }
 
     public void configurarCamino() {
-        detectorExtremos.configurarCamino(parcelas);
+        try{
+            detectorExtremos.configurarCamino(parcelas);
+        } catch (Exception e){
+            Logger logger = Logger.getInstance();
+            logger.logError(e.getMessage());
+        }
     }
 }
