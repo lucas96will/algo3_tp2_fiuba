@@ -98,12 +98,7 @@ public class Mapa {
         parcelas.add(parcela);
     }
 
-    public void configurarCamino() {
-        try{
-            detectorExtremos.configurarCamino(parcelas);
-        } catch (Exception e){
-            Logger logger = Logger.getInstance();
-            logger.logError(e.getMessage());
-        }
+    public void establecerTerreno(List<Parcela> parcelas) {
+        this.parcelas.addAll(parcelas);
     }
 }

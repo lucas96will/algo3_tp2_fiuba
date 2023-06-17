@@ -42,7 +42,6 @@ public class Juego {
     public void iniciar() {
         this.partida = new Partida();
         partida.crearPartida(jugador, mapa);
-        partida.iniciar();
     }
 
     public void terminarTurno() {

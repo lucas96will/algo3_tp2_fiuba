@@ -22,7 +22,7 @@ public class DetectorExtremos{
             pasarelaObtenida.establecerEstado(new Meta());
         }
         else {
-            throw new NoSePuedeIdentificarLaMetaDelMapaException("No se pudo identificar la meta de los enemigos");
+            throw new NoSePuedeIdentificarLaMetaDelMapaException("No se pudo identificar la meta de los enemigos, el mapa recibido es inválido");
         }
     }
 }

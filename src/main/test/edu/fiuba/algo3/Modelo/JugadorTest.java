@@ -5,6 +5,8 @@ import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Partida.Partida;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
@@ -17,12 +19,12 @@ public class JugadorTest {
     public Mapa obtenerMapaGenerico() {
         Mapa mapa = new Mapa(8);
 
-        mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,1));
+        mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
 
-        for(int i = 2; i < 8; i++){
+        for(int i = 2; i < 7; i++){
             mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,i));
         }
-        mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,7));
+        mapa.agregarParcelaEnPosicion(new Pasarela(new Meta()), new Posicion(1,7));
 
         for(int j = 2; j < 8; j++) {
             for(int k = 1; k < 8; k++) {
@@ -32,8 +34,6 @@ public class JugadorTest {
         for(int h = 1; h < 8; h++) {
             mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
         }
-
-        mapa.configurarCamino();
         return mapa;
     }
 

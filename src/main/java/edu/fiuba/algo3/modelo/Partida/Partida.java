@@ -23,10 +23,6 @@ public class Partida {
         this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
     }
 
-    public void iniciar() {
-        this.mapa.configurarCamino();
-    }
-
     public void terminarTurno() {
         try {
             estado.terminarTurno(mapa);

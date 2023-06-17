@@ -25,7 +25,7 @@ public class PartidaTest {
 
             mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
 
-            for(int i = 2; i < 8; i++){
+            for(int i = 2; i < 7; i++){
                 mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,i));
             }
             mapa.agregarParcelaEnPosicion(new Pasarela(new Meta()), new Posicion(1,7));
@@ -38,8 +38,6 @@ public class PartidaTest {
             for(int h = 1; h < 8; h++) {
                 mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
             }
-
-            mapa.configurarCamino();
             return mapa;
         }
 

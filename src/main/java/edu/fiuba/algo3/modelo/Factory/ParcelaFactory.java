@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Factory;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoIdentificadaException;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Tierra;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
@@ -10,15 +11,15 @@ import java.util.HashMap;
 public class ParcelaFactory {
     private final HashMap<String, Parcela> tipoDeParcelas;
 
-    public ParcelaFactory(){
+    public ParcelaFactory(Posicion unaPosicion){
         this.tipoDeParcelas = new HashMap<>();
-        this.tipoDeParcelas.put("Rocoso", new Rocoso());
-        this.tipoDeParcelas.put("Tierra", new Tierra());
-        this.tipoDeParcelas.put("Pasarela", new Pasarela(new Casilla()));
+        this.tipoDeParcelas.put("Rocoso", new Rocoso(unaPosicion));
+        this.tipoDeParcelas.put("Tierra", new Tierra(unaPosicion));
+        this.tipoDeParcelas.put("Pasarela", new Pasarela(unaPosicion, new Casilla()));
     }
 
-    static public Parcela obtenerParcela(String nombreParcela){
-        ParcelaFactory factory = new ParcelaFactory();
+    static public Parcela obtenerParcela(String nombreParcela, Posicion unaPosicion){
+        ParcelaFactory factory = new ParcelaFactory(unaPosicion);
         Parcela parcela = factory.tipoDeParcelas.get(nombreParcela);
 
         if(parcela == null) {

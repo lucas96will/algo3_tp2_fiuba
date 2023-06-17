@@ -4,11 +4,15 @@ import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeIdentificarLaMetaDelMapaException;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Factory.EnemigoFactory;
+import edu.fiuba.algo3.modelo.Mapa.DetectorExtremos;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Factory.ParcelaFactory;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -76,6 +80,7 @@ public class CargadorJson implements Cargador {
     public Mapa procesarMapa(String rutaJsonMapa) {
 
         try {
+            List<Parcela> parcelas = new ArrayList<Parcela>();
             JSONParser parser = new JSONParser();
             FileReader lector = new FileReader(rutaJsonMapa);
             JSONObject json = (JSONObject) parser.parse(lector);
@@ -91,10 +96,21 @@ public class CargadorJson implements Cargador {
                 contadorColumna = 1;
                 for(Object parcela : columna) {
                     String nombreParcela = (String) parcela;
-                    mapa.agregarParcelaEnPosicion(ParcelaFactory.obtenerParcela(nombreParcela), new Posicion(Integer.parseInt((String) filas[i])/*fila*/, contadorColumna/*columna*/));
+                    Posicion pos = new Posicion((Integer.parseInt((String) filas[i]))/*fila*/, contadorColumna/*columna*/);
+                    parcelas.add(ParcelaFactory.obtenerParcela(nombreParcela, pos));
                     contadorColumna++;
                 }
+                
             }
+            DetectorExtremos detector = new DetectorExtremos();
+            try {
+                detector.configurarCamino(parcelas);
+            } catch (Exception e) {
+                Logger logger = Logger.getInstance();
+                logger.logError(e.getMessage());
+            } 
+            mapa.establecerTerreno(parcelas);
+                
             return mapa;
         } catch (IOException e) {
             throw new RutaInvalidaException();

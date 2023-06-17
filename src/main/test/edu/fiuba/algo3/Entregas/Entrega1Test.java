@@ -48,8 +48,6 @@ public class Entrega1Test {
         for(int h = 1; h < 8; h++) {
             mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
         }
-
-        mapa.configurarCamino();
         return mapa;
     }
     @Test
