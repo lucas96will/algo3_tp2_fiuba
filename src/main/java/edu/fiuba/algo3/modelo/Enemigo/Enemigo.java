@@ -60,8 +60,6 @@ public abstract class Enemigo {
         return estado.muerto();
     }
 
-    abstract protected int entregarRecompensa();
-
     public void mover(Posicion posicion) {
         this.posicionAnterior = this.posicion;
         this.posicion = posicion;

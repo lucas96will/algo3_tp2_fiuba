@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Direccion.*;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import java.util.Arrays;
 import java.util.List;
@@ -61,6 +62,19 @@ public class Posicion {
     public String toString() {
 
         return ("( " + fila + ", " + columna + " )");
+    }
+    public void moverEnDireccion(Direccion direccion){}
+    public void moverEnDireccion(Arriba direccion){
+        reducirFila();
+    }
+    public void moverEnDireccion(Izquierda direccion){
+        reducirColumna();
+    }
+    public void moverEnDireccion(Abajo direccion){
+        aumentarFila();
+    }
+    public void moverEnDireccion(Derecha direccion){
+        aumentarColumna();
     }
 
     public void reducirFila() {

@@ -40,4 +40,8 @@ public class Contador {
         int recompensa = new Random().nextInt(10) + 1;
         return recompensa;
     }
+
+    public int obtenerRecompensaLechuza() {
+        return 10;
+    }
 }
