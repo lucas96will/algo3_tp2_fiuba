@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class Enemigo {
     private final int danio;
     private int vida;
-    private final int velocidad;
+    protected final int velocidad;
     private final int energia;
     protected int recompensa;
     protected EstadoEnemigo estado;
@@ -60,12 +60,11 @@ public abstract class Enemigo {
         return estado.muerto();
     }
 
-    abstract protected int entregarRecompensa();
-
     public void mover(Posicion posicion) {
         this.posicionAnterior = this.posicion;
         this.posicion = posicion;
     }
+    
 
     public int sumarDanio(int unDanio) {
         return danio + unDanio;
@@ -75,6 +74,9 @@ public abstract class Enemigo {
         boolean seMovio;
         int k;
         Parcela unaParcela;
+        
+        
+        estado.moverse(movimiento);    
         for (int i = 0; i < velocidad; i++) {
             if(!this.muerto()) {
                 k = 0;

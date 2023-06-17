@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo.Mapa;
+import edu.fiuba.algo3.modelo.Direccion.*;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import java.util.Arrays;
 import java.util.List;
@@ -63,16 +64,16 @@ public class Posicion {
         return ("( " + fila + ", " + columna + " )");
     }
 
-    public void reducirFila() {
+    public void moverArriba() {
         fila -= 1;
     }
-    public void aumentarColumna() {
+    public void moverDerecha() {
         columna += 1;
     }
-    public void reducirColumna() {
+    public void moverIzquierda(){
         columna -= 1;
     }
-    public void aumentarFila() {
+    public void moverAbajo() {
         fila += 1;
     }
 }

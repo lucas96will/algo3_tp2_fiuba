@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
+import edu.fiuba.algo3.modelo.Enemigo.Lechuza;
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoComprarException;
 
 import java.util.Random;
@@ -97,4 +98,8 @@ public class Jugador {
         recurso.sumarMonedas(recompensa);
     }
 
+    public void obtenerRecompensa(Lechuza lechuza) {
+        int recompensa = contadorMuertes.obtenerRecompensaLechuza();
+        recurso.sumarMonedas(recompensa);
+    }
 }
