@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Posicion {
-    private final int fila;
-    private final int columna;
+    private int fila;
+    private int columna;
 
     public Posicion(int posFila, int posCol){
         fila = posFila;
@@ -61,5 +61,18 @@ public class Posicion {
     public String toString() {
 
         return ("( " + fila + ", " + columna + " )");
+    }
+
+    public void reducirFila() {
+        fila -= 1;
+    }
+    public void aumentarColumna() {
+        columna += 1;
+    }
+    public void reducirColumna() {
+        columna -= 1;
+    }
+    public void aumentarFila() {
+        fila += 1;
     }
 }
