@@ -21,9 +21,11 @@ public class Lechuza extends Enemigo{
         Logger.getInstance().logExitoso(this + " murio.");
     }
     public void moverse(List<Parcela> parcelas){
-        /*
-        Direccion direccion = posicionMeta
-        posicion.moverEnDireccion(direccion);
-        */
+
+    }
+
+    public void moverseEnojado(){
+        //Cuando tiene 50% menos de la vida
+
     }
 }

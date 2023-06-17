@@ -12,7 +12,7 @@ import java.util.List;
 public abstract class Enemigo {
     private final int danio;
     private int vida;
-    private final int velocidad;
+    protected final int velocidad;
     private final int energia;
     protected int recompensa;
     protected EstadoEnemigo estado;

@@ -63,30 +63,17 @@ public class Posicion {
 
         return ("( " + fila + ", " + columna + " )");
     }
-    public void moverEnDireccion(Direccion direccion){}
-    public void moverEnDireccion(Arriba direccion){
-        reducirFila();
-    }
-    public void moverEnDireccion(Izquierda direccion){
-        reducirColumna();
-    }
-    public void moverEnDireccion(Abajo direccion){
-        aumentarFila();
-    }
-    public void moverEnDireccion(Derecha direccion){
-        aumentarColumna();
-    }
 
-    public void reducirFila() {
+    public void moverArriba() {
         fila -= 1;
     }
-    public void aumentarColumna() {
+    public void moverDerecha() {
         columna += 1;
     }
-    public void reducirColumna() {
+    public void moverIzquierda(){
         columna -= 1;
     }
-    public void aumentarFila() {
+    public void moverAbajo() {
         fila += 1;
     }
 }
