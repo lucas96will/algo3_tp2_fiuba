@@ -74,7 +74,7 @@ public class EnemigoTest {
         Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador, mapa);
 
-        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
 
         for(int i = 0; i < 8; i++){
@@ -89,7 +89,7 @@ public class EnemigoTest {
     public void test2HormigaSeMueveCorrectamenteALaSiguientePosicion(){
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 2 hormiga se mueve correctamente a la siguiente posición");
 
-        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
 
         Parcela parcelaMock = mock(Pasarela.class);
@@ -116,7 +116,7 @@ public class EnemigoTest {
     public void test3HormigaQueSeMovioSeMueveAUnaSiguientePosicionCorrectamente(){
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 3 Hormiga se movió se mueve después correctamente");
 
-        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
         List<Parcela> parcelas = new ArrayList<>();
 
         Parcela parcelaMockPrimera = mock(Pasarela.class);
@@ -190,7 +190,7 @@ public class EnemigoTest {
     public void test2BisHormigaSeMueveCorrectamenteALaSiguientePosicion() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 2B Hormiga se mueve correctamente a la siguiente posición");
         Parcela parcela = new Pasarela(new Posicion(1,2), new Casilla());
-        Enemigo hormiga = new Hormiga(1,1,1,1,1,new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(parcela);
@@ -206,7 +206,7 @@ public class EnemigoTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 3B Hormiga que se movió se mueve a una siguiente posición correctamente");
         Parcela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
         Parcela segundaParcela = new Pasarela(new Posicion(1,3), new Casilla());
-        Enemigo hormiga = new Hormiga(1,1,1,1,1,new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(primeraParcela);
@@ -226,7 +226,7 @@ public class EnemigoTest {
 
         Parcela parcela = new Pasarela(new Posicion(1,2), new Casilla());
         Parcela meta = new Pasarela(new Posicion(1,3), new Meta());
-        Enemigo hormiga = new Hormiga(1,1,1,1,1,new Posicion(1,2));
+        Enemigo hormiga = new Hormiga(new Posicion(1,2));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(parcela);
@@ -243,7 +243,7 @@ public class EnemigoTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 5 Hormiga hace daño al jugador correctamente");
         Parcela parcela = new Pasarela(new Posicion(1,2), new Casilla());
         Parcela meta = new Pasarela(new Posicion(1,3), new Meta());
-        Enemigo hormiga = new Hormiga(1,3,1,1,1,new Posicion(1,2));
+        Enemigo hormiga = new Hormiga(new Posicion(1,2));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(parcela);
@@ -260,7 +260,7 @@ public class EnemigoTest {
     public void test6HormigaNoHaceElDanioQueTieneAlJugadorCorrectamente() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 6 Hormiga no hace el daño que tiene al jugador correctamente");
         Parcela parcela = new Pasarela(new Posicion(1,2), new Casilla());
-        Enemigo hormiga = new Hormiga(1,2,1,1,1,new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(parcela);
@@ -278,7 +278,7 @@ public class EnemigoTest {
         Parcela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
         Parcela segundaParcela = new Pasarela(new Posicion(1,3), new Casilla());
         Parcela terceraParcela = new Pasarela(new Posicion(1,4), new Casilla());
-        Enemigo arania = new Arania(2,2,2,2,2,new Posicion(1,1));
+        Enemigo arania = new Arania(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(primeraParcela);
@@ -302,7 +302,7 @@ public class EnemigoTest {
         
 
 
-        Enemigo arania = new Arania(2,2,2,2,2,new Posicion(1,1));
+        Enemigo arania = new Arania(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(primeraParcela);
@@ -321,7 +321,7 @@ public class EnemigoTest {
         Parcela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
         Parcela segundaParcela = new Pasarela(new Posicion(1,3), new Meta());
 
-        Enemigo arania = new Arania(2,2,2,2,2,new Posicion(1,1));
+        Enemigo arania = new Arania(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(primeraParcela);

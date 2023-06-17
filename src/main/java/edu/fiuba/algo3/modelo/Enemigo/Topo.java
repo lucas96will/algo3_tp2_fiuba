@@ -16,9 +16,4 @@ public class Topo extends Enemigo {
     protected void morir() {
 
     }
-
-    @Override
-    protected int entregarRecompensa() {
-        return 0;
-    }
 }

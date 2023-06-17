@@ -72,7 +72,7 @@ public class Entrega1Test {
 
 
         Defensa torrePlateada = new Torre(20, 2,5, new EstadoDefensaIncompleto(2), "Torre Plateada");
-        partida.insertarEnemigo(new Hormiga(2,2,2,2,2,new Posicion(1, 1)));
+        partida.insertarEnemigo(new Hormiga(new Posicion(1, 1)));
         partida.construir(torrePlateada, new Posicion(2,6)); // 2 turnos para construirse
         partida.terminarTurno(); // arania en posicion (1,3)
         assertEquals(80, recurso.valorMonetario());
@@ -123,7 +123,7 @@ public class Entrega1Test {
         partida.construir(torreBlanca1, new Posicion(2,6));
 
         //Enemigo hormiga = Enemigo.crearHormiga(1,null);
-        Hormiga hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
+        Hormiga hormiga = new Hormiga(new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
         partida.terminarTurno();
         partida.terminarTurno();
@@ -148,13 +148,13 @@ public class Entrega1Test {
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
 
-        partida.insertarEnemigo(new Hormiga(1,1,1,1,10, new Posicion(1,1)));
+        partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
         partida.terminarTurno(); // tarda 1 turno en construir la torre blanca
         partida.terminarTurno(); // Muere la hormiga
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada()); // No hay enemigos en el mapa y el jugador tiene vida
 
-        partida.insertarEnemigo(new Arania(2,2,2,2,2,  new Posicion(1,1))); // arania con 2 de vida
+        partida.insertarEnemigo(new Arania(new Posicion(1,1))); // arania con 2 de vida
         partida.terminarTurno(); // se dania a la arania, queda con 1 de vida
 
         estadoPartida = partida.estado();
@@ -173,9 +173,9 @@ public class Entrega1Test {
         Tierra tierra = new Tierra(new Posicion(1,1));
         Rocoso rocoso = new Rocoso(new Posicion(1,1));
 
-        assertThrows(Exception.class,() -> tierra.insertarEnemigo(new Hormiga(1,1,1,1,10, new Posicion(1,1))));
-        assertThrows(Exception.class,() -> rocoso.insertarEnemigo(new Hormiga(1,1,1,1,10, new Posicion(1,1))));
-        assertDoesNotThrow(() -> pasarela.insertarEnemigo(new Hormiga(1,1,1,1,10, new Posicion(1,1))));
+        assertThrows(Exception.class,() -> tierra.insertarEnemigo(new Hormiga(new Posicion(1,1))));
+        assertThrows(Exception.class,() -> rocoso.insertarEnemigo(new Hormiga(new Posicion(1,1))));
+        assertDoesNotThrow(() -> pasarela.insertarEnemigo(new Hormiga(new Posicion(1,1))));
     }
 
     @Test
@@ -195,7 +195,7 @@ public class Entrega1Test {
         partida.construir(torreBlanca1, new Posicion(2,2));
         // 100-10 = 90
 
-        Hormiga hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
+        Hormiga hormiga = new Hormiga(new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
         // 1 credito
 
@@ -220,8 +220,8 @@ public class Entrega1Test {
 
         /*rango de ataque de torre blanca = 0 - 4 fila ; 0 - 4 columna*/
         partida.terminarTurno(); // Torre construida
-        partida.insertarEnemigo(new Hormiga(1,1,1,2,1, new Posicion(1,1)));
-        partida.insertarEnemigo(new Arania(2,2,2,2,2, new Posicion(1,1)));
+        partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
+        partida.insertarEnemigo(new Arania(new Posicion(1,1)));
 
         partida.terminarTurno(); // enemigos en posicion (1,2) muere hormiga
         partida.terminarTurno(); // enemigos en posicion (1, 4) (muere 1 arania)
@@ -246,10 +246,10 @@ public class Entrega1Test {
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
 
-        Hormiga hormiga = new Hormiga(1,1,1,1,10, new Posicion(1,1));
+        Hormiga hormiga = new Hormiga(new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
 
-        Hormiga hormiga2 = new Hormiga(1,1,1,1,10, new Posicion(1,1));
+        Hormiga hormiga2 = new Hormiga(new Posicion(1,1));
         partida.insertarEnemigo(hormiga2);
 
         partida.terminarTurno(); // No ataca
@@ -274,7 +274,7 @@ public class Entrega1Test {
         partida.construir(torreBlanca1, new Posicion(2,2));
 
         for(int i = 0; i < 10; i++) {
-            partida.insertarEnemigo(new Hormiga(20,1,1,1,10, new Posicion(1,1)));
+            partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
         }
 
         for(int i = 0; i < 8; i++){
@@ -297,7 +297,7 @@ public class Entrega1Test {
 
 
         for(int i = 0; i < 14; i++) {
-            partida.insertarEnemigo(new Hormiga(10,1,1,1,10, new Posicion(1,1)));
+            partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
         }
 
         for(int i = 0; i < 10; i++){

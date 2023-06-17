@@ -20,7 +20,7 @@ public class ParcelaTest {
         Parcela pasarela = new Pasarela(new Posicion(0,0), new Casilla());
         Parcela tierra = new Tierra(new Posicion(0,0));
         Parcela rocoso = new Rocoso(new Posicion(0,0));
-        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
         assertThrows(Exception.class, () -> tierra.insertarEnemigo(hormiga));
         assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));
@@ -34,7 +34,7 @@ public class ParcelaTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO Parcela test 2: Enemigo no se puede crear en rocoso");
         Parcela pasarela = new Pasarela(new Posicion(0,0), new Casilla());
         Parcela rocoso = new Rocoso(new Posicion(0,0));
-        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
         assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));
 
@@ -49,7 +49,7 @@ public class ParcelaTest {
         Parcela tierra = new Tierra(new Posicion(0,0));
         Parcela rocoso = new Rocoso(new Posicion(0,0));
         
-        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
+        Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
         assertThrows(Exception.class, () -> tierra.insertarEnemigo(hormiga));
         assertThrows(Exception.class, () -> rocoso.insertarEnemigo(hormiga));

@@ -33,7 +33,7 @@ public class DefensaTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO Defensa tarda en construirse lo que dice.");
         Defensa torreBlanca = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(1, 1), "Torre Blanca");
 
-        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(2,2));
+        Enemigo hormiga = new Hormiga(new Posicion(2,2));
 
         List<Enemigo> enemigos = new ArrayList<Enemigo>();
         enemigos.add(hormiga);
