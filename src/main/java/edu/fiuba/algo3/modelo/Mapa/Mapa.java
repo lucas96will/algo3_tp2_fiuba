@@ -16,13 +16,10 @@ public class Mapa {
     private final List<Defensa> defensas;
     private final List<Enemigo> enemigos;
 
-    private DetectorExtremos detectorExtremos;
-
     public Mapa() {
         this.parcelas = new ArrayList<>();
         this.defensas = new ArrayList<>();
         this.enemigos = new ArrayList<>();
-        this.detectorExtremos = new DetectorExtremos();
         cantColumnas = 0;
         cantFilas = 0;
     }
@@ -33,7 +30,6 @@ public class Mapa {
         this.enemigos = new ArrayList<>();
         this.cantColumnas = tamanio;
         this.cantFilas = tamanio;
-        this.detectorExtremos = new DetectorExtremos();
     }
 
     public void insertarEnemigo(Enemigo unEnemigo){

@@ -1,20 +1,15 @@
 package edu.fiuba.algo3.modelo.Cargador;
 
 import edu.fiuba.algo3.modelo.Direccion.*;
-import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePuedeIdentificarLaMetaDelMapaException;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Factory.EnemigoFactory;
-import edu.fiuba.algo3.modelo.Mapa.DetectorExtremos;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Factory.ParcelaFactory;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
-import edu.fiuba.algo3.modelo.Partida.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -78,6 +73,111 @@ public class CargadorJson implements Cargador {
 
         listaDeEnemigosPorTurno.add(enemigosTurnoActual);
     }
+    
+    private void cargarPasarelas(String[][] mapeo, List<Parcela> parcelas){
+        int cantidadColumnas = mapeo[0].length;
+        
+        int i = 0;
+        int j = 0;
+        int adyascentes = 0;
+        int filaActual = 0;
+        int columnaActual = 0;
+        int filaSiguiente = 0;
+        int columnaSiguiente = 0;
+        Direccion direccion = null;
+        while(i < mapeo.length && adyascentes != 1) {
+            while (j < cantidadColumnas && adyascentes != 1) {
+                if (mapeo[i][j].equals("Pasarela")) {
+                    filaActual = i;
+                    columnaActual = j;
+                    filaSiguiente = i;
+                    columnaSiguiente = j;
+                    adyascentes = 0;
+                    if ((i + 1 < mapeo.length) && mapeo[i + 1][j].equals("Pasarela")) {
+                        direccion = new Abajo();
+                        filaSiguiente++;
+                        adyascentes++;
+                    }
+                    if ((j + 1 < cantidadColumnas) && mapeo[i][j + 1].equals("Pasarela")) {
+                        direccion = new Derecha();
+                        columnaSiguiente++;
+                        adyascentes++;
+                    }
+                    if ((i - 1 > 0) && mapeo[i - 1][j].equals("Pasarela")) {
+                        direccion = new Arriba();
+                        filaSiguiente--;
+                        adyascentes++;
+
+                    }
+                    if ((j - 1 > 0) && mapeo[i][j - 1].equals("Pasarela")) {
+                        direccion = new Izquierda();
+                        columnaSiguiente--;
+                        adyascentes++;
+                    }
+                    j++;
+                }
+                i++;
+            }
+            Parcela pasarela = ParcelaFactory.obtenerParcela("Largada", new Posicion(filaActual, columnaActual));
+            ((Pasarela) pasarela).establecerDireccion(direccion);
+            parcelas.add(pasarela);
+        }
+        cargarPasarelasRestantes(mapeo, parcelas, filaSiguiente, columnaSiguiente, filaActual, columnaActual);
+    }
+
+    private void cargarPasarelasRestantes(String[][] mapeo, List<Parcela> parcelas, int filaSiguiente, int columnaSiguiente, int filaActual, int columnaActual) {
+        Parcela meta = null;
+        Parcela pasarela;
+        Direccion direccion;
+        
+        while (meta == null) {
+            if ((filaSiguiente + 1 < mapeo.length) && ((filaSiguiente + 1) != filaActual) && mapeo[filaSiguiente + 1][columnaSiguiente].equals("Pasarela")) {
+                direccion = new Abajo();
+                filaActual = filaSiguiente;
+                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaActual, columnaActual));
+                ((Pasarela) pasarela).establecerDireccion(direccion);
+                parcelas.add(pasarela);
+                filaSiguiente++;
+            } else if ((filaSiguiente - 1 > 0) && ((filaSiguiente - 1) != filaActual) && mapeo[filaSiguiente - 1][columnaSiguiente].equals("Pasarela")) {
+                direccion = new Arriba();
+                filaActual = filaSiguiente;
+                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaActual, columnaActual));
+                ((Pasarela) pasarela).establecerDireccion(direccion);
+                parcelas.add(pasarela);
+                filaSiguiente--;
+            } else if ((columnaSiguiente - 1 > 0) && ((columnaSiguiente - 1) != columnaActual) && mapeo[filaSiguiente][columnaSiguiente - 1].equals("Pasarela")) {
+                direccion = new Izquierda();
+                columnaActual = columnaSiguiente;
+                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaActual, columnaActual));
+                ((Pasarela) pasarela).establecerDireccion(direccion);
+                parcelas.add(pasarela);
+                columnaSiguiente--;
+            } else if ((columnaSiguiente + 1 > 0) && ((columnaSiguiente + 1) != columnaActual) && mapeo[filaSiguiente][columnaSiguiente + 1].equals("Pasarela")) {
+                direccion = new Derecha();
+                columnaActual = columnaSiguiente;
+                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaActual, columnaActual));
+                ((Pasarela) pasarela).establecerDireccion(direccion);
+                parcelas.add(pasarela);
+                columnaSiguiente++;
+            } else {
+                meta = ParcelaFactory.obtenerParcela("Meta", new Posicion(filaSiguiente, columnaSiguiente));
+                parcelas.add(meta);
+            }
+        }
+    }
+
+    private void procesarParcelas(String[][] mapeo, List<Parcela> parcelas) {
+        cargarPasarelas(mapeo, parcelas);
+
+        for(int i = 0; i < mapeo.length; i++) {
+            for(int j = 0; j < mapeo[0].length; j++) {
+                if(!mapeo[i][j].equals("Pasarela")) {
+                    Posicion pos = new Posicion(i, j);
+                    parcelas.add(ParcelaFactory.obtenerParcela(mapeo[i][j], pos));
+                }
+            }
+        }
+    }
 
     public Mapa procesarMapa(String rutaJsonMapa) {
 
@@ -88,93 +188,33 @@ public class CargadorJson implements Cargador {
             JSONObject json = (JSONObject) parser.parse(lector);
             JSONObject mapaJson = (JSONObject) json.get("Mapa");
 
-
             Object[] filas = mapaJson.keySet().toArray();
 
             Mapa mapa = new Mapa(filas.length);
-            int i;
             int contadorColumna;
             int cantidadColumnas = ((JSONArray)mapaJson.get(filas[1])).size();
-            String mapeo [][] = new String[filas.length][((JSONArray)mapaJson.get(filas[1])).size()];
-            for(i = 0; i < filas.length; i++) {
+            String mapeo [][] = new String[filas.length][cantidadColumnas];
+
+            for(int i = 0; i < filas.length; i++) {
                 contadorColumna = 0;
                 JSONArray columna = (JSONArray) mapaJson.get(filas[i]);
-                for(Object parcela : columna) {
-                    //String nombreParcela = (String) parcela;
-                   mapeo[i][contadorColumna] = (String) parcela;
-                    //Posicion pos = new Posicion((Integer.parseInt((String) filas[i]))/*fila*/, contadorColumna/*columna*/);
-                    //parcelas.add(ParcelaFactory.obtenerParcela(nombreParcela, pos));
+                for (Object parcela : columna) {
+                    mapeo[i][contadorColumna] = (String) parcela;
                     contadorColumna++;
                 }
             }
-            //Encontrar Largada
-            int j = 0;
-            int adyascentes = 0;
-            int fila_actual = 0;
-            int columna_actual = 0;
-            int fila_siguiente = 0;
-            int columna_siguiente = 0;
-            Direccion direccion = null;
-            while(i < filas.length && adyascentes != 1) {
-                while(j < cantidadColumnas && adyascentes != 1) {
-                    if(mapeo[i][j].equals("Pasarela")){
-                        fila_actual = i;
-                        columna_actual = j;
-                        fila_siguiente = i;
-                        columna_siguiente = j;
-                        adyascentes = 0;
-                        if((i + 1 < filas.length) && mapeo[i + 1][j].equals("Pasarela")){
-                            direccion = new Abajo();
-                            fila_siguiente ++;
-                            adyascentes ++;
-                        }
-                        if((j + 1 < cantidadColumnas) && mapeo[i][j + 1].equals("Pasarela")){
-                            direccion = new Derecha();
-                            columna_siguiente ++;
-                            adyascentes ++;
-                        }
-                        if((i - 1 > 0) && mapeo[i - 1][j].equals("Pasarela")){
-                            direccion = new Arriba();
-                            fila_siguiente --;
-                            adyascentes ++;
 
-                        }
-                        if((j - 1 > 0) && mapeo[i][j - 1].equals("Pasarela")){
-                            direccion = new Izquierda();
-                            columna_siguiente --;
-                            adyascentes ++;
-                        }
-                        j++;
-                    }
-                    i++;
-                }
-                Parcela pasarela = ParcelaFactory.obtenerParcela("Largada", new Posicion(fila_actual, columna_actual));
-                ((Pasarela) pasarela).establecerDireccion(direccion);
-                parcelas.add(pasarela);
+            this.procesarParcelas(mapeo, parcelas);
 
-                Parcela meta = null;
-                while(/*EncontreSiguiente*/) {
-                    if((fila_siguiente + 1 < filas.length) && ((fila_siguiente + 1) != fila_actual) && mapeo[fila_siguiente + 1][columna_siguiente].equals("Pasarela"));
-                }
-                //nueva pasarela con posicion fil_larrgada, col_largada y estado Largada y agregarlo
-            }
 
-            DetectorExtremos detector = new DetectorExtremos();
-            try {
-                detector.configurarCamino(parcelas);
-            } catch (Exception e) {
-                Logger logger = Logger.getInstance();
-                logger.logError(e.getMessage());
-            }
             mapa.establecerTerreno(parcelas);
-
             return mapa;
+
         } catch (IOException e) {
             throw new RutaInvalidaException();
         } catch (ParseException p) {
             p.printStackTrace();
         }
-
-        return null;
+       return null;
     }
 }
