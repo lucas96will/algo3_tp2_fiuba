@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -13,6 +14,8 @@ public class Pasarela implements Parcela {
 
     private Posicion posicion;
     private EstadoPasarela estado;
+    
+    private Direccion direccion;
     public Pasarela(Posicion unaPosicion, EstadoPasarela unEstado) {
         posicion = unaPosicion;
         estado = unEstado;
@@ -65,4 +68,6 @@ public class Pasarela implements Parcela {
     public void establecerEstado(EstadoPasarela nuevoEstado){
         estado = nuevoEstado;
     }
+    
+    public void establecerDireccion(Direccion unaDireccion){ direccion = unaDireccion; }
 }

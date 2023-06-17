@@ -64,6 +64,7 @@ public abstract class Enemigo {
         this.posicionAnterior = this.posicion;
         this.posicion = posicion;
     }
+    
 
     public int sumarDanio(int unDanio) {
         return danio + unDanio;
@@ -73,6 +74,9 @@ public abstract class Enemigo {
         boolean seMovio;
         int k;
         Parcela unaParcela;
+        
+        
+        estado.moverse(movimiento);    
         for (int i = 0; i < velocidad; i++) {
             if(!this.muerto()) {
                 k = 0;
