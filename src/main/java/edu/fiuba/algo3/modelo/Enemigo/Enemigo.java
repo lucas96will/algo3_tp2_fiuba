@@ -69,13 +69,11 @@ public abstract class Enemigo {
     }
 
     public void moverse(List<Parcela> parcelas) {
-        boolean seMovio;
-        int k;
-        Parcela unaParcela;
 
-        estado.moverse(movimiento, parcelas, this, velocidad, posicion,  posicionAnterior);
+        estado.moverse(movimiento, parcelas, this, posicion,  posicionAnterior);
     }
-
+    
+    
     public void daniarAlJugador() {
         //lógica meta (podria ir un return danio)
         Jugador jugador = Jugador.getInstance();

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.Modelo;
 
+import edu.fiuba.algo3.modelo.Direccion.Derecha;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
@@ -98,7 +99,7 @@ public class EnemigoTest {
         doAnswer(invocation -> {
             hormiga.mover(new Posicion(1,2));
             return true;
-        }).when(parcelaMock).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
+        }).when(parcelaMock).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
 
 
 
@@ -109,7 +110,7 @@ public class EnemigoTest {
 
         assertTrue(hormiga.estaEnRango(1, new Posicion(1,3)));
         assertFalse(hormiga.muerto());
-        verify(parcelaMock, times(1)).moveElEnemigo(any(Enemigo.class),any(Posicion.class), any(Posicion.class));
+        verify(parcelaMock, times(1)).moveElEnemigo(any(Enemigo.class),any(Posicion.class));
     }
 
     @Test
@@ -127,14 +128,14 @@ public class EnemigoTest {
         doAnswer(invocation -> {
             hormiga.mover(new Posicion(1, 2));
             return true;
-            }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
+            }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
 
         when(parcelaMockSegunda.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(false);
         when(parcelaMockSegunda.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
         doAnswer(invocation -> {
             hormiga.mover(new Posicion(1, 3));
             return true;
-        }).when(parcelaMockSegunda).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
+        }).when(parcelaMockSegunda).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
 
 
         parcelas.add(parcelaMockPrimera);
@@ -143,7 +144,7 @@ public class EnemigoTest {
 
         doAnswer(invocation -> {
             return false;
-        }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
+        }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
 
         when(parcelaMockPrimera.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(true);
         when(parcelaMockSegunda.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(true);
@@ -154,8 +155,8 @@ public class EnemigoTest {
 
         assertTrue(hormiga.estaEnRango(1, new Posicion(1,4)));
         assertFalse(hormiga.muerto());
-        verify(parcelaMockPrimera, times(2)).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
-        verify(parcelaMockSegunda, times(1)).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
+        verify(parcelaMockPrimera, times(2)).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
+        verify(parcelaMockSegunda, times(1)).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
 
 
     }
@@ -275,12 +276,18 @@ public class EnemigoTest {
     @Test
     public void test5AraniaSeMueveCorrectamenteDosCasilleros() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 7 Araña se mueve correctamente dos casilleros");
+        Parcela parcelaInicial = new Pasarela(new Posicion(1,1), new Casilla());
+        ((Pasarela) parcelaInicial).establecerDireccion(new Derecha());
         Parcela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
+        ((Pasarela) primeraParcela).establecerDireccion(new Derecha());
         Parcela segundaParcela = new Pasarela(new Posicion(1,3), new Casilla());
+        ((Pasarela) segundaParcela).establecerDireccion(new Derecha());
         Parcela terceraParcela = new Pasarela(new Posicion(1,4), new Casilla());
+        ((Pasarela) terceraParcela).establecerDireccion(new Derecha());
         Enemigo arania = new Arania(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
+        parcelas.add(parcelaInicial);
         parcelas.add(primeraParcela);
         parcelas.add(segundaParcela);
         parcelas.add(terceraParcela);

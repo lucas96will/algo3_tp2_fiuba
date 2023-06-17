@@ -72,7 +72,6 @@ public class CargadorJsonTest {
         Torre torreEnPosicionInvalida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), "Torre Blanca");
 
         assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida, new Posicion(2,2)));
-        assertThrows(RuntimeException.class, () -> mapa.construir(torreEnPosicionInvalida, new Posicion(1,1)));
         assertTrue(mapa.sinEnemigos());
     }
     

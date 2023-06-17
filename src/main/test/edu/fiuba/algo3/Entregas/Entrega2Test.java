@@ -139,7 +139,7 @@ public class Entrega2Test {
 
         assertThrows(Exception.class, () -> juego.construir(torrePlateada1, new Posicion(1, 1))); //reviso que construir tire excepcion en la parcela rocoso
 
-        juego.construir(torrePlateada2, new Posicion(10, 12));
+        juego.construir(torrePlateada2, new Posicion(3, 1));
 
         for (int i = 0; i < 3 ; i++) {
             juego.terminarTurno();

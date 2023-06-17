@@ -86,6 +86,7 @@ public class CargadorJson implements Cargador {
         int columnaSiguiente = 0;
         Direccion direccion = null;
         while(i < mapeo.length && adyascentes != 1) {
+            j = 0;
             while (j < cantidadColumnas && adyascentes != 1) {
                 if (mapeo[i][j].equals("Pasarela")) {
                     filaActual = i;
@@ -103,25 +104,25 @@ public class CargadorJson implements Cargador {
                         columnaSiguiente++;
                         adyascentes++;
                     }
-                    if ((i - 1 > 0) && mapeo[i - 1][j].equals("Pasarela")) {
+                    if ((i - 1 >= 0) && mapeo[i - 1][j].equals("Pasarela")) {
                         direccion = new Arriba();
                         filaSiguiente--;
                         adyascentes++;
 
                     }
-                    if ((j - 1 > 0) && mapeo[i][j - 1].equals("Pasarela")) {
+                    if ((j - 1 >= 0) && mapeo[i][j - 1].equals("Pasarela")) {
                         direccion = new Izquierda();
                         columnaSiguiente--;
                         adyascentes++;
                     }
-                    j++;
                 }
-                i++;
+                j++;
             }
-            Parcela pasarela = ParcelaFactory.obtenerParcela("Largada", new Posicion(filaActual, columnaActual));
-            ((Pasarela) pasarela).establecerDireccion(direccion);
-            parcelas.add(pasarela);
+            i++;
         }
+        Parcela pasarela = ParcelaFactory.obtenerParcela("Largada", new Posicion(filaActual + 1, columnaActual + 1));
+        ((Pasarela) pasarela).establecerDireccion(direccion);
+        parcelas.add(pasarela);
         cargarPasarelasRestantes(mapeo, parcelas, filaSiguiente, columnaSiguiente, filaActual, columnaActual);
     }
 
@@ -134,33 +135,33 @@ public class CargadorJson implements Cargador {
             if ((filaSiguiente + 1 < mapeo.length) && ((filaSiguiente + 1) != filaActual) && mapeo[filaSiguiente + 1][columnaSiguiente].equals("Pasarela")) {
                 direccion = new Abajo();
                 filaActual = filaSiguiente;
-                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaActual, columnaActual));
+                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaSiguiente + 1, columnaSiguiente + 1));
                 ((Pasarela) pasarela).establecerDireccion(direccion);
                 parcelas.add(pasarela);
                 filaSiguiente++;
-            } else if ((filaSiguiente - 1 > 0) && ((filaSiguiente - 1) != filaActual) && mapeo[filaSiguiente - 1][columnaSiguiente].equals("Pasarela")) {
+            } else if ((filaSiguiente - 1 >= 0) && ((filaSiguiente - 1) != filaActual) && mapeo[filaSiguiente - 1][columnaSiguiente].equals("Pasarela")) {
                 direccion = new Arriba();
                 filaActual = filaSiguiente;
-                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaActual, columnaActual));
+                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaSiguiente + 1, columnaSiguiente + 1));
                 ((Pasarela) pasarela).establecerDireccion(direccion);
                 parcelas.add(pasarela);
                 filaSiguiente--;
-            } else if ((columnaSiguiente - 1 > 0) && ((columnaSiguiente - 1) != columnaActual) && mapeo[filaSiguiente][columnaSiguiente - 1].equals("Pasarela")) {
+            } else if ((columnaSiguiente - 1 >= 0) && ((columnaSiguiente - 1) != columnaActual) && mapeo[filaSiguiente][columnaSiguiente - 1].equals("Pasarela")) {
                 direccion = new Izquierda();
                 columnaActual = columnaSiguiente;
-                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaActual, columnaActual));
+                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaSiguiente + 1, columnaSiguiente + 1));
                 ((Pasarela) pasarela).establecerDireccion(direccion);
                 parcelas.add(pasarela);
                 columnaSiguiente--;
-            } else if ((columnaSiguiente + 1 > 0) && ((columnaSiguiente + 1) != columnaActual) && mapeo[filaSiguiente][columnaSiguiente + 1].equals("Pasarela")) {
+            } else if ((columnaSiguiente + 1 < mapeo[0].length) && ((columnaSiguiente + 1) != columnaActual) && mapeo[filaSiguiente][columnaSiguiente + 1].equals("Pasarela")) {
                 direccion = new Derecha();
                 columnaActual = columnaSiguiente;
-                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaActual, columnaActual));
+                pasarela = ParcelaFactory.obtenerParcela("Pasarela", new Posicion(filaSiguiente + 1, columnaSiguiente + 1));
                 ((Pasarela) pasarela).establecerDireccion(direccion);
                 parcelas.add(pasarela);
                 columnaSiguiente++;
             } else {
-                meta = ParcelaFactory.obtenerParcela("Meta", new Posicion(filaSiguiente, columnaSiguiente));
+                meta = ParcelaFactory.obtenerParcela("Meta", new Posicion(filaSiguiente + 1, columnaSiguiente + 1));
                 parcelas.add(meta);
             }
         }
@@ -172,7 +173,7 @@ public class CargadorJson implements Cargador {
         for(int i = 0; i < mapeo.length; i++) {
             for(int j = 0; j < mapeo[0].length; j++) {
                 if(!mapeo[i][j].equals("Pasarela")) {
-                    Posicion pos = new Posicion(i, j);
+                    Posicion pos = new Posicion(i + 1, j + 1);
                     parcelas.add(ParcelaFactory.obtenerParcela(mapeo[i][j], pos));
                 }
             }
@@ -199,7 +200,7 @@ public class CargadorJson implements Cargador {
                 contadorColumna = 0;
                 JSONArray columna = (JSONArray) mapaJson.get(filas[i]);
                 for (Object parcela : columna) {
-                    mapeo[i][contadorColumna] = (String) parcela;
+                    mapeo[Integer.parseInt((String) filas[i])-1][contadorColumna] = (String) parcela;
                     contadorColumna++;
                 }
             }

@@ -15,7 +15,6 @@ public class Pasarela implements Parcela {
     private Posicion posicion;
     private EstadoPasarela estado;
     
-    private Direccion direccion;
     public Pasarela(Posicion unaPosicion, EstadoPasarela unEstado) {
         posicion = unaPosicion;
         estado = unEstado;
@@ -35,9 +34,10 @@ public class Pasarela implements Parcela {
         return true;
     }*/
 
-    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior) {
-        if (estaEnRangoLateralesA(actual) && (anterior.esNull() || !tieneLaMismaPosicion(actual, anterior))) {
-            return estado.moverEnemigo(enemigo, posicion);
+    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
+        if (actual.equals(posicion)) {
+            estado.moverEnemigo(enemigo, actual);
+            return true;
         }
         return false;
     }
@@ -69,5 +69,5 @@ public class Pasarela implements Parcela {
         estado = nuevoEstado;
     }
     
-    public void establecerDireccion(Direccion unaDireccion){ direccion = unaDireccion; }
+    public void establecerDireccion(Direccion unaDireccion){ estado.establecerDireccion(unaDireccion);}
 }

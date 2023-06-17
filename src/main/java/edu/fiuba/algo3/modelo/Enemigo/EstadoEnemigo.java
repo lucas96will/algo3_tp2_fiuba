@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface EstadoEnemigo {
     
-    public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, int velocidad, Posicion posActual, Posicion posAnterior);
+    public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual, Posicion posAnterior);
 }

@@ -8,8 +8,8 @@ import edu.fiuba.algo3.modelo.Partida.Logger;
 import java.util.List;
 
 public class Lechuza extends Enemigo{
-    public Lechuza(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa, Posicion unaPosicion) {
-        super(unaVida, unDanio, unaVelocidad, unaEnergia, unaRecompensa, unaPosicion);
+    public Lechuza(int unaVida, int unDanio, int unaVelocidad, int unaRecompensa, Posicion unaPosicion) {
+        super(unaVida, unDanio, unaVelocidad, unaRecompensa, unaPosicion);
         movimiento = new MovimientoVolador();
     }
 

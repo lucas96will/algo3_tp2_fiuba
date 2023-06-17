@@ -3,6 +3,7 @@ import edu.fiuba.algo3.modelo.Direccion.*;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Posicion {
     private int fila;
@@ -75,5 +76,23 @@ public class Posicion {
     }
     public void moverAbajo() {
         fila += 1;
+    }
+
+    public void setPosicion(Posicion unaPosicion) {
+        unaPosicion.fila = fila;
+        unaPosicion.columna = columna;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Posicion)) return false;
+        Posicion posicion = (Posicion) o;
+        return fila == posicion.fila && columna == posicion.columna;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fila, columna);
     }
 }

@@ -36,7 +36,7 @@ public class Tierra extends Construible {
 
 
     @Override
-    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual, Posicion anterior) {
+    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
         return false;
     }
 

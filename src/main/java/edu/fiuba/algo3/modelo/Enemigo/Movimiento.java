@@ -6,7 +6,5 @@ import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import java.util.List;
 
 public interface Movimiento {
-    void mover(Posicion posActual, Posicion posAnterior, Posicion posSiguiente);
-
     public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual, Posicion posAnterior);
 }
