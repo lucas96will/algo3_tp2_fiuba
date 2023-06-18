@@ -58,9 +58,9 @@ public abstract class Enemigo {
         return estado.getClass().equals(EstadoEnemigoMuerto.class); //Mal y pronto
     }
 
-    public void mover(Posicion posicion) {
+    public void mover(Posicion unaPosicion) {
         this.posicionAnterior = this.posicion;
-        this.posicion = posicion;
+        this.posicion = new Posicion(unaPosicion);
     }
     
 
@@ -75,11 +75,8 @@ public abstract class Enemigo {
     
     
     public void daniarAlJugador() {
-        //lógica meta (podria ir un return danio)
-        Jugador jugador = Jugador.getInstance();
-        jugador.reducirVidaJugador(this.danio);
+        estado.daniarAlJugador(this.danio);
         this.estado = new EstadoEnemigoMuerto();
-        Logger.getInstance().logError(this + " hizo " + danio + " de daño al jugador");
     }
 
     public boolean estaEnRango(int rango, Posicion posicion) {

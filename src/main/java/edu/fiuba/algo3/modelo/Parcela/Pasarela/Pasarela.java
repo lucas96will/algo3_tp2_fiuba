@@ -42,7 +42,7 @@ public class Pasarela implements Parcela {
         return false;
     }
 
-    public void insertarEnemigo (Enemigo unEnemigo) {
+    public void insertarEnemigo(Enemigo unEnemigo) {
         estado.insertarEnemigo(unEnemigo, posicion);
     }
 

@@ -44,13 +44,18 @@ public class EnemigoTest {
 
     public Mapa obtenerMapaGenerico() {
             Mapa mapa = new Mapa(8);
-    
-            mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
+            Pasarela pasarela = new Pasarela(new Largada());
+            pasarela.establecerDireccion(new Derecha());
+            mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,1));
     
             for(int i = 2; i < 7; i++){
-                mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,i));
+                pasarela = new Pasarela(new Casilla());
+                pasarela.establecerDireccion(new Derecha());
+                mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,i));
             }
-            mapa.agregarParcelaEnPosicion(new Pasarela(new Meta()), new Posicion(1,7));
+            pasarela = new Pasarela(new Meta());
+            pasarela.establecerDireccion(new Derecha());
+            mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,7));
     
             for(int j = 2; j < 8; j++) {
                 for(int k = 1; k < 8; k++) {
@@ -62,7 +67,7 @@ public class EnemigoTest {
             }
             
             return mapa;
-        }
+    }
         
     @Test
     public void test1HormigaSeMueveParaDelanteYHaceDanio() {
@@ -160,40 +165,20 @@ public class EnemigoTest {
 
 
     }
-/*
-    @Test
-    public void test4HormigaNoSeMueveALaSiguienteParcelaCorrectamenteYMuere(){
-        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 4 Hormiga se mueve a la siguiente parcela correctamente y muere");
 
-        Enemigo hormiga = new Hormiga(1,1,1,1,1, new Posicion(1,1));
-
-        Parcela parcelaMock = mock(Pasarela.class);
-        when(parcelaMock.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(false);
-        when(parcelaMock.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
-        doAnswer(invocation -> {
-            hormiga.mover(new Posicion(1,2));
-            return false;
-        }).when(parcelaMock).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
-
-        List<Parcela> parcelas = new ArrayList<>();
-        parcelas.add(parcelaMock);
-        hormiga.moverse(parcelas);
-
-
-        assertTrue(hormiga.estaEnRango(1, new Posicion(1,3)));
-        assertTrue(hormiga.muerto());
-//        verify(parcelaMock, times(1)).estaEnRangoLateralesA(any(Posicion.class));
-//        verify(parcelaMock, times(0)).tieneLaMismaPosicion(any(Posicion.class));
-        verify(parcelaMock, times(1)).moveElEnemigo(any(Enemigo.class), any(Posicion.class), any(Posicion.class));
-    }
-*/
     @Test
     public void test2BisHormigaSeMueveCorrectamenteALaSiguientePosicion() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 2B Hormiga se mueve correctamente a la siguiente posición");
-        Parcela parcela = new Pasarela(new Posicion(1,2), new Casilla());
+
+        Pasarela largada = new Pasarela(new Posicion(1,1), new Casilla());
+        largada.establecerDireccion(new Derecha());
+        Pasarela parcela = new Pasarela(new Posicion(1,2), new Casilla());
+        parcela.establecerDireccion(new Derecha());
+
         Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
+        parcelas.add(largada);
         parcelas.add(parcela);
 
         hormiga.moverse(parcelas);
@@ -205,11 +190,15 @@ public class EnemigoTest {
     @Test
     public void test3BisHormigaQueSeMovioSeMueveAUnaSiguientePosicionCorrectamente() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 3B Hormiga que se movió se mueve a una siguiente posición correctamente");
-        Parcela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
-        Parcela segundaParcela = new Pasarela(new Posicion(1,3), new Casilla());
+        Pasarela inicialParcela = new Pasarela(new Posicion(1,1), new Casilla());
+        inicialParcela.establecerDireccion(new Derecha());
+        Pasarela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
+        primeraParcela.establecerDireccion(new Derecha());
+        Pasarela segundaParcela = new Pasarela(new Posicion(1,3), new Casilla());
         Enemigo hormiga = new Hormiga(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
+        parcelas.add(inicialParcela);
         parcelas.add(primeraParcela);
         parcelas.add(segundaParcela);
 
@@ -225,8 +214,9 @@ public class EnemigoTest {
     public void test4BisHormigaSeMueveALaMetaCorrectamenteYMuere(){
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 4B Hormiga se mueve a la siguiente parcela y muere");
 
-        Parcela parcela = new Pasarela(new Posicion(1,2), new Casilla());
-        Parcela meta = new Pasarela(new Posicion(1,3), new Meta());
+        Pasarela parcela = new Pasarela(new Posicion(1,2), new Casilla());
+        parcela.establecerDireccion(new Derecha());
+        Pasarela meta = new Pasarela(new Posicion(1,3), new Meta());
         Enemigo hormiga = new Hormiga(new Posicion(1,2));
 
         List<Parcela> parcelas = new ArrayList<>();
@@ -234,7 +224,7 @@ public class EnemigoTest {
         parcelas.add(meta);
 
         hormiga.moverse(parcelas);
-
+        hormiga.moverse(parcelas);
         assertTrue(hormiga.estaEnRango(1,new Posicion(1,4)));
         assertTrue(hormiga.muerto());
     }
@@ -242,17 +232,19 @@ public class EnemigoTest {
     @Test
     public void test5HormigaHaceElDanioQueTieneAlJugadorCorrectamente() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 5 Hormiga hace daño al jugador correctamente");
-        Parcela parcela = new Pasarela(new Posicion(1,2), new Casilla());
-        Parcela meta = new Pasarela(new Posicion(1,3), new Meta());
+        Pasarela parcela = new Pasarela(new Posicion(1,2), new Casilla());
+        parcela.establecerDireccion(new Derecha());
+        Pasarela meta = new Pasarela(new Posicion(1,3), new Meta());
         Enemigo hormiga = new Hormiga(new Posicion(1,2));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(parcela);
         parcelas.add(meta);
         hormiga.moverse(parcelas);
+        hormiga.moverse(parcelas);
 
         Jugador jugador = Jugador.getInstance();
-        int vidaEsperada = 17;
+        int vidaEsperada = 19;
         assertTrue(hormiga.muerto());
         assertEquals(vidaEsperada, jugador.obtenerVidaJugador());
     }
@@ -305,11 +297,10 @@ public class EnemigoTest {
     @Test
     public void test6AraniaSeMueveSoloUnEspacioYLuegoMuereCorrectamente() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 8 Araña se mueve un espacio y luego muere");
-        Parcela primeraParcela = new Pasarela(new Posicion(1,2), new Meta());
-        
 
+        Pasarela primeraParcela = new Pasarela(new Posicion(1,2), new Meta());
 
-        Enemigo arania = new Arania(new Posicion(1,1));
+        Enemigo arania = new Arania(new Posicion(1,2));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(primeraParcela);
@@ -323,24 +314,27 @@ public class EnemigoTest {
     }
 
     @Test
-    public void test7AraniaSeMueveALaMetaYMuere() {
+    public void test7AraniaSeMueveALaMetaYMuereCorrectamente() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 9 Araña no puedo moverse y luego muere");
-        Parcela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
-        Parcela segundaParcela = new Pasarela(new Posicion(1,3), new Meta());
+        Pasarela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
+        primeraParcela.establecerDireccion(new Derecha());
+        Pasarela segundaParcela = new Pasarela(new Posicion(1,3), new Meta());
+        segundaParcela.establecerDireccion(new Derecha());
 
-        Enemigo arania = new Arania(new Posicion(1,1));
+        Enemigo arania = new Arania(new Posicion(1,2));
 
         List<Parcela> parcelas = new ArrayList<>();
         parcelas.add(primeraParcela);
         parcelas.add(segundaParcela);
 
         arania.moverse(parcelas);
-
+        arania.moverse(parcelas);
         Jugador jugador = Jugador.getInstance();
 
         assertTrue(arania.estaEnRango(1, new Posicion(0,4)));
         assertEquals(18, jugador.obtenerVidaJugador());
         assertTrue(arania.muerto());
     }
+
 
 }

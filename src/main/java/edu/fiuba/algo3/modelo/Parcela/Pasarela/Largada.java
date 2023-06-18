@@ -9,8 +9,8 @@ public class Largada implements EstadoPasarela {
 
     private Direccion direccion;
 
-    public boolean moverEnemigo(Enemigo enemigo, Posicion posicion) {
-        direccion.moverDireccion(posicion);
+    public boolean moverEnemigo(Enemigo enemigo, Posicion unaPosicion) {
+        direccion.moverDireccion(unaPosicion);
         return true;
     }
 

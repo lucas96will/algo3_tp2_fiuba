@@ -8,4 +8,5 @@ import java.util.List;
 public interface EstadoEnemigo {
     
     public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual, Posicion posAnterior);
+    public void daniarAlJugador(int unDanio);
 }

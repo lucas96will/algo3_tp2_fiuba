@@ -45,11 +45,11 @@ public class Juego {
     }
 
     public void terminarTurno() {
+        partida.terminarTurno();
         if(enemigosPorTurno.size() != 0) {
             partida.anadirEnemigos(enemigosPorTurno.get(0));
             enemigosPorTurno.remove(0);
         }
-        partida.terminarTurno();
     }
 
     public EstadoPartida estado() {

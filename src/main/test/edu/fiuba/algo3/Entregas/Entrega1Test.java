@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.Entregas;
 
 import edu.fiuba.algo3.modelo.Defensa.*;
+import edu.fiuba.algo3.modelo.Direccion.Derecha;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoComprarException;
@@ -30,15 +31,23 @@ public class Entrega1Test {
         Jugador.getInstance().actualizarContador(new Contador());
     }
 
+    
+
+
     public Mapa obtenerMapaGenerico() {
         Mapa mapa = new Mapa(8);
-
-        mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
+        Pasarela pasarela = new Pasarela(new Largada());
+        pasarela.establecerDireccion(new Derecha());
+        mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,1));
 
         for(int i = 2; i < 7; i++){
-            mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,i));
+            pasarela = new Pasarela(new Casilla());
+            pasarela.establecerDireccion(new Derecha());
+            mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,i));
         }
-        mapa.agregarParcelaEnPosicion(new Pasarela(new Meta()), new Posicion(1,7));
+        pasarela = new Pasarela(new Meta());
+        pasarela.establecerDireccion(new Derecha());
+        mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,7));
 
         for(int j = 2; j < 8; j++) {
             for(int k = 1; k < 8; k++) {
@@ -48,8 +57,10 @@ public class Entrega1Test {
         for(int h = 1; h < 8; h++) {
             mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
         }
+
         return mapa;
     }
+    
     @Test
     public void caso1jugadorEmpiezaConVidaYCreditosCorrespondientes() {
         Logger.getInstance().logEstado("\n--> Caso 1 jugador empieza con la vida y los créditos correspondientes.");
@@ -269,9 +280,7 @@ public class Entrega1Test {
 
         Mapa mapa = obtenerMapaGenerico();
         partida.crearPartida(jugador,mapa);
-
-        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
-        partida.construir(torreBlanca1, new Posicion(2,2));
+        
 
         for(int i = 0; i < 10; i++) {
             partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));

@@ -14,6 +14,11 @@ public class Posicion {
         columna = posCol;
     }
 
+    public Posicion(Posicion unaPosicion) {
+        fila = unaPosicion.fila;
+        columna = unaPosicion.columna;
+    }
+
     public boolean estaEnRango(int rango,Posicion posicion){
         int dist_vertical = Math.abs(fila - posicion.fila);
         int dist_horizontal = Math.abs(columna - posicion.columna);
@@ -77,11 +82,7 @@ public class Posicion {
     public void moverAbajo() {
         fila += 1;
     }
-
-    public void setPosicion(Posicion unaPosicion) {
-        unaPosicion.fila = fila;
-        unaPosicion.columna = columna;
-    }
+    
 
     @Override
     public boolean equals(Object o) {

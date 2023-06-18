@@ -141,7 +141,7 @@ public class Entrega2Test {
 
         juego.construir(torrePlateada2, new Posicion(3, 1));
 
-        for (int i = 0; i < 3 ; i++) {
+        for (int i = 0; i < 4 ; i++) {
             juego.terminarTurno();
         }
 
@@ -207,11 +207,6 @@ public class Entrega2Test {
         }
 
         EstadoPartida estadoPartida = juego.estado();
-        assertEquals(estadoPartida, new EstadoPartidaSigueJugando());
-
-        juego.terminarTurno();
-
-        estadoPartida = juego.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada());
     }
 

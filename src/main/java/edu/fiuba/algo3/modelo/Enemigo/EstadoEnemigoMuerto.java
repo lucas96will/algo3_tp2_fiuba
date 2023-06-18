@@ -11,4 +11,19 @@ public class EstadoEnemigoMuerto implements EstadoEnemigo {
     public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual, Posicion posAnterior) {
         
     }
+
+    @Override
+    public void daniarAlJugador(int unDanio) {
+        
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

@@ -9,8 +9,8 @@ public class Casilla implements EstadoPasarela {
 
     private Direccion direccion;
 
-    public boolean moverEnemigo(Enemigo enemigo, Posicion posicion) {
-        direccion.moverDireccion(posicion);
+    public boolean moverEnemigo(Enemigo enemigo, Posicion unaPosicion) {
+        direccion.moverDireccion(unaPosicion);
         return true;
     }
 
@@ -20,5 +20,7 @@ public class Casilla implements EstadoPasarela {
     }
 
     @Override
-    public void insertarEnemigo(Enemigo unEnemigo, Posicion posicion){}
+    public void insertarEnemigo(Enemigo unEnemigo, Posicion posicion){
+        
+    }
 }
