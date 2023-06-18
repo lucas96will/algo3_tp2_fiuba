@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 
 import java.util.List;
@@ -30,22 +31,11 @@ public class EstadoEnemigoBajoTierra implements EstadoEnemigo {
         }
     }
 
+
     @Override
     public void daniarAlJugador(String nombreEnemigo) {
         Jugador jugador = Jugador.getInstance();
-        /*if(turno % 2 == 0){
-            jugador.reducirVidaJugador(2);
-        } else {
-            jugador.reducirVidaJugador(5);
-        }*/ //TODO Add agregar la funcionalidad del danio dependiente del numero de turno del juego
-        jugador.reducirVidaJugador(danio);
-        Logger.getInstance().logError(nombreEnemigo + " hizo " + danio + " de daño al jugador");
-    }
-
-    @Override
-    public void daniarAlJugador(String nombreEnemigo, int nroTurno) {
-        Jugador jugador = Jugador.getInstance();
-        int danio = (nroTurno % 2 == 0) ? 2 : 5;
+        int danio = (ContadorTurnos.obtenerContador().obtenerTurnoActual() % 2 == 0) ? 2 : 5;
 
         jugador.reducirVidaJugador(danio);
         Logger.getInstance().logError(nombreEnemigo + " hizo " + danio + " de daño al jugador");

@@ -314,15 +314,15 @@ public class EnemigoTest {
         }
         assertTrue(topo.estaEnRango(1, new Posicion(1, 7)));
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             topo.moverse(parcelas);
         }
+        assertTrue(topo.estaEnRango(1, new Posicion(1, 11)));
+
+        topo.moverse(parcelas);
+        topo.moverse(parcelas);
+
         assertTrue(topo.estaEnRango(1, new Posicion(1, 17)));
-
-        topo.moverse(parcelas);
-        topo.moverse(parcelas);
-
-        assertTrue(topo.estaEnRango(1, new Posicion(1, 22)));
     }
 
     @Test

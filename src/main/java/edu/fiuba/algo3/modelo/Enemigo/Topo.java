@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoBajoTierra;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoVivo;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoBajoTierra;
@@ -14,21 +15,12 @@ import java.util.List;
 
 public class Topo extends Enemigo {
 
-    private int cantidadMovimientos;
-
     public Topo(Posicion unaPosicion) {
-        super(new EstadoEnemigoVivo(5,1,1), new MovimientoBajoTierra(),  unaPosicion);
-        cantidadMovimientos = 0;
+        super(new EstadoEnemigoBajoTierra(5,1,0), new MovimientoBajoTierra(),  unaPosicion);
     }
 
     public Topo(int unaVida, int unDanio, int unaVelocidad) {
-        super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad), new MovimientoBajoTierra());
-        cantidadMovimientos = 0;
-    }
-
-    @Override
-    public void recibirAtaque(int unDanio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
-
+        super(new EstadoEnemigoBajoTierra(unaVida,unDanio,unaVelocidad), new MovimientoBajoTierra());
     }
 
     @Override
@@ -39,13 +31,6 @@ public class Topo extends Enemigo {
     @Override
     public void moverse(List<Parcela> parcelas) {
         estado.moverse(movimiento, parcelas, this, posicion);
-        cantidadMovimientos++;
-        if(cantidadMovimientos > 4 && cantidadMovimientos < 11){
-            estado = new EstadoEnemigoVivo(5,1,2);
-        }
-        else if (cantidadMovimientos >= 11) {
-            estado = new EstadoEnemigoVivo(5,1,3);
-        }
     }
 
     @Override
@@ -55,8 +40,7 @@ public class Topo extends Enemigo {
 
     @Override
     public void daniarAlJugador() {
-        int turnoActual = ContadorTurnos.obtenerContador().obtenerTurnoActual();
-        estado.daniarAlJugador(this.toString(), turnoActual);
+        estado.daniarAlJugador(this.toString());
         this.estado = new EstadoEnemigoMuerto();
     }
 }
