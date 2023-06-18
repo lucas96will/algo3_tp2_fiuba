@@ -7,5 +7,5 @@ import java.util.List;
 
 public class MovimientoBajoTierra implements Movimiento{
     @Override
-    public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual, Posicion posAnterior) {}
+    public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {}
 }

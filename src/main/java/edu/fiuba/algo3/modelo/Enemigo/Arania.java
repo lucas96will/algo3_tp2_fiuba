@@ -1,18 +1,21 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
+import java.util.List;
+
 public class Arania extends Enemigo{
     public Arania(Posicion unaPosicion) {
-        super(2, 2, 2, (int) (Math.random()* 10), unaPosicion);
-        movimiento = new MovimientoTerrestre(2);
+        super(new EstadoEnemigoVivo(2,2,2), unaPosicion);
+        movimiento = new MovimientoTerrestre();
     }
 
-    public Arania(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa) {
-            super(unaVida, unDanio, unaVelocidad, unaEnergia, unaRecompensa);
-            movimiento = new MovimientoTerrestre(2);
+    public Arania(int unaVida, int unDanio, int unaVelocidad) {
+        super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad));
+        movimiento = new MovimientoTerrestre();
     }
 
     @Override
@@ -29,5 +32,10 @@ public class Arania extends Enemigo{
     public String toString() {
 
         return ("Araña en " +  posicion.toString());
+    }
+
+
+    public void moverse(List<Parcela> parcelas) {
+        estado.moverse(movimiento, parcelas, this, posicion);
     }
 }

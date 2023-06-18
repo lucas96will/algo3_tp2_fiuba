@@ -1,18 +1,21 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+
+import java.util.List;
 
 public class Hormiga extends Enemigo{
     
     public Hormiga(Posicion unaPosicion) {
-        super(1, 1, 1, 1, unaPosicion);
-        movimiento = new MovimientoTerrestre(1);
+        super(new EstadoEnemigoVivo(1,1,1), unaPosicion);
+        movimiento = new MovimientoTerrestre();
     }
 
-    public Hormiga(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa) {
-                super(unaVida, unDanio, unaVelocidad, unaEnergia, unaRecompensa);
-                movimiento = new MovimientoTerrestre(1);
+    public Hormiga(int unaVida, int unDanio, int unaVelocidad) {
+        super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad));
+        movimiento = new MovimientoTerrestre();
     }
 
 
@@ -31,5 +34,8 @@ public class Hormiga extends Enemigo{
 
         return ("Hormiga en " +  posicion.toString());
     }
-
+    
+    public void moverse(List<Parcela> parcelas) {
+        estado.moverse(movimiento, parcelas, this, posicion);
+    }
 }

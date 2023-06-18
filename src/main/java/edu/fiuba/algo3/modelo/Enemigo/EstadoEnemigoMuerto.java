@@ -8,12 +8,17 @@ import java.util.List;
 public class EstadoEnemigoMuerto implements EstadoEnemigo {
 
     @Override
-    public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual, Posicion posAnterior) {
+    public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
         
     }
 
     @Override
-    public void daniarAlJugador(int unDanio) {
+    public void daniarAlJugador(String s) {
+        
+    }
+
+    @Override
+    public void recibirAtaque(Enemigo enemigo, int unDanio) {
         
     }
 

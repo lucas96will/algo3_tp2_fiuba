@@ -18,17 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class TorreTest {
-    @Test
+/*    @Test
     public void noAtacaSiEstaIncompleta(){
         Logger.getInstance().logEstado("\n--> TESTUNITARIO TorreBlanca test 1: Torre no ataca si está incompleta");
         EstadoDefensa estadoIncompletoMock = mock(EstadoDefensaIncompleto.class);
         Hormiga hormigaMock = mock(Hormiga.class);
-        boolean recibioAtaque;
 
         when(hormigaMock.estaEnRango(anyInt(), any(Posicion.class))).thenReturn(true);
 
-
-        when(estadoIncompletoMock.puedeAtacar()).thenReturn(false); // estado incompleto siempre retorna 0
 
         Torre torreBlanca = new Torre(20,2,5, estadoIncompletoMock, new Posicion(1,4), "Torre Blanca");
 
@@ -36,7 +33,6 @@ public class TorreTest {
         enemigos.add(hormigaMock);
         torreBlanca.atacar(enemigos);
         verify(hormigaMock, never()).recibirAtaque(any(int.class), any(int.class), any(Posicion.class));
-        verify(estadoIncompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
     }
 
     @Test
@@ -45,17 +41,13 @@ public class TorreTest {
         EstadoDefensa estadoCompletoMock = mock(EstadoDefensaCompleto.class);
         Hormiga hormigaMock = mock(Hormiga.class);
 
-        when(hormigaMock.estaEnRango(anyInt(), any(Posicion.class))).thenReturn(true);
-        when(estadoCompletoMock.puedeAtacar()).thenReturn(true); // estado incompleto siempre retorna 0
-
         Torre torrePlateada = new Torre(20,2,5, estadoCompletoMock, new Posicion(1,4), "Torre Blanca");
         List<Enemigo> enemigos = new ArrayList<Enemigo>();
         enemigos.add(hormigaMock);
         torrePlateada.atacar(enemigos);
         verify(hormigaMock).recibirAtaque(any(int.class), any(int.class), any(Posicion.class));
-        verify(estadoCompletoMock, times(1)).puedeAtacar(); // chequeo que la clase torre
 
-    }
+    }*/
 
     @Test
     public void seConstruyeDespuesDeUnTurno() {

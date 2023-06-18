@@ -9,16 +9,38 @@ import java.util.List;
 
 public class EstadoEnemigoVivo implements EstadoEnemigo {
 
-    public EstadoEnemigoVivo(){}
-    public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual, Posicion posAnterior){
-        movimiento.moverse(parcelas, enemigo, posActual, posAnterior);
+    private final int vidaInicial;
+    private int velocidad;
+    private int danio;
+    private int vida;
+
+    public EstadoEnemigoVivo(int unaVida, int unDanio, int unaVelocidad) {
+        vida = unaVida;
+        vidaInicial = unaVida;
+        danio = unDanio;
+        velocidad = unaVelocidad;
+
+    }
+
+    public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual){
+        for(int i = 0; i < velocidad; i++){
+            movimiento.moverse(parcelas, enemigo, posActual);
+        }
     }
 
     @Override
-    public void daniarAlJugador(int unDanio) {
+    public void daniarAlJugador(String nombreEnemigo) {
         Jugador jugador = Jugador.getInstance();
-        jugador.reducirVidaJugador(unDanio);
-        Logger.getInstance().logError(this + " hizo " + unDanio + " de daño al jugador");
+        jugador.reducirVidaJugador(danio);
+        Logger.getInstance().logError(nombreEnemigo + " hizo " + danio + " de daño al jugador");
+    }
+
+    @Override
+    public void recibirAtaque(Enemigo enemigo, int unDanio) {
+        vida -= unDanio;
+        if(vida <= 0) {
+            enemigo.morir();
+        }
     }
 
     @Override

@@ -72,7 +72,7 @@ public class EstadoPartidaTest {
     public void test02EstadoPartidaGanadaInsertarEnemigoNoLanzaExcepcion() {
         EstadoPartida estado = new EstadoPartidaGanada();
         Mapa mapa = obtenerMapaGenerico();
-        Enemigo enemigo = new Hormiga(1,1,1,1,1);
+        Enemigo enemigo = new Hormiga(1,1,1);
 
         assertDoesNotThrow(() -> estado.insertarEnemigo(enemigo, mapa));
     }
@@ -99,7 +99,7 @@ public class EstadoPartidaTest {
     public void test05EstadoPartidaSigueJugandoInsertarEnemigoNoLanzaExcepcion() {
         EstadoPartida estado = new EstadoPartidaSigueJugando();
         Mapa mapa = obtenerMapaGenerico();
-        Enemigo enemigo = new Hormiga(1,1,1,1,1);
+        Enemigo enemigo = new Hormiga(1,1,1);
 
         assertDoesNotThrow(() -> estado.insertarEnemigo(enemigo, mapa));
     }
@@ -126,7 +126,7 @@ public class EstadoPartidaTest {
     public void test08EstadoPartidaSigueJugandoInsertarEnemigoLanzaExcepcion() {
         EstadoPartida estado = new EstadoPartidaPerdida();
         Mapa mapa = obtenerMapaGenerico();
-        Enemigo enemigo = new Hormiga(1,1,1,1,1);
+        Enemigo enemigo = new Hormiga(1,1,1);
 
         assertThrows(RuntimeException.class, () -> estado.insertarEnemigo(enemigo, mapa));
     }

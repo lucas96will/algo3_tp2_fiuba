@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 
 import java.util.List;
 
@@ -59,12 +60,10 @@ public abstract class Defensa {
 
     public void atacar(List<Enemigo> enemigos) {
         for(Enemigo enemigo : enemigos) {
-            if (estado.puedeAtacar()){
-                try {
-                    enemigo.recibirAtaque(danio, rango, posicion);
-                } catch (RuntimeException e) {
+            try {
+                estado.atacar(enemigo, danio, rango, posicion);
+            } catch (Exception e) {
 
-                }
             }
         }
     }

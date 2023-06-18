@@ -65,7 +65,7 @@ public class PartidaTest {
         partida.crearPartida(Jugador.getInstance(), mapa);
         EstadoPartida estadoEsperado = new EstadoPartidaSigueJugando();
 
-        partida.insertarEnemigo(new Hormiga(1,1,1,1,1));
+        partida.insertarEnemigo(new Hormiga(1,1,1));
         EstadoPartida estadoObtenido = partida.estado();
 
         assertEquals(estadoEsperado, estadoObtenido);

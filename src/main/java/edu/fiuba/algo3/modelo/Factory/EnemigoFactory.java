@@ -24,7 +24,7 @@ public class EnemigoFactory {
 
 
     private EnemigoFactory (){
-        this.tipoDeEnemigos.put("Hormiga", new Hormiga(1,1,1,1,1));
-        this.tipoDeEnemigos.put("Arania", new Arania(2,2,2,2,2));
+        this.tipoDeEnemigos.put("Hormiga", new Hormiga(1,1,1));
+        this.tipoDeEnemigos.put("Arania", new Arania(2,2,2));
     }
 }

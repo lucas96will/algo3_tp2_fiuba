@@ -8,8 +8,8 @@ import edu.fiuba.algo3.modelo.Partida.Logger;
 import java.util.List;
 
 public class Lechuza extends Enemigo{
-    public Lechuza(int unaVida, int unDanio, int unaVelocidad, int unaRecompensa, Posicion unaPosicion) {
-        super(unaVida, unDanio, unaVelocidad, unaRecompensa, unaPosicion);
+    public Lechuza(Posicion unaPosicion) {
+        super(new EstadoEnemigoVivo(5,1,5), unaPosicion);
         movimiento = new MovimientoVolador();
     }
 
@@ -21,12 +21,13 @@ public class Lechuza extends Enemigo{
         this.estado = new EstadoEnemigoMuerto();
         Logger.getInstance().logExitoso(this + " murio.");
     }
-    public void moverse(List<Parcela> parcelas){
 
+    @Override
+    public void moverse(List<Parcela> parcelas){
+        estado.moverse(movimiento, parcelas, this, posicion);
     }
 
     public void moverseEnojado(){
         //Cuando tiene 50% menos de la vida
-
     }
 }

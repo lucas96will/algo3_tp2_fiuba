@@ -8,5 +8,5 @@ import java.util.List;
 public class MovimientoVolador implements Movimiento{
 
         @Override
-        public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual, Posicion posAnterior) {}
+        public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {}
 }
