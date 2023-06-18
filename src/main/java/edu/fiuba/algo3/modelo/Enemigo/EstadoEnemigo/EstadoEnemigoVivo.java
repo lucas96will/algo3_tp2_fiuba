@@ -1,5 +1,7 @@
-package edu.fiuba.algo3.modelo.Enemigo;
+package edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo;
 
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
@@ -45,10 +47,11 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
     }
 
     @Override
-    public void recibirAtaque(Enemigo enemigo, int unDanio) {
+    public void recibirAtaque(Enemigo unEnemigo, int unDanio, Posicion posicionAtacante) {
         vida -= unDanio;
+        Logger.getInstance().logExitoso(unEnemigo + " recibio ataque de Torre en " + posicionAtacante );
         if(vida <= 0) {
-            enemigo.morir();
+            unEnemigo.morir();
         }
     }
 

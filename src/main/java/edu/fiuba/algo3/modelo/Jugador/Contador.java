@@ -29,6 +29,7 @@ public class Contador {
         return contadorAraniasMuertas;
     }
 
+
     public int obtenerRecompensaHormiga() {
         if(contadorHormigasMuertas > 10) {
             return 2;
@@ -37,8 +38,7 @@ public class Contador {
     }
 
     public int obtenerRecompensaArania() {
-        int recompensa = new Random().nextInt(10) + 1;
-        return recompensa;
+        return new Random().nextInt(10) + 1;
     }
 
     public int obtenerRecompensaLechuza() {

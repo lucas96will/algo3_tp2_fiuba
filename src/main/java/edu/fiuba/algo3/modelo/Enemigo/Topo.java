@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoVivo;
+import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoBajoTierra;
 import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -14,14 +17,12 @@ public class Topo extends Enemigo {
     private int cantidadMovimientos;
 
     public Topo(Posicion unaPosicion) {
-        super(new EstadoEnemigoVivo(5,1,1), unaPosicion);
-        movimiento = new MovimientoBajoTierra();
+        super(new EstadoEnemigoVivo(5,1,1), new MovimientoBajoTierra(),  unaPosicion);
         cantidadMovimientos = 0;
     }
 
     public Topo(int unaVida, int unDanio, int unaVelocidad) {
-        super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad));
-        movimiento = new MovimientoBajoTierra();
+        super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad), new MovimientoBajoTierra());
         cantidadMovimientos = 0;
     }
 
@@ -31,8 +32,8 @@ public class Topo extends Enemigo {
     }
 
     @Override
-    protected void morir() {
-        
+    public void morir() {
+
     }
     
     @Override
