@@ -12,5 +12,5 @@ public interface Parcela {
     boolean tieneLaMismaPosicion(Posicion ... posiciones);
     boolean estaEnRangoLateralesA(Posicion posicion);
     void establecerPosicion(Posicion posicion);
-    boolean esExtremo(List<Parcela> pasarelas);
+    Posicion orientacionCosmica(); //te juro que no es un sosMeta
 }

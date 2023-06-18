@@ -28,12 +28,6 @@ public class Pasarela implements Parcela {
     public void insertarDefensa(Defensa defensa) throws Exception {
         throw new Exception("No se puede construir una defensa en una pasarela");
     }
-/*
-    public boolean moveElEnemigo(Enemigo enemigo) {
-        estado.moverEnemigo(enemigo, posicion);
-        return true;
-    }*/
-
     public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
         if (actual.equals(posicion)) {
             estado.moverEnemigo(enemigo, actual);
@@ -56,6 +50,11 @@ public class Pasarela implements Parcela {
     }
 
     @Override
+    public Posicion orientacionCosmica() {
+        return estado.orientacionCosmica(posicion);
+    }
+
+    @Override
     public boolean tieneLaMismaPosicion(Posicion... posiciones) {
         return this.posicion.esIgual(posiciones);
     }
@@ -63,10 +62,6 @@ public class Pasarela implements Parcela {
     @Override
     public boolean estaEnRangoLateralesA(Posicion posicion) {
         return this.posicion.estaEnRangoLaterales(posicion);
-    }
-
-    public void establecerEstado(EstadoPasarela nuevoEstado){
-        estado = nuevoEstado;
     }
     
     public void establecerDireccion(Direccion unaDireccion){ estado.establecerDireccion(unaDireccion);}

@@ -14,10 +14,6 @@ public final class NullPosicion extends Posicion {
         return pos;
     }
 
-    public boolean esNull() {
-        return true;
-    }
-
     public boolean estaEnRango(int rango, Posicion posicion) {
         return false;
     }

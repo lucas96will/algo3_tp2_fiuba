@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Defensa.NullTorre;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import java.util.List;
 
 public abstract class Construible implements Parcela {
@@ -20,9 +21,7 @@ public abstract class Construible implements Parcela {
     }
 
 
-
     abstract public void insertarDefensa(Defensa defensa) throws Exception;
-
 
     @Override
     public boolean tieneLaMismaPosicion(Posicion... posiciones) {
@@ -33,15 +32,9 @@ public abstract class Construible implements Parcela {
     public boolean estaEnRangoLateralesA(Posicion posicion) {
         return this.posicion.estaEnRangoLaterales(posicion);
     }
-    
-    /*@Override
-    public boolean esLateral(int cantColumnas, int cantFilas){
-        return false;
-    }*/
 
     @Override
-    public boolean esExtremo(List<Parcela> pasarelas) {
-        return false;
+    public Posicion orientacionCosmica() {
+        return NullPosicion.obtenerNullPosicion();
     }
-    
 }

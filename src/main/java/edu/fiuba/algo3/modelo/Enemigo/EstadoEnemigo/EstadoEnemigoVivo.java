@@ -50,11 +50,10 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
     @Override
     public void recibirAtaqueYEvolucionar(Lechuza lechuza, int unDanio, Posicion posicionAtacante) {
         //Codigo que por temas de herencia solo recibe una lechuza
-        if(vida - unDanio > vidaInicial *0.5){
-            recibirAtaque(lechuza, unDanio, posicionAtacante);
+        recibirAtaque(lechuza, unDanio, posicionAtacante);
+        if(vida <= vidaInicial * 0.5 && vida > 0){
             lechuza.enojate(vida, danio, velocidad);
         }
-        recibirAtaque(lechuza, unDanio, posicionAtacante);;
     }
 
     @Override

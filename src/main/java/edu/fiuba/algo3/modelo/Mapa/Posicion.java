@@ -96,4 +96,24 @@ public class Posicion {
     public int hashCode() {
         return Objects.hash(fila, columna);
     }
+
+    public void acercarseHorizontalmente(Posicion destino) {
+        if(destino.columna > columna){
+            moverDerecha();
+        }if(destino.columna < columna){
+            moverIzquierda();
+        }
+    }
+
+    public boolean estaEnLaMismaColumna(Posicion destino){
+        return destino.columna == columna;
+    }
+
+    public void acercarseVerticalmente(Posicion destino) {
+        if(destino.fila > fila){
+            moverDerecha();
+        }if(destino.fila < fila){
+            moverIzquierda();
+        }
+    }
 }
