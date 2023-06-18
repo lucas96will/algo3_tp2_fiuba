@@ -3,10 +3,7 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Enemigo.Lechuza;
-import edu.fiuba.algo3.modelo.Enemigo.Topo;
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoComprarException;
-
-import java.util.Random;
 
 public class Jugador {
 
@@ -15,14 +12,14 @@ public class Jugador {
     private int vida;
     private String nombre;
     private int vidaMaxima;
-    private Contador contadorMuertes;
+    private Contador contador;
     
     private Jugador() {
         recurso = new Recurso(100);
         vida = 100;
         vidaMaxima = 100;
         nombre = "Mario";
-        contadorMuertes = new Contador();
+        contador = new Contador();
     }
 
     static public Jugador getInstance(){
@@ -35,20 +32,20 @@ public class Jugador {
         this.recurso = recursos;
         this.nombre = nombre;
     }
-    public void actualizarContador(Contador contador){
-        contadorMuertes = contador;
+    public void actualizarContador(Contador unContador){
+        this.contador = unContador;
     }
 
     public void incrementarContadorAranias(){
-        contadorMuertes.incrementarContadorAranias();
+        contador.incrementarContadorAranias();
     }
 
     public void incrementarContadorHormigas(){
-        contadorMuertes.incrementarContadorHormigas();
+        contador.incrementarContadorHormigas();
     }
 
     public int obtenerMuertesHormigas() {
-        return contadorMuertes.obtenerMuertesHormigas();
+        return contador.obtenerMuertesHormigas();
     }
 
     public int obtenerVidaJugador() {
@@ -60,7 +57,7 @@ public class Jugador {
     }
 
     public int obtenerMuertesArania() {
-        return contadorMuertes.obtenerMuertesAranias();
+        return contador.obtenerMuertesAranias();
     }
     public void comprarDefensa(Defensa defensa) throws DefensaNoSePudoComprarException {
         defensa.comprate(recurso);
@@ -91,16 +88,16 @@ public class Jugador {
     }
 
     public void obtenerRecompensa(Arania arania) {
-        int recompensa = contadorMuertes.obtenerRecompensaArania();
+        int recompensa = contador.obtenerRecompensaArania();
         recurso.sumarMonedas(recompensa);
-    };
+    }
     public void obtenerRecompensa(Hormiga hormiga) {
-        int recompensa = contadorMuertes.obtenerRecompensaHormiga();
+        int recompensa = contador.obtenerRecompensaHormiga();
         recurso.sumarMonedas(recompensa);
     }
 
     public void obtenerRecompensa(Lechuza lechuza) {
-        int recompensa = contadorMuertes.obtenerRecompensaLechuza();
+        int recompensa = contador.obtenerRecompensaLechuza();
         recurso.sumarMonedas(recompensa);
     }
 

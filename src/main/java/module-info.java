@@ -12,4 +12,6 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.Mapa;
     exports edu.fiuba.algo3.modelo.Jugador;
     exports edu.fiuba.algo3.modelo.Cargador;
+    exports edu.fiuba.algo3.modelo.Enemigo.Movimiento;
+    exports edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo;
 }

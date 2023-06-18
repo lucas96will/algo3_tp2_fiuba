@@ -1,4 +1,7 @@
 package edu.fiuba.algo3.modelo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoVivo;
+import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoTerrestre;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.Logger;
@@ -9,20 +12,17 @@ import java.util.List;
 public class Hormiga extends Enemigo{
     
     public Hormiga(Posicion unaPosicion) {
-        super(new EstadoEnemigoVivo(1,1,1), unaPosicion);
-        movimiento = new MovimientoTerrestre();
+        super(new EstadoEnemigoVivo(1,1,1), new MovimientoTerrestre(), unaPosicion);
     }
 
     public Hormiga(int unaVida, int unDanio, int unaVelocidad) {
-        super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad));
-        movimiento = new MovimientoTerrestre();
+        super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad), new MovimientoTerrestre());
     }
 
 
     @Override
-    protected void morir() {
+    public void morir() {
         Jugador jugador = Jugador.getInstance();
-
         jugador.obtenerRecompensa(this);
         jugador.incrementarContadorHormigas();
         this.estado = new EstadoEnemigoMuerto();
@@ -37,5 +37,11 @@ public class Hormiga extends Enemigo{
     
     public void moverse(List<Parcela> parcelas) {
         estado.moverse(movimiento, parcelas, this, posicion);
+    }
+
+    @Override
+    public void daniarAlJugador() {
+        estado.daniarAlJugador(this.toString());
+        this.estado = new EstadoEnemigoMuerto();
     }
 }
