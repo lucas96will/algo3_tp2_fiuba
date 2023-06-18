@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
+import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 
 import java.util.List;
@@ -24,6 +26,11 @@ public class Topo extends Enemigo {
     }
 
     @Override
+    public void recibirAtaque(int unDanio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
+
+    }
+
+    @Override
     protected void morir() {
         
     }
@@ -32,11 +39,23 @@ public class Topo extends Enemigo {
     public void moverse(List<Parcela> parcelas) {
         estado.moverse(movimiento, parcelas, this, posicion);
         cantidadMovimientos++;
-        if(cantidadMovimientos < 5){
+        if(cantidadMovimientos > 4 && cantidadMovimientos < 11){
             estado = new EstadoEnemigoVivo(5,1,2);
         }
-        else {
+        else if (cantidadMovimientos >= 11) {
             estado = new EstadoEnemigoVivo(5,1,3);
         }
+    }
+
+    @Override
+    public String toString() {
+        return ("Topo en " +  posicion.toString());
+    }
+
+    @Override
+    public void daniarAlJugador() {
+        int turnoActual = ContadorTurnos.obtenerContador().obtenerTurnoActual();
+        estado.daniarAlJugador(this.toString(), turnoActual);
+        this.estado = new EstadoEnemigoMuerto();
     }
 }

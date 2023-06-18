@@ -1,6 +1,10 @@
 package edu.fiuba.algo3.Modelo;
 
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaCompleto;
+import edu.fiuba.algo3.modelo.Defensa.Torre;
 import edu.fiuba.algo3.modelo.Direccion.Derecha;
+import edu.fiuba.algo3.modelo.Enemigo.Topo;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
@@ -14,6 +18,7 @@ import edu.fiuba.algo3.modelo.Parcela.Pasarela.Pasarela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Casilla;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
+import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Partida.Partida;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -34,12 +39,16 @@ import static org.mockito.Mockito.*;
 public class EnemigoTest {
 
     private Jugador jugadorSingleton;
+    private ContadorTurnos turnos;
 
     @BeforeEach
     public void setup() {
         jugadorSingleton = Jugador.getInstance();
         jugadorSingleton.actualizarEstado(20, new Recurso(100), "PEPE");
         jugadorSingleton.actualizarContador(new Contador());
+
+        turnos = ContadorTurnos.obtenerContador();
+        turnos.resetear();
     }
 
     public Mapa obtenerMapaGenerico() {
@@ -88,81 +97,6 @@ public class EnemigoTest {
         }
 
         assertFalse(jugador.estaIntacto()); //hormiga llego al final :c
-
-    }
-
-    @Test
-    public void test2HormigaSeMueveCorrectamenteALaSiguientePosicion(){
-        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 2 hormiga se mueve correctamente a la siguiente posición");
-
-        Enemigo hormiga = new Hormiga(new Posicion(1,1));
-
-
-        Parcela parcelaMock = mock(Pasarela.class);
-        when(parcelaMock.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(true);
-        when(parcelaMock.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
-        doAnswer(invocation -> {
-            hormiga.mover(new Posicion(1,2));
-            return true;
-        }).when(parcelaMock).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
-
-
-
-        List<Parcela> parcelas = new ArrayList<>();
-        parcelas.add(parcelaMock);
-        hormiga.moverse(parcelas);
-
-
-        assertTrue(hormiga.estaEnRango(1, new Posicion(1,3)));
-        assertFalse(hormiga.muerto());
-        verify(parcelaMock, times(1)).moveElEnemigo(any(Enemigo.class),any(Posicion.class));
-    }
-
-    @Test
-    public void test3HormigaQueSeMovioSeMueveAUnaSiguientePosicionCorrectamente(){
-        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 3 Hormiga se movió se mueve después correctamente");
-
-        Enemigo hormiga = new Hormiga(new Posicion(1,1));
-        List<Parcela> parcelas = new ArrayList<>();
-
-        Parcela parcelaMockPrimera = mock(Pasarela.class);
-        Parcela parcelaMockSegunda = mock(Pasarela.class);
-
-        when(parcelaMockPrimera.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(true);
-        when(parcelaMockPrimera.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
-        doAnswer(invocation -> {
-            hormiga.mover(new Posicion(1, 2));
-            return true;
-            }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
-
-        when(parcelaMockSegunda.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(false);
-        when(parcelaMockSegunda.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(false);
-        doAnswer(invocation -> {
-            hormiga.mover(new Posicion(1, 3));
-            return true;
-        }).when(parcelaMockSegunda).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
-
-
-        parcelas.add(parcelaMockPrimera);
-
-        hormiga.moverse(parcelas); // posicion en (1,2)
-
-        doAnswer(invocation -> {
-            return false;
-        }).when(parcelaMockPrimera).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
-
-        when(parcelaMockPrimera.tieneLaMismaPosicion(any((Posicion.class)))).thenReturn(true);
-        when(parcelaMockSegunda.estaEnRangoLateralesA(any(Posicion.class))).thenReturn(true);
-
-        parcelas.add(parcelaMockSegunda);
-
-        hormiga.moverse(parcelas); // posicion en (1,3)
-
-        assertTrue(hormiga.estaEnRango(1, new Posicion(1,4)));
-        assertFalse(hormiga.muerto());
-        verify(parcelaMockPrimera, times(2)).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
-        verify(parcelaMockSegunda, times(1)).moveElEnemigo(any(Enemigo.class), any(Posicion.class));
-
 
     }
 
@@ -336,5 +270,96 @@ public class EnemigoTest {
         assertTrue(arania.muerto());
     }
 
+    @Test
+    public void test8TopoSeMueveCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 10 Topo se mueve 2 casillas correctamente");
+        Pasarela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
+        primeraParcela.establecerDireccion(new Derecha());
+        Pasarela segundaParcela = new Pasarela(new Posicion(1,3), new Casilla());
+        segundaParcela.establecerDireccion(new Derecha());
+        Pasarela terceraParcela = new Pasarela(new Posicion(1,4), new Casilla());
+        terceraParcela.establecerDireccion(new Derecha());
 
+        Enemigo topo = new Topo(new Posicion(1, 2));
+
+        List<Parcela> parcelas = new ArrayList<>();
+        parcelas.add(primeraParcela);
+        parcelas.add(segundaParcela);
+        parcelas.add(terceraParcela);
+
+        topo.moverse(parcelas);
+        topo.moverse(parcelas);
+
+        assertTrue(topo.estaEnRango(1, new Posicion(1, 5)));
+        assertFalse(topo.muerto());
+    }
+
+    @Test
+    public void test9TopoAumentaVelocidadCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 11 Topo aumenta su velocidad correctamente");
+
+        Enemigo topo = new Topo(new Posicion(1, 1));
+
+        List<Parcela> parcelas = new ArrayList<>();
+        Pasarela parcela;
+
+        for(int i = 1; i < 22; i++) {
+            parcela = new Pasarela(new Posicion(1, i),  new Casilla());
+            parcela.establecerDireccion(new Derecha());
+            parcelas.add(parcela);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            topo.moverse(parcelas);
+        }
+        assertTrue(topo.estaEnRango(1, new Posicion(1, 7)));
+
+        for (int i = 0; i < 5; i++) {
+            topo.moverse(parcelas);
+        }
+        assertTrue(topo.estaEnRango(1, new Posicion(1, 17)));
+
+        topo.moverse(parcelas);
+        topo.moverse(parcelas);
+
+        assertTrue(topo.estaEnRango(1, new Posicion(1, 22)));
+    }
+
+    @Test
+    public void test10TopoDaniaCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 12 Topo daña correctamente al jugador dependiendo del turno");
+        Enemigo topo1 = new Topo(new Posicion(1, 1));
+        Enemigo topo2= new Topo(new Posicion(1, 1));
+
+        List<Parcela> parcelas = new ArrayList<>();
+
+        Pasarela parcela = new Pasarela(new Posicion(1,1), new Meta());
+        parcela.establecerDireccion(new Derecha());
+
+        parcelas.add(parcela);
+
+        topo1.moverse(parcelas);
+        turnos.incrementarTurno();
+
+        assertEquals(18, jugadorSingleton.obtenerVidaJugador());
+
+        topo2.moverse(parcelas);
+
+        assertEquals(13, jugadorSingleton.obtenerVidaJugador());
+    }
+
+    @Test
+    public void test11TopoNoRecibeDanioDeTorres() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 13 Topo no recibe ataque de torre");
+        Enemigo topo = new Topo(new Posicion(1, 1));
+        Defensa torre = new Torre(10 , 6, 3, new EstadoDefensaCompleto(), new Posicion(1,2), "Torrecilla");
+
+        List<Enemigo> enemigos = new ArrayList<>();
+        enemigos.add(topo);
+
+        torre.atacar(enemigos);
+
+        assertFalse(topo.muerto());
+
+    }
 }

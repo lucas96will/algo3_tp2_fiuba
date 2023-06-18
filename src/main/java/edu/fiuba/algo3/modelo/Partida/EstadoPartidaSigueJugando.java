@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class EstadoPartidaSigueJugando implements EstadoPartida{
         mapa.defensasAtacar();
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
+        ContadorTurnos.obtenerContador().incrementarTurno();
     }
 
     @Override

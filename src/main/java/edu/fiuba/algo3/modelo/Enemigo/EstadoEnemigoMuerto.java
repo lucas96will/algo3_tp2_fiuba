@@ -18,6 +18,11 @@ public class EstadoEnemigoMuerto implements EstadoEnemigo {
     }
 
     @Override
+    public void daniarAlJugador(String s, int nroTurno) {
+
+    }
+
+    @Override
     public void recibirAtaque(Enemigo enemigo, int unDanio) {
         
     }

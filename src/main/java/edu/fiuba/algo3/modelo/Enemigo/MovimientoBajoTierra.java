@@ -7,5 +7,14 @@ import java.util.List;
 
 public class MovimientoBajoTierra implements Movimiento{
     @Override
-    public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {}
+    public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
+        boolean seMovio = false;
+        int k = 0;
+        Parcela unaParcela;
+        while (k < parcelas.size() && !seMovio) {
+            unaParcela = parcelas.get(k);
+            seMovio = unaParcela.moveElEnemigo(enemigo, posActual);
+            k++;
+        }
+    }
 }

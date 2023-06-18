@@ -35,6 +35,15 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
         Logger.getInstance().logError(nombreEnemigo + " hizo " + danio + " de daño al jugador");
     }
 
+    //este metodo solo se llama dentro de topo
+    @Override
+    public void daniarAlJugador(String nombreEnemigo, int nroTurno)  {
+        Jugador jugador = Jugador.getInstance();
+        int danio = (nroTurno % 2 == 0) ? 2 :  5 ;
+        jugador.reducirVidaJugador(danio);
+        Logger.getInstance().logError(nombreEnemigo + " hizo " + danio + " de daño al jugador");
+    }
+
     @Override
     public void recibirAtaque(Enemigo enemigo, int unDanio) {
         vida -= unDanio;

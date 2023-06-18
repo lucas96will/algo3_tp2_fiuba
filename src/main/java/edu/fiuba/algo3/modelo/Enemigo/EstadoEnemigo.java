@@ -8,6 +8,7 @@ public interface EstadoEnemigo {
     
     void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual);
     void daniarAlJugador(String s);
+    void daniarAlJugador(String s, int nroTurno);
 
     void recibirAtaque(Enemigo enemigo, int unDanio);
 }

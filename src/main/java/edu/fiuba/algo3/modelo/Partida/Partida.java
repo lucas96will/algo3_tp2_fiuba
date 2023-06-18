@@ -14,6 +14,8 @@ public class Partida {
     private Mapa mapa;
     private EstadoPartida estado;
 
+    private ContadorTurnos turnos;
+
     public Partida() {
     }
 
@@ -21,11 +23,13 @@ public class Partida {
         this.jugador = jugador;
         this.mapa = mapa;
         this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
+        turnos = ContadorTurnos.obtenerContador();
     }
 
     public void terminarTurno() {
         try {
             estado.terminarTurno(mapa);
+            turnos.incrementarTurno();
             actualizarEstado();
         } catch (RuntimeException e) {
 
