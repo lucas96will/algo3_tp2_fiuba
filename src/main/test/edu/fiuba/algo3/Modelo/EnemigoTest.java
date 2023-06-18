@@ -1,14 +1,12 @@
 package edu.fiuba.algo3.Modelo;
 
+import edu.fiuba.algo3.modelo.Cargador.CargadorJson;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaCompleto;
 import edu.fiuba.algo3.modelo.Defensa.Torre;
 import edu.fiuba.algo3.modelo.Direccion.Derecha;
-import edu.fiuba.algo3.modelo.Enemigo.Topo;
+import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
-import edu.fiuba.algo3.modelo.Enemigo.Arania;
-import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Parcela.Construible.Rocoso;
@@ -40,6 +38,7 @@ public class EnemigoTest {
 
     private Jugador jugadorSingleton;
     private ContadorTurnos turnos;
+    private CargadorJson cargador;
 
     @BeforeEach
     public void setup() {
@@ -49,6 +48,7 @@ public class EnemigoTest {
         jugadorSingleton.resetearDefensas();
         turnos = ContadorTurnos.obtenerContador();
         turnos.resetear();
+        cargador = new CargadorJson();
     }
 
     public Mapa obtenerMapaGenerico() {
@@ -362,4 +362,35 @@ public class EnemigoTest {
         assertFalse(topo.muerto());
 
     }
+
+    @Test
+    public void test12LechuzaSeMuereAlserAtacadaPorTorre() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 14 Lechuza debería morir");
+        Enemigo lechuza = new Lechuza(new Posicion(1, 1));
+        Defensa torre = new Torre(10 , 6, 3, new EstadoDefensaCompleto(), new Posicion(1,2), "Torrecilla");
+
+        List<Enemigo> enemigos = new ArrayList<>();
+        enemigos.add(lechuza);
+
+        torre.atacar(enemigos);
+
+        assertTrue(lechuza.muerto());
+    }
+    /*
+    @Test
+    public void test13LechuzaSeMueveEnL() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 15 Lechuza debería estar en la posicion esperada");
+        Mapa mapa = cargador.procesarMapa("data/jsonTests/mapa.json");
+        Enemigo lechuza = new Lechuza(new Posicion(100, 200));
+
+        mapa.insertarEnemigo(lechuza);
+
+        mapa.moverEnemigos();
+        mapa.moverEnemigos();
+        mapa.moverEnemigos();
+
+        assertTrue(lechuza.estaEnRango(0, new Posicion(3,15))); //está sobre la misma casilla
+    }
+    
+     */
 }

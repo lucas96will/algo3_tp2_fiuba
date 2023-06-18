@@ -55,4 +55,9 @@ public class Lechuza extends Enemigo{
     public void moverseEnojado(){
         //Cuando tiene 50% menos de la vida
     }
+    
+    @Override 
+    public String toString() {
+        return ("Lechuza en " + posicion.toString());
+    }
 }
