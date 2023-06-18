@@ -23,6 +23,8 @@ public class Entrega2Test {
     public void setup() {
         jugadorSingleton = Jugador.getInstance();
         jugadorSingleton.actualizarEstado(20, new Recurso(100), "PEPE");
+        Jugador.getInstance().resetearDefensas();
+
     }
 
     @Test

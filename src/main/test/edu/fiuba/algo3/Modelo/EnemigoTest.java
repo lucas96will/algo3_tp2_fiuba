@@ -46,7 +46,7 @@ public class EnemigoTest {
         jugadorSingleton = Jugador.getInstance();
         jugadorSingleton.actualizarEstado(20, new Recurso(100), "PEPE");
         jugadorSingleton.actualizarContador(new Contador());
-
+        jugadorSingleton.resetearDefensas();
         turnos = ContadorTurnos.obtenerContador();
         turnos.resetear();
     }

@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigo;
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoEnojado;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoVivo;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoVolador;
+import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
@@ -22,7 +25,7 @@ public class Lechuza extends Enemigo{
 
         jugador.obtenerRecompensa(this);
         this.estado = new EstadoEnemigoMuerto();
-        Logger.getInstance().logExitoso(this + " murio.");
+        Logger.getInstance().logExitoso(this + " murió.");
     }
 
     @Override
@@ -34,6 +37,19 @@ public class Lechuza extends Enemigo{
     public void daniarAlJugador() {
         estado.daniarAlJugador(this.toString()); // TODO add el danio al jugador es destruirle una torre
         this.estado = new EstadoEnemigoMuerto();
+    }
+
+    @Override
+    public void recibirAtaque(int unDanio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
+        if(posicion.estaEnRango(rangoAtacante, posicionAtacante)) {
+            estado.recibirAtaqueYEvolucionar(this, unDanio, posicionAtacante);
+        } else {
+            throw new FueraDeRangoException();
+        }
+    }
+
+    public void enojate(int unaVida, int danio, int velocidad){
+        estado = new EstadoEnemigoEnojado(unaVida, danio, velocidad);
     }
 
     public void moverseEnojado(){

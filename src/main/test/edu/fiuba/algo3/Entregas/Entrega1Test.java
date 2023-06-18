@@ -29,6 +29,8 @@ public class Entrega1Test {
 
 
         Jugador.getInstance().actualizarContador(new Contador());
+        Jugador.getInstance().resetearDefensas();
+
     }
 
     

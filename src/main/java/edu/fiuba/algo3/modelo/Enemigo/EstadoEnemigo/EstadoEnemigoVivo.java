@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo;
 
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.Lechuza;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -44,6 +45,16 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
         if(vida <= 0) {
             unEnemigo.morir();
         }
+    }
+
+    @Override
+    public void recibirAtaqueYEvolucionar(Lechuza lechuza, int unDanio, Posicion posicionAtacante) {
+        //Codigo que por temas de herencia solo recibe una lechuza
+        if(vida - unDanio > vidaInicial *0.5){
+            recibirAtaque(lechuza, unDanio, posicionAtacante);
+            lechuza.enojate(vida, danio, velocidad);
+        }
+        recibirAtaque(lechuza, unDanio, posicionAtacante);;
     }
 
     @Override

@@ -10,4 +10,9 @@ public class MovimientoVolador implements Movimiento{
 
         @Override
         public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {}
+
+        @Override
+        public void moverseEnojado(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
+
+        }
 }

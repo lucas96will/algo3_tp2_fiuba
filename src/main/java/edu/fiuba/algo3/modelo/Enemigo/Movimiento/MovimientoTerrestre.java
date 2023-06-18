@@ -23,5 +23,10 @@ public class MovimientoTerrestre implements Movimiento {
             k++;
         }
     }
+
+    @Override
+    public void moverseEnojado(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
+
+    }
 }
 

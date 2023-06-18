@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
 import edu.fiuba.algo3.modelo.Partida.Logger;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,37 +45,40 @@ public class Mapa {
     }
 
     public void construir(Defensa defensa, Posicion posicion) {
-        if(defensas.stream().anyMatch(d -> d.tieneLaMismaPosicion(posicion))){
-            return;
-        }
-        Parcela parcelaElegida = parcelas.stream()
-                .filter(p -> p.tieneLaMismaPosicion(posicion))
-                .findFirst().orElse(null);
+            // defensas = jugador.defensas
+            Jugador jugador = Jugador.getInstance();
+            List<Defensa> defensasJugador = jugador.obtenerDefensas();
 
-        try {
-            if(parcelaElegida != null){
-                parcelaElegida.insertarDefensa(defensa);
-                if(defensa.tieneLaMismaPosicion(posicion)){
-                    this.defensas.add(defensa);
-                }
+            if(defensasJugador.stream().anyMatch(d -> d.tieneLaMismaPosicion(posicion))){
+                return;
             }
-        } catch (Exception e) {
-            throw new DefensaNoSePudoConstruir();
+            Parcela parcelaElegida = parcelas.stream()
+                    .filter(p -> p.tieneLaMismaPosicion(posicion))
+                    .findFirst().orElse(null);
+
+            try {
+                if(parcelaElegida != null){
+                    parcelaElegida.insertarDefensa(defensa);
+                    if(defensa.tieneLaMismaPosicion(posicion)){
+                        defensasJugador.add(defensa);
+                    }
+                }
+            } catch (Exception e) {
+                throw new DefensaNoSePudoConstruir();
+            }
+
         }
 
-    }
-
-    public void actualizarEstadoDefensas() {
-        defensas.forEach(Defensa::siguienteEstado);
-    }
-
-    public void defensasAtacar() {
-        for (Defensa defensa : defensas){
-
-            defensa.atacar(enemigos);
-            enemigos.removeIf(Enemigo::muerto);
+        public void actualizarEstadoDefensas() {
+            Jugador jugador = Jugador.getInstance();
+            jugador.actualizarDefensas();
+            //
         }
-    }
+
+        public void defensasAtacar() {
+            Jugador jugador = Jugador.getInstance();
+            jugador.defensasAtacar(enemigos);
+        }
 
     public void moverEnemigos(){
         if(enemigos.isEmpty()){
