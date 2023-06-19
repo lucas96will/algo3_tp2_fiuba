@@ -48,7 +48,6 @@ public class Mapa {
     }
 
     public void construir(Defensa defensa, Posicion posicion) {
-        // defensas = jugador.defensas
         Jugador jugador = Jugador.getInstance();
         List<Defensa> defensasJugador = jugador.obtenerDefensas();
 
@@ -75,7 +74,6 @@ public class Mapa {
     public void actualizarEstadoDefensas() {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarDefensas();
-        //
     }
 
     public void defensasAtacar() {
@@ -114,5 +112,6 @@ public class Mapa {
                 throw new RuntimeException("Trampa no se pudo Construir");
             }
         }
+        Logger.getInstance().logExitoso(trampa + " construida en " + posicion);
     }
 }
