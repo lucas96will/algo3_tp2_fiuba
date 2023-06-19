@@ -22,6 +22,11 @@
             <version>${javafx-version}</version>
         </dependency>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx-version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.jupiter.version}</version>
@@ -59,6 +64,11 @@
                     <artifactId>hamcrest-core</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>edu.fiuba.algo3</groupId>
+            <artifactId>tp2</artifactId>
+            <version>0.0.4</version>
         </dependency>
     </dependencies>
     <profiles>
