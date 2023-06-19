@@ -19,8 +19,17 @@ public class Juego {
     private Partida partida;
     private Jugador jugador;
 
+    private static Juego juego = new Juego();
+
     public Juego() {
         archivoLoader = new CargadorJson();
+    }
+
+    static public Juego getInstance() {
+        if(juego==null){
+            juego = new Juego();
+        }
+        return juego;
     }
 
     public void cargarConJson(String jsonEnemigos,String jsonMapa){
