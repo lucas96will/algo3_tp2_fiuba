@@ -63,6 +63,7 @@ public class TrampaDeArena implements EstadoPasarela, Cobrable {
     public void comprate(Recurso recurso) throws NoSePudoComprarException {
         try {
             recurso.gastar(costeEnCreditos);
+
         } catch (RecursosInsuficientesException e) {
             throw new NoSePudoComprarException();
         }
@@ -73,4 +74,9 @@ public class TrampaDeArena implements EstadoPasarela, Cobrable {
         recurso.sumarMonedas(costeEnCreditos);
     }
 
+
+    @Override
+    public String toString() {
+        return "Trampa arenosa";
+    }
 }

@@ -57,20 +57,16 @@ public class CargadorJson implements Cargador {
     private void guardarEnemigoEnLista(List<List<Enemigo>> listaDeEnemigosPorTurno, JSONObject jsonEnemigos) {
         long numeroDeTurno = (long) jsonEnemigos.get("turno");
 
-        JSONObject cantidadEnemigos = (JSONObject) jsonEnemigos.get("enemigos");
-
+        JSONObject enemigos = (JSONObject) jsonEnemigos.get("enemigos");
         List<Enemigo> enemigosTurnoActual = new ArrayList<>();
-        long cantidadHormigas = (long) cantidadEnemigos.get("hormiga");
-        long cantidadAranias = (long) cantidadEnemigos.get("arana");
-
-
-        for (long i = 0; i < cantidadHormigas; i++) {
-            enemigosTurnoActual.add(EnemigoFactory.obtener("Hormiga"));
+        for(Object enemigo: enemigos.keySet()){
+            String nombreEnemigo = (String) enemigo;
+            int cantidad = Integer.parseInt(enemigos.get(nombreEnemigo).toString());
+            for(int i = 0; i < cantidad; i++){
+                enemigosTurnoActual.add(EnemigoFactory.obtener(nombreEnemigo));
+            }
         }
 
-        for (long i = 0; i < cantidadAranias; i++) {
-            enemigosTurnoActual.add(EnemigoFactory.obtener("Arania"));
-        }
 
         listaDeEnemigosPorTurno.add(enemigosTurnoActual);
     }

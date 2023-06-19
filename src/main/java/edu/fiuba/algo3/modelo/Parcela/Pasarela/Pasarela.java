@@ -50,7 +50,7 @@ public class Pasarela implements Parcela {
     }
 
     @Override
-    public Posicion orientacionCosmica() {
+    public Posicion obtenerPosicionMeta() {
         return estado.orientacionCosmica(posicion);
     }
 

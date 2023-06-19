@@ -26,5 +26,9 @@ public class EnemigoFactory {
         this.tipoDeEnemigos.put("Arania", new Arania(2,2,2));
         this.tipoDeEnemigos.put("Lechuza", new Lechuza());
         this.tipoDeEnemigos.put("Topo", new Topo(5,1,0));
+        this.tipoDeEnemigos.put("arana", new Arania(2,2,2));
+        this.tipoDeEnemigos.put("hormiga", new Hormiga(1,1,1));
+        this.tipoDeEnemigos.put("lechuza", new Lechuza());
+        this.tipoDeEnemigos.put("topo", new Topo(5,1,0));
     }
 }

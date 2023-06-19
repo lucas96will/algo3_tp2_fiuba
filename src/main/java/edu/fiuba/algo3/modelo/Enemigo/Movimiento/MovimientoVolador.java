@@ -4,7 +4,6 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Partida.Logger;
 
 import java.util.List;
 
@@ -13,12 +12,12 @@ public class MovimientoVolador implements Movimiento {
     private Posicion obtenerPosicionMeta(List<Parcela> parcelas) {
         int i = 0;
         Parcela parcela = parcelas.get(i);
-        Posicion destino = parcela.orientacionCosmica();//TODO: Add eliminar getter(Encontrar mejor solucion)
+        Posicion destino = parcela.obtenerPosicionMeta();//TODO: Add eliminar getter(Encontrar mejor solucion)
 
         while (destino.equals(NullPosicion.obtenerNullPosicion()) && i < parcelas.size() - 1) {
             i++;
             parcela = parcelas.get(i);
-            destino = parcela.orientacionCosmica();
+            destino = parcela.obtenerPosicionMeta();
         }
         return destino;
     }

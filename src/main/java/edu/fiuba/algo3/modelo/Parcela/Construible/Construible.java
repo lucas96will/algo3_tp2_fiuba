@@ -38,7 +38,7 @@ public abstract class Construible implements Parcela {
     }
 
     @Override
-    public Posicion orientacionCosmica() {
+    public Posicion obtenerPosicionMeta() {
         return NullPosicion.obtenerNullPosicion();
     }
     

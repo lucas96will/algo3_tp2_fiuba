@@ -65,11 +65,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>edu.fiuba.algo3</groupId>
-            <artifactId>tp2</artifactId>
-            <version>0.0.4</version>
-        </dependency>
     </dependencies>
     <profiles>
         <profile>

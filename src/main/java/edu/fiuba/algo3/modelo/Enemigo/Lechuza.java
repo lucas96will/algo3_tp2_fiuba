@@ -31,12 +31,12 @@ public class Lechuza extends Enemigo{
 
     @Override
     public void moverse(List<Parcela> parcelas){
-        estado.moverse(movimiento, parcelas, this, posicion); //TODO add el movimiento es raro
+        estado.moverse(movimiento, parcelas, this, posicion);
     }
 
     @Override
     public void daniarAlJugador() {
-        Jugador.getInstance().eliminarPrimeraTorre(); // TODO add el danio al jugador es destruirle una torre
+        Jugador.getInstance().eliminarPrimeraTorre();
         this.estado = new EstadoEnemigoMuerto();
     }
 
