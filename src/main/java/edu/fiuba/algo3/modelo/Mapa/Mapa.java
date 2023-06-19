@@ -115,4 +115,12 @@ public class Mapa {
             }
         }
     }
+
+    public List<Enemigo> obtenerEnemigos() {
+        return this.enemigos;
+    }
+
+    public List<Parcela> obtenerParcelas() {
+        return this.parcelas;
+    }
 }

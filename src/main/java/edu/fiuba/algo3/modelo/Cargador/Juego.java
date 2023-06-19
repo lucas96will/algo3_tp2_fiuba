@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Partida.Partida;
@@ -59,5 +60,8 @@ public class Juego {
     public void construir(Defensa torre, Posicion posicion) {
         partida.construir(torre, posicion);
     }
+
+    public List<Enemigo> obtenerEnemigos () {return mapa.obtenerEnemigos();}
+    public List<Parcela> obtenerParcelas () {return mapa.obtenerParcelas();}
 }
 
