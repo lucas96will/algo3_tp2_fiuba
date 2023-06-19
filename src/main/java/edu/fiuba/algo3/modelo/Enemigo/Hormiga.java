@@ -1,32 +1,32 @@
 package edu.fiuba.algo3.modelo.Enemigo;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoVivo;
+import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoTerrestre;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.Logger;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
+
+import java.util.List;
 
 public class Hormiga extends Enemigo{
     
-    public Hormiga(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa, Posicion unaPosicion) {
-        super(unaVida, unDanio, unaVelocidad, unaEnergia, unaRecompensa, unaPosicion);
+    public Hormiga(Posicion unaPosicion) {
+        super(new EstadoEnemigoVivo(1,1,1), new MovimientoTerrestre(), unaPosicion);
     }
 
-    public Hormiga(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa) {
-                super(unaVida, unDanio, unaVelocidad, unaEnergia, unaRecompensa);
+    public Hormiga(int unaVida, int unDanio, int unaVelocidad) {
+        super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad), new MovimientoTerrestre());
     }
+
 
     @Override
-    protected int morir() {
-        muerto = true;
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        datosJugador.incrementarContadorHormigas();
-        Logger.getInstance().logExitoso(this + " ha muerto.");
-        return entregarRecompensa();
-
-    }
-
-    @Override
-    protected int entregarRecompensa() {
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        return datosJugador.obtenerMuertesHormigas() > 10 ?  2 : this.recompensa;
+    public void morir() {
+        Jugador jugador = Jugador.getInstance();
+        jugador.obtenerRecompensa(this);
+        jugador.incrementarContadorHormigas();
+        this.estado = new EstadoEnemigoMuerto();
+        Logger.getInstance().logExitoso(this + " murio.");
     }
 
     @Override
@@ -34,5 +34,14 @@ public class Hormiga extends Enemigo{
 
         return ("Hormiga en " +  posicion.toString());
     }
+    
+    public void moverse(List<Parcela> parcelas) {
+        estado.moverse(movimiento, parcelas, this, posicion);
+    }
 
+    @Override
+    public void daniarAlJugador() {
+        estado.daniarAlJugador(this.toString());
+        this.estado = new EstadoEnemigoMuerto();
+    }
 }

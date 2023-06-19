@@ -1,41 +1,53 @@
 package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Partida.Logger;
-import edu.fiuba.algo3.modelo.Posicion;
-import edu.fiuba.algo3.modelo.Recurso;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
+import edu.fiuba.algo3.modelo.Jugador.Recurso;
+import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public abstract class Defensa {
+public abstract class Defensa implements Cobrable {
     protected int costeEnCreditos;
     protected int rango;
     protected Posicion posicion;
     protected int danio;
     protected EstadoDefensa estado;
+    protected String nombre;
 
 
-    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, Posicion posicion) {
+    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, Posicion posicion, String nombre) {
         this.posicion = posicion;
         this.estado = unEstadoDefensa;
         this.costeEnCreditos = costo;
         this.rango = rango;
         this.danio = danio;
+        this.nombre = nombre;
     }
     
-    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa) {
-        this.posicion = null;
+    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, String nombre) {
+        this.posicion = NullPosicion.obtenerNullPosicion();
         this.estado = unEstadoDefensa;
         this.costeEnCreditos = costo;
         this.rango = rango;
         this.danio = danio;
+        this.nombre = nombre;
     }
+    
+    
+    @Override
+    public void comprate(Recurso recurso) throws NoSePudoComprarException {
+        try {
+            recurso.gastar(costeEnCreditos);
 
-    public boolean comprate(Recurso recurso) {
-        return recurso.gastar(costeEnCreditos);
+        } catch (RecursosInsuficientesException e) {
+            throw new NoSePudoComprarException();
+        }
     }
-
+    
+    @Override
     public void reembolsarCreditos(Recurso recurso) {
         recurso.sumarMonedas(costeEnCreditos);
     }
@@ -48,29 +60,16 @@ public abstract class Defensa {
          estado.siguienteEstado(this);
     }
 
-    public int atacar(List<Enemigo> enemigos) {
-        int creditos = 0;
-        List<Enemigo> enemigosEnRango = enemigos.stream().filter(e->e.estaEnRango(rango, posicion)).collect(Collectors.toList());
-        for(Enemigo enemigo : enemigosEnRango){
-            if (estado.puedeAtacar()) {
-                Logger.getInstance().logExitoso(this + " ataco a " + enemigo);
-                creditos += enemigo.recibirDanio(danio);
+
+    public void atacar(List<Enemigo> enemigos) {
+        for(Enemigo enemigo : enemigos) {
+            try {
+                estado.atacar(enemigo, danio, rango, posicion);
+            } catch (Exception e) {
+
             }
         }
-        return creditos;
-
-
-        /*
-        if (estado.puedeAtacar() && enemigo.estaEnRango(rango, posicion)){
-            return creditos + enemigo.recibirDanio(danio);
-        }
-        //estado = estado.reconstruir();
-        return 0;*/
     }
-
-    /*public Posicion getPosicion() {
-        return posicion;
-    }*/
 
     public boolean tieneLaMismaPosicion(Posicion posicion) {
         return this.posicion.esIgual(posicion);
@@ -78,5 +77,10 @@ public abstract class Defensa {
     
     public void establecerPosicion(Posicion posicion) {
         this.posicion = posicion;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

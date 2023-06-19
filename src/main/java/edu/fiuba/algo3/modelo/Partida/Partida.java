@@ -1,68 +1,89 @@
 package edu.fiuba.algo3.modelo.Partida;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Mapa;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
+import edu.fiuba.algo3.modelo.Factory.EstadoPartidaFactory;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Mapa.Mapa;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
+
 import java.util.List;
 
 public class Partida {
     private Jugador jugador;
     private Mapa mapa;
+    private EstadoPartida estado;
 
-    public Partida(){}
-    public void crearPartidaGenerica(Jugador jugador){
-        this.jugador = jugador;
-        mapa = new Mapa();
-        mapa.crearMapaGenerico();
-        
+    private ContadorTurnos turnos;
+
+    public Partida() {
     }
-    public void crearPartida(Jugador jugador, Mapa mapa){
+
+    public void crearPartida(Jugador jugador, Mapa mapa) {
         this.jugador = jugador;
         this.mapa = mapa;
+        this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
+        turnos = ContadorTurnos.obtenerContador();
     }
-    public void iniciar(){
-        this.mapa.iniciarLargada();
-    }
+
     public void terminarTurno() {
-        int recompensa = 0;
-        recompensa = mapa.defensasAtacar();
-        jugador.sumarMonedas(recompensa);
-        mapa.actualizarEstadoDefensas();
-        mapa.moverEnemigos();
+        try {
+            estado.terminarTurno(mapa);
+            turnos.incrementarTurno();
+            actualizarEstado();
+        } catch (RuntimeException e) {
+
+        }
+
     }
-    public void construir(Defensa defensa, Posicion posicion){
-        if (jugador.comprarDefensa(defensa)) {
-            try {
-                mapa.construir(defensa, posicion);
-            } catch (Exception e) {
-                jugador.obtenerReembolso(defensa);
-                throw new RuntimeException("No se puede construir");
-            }
+
+    public void construir(Defensa defensa, Posicion posicion) {
+        try {
+            estado.construir(defensa, posicion, jugador, mapa);
+        } catch (NoSePudoComprarException a) {
+            throw new RuntimeException("No se pudo comprar defensa");
+        } catch (DefensaNoSePudoConstruir e) {
+            jugador.obtenerReembolso(defensa);
+            throw new RuntimeException("No se puede construir");
         }
     }
 
-    public boolean terminarPartida(){
-        return jugador.muerto();
-    }
-
-    public boolean jugadorTieneTodaLaVidaYMaximosCreditos(){
-        return jugador.estaIntacto();
-    }
+    public void construir(TrampaDeArena trampa, Posicion posicion) {
+            try {
+                estado.construirTrampa(trampa, posicion, jugador, mapa);
+            } catch (NoSePudoComprarException e) {
+                throw new RuntimeException("No se pudo comprar trampa");
+            } catch (RuntimeException e) {
+                jugador.obtenerReembolso(trampa);
+                throw new RuntimeException("No se puede construir");
+            }
+        }
 
     public void insertarEnemigo(Enemigo enemigo) {
-        mapa.insertarEnemigo(enemigo);
+        try{
+            estado.insertarEnemigo(enemigo, mapa);
+            actualizarEstado();
+        } catch (RuntimeException e){
+
+        }
     }
 
-    /*public boolean jugadorTieneTantosCreditos(int creditosValor) {
-        return creditosValor == jugador.valorCreditos();
-    }*/
-
     public EstadoPartida estado() {
-        return new EstadoPartida(this.jugador, this.mapa);
+        return estado;
     }
 
     public void anadirEnemigos(List<Enemigo> enemigos) {
-        enemigos.forEach(e -> mapa.insertarEnemigo(e));
+        try {
+            estado.insertarEnemigos(enemigos, mapa);
+            actualizarEstado();
+        } catch (RuntimeException e){
+
+        }
+    }
+
+    public void actualizarEstado(){
+        this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
     }
 }

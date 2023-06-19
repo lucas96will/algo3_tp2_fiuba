@@ -1,29 +1,57 @@
 package edu.fiuba.algo3.modelo.Parcela.Pasarela;
+
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 
-public abstract class Pasarela implements Parcela {
+import java.util.List;
+import java.util.stream.Collectors;
 
-    public Posicion posicion;
+public class Pasarela implements Parcela {
 
-    public Pasarela(Posicion unaPosicion){
-        posicion = unaPosicion;
-    }
+    private Posicion posicion;
+    private EstadoPasarela estado;
     
+    public Pasarela(Posicion unaPosicion, EstadoPasarela unEstado) {
+        posicion = unaPosicion;
+        estado = unEstado;
+    }
+
+    public Pasarela(EstadoPasarela unEstado) {
+        estado = unEstado;
+        posicion = NullPosicion.obtenerNullPosicion();
+    }
+
     public void insertarDefensa(Defensa defensa) throws Exception {
         throw new Exception("No se puede construir una defensa en una pasarela");
     }
-
-    public boolean moveElEnemigo(Enemigo enemigo){
-        enemigo.mover(posicion);
-        return true;
+    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
+        if (actual.equals(posicion)) {
+            estado.moverEnemigo(enemigo, actual);
+            return true;
+        }
+        return false;
     }
-    
+
+    public void insertarEnemigo(Enemigo unEnemigo) {
+        estado.insertarEnemigo(unEnemigo, posicion);
+    }
+
+    public boolean esExtremo(List<Parcela> pasarelas) {
+        return this.posicion.cantidadDePasarelasAlrededor(pasarelas.stream().filter(p->p.getClass().equals(this.getClass())).collect(Collectors.toList())) <= 1;
+    }
+
     @Override
     public void establecerPosicion(Posicion posicion) {
         this.posicion = posicion;
+    }
+
+    @Override
+    public Posicion obtenerPosicionMeta() {
+        return estado.orientacionCosmica(posicion);
     }
 
     @Override
@@ -34,5 +62,17 @@ public abstract class Pasarela implements Parcela {
     @Override
     public boolean estaEnRangoLateralesA(Posicion posicion) {
         return this.posicion.estaEnRangoLaterales(posicion);
+    }
+    
+    public void establecerDireccion(Direccion unaDireccion){ estado.establecerDireccion(unaDireccion);}
+
+    public void actualizarEstado(){
+        estado = estado.actualizarEstado();
+    }
+
+    public void construir(TrampaDeArena nuevoEstado, Posicion unaPosicion) throws Exception{
+        if(posicion.equals(unaPosicion)) {
+            estado = estado.construir(nuevoEstado);
+        }
     }
 }

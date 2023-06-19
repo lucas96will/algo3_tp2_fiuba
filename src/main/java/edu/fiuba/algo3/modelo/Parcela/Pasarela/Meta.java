@@ -1,28 +1,40 @@
 package edu.fiuba.algo3.modelo.Parcela.Pasarela;
+import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerEnemigo;
+import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerTrampa;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import java.util.List;
 
-public class Meta extends Pasarela {
+public class Meta implements EstadoPasarela {
 
-    public Meta(Posicion unaPosicion) {
-        super(unaPosicion);
+    private Direccion direccion;
+
+    public boolean moverEnemigo(Enemigo enemigo, Posicion posicion) {
+        enemigo.daniarAlJugador();
+        return true;
     }
-
+    
     @Override
-    public void insertarEnemigo(Enemigo unEnemigo) throws Exception {
+    public void establecerDireccion(Direccion unaDireccion) {
+        direccion = unaDireccion;
+    }
+    
+    @Override
+    public void insertarEnemigo(Enemigo unEnemigo, Posicion posicion){
         
     }
-
-    @Override
-    public boolean esLateral(int cantColumnas, int cantFilas) {
-        return false;
+    public Posicion orientacionCosmica(Posicion posicion) {
+        return posicion;
     }
 
-    @Override
-    public boolean puedeSerLargada(List<Parcela> pasarelas) {
-        return false;
+    public EstadoPasarela actualizarEstado(){
+        return this;
     }
-
+    @Override
+    public EstadoPasarela construir(TrampaDeArena nuevoEstado) throws Exception{
+        throw new ParcelaNoPuedeContenerTrampa("No se puede contruir una trampa de arena en la meta");
+    }
 }

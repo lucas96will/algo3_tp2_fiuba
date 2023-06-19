@@ -1,107 +1,61 @@
 package edu.fiuba.algo3.modelo.Enemigo;
+
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigo;
+import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
+import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
+import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import edu.fiuba.algo3.modelo.Partida.DatosJugador;
-import edu.fiuba.algo3.modelo.Partida.Logger;
-import edu.fiuba.algo3.modelo.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
+
 import java.util.List;
 
 public abstract class Enemigo {
-    private final int danio;
-    private int vida;
-    private final int velocidad;
-    private final int energia;
-    protected int recompensa;
-    protected boolean muerto;
+    protected EstadoEnemigo estado;
     protected Posicion posicion;
-    private Posicion posicionAnterior;
-
-    public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa, Posicion unaPosicion) {
-        vida = unaVida;
-        danio = unDanio;
-        velocidad = unaVelocidad;
-        energia = unaEnergia;
-        recompensa = unaRecompensa;
-        posicion = unaPosicion;
-        this.posicionAnterior = null;
-        muerto = false;
-    }
+    protected Movimiento movimiento;
     
-    public Enemigo(int unaVida, int unDanio, int unaVelocidad, int unaEnergia, int unaRecompensa) {
-            vida = unaVida;
-            danio = unDanio;
-            velocidad = unaVelocidad;
-            energia = unaEnergia;
-            recompensa = unaRecompensa;
-            posicion = null;
-            this.posicionAnterior = null;
-            muerto = false;
+
+    public Enemigo(EstadoEnemigo unEstado, Movimiento unMovimiento, Posicion unaPosicion) {
+        posicion = unaPosicion;
+        movimiento = unMovimiento;
+        estado = unEstado;
+    }
+
+    public Enemigo(EstadoEnemigo unEstado, Movimiento unMovimiento) {
+        posicion = NullPosicion.obtenerNullPosicion();
+        movimiento = unMovimiento;
+        estado = unEstado;
+    }
+
+    public void recibirAtaque(int unDanio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
+        if(posicion.estaEnRango(rangoAtacante, posicionAtacante)) {
+            estado.recibirAtaque(this, unDanio, posicionAtacante);
+        } else {
+            throw new FueraDeRangoException();
         }
-
-    public int recibirDanio(int danio){
-        vida = vida - danio;
-        return vida > 0 ? 0 : morir();
     }
 
-    abstract protected int morir();
+    public abstract void morir();
 
-    public boolean muerto(){
-        return muerto;
+    public boolean muerto() {
+        return estado.getClass().equals(EstadoEnemigoMuerto.class); //Mal y pronto
     }
 
-    abstract protected int entregarRecompensa();
-
-
-    public int hacerDanio(){
-        return danio;
+    public void mover(Posicion unaPosicion) {
+        this.posicion = new Posicion(unaPosicion);
     }
 
-    public void mover(Posicion posicion) {
-        this.posicionAnterior = this.posicion;
-        this.posicion = posicion;
-    }
-
-    public int sumarDanio(int unDanio) {
-        return danio + unDanio;
-    }
-
-    public void moverse(List<Parcela> parcelas) {
-        //refactorizar este metodo
-        boolean seMovio;
-        int k;
-        Parcela unaParcela;
-        for(int i = 0; i < velocidad; i++){
-            k = 0;
-            seMovio = false;
-            while(k < parcelas.size() && !seMovio){
-                unaParcela = parcelas.get(k);
-                if(this.mePuedoMoverAEstaParcela(unaParcela)){
-                    seMovio = unaParcela.moveElEnemigo(this);
-                }
-                k++;
-            }
-            this.daniarAlJugador(!seMovio && i == velocidad - 1);
-        }
-
-    }
-
-    private boolean mePuedoMoverAEstaParcela(Parcela parcela) {
-        return parcela.estaEnRangoLateralesA(this.posicion)
-                && (posicionAnterior == null || !parcela.tieneLaMismaPosicion(this.posicion, this.posicionAnterior));
-    }
-
-    private void daniarAlJugador(boolean llegueALaMeta){
-        //lógica meta (podria ir un return danio)
-        if(!llegueALaMeta){
-            return;
-        }
-        DatosJugador datosJugador = DatosJugador.getInstance();
-        datosJugador.reducirVidaJugador(this.danio);
-        this.muerto = true;
-        Logger.getInstance().logError(this + " hizo " + danio + " de daño al jugador");
-    }
+    public abstract void moverse(List<Parcela> parcelas);
+    
+    
+    public abstract void daniarAlJugador();
 
     public boolean estaEnRango(int rango, Posicion posicion) {
         return this.posicion.estaEnRango(rango, posicion);
     }
-    
+
+    public void establecerVelocidad(float reduccionVelocidad) {
+        estado.establecerVelocidadRestante(reduccionVelocidad);
+    }
 }

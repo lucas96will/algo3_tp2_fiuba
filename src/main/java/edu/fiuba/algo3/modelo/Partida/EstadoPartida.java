@@ -1,39 +1,27 @@
 package edu.fiuba.algo3.modelo.Partida;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Mapa;
 
-public class EstadoPartida {
-    private boolean gano;
-    private boolean perdio;
-    private boolean sigueJugando;
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
+import edu.fiuba.algo3.modelo.Mapa.Mapa;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 
-    public EstadoPartida(Jugador jugador, Mapa mapa) {
-        if(!jugador.muerto() && mapa.sinEnemigos()) {
-            this.gano = true; // se gano
-        }
-        else if (!jugador.muerto()) {
-            this.sigueJugando = true; // todavia se sigue jugando
-        }
-        else {
-            this.perdio = true; // se murio el jugador
-        }
-    }
+import java.util.List;
 
-    public boolean sigueJugando(){
-        return sigueJugando;
-    }
+public interface EstadoPartida {
+    boolean equals(Object o);
 
-    public boolean perdio(){
-        if(perdio) {
-            Logger.getInstance().logError("Jugador perdio la partida");
-        }
-        return perdio;
-    }
+    int hashCode();
 
-    public boolean gano(){
-        if(gano) {
-            Logger.getInstance().logExitoso("Jugador gano la partida");
-        }
-        return gano;
-    }
+    void terminarTurno(Mapa mapa);
+
+    void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa);
+
+    void insertarEnemigo(Enemigo enemigo, Mapa mapa);
+
+    void insertarEnemigos(List<Enemigo> enemigos, Mapa mapa);
+
+    void construirTrampa(TrampaDeArena trampa, Posicion posicion, Jugador jugador, Mapa mapa);
+
 }
