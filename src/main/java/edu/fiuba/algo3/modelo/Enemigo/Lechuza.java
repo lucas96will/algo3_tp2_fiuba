@@ -16,9 +16,10 @@ import java.util.List;
 public class Lechuza extends Enemigo{
     public Lechuza(Posicion unaPosicion) {
         super(new EstadoEnemigoVivo(5,1,5), new MovimientoVolador(), unaPosicion);
-
     }
-
+    public Lechuza(){
+        super(new EstadoEnemigoVivo(5,1,5), new MovimientoVolador());
+    }
     @Override
     public void morir() {
         Jugador jugador = Jugador.getInstance();
@@ -35,7 +36,7 @@ public class Lechuza extends Enemigo{
 
     @Override
     public void daniarAlJugador() {
-        estado.daniarAlJugador(this.toString()); // TODO add el danio al jugador es destruirle una torre
+        Jugador.getInstance().eliminarPrimeraTorre(); // TODO add el danio al jugador es destruirle una torre
         this.estado = new EstadoEnemigoMuerto();
     }
 
@@ -59,5 +60,10 @@ public class Lechuza extends Enemigo{
     @Override 
     public String toString() {
         return ("Lechuza en " + posicion.toString());
+    }
+    
+    @Override
+    public void establecerVelocidad(float reduccionVelocidad) {
+        
     }
 }

@@ -2,9 +2,13 @@ package edu.fiuba.algo3.modelo.Parcela.Construible;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Defensa.NullTorre;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerTrampa;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.EstadoPasarela;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
+
 import java.util.List;
 
 public abstract class Construible implements Parcela {
@@ -36,5 +40,12 @@ public abstract class Construible implements Parcela {
     @Override
     public Posicion orientacionCosmica() {
         return NullPosicion.obtenerNullPosicion();
+    }
+    
+    @Override
+    public void construir(TrampaDeArena trampa, Posicion posicion) throws Exception{
+        if(posicion.equals(this.posicion)) {
+            throw new ParcelaNoPuedeContenerTrampa("No se puede contruir una trampa de arena fuera de la pasarela");
+        }
     }
 }

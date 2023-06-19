@@ -16,6 +16,7 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
     private int velocidad;
     private int danio;
     private int vida;
+    private int velocidadRestante;
 
     public EstadoEnemigoVivo(int unaVida, int unDanio, int unaVelocidad) {
         vida = unaVida;
@@ -26,9 +27,15 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
     }
 
     public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual){
+        velocidadRestante = velocidad;
+        while(velocidadRestante > 0){
+            movimiento.moverse(parcelas, enemigo, posActual);
+            velocidadRestante--;
+        }
+        /*
         for(int i = 0; i < velocidad; i++){
             movimiento.moverse(parcelas, enemigo, posActual);
-        }
+        }*/
     }
 
     @Override
@@ -53,6 +60,13 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
         recibirAtaque(lechuza, unDanio, posicionAtacante);
         if(vida <= vidaInicial * 0.5 && vida > 0){
             lechuza.enojate(vida, danio, velocidad);
+        }
+    }
+    
+    @Override
+    public void establecerVelocidadRestante(float reduccion) {
+        if(velocidadRestante > 1){
+            velocidadRestante *= reduccion;
         }
     }
 

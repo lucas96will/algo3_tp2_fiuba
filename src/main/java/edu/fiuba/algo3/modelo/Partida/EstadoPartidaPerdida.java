@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,5 +42,9 @@ public class EstadoPartidaPerdida implements EstadoPartida{
         throw new RuntimeException("No se puede insertar enemigo, la partida esta perdida");
     }
 
+    @Override
+    public void construirTrampa(TrampaDeArena trampa, Posicion posicion, Jugador jugador, Mapa mapa) {
+        throw new RuntimeException("No se puede comprar una Trampa, la partida esta perdida");
+    }
 
 }

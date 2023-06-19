@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo.Factory;
 
-import edu.fiuba.algo3.modelo.Enemigo.Arania;
-import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
+import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Excepciones.EnemigoNoIdentificadaException;
 
 import java.util.HashMap;
@@ -26,5 +24,7 @@ public class EnemigoFactory {
     private EnemigoFactory (){
         this.tipoDeEnemigos.put("Hormiga", new Hormiga(1,1,1));
         this.tipoDeEnemigos.put("Arania", new Arania(2,2,2));
+        this.tipoDeEnemigos.put("Lechuza", new Lechuza());
+        this.tipoDeEnemigos.put("Topo", new Topo(5,1,0));
     }
 }

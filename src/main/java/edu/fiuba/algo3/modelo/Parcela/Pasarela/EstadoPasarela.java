@@ -11,4 +11,8 @@ public interface EstadoPasarela {
 
     void establecerDireccion(Direccion unaDireccion);
     Posicion orientacionCosmica(Posicion posicion);
+
+    EstadoPasarela actualizarEstado();
+
+    EstadoPasarela construir(TrampaDeArena nuevoEstado) throws Exception;
 }

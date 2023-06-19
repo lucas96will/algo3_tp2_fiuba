@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,8 +29,14 @@ public class EstadoPartidaGanada implements EstadoPartida{
 
     @Override
     public void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa) {
-        jugador.comprarDefensa(defensa);
+        jugador.comprar(defensa);
         mapa.construir(defensa, posicion);
+    }
+
+    @Override
+    public void construirTrampa(TrampaDeArena trampa, Posicion posicion, Jugador jugador, Mapa mapa) {
+        jugador.comprar(trampa);
+        mapa.construirTrampa(trampa, posicion);
     }
 
     @Override

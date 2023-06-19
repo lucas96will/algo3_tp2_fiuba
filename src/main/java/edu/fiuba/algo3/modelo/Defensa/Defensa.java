@@ -1,15 +1,15 @@
 package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
 import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
-import edu.fiuba.algo3.modelo.Partida.Logger;
+import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 
 import java.util.List;
 
-public abstract class Defensa {
+public abstract class Defensa implements Cobrable {
     protected int costeEnCreditos;
     protected int rango;
     protected Posicion posicion;
@@ -35,16 +35,19 @@ public abstract class Defensa {
         this.danio = danio;
         this.nombre = nombre;
     }
-
-    public void comprate(Recurso recurso) throws DefensaNoSePudoComprarException {
+    
+    
+    @Override
+    public void comprate(Recurso recurso) throws NoSePudoComprarException {
         try {
             recurso.gastar(costeEnCreditos);
 
         } catch (RecursosInsuficientesException e) {
-            throw new DefensaNoSePudoComprarException();
+            throw new NoSePudoComprarException();
         }
     }
-
+    
+    @Override
     public void reembolsarCreditos(Recurso recurso) {
         recurso.sumarMonedas(costeEnCreditos);
     }

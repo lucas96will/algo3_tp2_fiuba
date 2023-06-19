@@ -65,4 +65,14 @@ public class Pasarela implements Parcela {
     }
     
     public void establecerDireccion(Direccion unaDireccion){ estado.establecerDireccion(unaDireccion);}
+
+    public void actualizarEstado(){
+        estado = estado.actualizarEstado();
+    }
+
+    public void construir(TrampaDeArena nuevoEstado, Posicion unaPosicion) throws Exception{
+        if(posicion.equals(unaPosicion)) {
+            estado = estado.construir(nuevoEstado);
+        }
+    }
 }

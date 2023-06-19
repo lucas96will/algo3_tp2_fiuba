@@ -23,6 +23,7 @@ import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
 
 
 import java.util.ArrayList;
@@ -303,7 +304,7 @@ public class EnemigoTest {
         List<Parcela> parcelas = new ArrayList<>();
         Pasarela parcela;
 
-        for(int i = 1; i < 22; i++) {
+        for(int i = 1; i < 25; i++) {
             parcela = new Pasarela(new Posicion(1, i),  new Casilla());
             parcela.establecerDireccion(new Derecha());
             parcelas.add(parcela);
@@ -312,17 +313,17 @@ public class EnemigoTest {
         for (int i = 0; i < 5; i++) {
             topo.moverse(parcelas);
         }
-        assertTrue(topo.estaEnRango(1, new Posicion(1, 7)));
+        assertTrue(topo.estaEnRango(1, new Posicion(1, 6)));
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 6; i++) {
             topo.moverse(parcelas);
         }
-        assertTrue(topo.estaEnRango(1, new Posicion(1, 11)));
+        assertTrue(topo.estaEnRango(1, new Posicion(1, 18)));
 
         topo.moverse(parcelas);
         topo.moverse(parcelas);
 
-        assertTrue(topo.estaEnRango(1, new Posicion(1, 17)));
+        assertTrue(topo.estaEnRango(1, new Posicion(1, 24)));
     }
 
     @Test
@@ -376,7 +377,7 @@ public class EnemigoTest {
 
         assertTrue(lechuza.muerto());
     }
-    /*
+
     @Test
     public void test13LechuzaSeMueveEnL() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 15 Lechuza debería estar en la posicion esperada");
@@ -392,5 +393,44 @@ public class EnemigoTest {
         assertTrue(lechuza.estaEnRango(0, new Posicion(3,15))); //está sobre la misma casilla
     }
     
-     */
+    @Test
+    public void test14LechuzaMuereYRompeUnaTorre() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 16 Lechuza debería romper la torre al llegar a meta");
+
+        List<Defensa> defensas = jugadorSingleton.obtenerDefensas();
+
+        Enemigo lechuza = new Lechuza(new Posicion(1, 1));
+
+        DefensaFactory factoria = new DefensaFactory();
+        defensas.add(factoria.obtenerDefensa("Blanca"));
+        defensas.add(factoria.obtenerDefensa("Blanca"));
+
+        Pasarela parcela = new Pasarela(new Posicion(1,1), new Meta());
+        List<Parcela> parcelas = new ArrayList<>();
+
+        parcelas.add(parcela);
+
+        lechuza.moverse(parcelas);
+
+        assertTrue(defensas.size() == 1 );
+    }
+
+    @Test
+    public void test15LechuzaSeMueveEnDiagonalCuandoEstaHerida() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 17 Lechuza debería estar en la posicion esperada");
+        Mapa mapa = cargador.procesarMapa("data/jsonTests/mapa.json");
+        Enemigo lechuza = new Lechuza(new Posicion(9, 12));
+        Defensa torre = new Torre(10 , 3, 3, new EstadoDefensaCompleto(), "Torrecilla");
+
+        mapa.construir(torre, new Posicion(1,3));
+        mapa.actualizarEstadoDefensas();
+        mapa.insertarEnemigo(lechuza);
+        mapa.defensasAtacar();
+
+        mapa.moverEnemigos();
+        mapa.moverEnemigos();
+
+        assertTrue(lechuza.estaEnRango(0, new Posicion(9,12))); //está sobre la misma casilla
+        mapa.moverEnemigos();
+    }
 }

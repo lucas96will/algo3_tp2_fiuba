@@ -28,4 +28,13 @@ public class Casilla implements EstadoPasarela {
     public Posicion orientacionCosmica(Posicion posicion) {
         return NullPosicion.obtenerNullPosicion();
     }
+
+    public EstadoPasarela actualizarEstado(){
+        return this;
+    }
+
+    public EstadoPasarela construir(TrampaDeArena trampa){
+        trampa.establecerAnterior(this);
+        return trampa;
+    }
 }

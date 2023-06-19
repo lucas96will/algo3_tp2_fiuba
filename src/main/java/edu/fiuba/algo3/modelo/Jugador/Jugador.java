@@ -1,10 +1,13 @@
 package edu.fiuba.algo3.modelo.Jugador;
+
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Enemigo.Lechuza;
-import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,25 +30,26 @@ public class Jugador {
         defensas = new ArrayList<>();
     }
 
-    static public Jugador getInstance(){
+    static public Jugador getInstance() {
         return jugador;
     }
 
     public void actualizarEstado(int vida, Recurso recursos, String nombre) {
-        vidaMaxima= vida;
+        vidaMaxima = vida;
         this.vida = vida;
         this.recurso = recursos;
         this.nombre = nombre;
     }
-    public void actualizarContador(Contador unContador){
+
+    public void actualizarContador(Contador unContador) {
         this.contador = unContador;
     }
 
-    public void incrementarContadorAranias(){
+    public void incrementarContadorAranias() {
         contador.incrementarContadorAranias();
     }
 
-    public void incrementarContadorHormigas(){
+    public void incrementarContadorHormigas() {
         contador.incrementarContadorHormigas();
     }
 
@@ -64,42 +68,42 @@ public class Jugador {
     public int obtenerMuertesArania() {
         return contador.obtenerMuertesAranias();
     }
-    public void comprarDefensa(Defensa defensa) throws DefensaNoSePudoComprarException {
-        defensa.comprate(recurso);
 
+    public void comprar(Cobrable cobrable) throws NoSePudoComprarException {
+        cobrable.comprate(recurso);
     }
 
-     public void actualizarDefensas() {
-            defensas.forEach(Defensa::siguienteEstado);
-        }
-
-        public void defensasAtacar(List<Enemigo> enemigos) {
-           for (Defensa defensa : defensas){
-                defensa.atacar(enemigos);
-                enemigos.removeIf(Enemigo::muerto);
-            }
-        }
-
-        public void resetearDefensas() {
-            defensas = new ArrayList<>();
-        }
-
-        public List<Defensa> obtenerDefensas() {
-            return defensas;
-        }
-
-
-    public void obtenerReembolso(Defensa defensa){
-        defensa.reembolsarCreditos(recurso);
+    public void actualizarDefensas() {
+        defensas.forEach(Defensa::siguienteEstado);
     }
 
-    public boolean muerto(){
+    public void defensasAtacar(List<Enemigo> enemigos) {
+        for (Defensa defensa : defensas) {
+            defensa.atacar(enemigos);
+            enemigos.removeIf(Enemigo::muerto);
+        }
+    }
+
+    public void resetearDefensas() {
+        defensas = new ArrayList<>();
+    }
+
+    public List<Defensa> obtenerDefensas() {
+        return defensas;
+    }
+
+
+    public void obtenerReembolso(Cobrable cobrable) {
+        cobrable.reembolsarCreditos(recurso);
+    }
+
+    public boolean muerto() {
         //refactorizar
         Jugador jugador = Jugador.getInstance();
         return jugador.obtenerVidaJugador() <= 0;
     }
 
-    public boolean estaIntacto(){
+    public boolean estaIntacto() {
         Jugador jugador = Jugador.getInstance();
         return jugador.obtenerVidaJugador() == vidaMaxima;
     }
@@ -116,6 +120,7 @@ public class Jugador {
         int recompensa = contador.obtenerRecompensaArania();
         recurso.sumarMonedas(recompensa);
     }
+
     public void obtenerRecompensa(Hormiga hormiga) {
         int recompensa = contador.obtenerRecompensaHormiga();
         recurso.sumarMonedas(recompensa);
@@ -126,4 +131,7 @@ public class Jugador {
         recurso.sumarMonedas(recompensa);
     }
 
+    public void eliminarPrimeraTorre() {
+        defensas.remove(0);
+    }
 }

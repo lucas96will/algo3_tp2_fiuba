@@ -13,4 +13,6 @@ public interface EstadoEnemigo {
     void daniarAlJugador(String nombreEnemigo);
     void recibirAtaque(Enemigo enemigo, int unDanio, Posicion posicionAtacante);
     void recibirAtaqueYEvolucionar(Lechuza lechuza, int unDanio, Posicion posicionAtacante);
+
+    void establecerVelocidadRestante(float reduccionVelocidad);
 }

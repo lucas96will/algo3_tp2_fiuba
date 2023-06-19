@@ -15,6 +15,8 @@ public class EstadoEnemigoBajoTierra implements EstadoEnemigo {
 
     private int cantidadMovimientos;
     private int danio;
+
+    private int velocidadRestante = 0;
     private int velocidad;
 
     public EstadoEnemigoBajoTierra(int unDanio, int unaVelocidad, int unaCantidadMovimientos) {
@@ -25,11 +27,18 @@ public class EstadoEnemigoBajoTierra implements EstadoEnemigo {
 
     @Override
     public void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
-        for(int i = 0; i < velocidad; i++){
+        actualizarVelocidad();
+        velocidadRestante = velocidad;
+        while(velocidadRestante > 0){
+            movimiento.moverse(parcelas, enemigo, posActual);
+            velocidadRestante--;
+        }
+        cantidadMovimientos++;
+        /*for(int i = 0; i < velocidad; i++){
             movimiento.moverse(parcelas, enemigo, posActual);
             cantidadMovimientos++;
             actualizarVelocidad();
-        }
+        }*/
     }
 
 
@@ -49,6 +58,13 @@ public class EstadoEnemigoBajoTierra implements EstadoEnemigo {
 
     @Override
     public void recibirAtaqueYEvolucionar(Lechuza lechuza, int unDanio, Posicion posicionAtacante) {
+    }
+
+    @Override
+    public void establecerVelocidadRestante(float reduccion) {
+        if(velocidadRestante > 1){
+            velocidadRestante *= reduccion;
+        }
     }
 
 

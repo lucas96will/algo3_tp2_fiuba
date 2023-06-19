@@ -55,4 +55,7 @@ public abstract class Enemigo {
         return this.posicion.estaEnRango(rango, posicion);
     }
 
+    public void establecerVelocidad(float reduccionVelocidad) {
+        estado.establecerVelocidadRestante(reduccionVelocidad);
+    }
 }

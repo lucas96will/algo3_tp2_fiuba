@@ -38,4 +38,9 @@ public class EstadoEnemigoMuerto implements EstadoEnemigo {
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
+
+    @Override
+    public void establecerVelocidadRestante(float reduccion) {
+        
+    }
 }

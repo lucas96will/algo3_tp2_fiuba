@@ -1,12 +1,14 @@
 package edu.fiuba.algo3.modelo.Partida;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
 import edu.fiuba.algo3.modelo.Factory.EstadoPartidaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
+
 import java.util.List;
 
 public class Partida {
@@ -40,13 +42,24 @@ public class Partida {
     public void construir(Defensa defensa, Posicion posicion) {
         try {
             estado.construir(defensa, posicion, jugador, mapa);
-        } catch (DefensaNoSePudoComprarException a) {
+        } catch (NoSePudoComprarException a) {
             throw new RuntimeException("No se pudo comprar defensa");
         } catch (DefensaNoSePudoConstruir e) {
             jugador.obtenerReembolso(defensa);
             throw new RuntimeException("No se puede construir");
         }
     }
+
+    public void construir(TrampaDeArena trampa, Posicion posicion) {
+            try {
+                estado.construirTrampa(trampa, posicion, jugador, mapa);
+            } catch (NoSePudoComprarException e) {
+                throw new RuntimeException("No se pudo comprar trampa");
+            } catch (RuntimeException e) {
+                jugador.obtenerReembolso(trampa);
+                throw new RuntimeException("No se puede construir");
+            }
+        }
 
     public void insertarEnemigo(Enemigo enemigo) {
         try{

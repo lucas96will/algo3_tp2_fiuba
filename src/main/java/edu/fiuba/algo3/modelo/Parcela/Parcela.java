@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Parcela;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ public interface Parcela {
     boolean estaEnRangoLateralesA(Posicion posicion);
     void establecerPosicion(Posicion posicion);
     Posicion orientacionCosmica(); //te juro que no es un sosMeta
+
+    void construir(TrampaDeArena trampa, Posicion posicion) throws Exception;
 }

@@ -35,8 +35,8 @@ public class CargadorJson implements Cargador {
         }
     }
 
-    public List< List<Enemigo> > procesarEnemigos(String rutaJsonEnemigos){
-        List< List<Enemigo> > listaDeEnemigosPorTurno = new ArrayList<>();
+    public List<List<Enemigo>> procesarEnemigos(String rutaJsonEnemigos) {
+        List<List<Enemigo>> listaDeEnemigosPorTurno = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
         try {
@@ -54,7 +54,7 @@ public class CargadorJson implements Cargador {
         }
     }
 
-    private void guardarEnemigoEnLista(List< List<Enemigo> > listaDeEnemigosPorTurno, JSONObject jsonEnemigos) {
+    private void guardarEnemigoEnLista(List<List<Enemigo>> listaDeEnemigosPorTurno, JSONObject jsonEnemigos) {
         long numeroDeTurno = (long) jsonEnemigos.get("turno");
 
         JSONObject cantidadEnemigos = (JSONObject) jsonEnemigos.get("enemigos");
@@ -63,20 +63,21 @@ public class CargadorJson implements Cargador {
         long cantidadHormigas = (long) cantidadEnemigos.get("hormiga");
         long cantidadAranias = (long) cantidadEnemigos.get("arana");
 
-        for(long i = 0; i < cantidadHormigas; i++) {
+
+        for (long i = 0; i < cantidadHormigas; i++) {
             enemigosTurnoActual.add(EnemigoFactory.obtener("Hormiga"));
         }
 
-        for(long i = 0; i < cantidadAranias; i++) {
+        for (long i = 0; i < cantidadAranias; i++) {
             enemigosTurnoActual.add(EnemigoFactory.obtener("Arania"));
         }
 
         listaDeEnemigosPorTurno.add(enemigosTurnoActual);
     }
-    
-    private void cargarPasarelas(String[][] mapeo, List<Parcela> parcelas){
+
+    private void cargarPasarelas(String[][] mapeo, List<Parcela> parcelas) {
         int cantidadColumnas = mapeo[0].length;
-        
+
         int i = 0;
         int j = 0;
         int adyascentes = 0;
@@ -85,7 +86,7 @@ public class CargadorJson implements Cargador {
         int filaSiguiente = 0;
         int columnaSiguiente = 0;
         Direccion direccion = null;
-        while(i < mapeo.length && adyascentes != 1) {
+        while (i < mapeo.length && adyascentes != 1) {
             j = 0;
             while (j < cantidadColumnas && adyascentes != 1) {
                 if (mapeo[i][j].equals("Pasarela")) {
@@ -130,7 +131,7 @@ public class CargadorJson implements Cargador {
         Parcela meta = null;
         Parcela pasarela;
         Direccion direccion;
-        
+
         while (meta == null) {
             if ((filaSiguiente + 1 < mapeo.length) && ((filaSiguiente + 1) != filaActual) && mapeo[filaSiguiente + 1][columnaSiguiente].equals("Pasarela")) {
                 direccion = new Abajo();
@@ -170,9 +171,9 @@ public class CargadorJson implements Cargador {
     private void procesarParcelas(String[][] mapeo, List<Parcela> parcelas) {
         cargarPasarelas(mapeo, parcelas);
 
-        for(int i = 0; i < mapeo.length; i++) {
-            for(int j = 0; j < mapeo[0].length; j++) {
-                if(!mapeo[i][j].equals("Pasarela")) {
+        for (int i = 0; i < mapeo.length; i++) {
+            for (int j = 0; j < mapeo[0].length; j++) {
+                if (!mapeo[i][j].equals("Pasarela")) {
                     Posicion pos = new Posicion(i + 1, j + 1);
                     parcelas.add(ParcelaFactory.obtenerParcela(mapeo[i][j], pos));
                 }
@@ -193,14 +194,14 @@ public class CargadorJson implements Cargador {
 
             Mapa mapa = new Mapa(filas.length);
             int contadorColumna;
-            int cantidadColumnas = ((JSONArray)mapaJson.get(filas[1])).size();
-            String mapeo [][] = new String[filas.length][cantidadColumnas];
+            int cantidadColumnas = ((JSONArray) mapaJson.get(filas[1])).size();
+            String mapeo[][] = new String[filas.length][cantidadColumnas];
 
-            for(int i = 0; i < filas.length; i++) {
+            for (int i = 0; i < filas.length; i++) {
                 contadorColumna = 0;
                 JSONArray columna = (JSONArray) mapaJson.get(filas[i]);
                 for (Object parcela : columna) {
-                    mapeo[Integer.parseInt((String) filas[i])-1][contadorColumna] = (String) parcela;
+                    mapeo[Integer.parseInt((String) filas[i]) - 1][contadorColumna] = (String) parcela;
                     contadorColumna++;
                 }
             }
@@ -216,6 +217,6 @@ public class CargadorJson implements Cargador {
         } catch (ParseException p) {
             p.printStackTrace();
         }
-       return null;
+        return null;
     }
 }

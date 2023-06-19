@@ -28,14 +28,6 @@ public class Posicion {
     }
 
     public boolean estaEnRangoLaterales(Posicion posicion){
-        //(2,2) -> (2,3) derecha (0,-1) true
-        //(2,2) -> (3,2) abajo (-1,0) true
-        //(2,2) -> (1,2) arriba (1,0) true
-        //(2,2) -> (2,1) izquierda (0,1) true
-        //(2,2) -> (3,3) diagonal abajo izquierda (1,1) false
-
-        //(2,2) -> (3,3) rango = 2 (-1,-1) -> = 2
-
         int distLateral = Math.abs(fila - posicion.fila) + Math.abs(columna - posicion.columna);
         return distLateral == 1;
      }
@@ -111,9 +103,26 @@ public class Posicion {
 
     public void acercarseVerticalmente(Posicion destino) {
         if(destino.fila > fila){
-            moverDerecha();
+            moverAbajo();
         }if(destino.fila < fila){
-            moverIzquierda();
+            moverArriba();
         }
+    }
+
+    public void acercarseDiagonalmente(Posicion destino) {
+        // Algoritmo de  Bresenham
+        int distanciaHorizontal = Math.abs(destino.columna - columna);
+        int distanciaVertical = Math.abs(destino.fila - fila);
+        int direccionVertical = (columna < destino.columna) ? 1 : -1;
+        int direccionHorizontal = (fila < destino.fila) ? 1 : -1;
+        int error = (distanciaHorizontal- distanciaVertical) * 2;
+        
+        if(error > -distanciaVertical){
+            columna += direccionVertical;
+        }
+        if(error < distanciaHorizontal){
+            fila += direccionHorizontal;
+        }
+
     }
 }

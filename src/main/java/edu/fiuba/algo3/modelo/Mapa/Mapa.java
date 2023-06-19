@@ -1,8 +1,11 @@
 package edu.fiuba.algo3.modelo.Mapa;
+
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
+import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
@@ -33,8 +36,8 @@ public class Mapa {
         this.cantFilas = tamanio;
     }
 
-    public void insertarEnemigo(Enemigo unEnemigo){
-        for(Parcela parcela : parcelas) {
+    public void insertarEnemigo(Enemigo unEnemigo) {
+        for (Parcela parcela : parcelas) {
             try {
                 parcela.insertarEnemigo(unEnemigo);
             } catch (Exception e) {
@@ -45,50 +48,50 @@ public class Mapa {
     }
 
     public void construir(Defensa defensa, Posicion posicion) {
-            // defensas = jugador.defensas
-            Jugador jugador = Jugador.getInstance();
-            List<Defensa> defensasJugador = jugador.obtenerDefensas();
+        // defensas = jugador.defensas
+        Jugador jugador = Jugador.getInstance();
+        List<Defensa> defensasJugador = jugador.obtenerDefensas();
 
-            if(defensasJugador.stream().anyMatch(d -> d.tieneLaMismaPosicion(posicion))){
-                return;
-            }
-            Parcela parcelaElegida = parcelas.stream()
-                    .filter(p -> p.tieneLaMismaPosicion(posicion))
-                    .findFirst().orElse(null);
+        if (defensasJugador.stream().anyMatch(d -> d.tieneLaMismaPosicion(posicion))) {
+            return;
+        }
+        Parcela parcelaElegida = parcelas.stream()
+                .filter(p -> p.tieneLaMismaPosicion(posicion))
+                .findFirst().orElse(null);
 
-            try {
-                if(parcelaElegida != null){
-                    parcelaElegida.insertarDefensa(defensa);
-                    if(defensa.tieneLaMismaPosicion(posicion)){
-                        defensasJugador.add(defensa);
-                    }
+        try {
+            if (parcelaElegida != null) {
+                parcelaElegida.insertarDefensa(defensa);
+                if (defensa.tieneLaMismaPosicion(posicion)) {
+                    defensasJugador.add(defensa);
                 }
-            } catch (Exception e) {
-                throw new DefensaNoSePudoConstruir();
             }
-
+        } catch (Exception e) {
+            throw new DefensaNoSePudoConstruir();
         }
 
-        public void actualizarEstadoDefensas() {
-            Jugador jugador = Jugador.getInstance();
-            jugador.actualizarDefensas();
-            //
-        }
+    }
 
-        public void defensasAtacar() {
-            Jugador jugador = Jugador.getInstance();
-            jugador.defensasAtacar(enemigos);
-        }
+    public void actualizarEstadoDefensas() {
+        Jugador jugador = Jugador.getInstance();
+        jugador.actualizarDefensas();
+        //
+    }
 
-    public void moverEnemigos(){
-        if(enemigos.isEmpty()){
+    public void defensasAtacar() {
+        Jugador jugador = Jugador.getInstance();
+        jugador.defensasAtacar(enemigos);
+    }
+
+    public void moverEnemigos() {
+        if (enemigos.isEmpty()) {
             return;
         }
         enemigos.forEach(e -> e.moverse(parcelas));
         enemigos.removeIf(Enemigo::muerto);
-     
+
     }
-    
+
     public boolean sinEnemigos() {
         return enemigos.size() == 0;
     }
@@ -100,5 +103,16 @@ public class Mapa {
 
     public void establecerTerreno(List<Parcela> parcelas) {
         this.parcelas.addAll(parcelas);
+    }
+
+    public void construirTrampa(TrampaDeArena trampa, Posicion posicion){
+
+        for(Parcela parcela: parcelas){
+            try {
+                parcela.construir(trampa, posicion);
+            } catch (Exception e){
+                throw new RuntimeException("Trampa no se pudo Construir");
+            }
+        }
     }
 }

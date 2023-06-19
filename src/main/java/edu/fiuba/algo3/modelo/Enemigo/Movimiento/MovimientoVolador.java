@@ -1,40 +1,56 @@
 package edu.fiuba.algo3.modelo.Enemigo.Movimiento;
-         
-         import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-         import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
-         import edu.fiuba.algo3.modelo.Mapa.Posicion;
-         import edu.fiuba.algo3.modelo.Parcela.Parcela;
-         import edu.fiuba.algo3.modelo.Partida.Logger;
 
-         import java.util.List;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 
-         public class MovimientoVolador implements Movimiento{
+import java.util.List;
 
-                 @Override
-                 public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
-                         //Moverse en L de Lechuza *badummtss*
-                         int i = 0;
-                         Parcela parcela = parcelas.get(i);
-                         Posicion destino = parcela.orientacionCosmica();
+public class MovimientoVolador implements Movimiento {
 
-                         while(!destino.equals(NullPosicion.obtenerNullPosicion()) && i < parcelas.size()){
-                                 i++;
-                                 parcelas.get(i);
-                                 destino = parcela.orientacionCosmica();
-                         } //Obtener posicion meta
+    private Posicion obtenerPosicionMeta(List<Parcela> parcelas) {
+        int i = 0;
+        Parcela parcela = parcelas.get(i);
+        Posicion destino = parcela.orientacionCosmica();//TODO: Add eliminar getter(Encontrar mejor solucion)
 
-                         //Una vez obtenida la posicion muevo la lechuza
-
-                         posActual.acercarseHorizontalmente(destino);
-                         if(posActual.estaEnLaMismaColumna(destino)){
-                                 posActual.acercarseVerticalmente(destino);
-                         }
-                
-                         Logger.getInstance().logExitoso( enemigo + " se movio a " + posActual);
-                 }
-
-        @Override
-        public void moverseEnojado(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
-
+        while (destino.equals(NullPosicion.obtenerNullPosicion()) && i < parcelas.size() - 1) {
+            i++;
+            parcela = parcelas.get(i);
+            destino = parcela.orientacionCosmica();
         }
+        return destino;
+    }
+
+    @Override
+    public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
+        //Moverse en L de Lechuza *badummtss*
+
+        Posicion destino = obtenerPosicionMeta(parcelas);
+
+        if (posActual.equals(destino) && !enemigo.muerto()) {
+            enemigo.daniarAlJugador();
+        }
+
+        if (posActual.estaEnLaMismaColumna(destino)) {
+            posActual.acercarseVerticalmente(destino);
+        } else {
+            posActual.acercarseHorizontalmente(destino);
+        }
+    }
+
+    @Override
+    public void moverseEnojado(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
+        Posicion posLoggerActual = new Posicion(posActual);
+
+        Posicion destino = obtenerPosicionMeta(parcelas);
+
+        if (posActual.equals(destino) && !enemigo.muerto()) {
+            enemigo.daniarAlJugador();
+        }
+
+        posActual.acercarseDiagonalmente(destino); //Algoritmo de Bresenham
+
+    }
 }

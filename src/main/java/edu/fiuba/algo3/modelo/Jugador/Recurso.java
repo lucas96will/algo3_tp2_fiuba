@@ -23,4 +23,6 @@ public class Recurso {
     public void sumarMonedas(int recompensa) {
         creditos += recompensa;
     }
+    
+    
 }
