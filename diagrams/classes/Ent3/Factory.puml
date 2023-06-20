@@ -1,0 +1,20 @@
+@startuml
+class Factory.DefensaFactory {
+- HashMap<String,Defensa> tipoDeDefensa
++ Defensa obtenerDefensa(String)
+- void crearDefensas()
+}
+class Factory.EnemigoFactory {
+- HashMap<String,Enemigo> tipoDeEnemigos
+- <<Create>> EnemigoFactory()
++ {static} Enemigo obtener(String)
+}
+class Factory.ParcelaFactory {
+- HashMap<String,Parcela> tipoDeParcelas
++ <<Create>> ParcelaFactory(Posicion)
++ {static} Parcela obtenerParcela(String,Posicion)
+}
+class Factory.EstadoPartidaFactory {
++ {static} EstadoPartida obtenerEstadoPartida(Jugador,Mapa)
+}
+@enduml

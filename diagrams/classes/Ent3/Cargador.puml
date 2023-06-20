@@ -1,0 +1,30 @@
+@startuml
+class CargadorJson {
++ void archivoEsCorrecto(String,String)
++ List<List<Enemigo>> procesarEnemigos(String)
++ Mapa procesarMapa(String)
+}
+class Juego {
+- List<List<Enemigo>> enemigosPorTurno
++ <<Create>> Juego()
++ void cargarConJson(String,String)
++ void cargarJugador(Jugador)
++ void iniciar()
++ void terminarTurno()
++ void construir(Defensa,Posicion)
++ List<Enemigo> obtenerEnemigos()
++ List<Parcela> obtenerParcelas()
+}
+interface Cargador {
+~ void archivoEsCorrecto(String,String)
+~ Mapa procesarMapa(String)
+~ List<List<Enemigo>> procesarEnemigos(String)
+}
+
+
+Cargador <|.. CargadorJson
+Juego o-- Cargador
+Juego o-- Mapa
+Juego o-- Jugador
+Juego *-- Partida
+@enduml

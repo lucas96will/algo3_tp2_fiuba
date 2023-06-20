@@ -1,0 +1,6 @@
+@startuml
+interface Cobrable.Cobrable {
++ void comprate(Recurso)
++ void reembolsarCreditos(Recurso)
+}
+@enduml
