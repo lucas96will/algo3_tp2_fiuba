@@ -1,12 +1,10 @@
 package edu.fiuba.algo3.modelo.Parcela.Construible;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Defensa.NullTorre;
-import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerTrampa;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
-import edu.fiuba.algo3.modelo.Parcela.Pasarela.EstadoPasarela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 
 import java.util.List;
@@ -24,6 +22,7 @@ public abstract class Construible implements Parcela {
         this.posicion = unaPosicion;
     }
 
+    public Posicion obtenerPosicion() {return posicion;}
 
     abstract public void insertarDefensa(Defensa defensa) throws Exception;
 

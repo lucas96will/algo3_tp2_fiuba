@@ -12,6 +12,7 @@ public interface Parcela {
     boolean estaEnRangoLateralesA(Posicion posicion);
     void establecerPosicion(Posicion posicion);
     Posicion obtenerPosicionMeta();
+    Posicion obtenerPosicion();
 
     void construir(TrampaDeArena trampa, Posicion posicion) throws Exception;
 }
