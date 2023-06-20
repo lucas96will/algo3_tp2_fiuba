@@ -125,4 +125,12 @@ public class Posicion {
         }
 
     }
+
+    public int obtenerFila() {
+        return fila;
+    }
+
+    public int obtenerColumna() {
+        return columna;
+    }
 }

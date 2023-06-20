@@ -75,7 +75,6 @@ public class CargadorJson implements Cargador {
         int cantidadColumnas = mapeo[0].length;
 
         int i = 0;
-        int j = 0;
         int adyascentes = 0;
         int filaActual = 0;
         int columnaActual = 0;
@@ -83,7 +82,7 @@ public class CargadorJson implements Cargador {
         int columnaSiguiente = 0;
         Direccion direccion = null;
         while (i < mapeo.length && adyascentes != 1) {
-            j = 0;
+            int j = 0;
             while (j < cantidadColumnas && adyascentes != 1) {
                 if (mapeo[i][j].equals("Pasarela")) {
                     filaActual = i;

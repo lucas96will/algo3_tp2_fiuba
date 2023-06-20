@@ -55,6 +55,11 @@ public class Pasarela implements Parcela {
     }
 
     @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
+    }
+
+    @Override
     public boolean tieneLaMismaPosicion(Posicion... posiciones) {
         return this.posicion.esIgual(posiciones);
     }
