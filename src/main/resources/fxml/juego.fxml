@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<GridPane fx:id="mapaGrid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorDeJuego">
-  <columnConstraints>
-  </columnConstraints>
-  <rowConstraints>
-  </rowConstraints>
-</GridPane>
+<StackPane alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="1152.0" xmlns="http://javafx.com/fxml/1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorDeJuego">
+   <children>
+      <GridPane fx:id="mapaGrid" alignment="CENTER_LEFT" prefHeight="762.0" prefWidth="1152.0" StackPane.alignment="CENTER">
+
+      </GridPane>
+       <GridPane fx:id="opcionesGrid" alignment="CENTER_LEFT" prefHeight="762.0" prefWidth="1152.0" StackPane.alignment="CENTER">
+
+       </GridPane>
+   </children>
+</StackPane>
