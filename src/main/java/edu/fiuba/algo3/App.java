@@ -2,9 +2,6 @@ package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.controllers.CargadorDeEscena;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -27,6 +24,8 @@ public class App extends Application {
     public void start(Stage stage){
         App.stage = stage;
         stage.setTitle("Algo Tower Defense");
-        CargadorDeEscena.cargarScene("/fxml/pantallaDeInicio.fxml",stage);
+        CargadorDeEscena.cargarScene("/fxml/inicio.fxml",stage);
     }
+
+    public static Stage obtenerStage () {return App.stage;}
 }
