@@ -187,7 +187,7 @@ public class CargadorJson implements Cargador {
 
             Object[] filas = mapaJson.keySet().toArray();
 
-            Mapa mapa = new Mapa(filas.length);
+            Mapa mapa = new Mapa();
             int contadorColumna;
             int cantidadColumnas = ((JSONArray) mapaJson.get(filas[1])).size();
             String mapeo[][] = new String[filas.length][cantidadColumnas];

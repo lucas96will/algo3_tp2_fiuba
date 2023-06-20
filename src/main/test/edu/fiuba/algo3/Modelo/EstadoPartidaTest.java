@@ -36,7 +36,7 @@ public class EstadoPartidaTest {
     }
 
     public Mapa obtenerMapaGenerico() {
-        Mapa mapa = new Mapa(8);
+        Mapa mapa = new Mapa();
 
         mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
 

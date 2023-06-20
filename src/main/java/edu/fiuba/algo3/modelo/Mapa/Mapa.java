@@ -14,27 +14,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Mapa {
-    private final int cantColumnas;
-    private final int cantFilas;
     private final List<Parcela> parcelas;
-    private final List<Defensa> defensas;
     private final List<Enemigo> enemigos;
 
     public Mapa() {
         this.parcelas = new ArrayList<>();
-        this.defensas = new ArrayList<>();
         this.enemigos = new ArrayList<>();
-        cantColumnas = 0;
-        cantFilas = 0;
     }
 
-    public Mapa(int tamanio) {
-        this.parcelas = new ArrayList<>();
-        this.defensas = new ArrayList<>();
-        this.enemigos = new ArrayList<>();
-        this.cantColumnas = tamanio;
-        this.cantFilas = tamanio;
-    }
 
     public void insertarEnemigo(Enemigo unEnemigo) {
         for (Parcela parcela : parcelas) {

@@ -53,7 +53,7 @@ public class EnemigoTest {
     }
 
     public Mapa obtenerMapaGenerico() {
-            Mapa mapa = new Mapa(8);
+            Mapa mapa = new Mapa();
             Pasarela pasarela = new Pasarela(new Largada());
             pasarela.establecerDireccion(new Derecha());
             mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,1));
