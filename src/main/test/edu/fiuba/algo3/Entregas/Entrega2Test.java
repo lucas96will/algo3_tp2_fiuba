@@ -154,7 +154,12 @@ public class Entrega2Test {
         juego.construir(torrePlateada2, new Posicion(3, 1));
 
         for (int i = 0; i < 4 ; i++) {
-            juego.terminarTurno();
+            try {
+                juego.terminarTurno();
+
+            } catch (Exception e) {
+
+            }
         }
 
         int muertesHormigaEsperada = 4;

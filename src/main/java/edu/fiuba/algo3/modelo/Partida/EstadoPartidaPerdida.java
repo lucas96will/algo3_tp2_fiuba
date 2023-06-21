@@ -48,7 +48,7 @@ public class EstadoPartidaPerdida implements EstadoPartida{
     }
 
     @Override
-    public EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador) {
+    public EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador, List<List<Enemigo>> enemigosPorTurno) {
         return new EstadoPartidaPerdida();
     }
 

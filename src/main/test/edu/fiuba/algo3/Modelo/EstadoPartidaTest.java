@@ -59,13 +59,13 @@ public class EstadoPartidaTest {
     }
 
     @Test
-    public void test01EstadoPartidaGanadaConstruirNoLanzaExcepcion() {
+    public void test01EstadoPartidaGanadaConstruirLanzaExcepcion() {
         EstadoPartida estado = new EstadoPartidaGanada();
         Jugador jugador = Jugador.getInstance();
         Mapa mapa = obtenerMapaGenerico();
         Defensa defensa = new Torre(1,1,1, new EstadoDefensaIncompleto(2), "Torre");
 
-        assertDoesNotThrow( ()-> estado.construir(defensa, new Posicion(2,2), jugador, mapa) );
+        assertThrows( RuntimeException.class, ()-> estado.construir(defensa, new Posicion(2,2), jugador, mapa) );
     }
 
     @Test

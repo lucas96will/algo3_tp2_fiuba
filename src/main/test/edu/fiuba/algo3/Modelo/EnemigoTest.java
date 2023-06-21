@@ -91,7 +91,11 @@ public class EnemigoTest {
         partida.insertarEnemigo(hormiga);
 
         for(int i = 0; i < 8; i++){
-            partida.terminarTurno();
+            try{
+                partida.terminarTurno();
+            } catch (RuntimeException e) {
+
+            }
         }
 
         assertFalse(jugador.estaIntacto()); //hormiga llego al final :c

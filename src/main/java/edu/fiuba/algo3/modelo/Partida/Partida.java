@@ -15,12 +15,12 @@ public class Partida {
     private Jugador jugador;
     private Mapa mapa;
     private EstadoPartida estado;
-    private ContadorTurnos turnos; //TODO: agregar comportamiento ??
+    private ContadorTurnos turnos;
 
     public Partida(Jugador jugador, Mapa mapa) {
         this.jugador = jugador;
         this.mapa = mapa;
-        this.estado = new EstadoPartidaSigueJugando().siguienteEstado(mapa, jugador);
+        this.estado = new EstadoPartidaSigueJugando();
         turnos = ContadorTurnos.obtenerContador();
         enemigosPorTurno = new ArrayList<>();
     }
@@ -39,7 +39,6 @@ public class Partida {
         estado.terminarTurno(mapa);
         turnos.incrementarTurno();
         actualizarEstado();
-
     }
 
     public void construir(Defensa defensa, Posicion posicion) {
@@ -53,7 +52,6 @@ public class Partida {
     public void insertarEnemigo(Enemigo enemigo) {
         estado.insertarEnemigo(enemigo, mapa);
         actualizarEstado();
-
     }
 
     public EstadoPartida estado() {
@@ -66,6 +64,6 @@ public class Partida {
     }
 
     public void actualizarEstado() {
-        this.estado = estado.siguienteEstado(mapa, jugador);
+        this.estado = estado.siguienteEstado(mapa, jugador, enemigosPorTurno);
     }
 }

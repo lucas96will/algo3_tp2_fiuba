@@ -53,8 +53,8 @@ public class EstadoPartidaSigueJugando implements EstadoPartida{
     }
 
     @Override
-    public EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador) {
-        if(!jugador.muerto() && mapa.sinEnemigos()) {
+    public EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador, List<List<Enemigo>> enemigosPorTurno) {
+        if(!jugador.muerto() && mapa.sinEnemigos() && enemigosPorTurno.isEmpty()) {
             return new EstadoPartidaGanada(); // se gano
         }
         else if (jugador.muerto()) {

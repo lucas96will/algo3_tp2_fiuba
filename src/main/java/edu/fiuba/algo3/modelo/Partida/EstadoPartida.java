@@ -24,5 +24,5 @@ public interface EstadoPartida {
 
     void construirTrampa(TrampaDeArena trampa, Posicion posicion, Jugador jugador, Mapa mapa);
 
-    EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador);
+    EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador, List<List<Enemigo>> enemigosPorTurno);
 }

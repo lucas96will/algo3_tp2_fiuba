@@ -49,10 +49,10 @@ public class PartidaTest {
     }
 
     @Test
-    public void test01PartidaIniciaConEstadoGanado() {
+    public void test01PartidaIniciaConEstadoSigueJugando() {
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(Jugador.getInstance(), mapa);
-        EstadoPartida estadoEsperado = new EstadoPartidaGanada();
+        EstadoPartida estadoEsperado = new EstadoPartidaSigueJugando();
         EstadoPartida estadoObtenido = partida.estado();
         assertEquals(estadoEsperado, estadoObtenido);
     }
@@ -75,6 +75,8 @@ public class PartidaTest {
         Jugador.getInstance().actualizarEstado(0, new Recurso(100), "Joaquin");
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(Jugador.getInstance(), mapa);
+
+        partida.actualizarEstado();
 
         EstadoPartida estadoEsperado = new EstadoPartidaPerdida();
         EstadoPartida estadoObtenido = partida.estado();

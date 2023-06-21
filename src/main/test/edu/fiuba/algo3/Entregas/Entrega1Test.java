@@ -212,14 +212,14 @@ public class Entrega1Test {
 
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
+        partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
+        partida.insertarEnemigo(new Arania(new Posicion(1,1)));
 
         Defensa torreBlanca1 = new Torre( 10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
 
         /*rango de ataque de torre blanca = 0 - 4 fila ; 0 - 4 columna*/
         partida.terminarTurno(); // Torre construida
-        partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
-        partida.insertarEnemigo(new Arania(new Posicion(1,1)));
 
         partida.terminarTurno(); // enemigos en posicion (1,2) muere hormiga
         partida.actualizarEstado();
