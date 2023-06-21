@@ -47,4 +47,10 @@ public class EstadoPartidaPerdida implements EstadoPartida{
         throw new RuntimeException("No se puede comprar una Trampa, la partida esta perdida");
     }
 
+    @Override
+    public EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador) {
+        return new EstadoPartidaPerdida();
+    }
+
+
 }

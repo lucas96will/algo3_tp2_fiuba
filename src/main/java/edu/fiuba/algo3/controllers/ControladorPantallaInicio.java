@@ -15,7 +15,7 @@ public class ControladorPantallaInicio implements Initializable {
         try {
             String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
             String rutaJsonMapa = "data/jsonTests/mapa.json";
-            Juego.getInstance().cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+            Juego.getInstance().cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
             CargadorDeEscena.cargarScene("/fxml/juego.fxml", App.obtenerStage());
         } catch (RuntimeException e){
             e.printStackTrace();

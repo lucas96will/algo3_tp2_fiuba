@@ -65,7 +65,7 @@ public class Entrega2Test {
     public void caso15unidadesCargadasAlMapaSonCorrectasMatandoAlJugadorDespuesDeVariosTurnos() {
         Logger.getInstance().logEstado("\n--> Caso 15 Unidades cargadas al mapa json son correctas matando al jugador despues de varios turnos.");
         Juego juego = new Juego();
-        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        juego.cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
 
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, new Recurso(100), "#Singleton");
@@ -86,7 +86,7 @@ public class Entrega2Test {
     public void caso16unidadesCargadasAlMapaSonCorrectasDandoCreditosAlJugador() {
         Logger.getInstance().logEstado("\n--> Caso 16 Unidades cargadas al mapa json son correctas dando créditos al jugador.");
         Juego juego = new Juego();
-        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        juego.cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(60);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, recurso, "#Singleton");
@@ -127,7 +127,7 @@ public class Entrega2Test {
     public void caso16UnidadesDelMapaSonCargadasCorrectamente() {
         Logger.getInstance().logEstado("\n--> Caso 16 Unidades cargadas al mapa json son correctas dando créditos al jugador.");
         Juego juego = new Juego();
-        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        juego.cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, recurso, "#Singleton");
@@ -158,7 +158,7 @@ public class Entrega2Test {
     public void caso17JuegoSeCreaAcordeConAmbosJson() {
         Logger.getInstance().logEstado("\n--> Caso 17 Juego se crea acorde a ambos json.");
         Juego juego = new Juego();
-        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        juego.cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, recurso, "#Singleton");
@@ -194,7 +194,7 @@ public class Entrega2Test {
     public void caso18JugadorGanaUnaPartidaSimulada(){
         Logger.getInstance().logEstado("\n--> Caso 18 Jugador gana una partida simulada.");
         Juego juego = new Juego();
-        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        juego.cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, recurso, "Messi");
@@ -216,7 +216,7 @@ public class Entrega2Test {
     public void caso19JugadorPierdeUnaPartidaSimulada(){
         Logger.getInstance().logEstado("\n--> Caso 19 Jugador pierde una partida simulada.");
         Juego juego = new Juego();
-        juego.cargarConJson(rutaJsonEnemigos, rutaJsonMapa);
+        juego.cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
         Recurso recurso = new Recurso(20);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(20, recurso, "Messi");

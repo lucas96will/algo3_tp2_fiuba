@@ -39,13 +39,11 @@ public class JugadorTest {
 
     @Test
     public void jugadorEmpiezaConVidaYCreditosCorrespondientes() {
-
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(100),"Joaquin");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
-
+        Partida partida = new Partida(jugador,mapa);
+        partida.terminarTurno();
         assertTrue(jugador.estaIntacto());
         assertFalse(jugador.muerto());
     }

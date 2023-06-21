@@ -50,9 +50,8 @@ public class PartidaTest {
 
     @Test
     public void test01PartidaIniciaConEstadoGanado() {
-        Partida partida = new Partida();
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(Jugador.getInstance(), mapa);
+        Partida partida = new Partida(Jugador.getInstance(), mapa);
         EstadoPartida estadoEsperado = new EstadoPartidaGanada();
         EstadoPartida estadoObtenido = partida.estado();
         assertEquals(estadoEsperado, estadoObtenido);
@@ -60,9 +59,8 @@ public class PartidaTest {
 
     @Test
     public void test02PartidaNuevaSeLeInsertaUnEnemigoYEstadoCambiaAEstadoPartidaSigueJugando() {
-        Partida partida = new Partida();
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(Jugador.getInstance(), mapa);
+        Partida partida = new Partida(Jugador.getInstance(), mapa);
         EstadoPartida estadoEsperado = new EstadoPartidaSigueJugando();
 
         partida.insertarEnemigo(new Hormiga(1,1,1));
@@ -74,10 +72,9 @@ public class PartidaTest {
 
     @Test
     public void test03PartidaIniciaConJugadorCon0DeVidaTieneEstadoPartidaPerdidaCorrectamente() {
-        Partida partida = new Partida();
         Jugador.getInstance().actualizarEstado(0, new Recurso(100), "Joaquin");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(Jugador.getInstance(), mapa);
+        Partida partida = new Partida(Jugador.getInstance(), mapa);
 
         EstadoPartida estadoEsperado = new EstadoPartidaPerdida();
         EstadoPartida estadoObtenido = partida.estado();
@@ -87,10 +84,9 @@ public class PartidaTest {
 
     @Test
     public void test04JugadorPierdeTodaSuVidaPartidaTieneEstadoPartidaPerdidaCorrectamente(){
-        Partida partida = new Partida();
         Jugador.getInstance().actualizarEstado(10, new Recurso(100), "Joaquin");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(Jugador.getInstance(), mapa);
+        Partida partida = new Partida(Jugador.getInstance(), mapa);
 
         Jugador.getInstance().actualizarEstado(0, new Recurso(100), "Joaquin");
         partida.actualizarEstado();

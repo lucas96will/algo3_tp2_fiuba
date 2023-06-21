@@ -76,12 +76,11 @@ public class Entrega1Test {
     @Test
     public void caso2defensaTardaEnConstruirseLoQueDice(){
         Logger.getInstance().logEstado("\n--> Caso 2 Cada defensa tarde en construirse lo que dice que tarda.");
-        Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, recurso, "Joaquín");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
+        Partida partida = new Partida(jugador,mapa);
 
 
         Defensa torrePlateada = new Torre(20, 2,5, new EstadoDefensaIncompleto(2), "Torre Plateada");
@@ -125,12 +124,11 @@ public class Entrega1Test {
         Logger.getInstance().logEstado("\n--> Caso 5 Defensa Atacan dentro del rango esperado.");
         /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
 
-        Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, recurso, "Josesito");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
+        Partida partida = new Partida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,6));
@@ -152,11 +150,10 @@ public class Entrega1Test {
     @Test
     public void caso6UnidadesEnemigasSonDaniadasAcordeAlAtaqueRecibido() {
         Logger.getInstance().logEstado("\n--> Caso 6 Las unidades enemigos son Dañadas acorde al daño recibido.");
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(10), "Ariel");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
+        Partida partida = new Partida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
@@ -195,14 +192,13 @@ public class Entrega1Test {
     public void caso8JugadorMataUnidadYCobraCreditoCorrespondiente(){
         Logger.getInstance().logEstado("\n--> Caso 8 Jugador recibe los créditos correspondientes luego de matar a una unidad.");
 
-        Partida partida = new Partida();
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, recurso, "Josesito");
         /*100*/
 
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
+        Partida partida = new Partida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
@@ -221,12 +217,11 @@ public class Entrega1Test {
     @Test
     public void test9AlPasarTurnoLasUnidadesEnemigasSeMovieronSegunSusCapacidadesCorrectamente() {
         Logger.getInstance().logEstado("\n--> Caso 9 Al pasar el turno, los enemigos se mueven lo que debían.");
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(10), "Josesito");
 
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
+        Partida partida = new Partida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre( 10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
@@ -249,12 +244,11 @@ public class Entrega1Test {
     @Test
     public void caso10SeGanaElJuegoMatandoTodosLosEnemigosCorrectamente(){
         Logger.getInstance().logEstado("\n--> Caso 10 Se gana el juego matando todos los enemigos.");
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, new Recurso(100), "Ariel");
 
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
+        Partida partida = new Partida(jugador,mapa);
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
         partida.construir(torreBlanca1, new Posicion(2,2));
@@ -276,12 +270,11 @@ public class Entrega1Test {
     @Test
     public void caso11SeGanaElJuegoSobreviviendoAlDanioDeLosEnemigos() {
         Logger.getInstance().logEstado("\n--> Caso 11 Se gana el juego sobreviviendo al daño de los enemigos");
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, new Recurso(10), "Diego");
 
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
+        Partida partida = new Partida(jugador,mapa);
         
 
         for(int i = 0; i < 10; i++) {
@@ -300,11 +293,10 @@ public class Entrega1Test {
     @Test
     public void caso12SePierdeElJuegoPorElDanioDeLosEnemigos() {
         Logger.getInstance().logEstado("\n--> Caso 12 Se pierde el juego por el daño de los enemigos.");
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(8, new Recurso(10), "Diego");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
+        Partida partida = new Partida(jugador,mapa);
 
 
         for(int i = 0; i < 14; i++) {

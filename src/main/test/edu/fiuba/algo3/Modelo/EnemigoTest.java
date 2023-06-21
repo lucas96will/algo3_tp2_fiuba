@@ -31,8 +31,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-
 
 
 public class EnemigoTest {
@@ -84,11 +82,10 @@ public class EnemigoTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 1 hormiga se mueve para delante y hace daño.");
         /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
 
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, new Recurso(10), "Josecito");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador, mapa);
+        Partida partida = new Partida(jugador, mapa);
 
         Enemigo hormiga = new Hormiga(new Posicion(1,1));
         partida.insertarEnemigo(hormiga);
@@ -203,14 +200,14 @@ public class EnemigoTest {
     @Test
     public void test5AraniaSeMueveCorrectamenteDosCasilleros() {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 7 Araña se mueve correctamente dos casilleros");
-        Parcela parcelaInicial = new Pasarela(new Posicion(1,1), new Casilla());
-        ((Pasarela) parcelaInicial).establecerDireccion(new Derecha());
-        Parcela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
-        ((Pasarela) primeraParcela).establecerDireccion(new Derecha());
-        Parcela segundaParcela = new Pasarela(new Posicion(1,3), new Casilla());
-        ((Pasarela) segundaParcela).establecerDireccion(new Derecha());
-        Parcela terceraParcela = new Pasarela(new Posicion(1,4), new Casilla());
-        ((Pasarela) terceraParcela).establecerDireccion(new Derecha());
+        Pasarela parcelaInicial = new Pasarela(new Posicion(1,1), new Casilla());
+        parcelaInicial.establecerDireccion(new Derecha());
+        Pasarela primeraParcela = new Pasarela(new Posicion(1,2), new Casilla());
+        primeraParcela.establecerDireccion(new Derecha());
+        Pasarela segundaParcela = new Pasarela(new Posicion(1,3), new Casilla());
+        segundaParcela.establecerDireccion(new Derecha());
+        Pasarela terceraParcela = new Pasarela(new Posicion(1,4), new Casilla());
+        terceraParcela.establecerDireccion(new Derecha());
         Enemigo arania = new Arania(new Posicion(1,1));
 
         List<Parcela> parcelas = new ArrayList<>();
@@ -412,7 +409,7 @@ public class EnemigoTest {
 
         lechuza.moverse(parcelas);
 
-        assertTrue(defensas.size() == 1 );
+        assertEquals(1, defensas.size());
     }
 
     @Test

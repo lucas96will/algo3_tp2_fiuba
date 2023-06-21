@@ -52,4 +52,16 @@ public class EstadoPartidaSigueJugando implements EstadoPartida{
         enemigos.forEach(e -> insertarEnemigo(e, mapa));
     }
 
+    @Override
+    public EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador) {
+        if(!jugador.muerto() && mapa.sinEnemigos()) {
+            return new EstadoPartidaGanada(); // se gano
+        }
+        else if (jugador.muerto()) {
+            return new EstadoPartidaPerdida(); // muere el jugador
+        }
+
+        return new EstadoPartidaSigueJugando();
+
+    }
 }
