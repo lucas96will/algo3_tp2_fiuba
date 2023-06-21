@@ -84,11 +84,10 @@ public class EnemigoTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 1 hormiga se mueve para delante y hace daño.");
         /*Verificarquelasdefensas ataquen dentro del rango esperado (y verificar lo contrario*/
 
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(100, new Recurso(10), "Josecito");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador, mapa);
+        Partida partida = new Partida(jugador, mapa);
 
         Enemigo hormiga = new Hormiga(new Posicion(1,1));
         partida.insertarEnemigo(hormiga);

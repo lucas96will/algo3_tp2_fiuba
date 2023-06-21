@@ -50,8 +50,7 @@ public class Juego {
     }
 
     public void iniciar() {
-        this.partida = new Partida();
-        partida.crearPartida(jugador, mapa);
+        this.partida = new Partida(jugador, mapa);
     }
 
     public void terminarTurno() {
@@ -59,6 +58,8 @@ public class Juego {
         if(enemigosPorTurno.size() != 0) {
             partida.anadirEnemigos(enemigosPorTurno.get(0));
             enemigosPorTurno.remove(0);
+        } else {
+            partida.actualizarEstado();
         }
     }
 

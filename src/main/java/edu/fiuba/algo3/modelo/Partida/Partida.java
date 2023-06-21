@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo.Partida;
+
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
@@ -21,53 +22,30 @@ public class Partida {
     public Partida() {
     }
 
-    public void crearPartida(Jugador jugador, Mapa mapa) {
+    public Partida(Jugador jugador, Mapa mapa) {
         this.jugador = jugador;
         this.mapa = mapa;
-        this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
         turnos = ContadorTurnos.obtenerContador();
+        this.estado = (jugador.obtenerVidaJugador() > 0) ? new EstadoPartidaSigueJugando() : new EstadoPartidaPerdida();
     }
 
     public void terminarTurno() {
-        try {
-            estado.terminarTurno(mapa);
-            turnos.incrementarTurno();
-            actualizarEstado();
-        } catch (RuntimeException e) {
-
-        }
-
+        estado.terminarTurno(mapa);
+        turnos.incrementarTurno();
     }
 
     public void construir(Defensa defensa, Posicion posicion) {
-        try {
-            estado.construir(defensa, posicion, jugador, mapa);
-        } catch (NoSePudoComprarException a) {
-            throw new RuntimeException("No se pudo comprar defensa");
-        } catch (DefensaNoSePudoConstruir e) {
-            jugador.obtenerReembolso(defensa);
-            throw new RuntimeException("No se puede construir");
-        }
+        estado.construir(defensa, posicion, jugador, mapa);
     }
 
     public void construir(TrampaDeArena trampa, Posicion posicion) {
-            try {
-                estado.construirTrampa(trampa, posicion, jugador, mapa);
-            } catch (NoSePudoComprarException e) {
-                throw new RuntimeException("No se pudo comprar trampa");
-            } catch (RuntimeException e) {
-                jugador.obtenerReembolso(trampa);
-                throw new RuntimeException("No se puede construir");
-            }
-        }
+        estado.construirTrampa(trampa, posicion, jugador, mapa);
+    }
 
     public void insertarEnemigo(Enemigo enemigo) {
-        try{
-            estado.insertarEnemigo(enemigo, mapa);
-            actualizarEstado();
-        } catch (RuntimeException e){
+        estado.insertarEnemigo(enemigo, mapa);
+        actualizarEstado();
 
-        }
     }
 
     public EstadoPartida estado() {
@@ -75,15 +53,11 @@ public class Partida {
     }
 
     public void anadirEnemigos(List<Enemigo> enemigos) {
-        try {
-            estado.insertarEnemigos(enemigos, mapa);
-            actualizarEstado();
-        } catch (RuntimeException e){
-
-        }
+        estado.insertarEnemigos(enemigos, mapa);
+        actualizarEstado();
     }
 
-    public void actualizarEstado(){
+    public void actualizarEstado() {
         this.estado = EstadoPartidaFactory.obtenerEstadoPartida(jugador, mapa);
     }
 }

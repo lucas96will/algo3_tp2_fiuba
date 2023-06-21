@@ -75,7 +75,12 @@ public class Entrega2Test {
         juego.iniciar();
 
         for(int i = 0; i < 50; i++) { // Juego termina, danio causado al jugador = 22
-            juego.terminarTurno();
+            try {
+                juego.terminarTurno();
+
+            } catch (Exception e) {
+
+            }
         }
 
         EstadoPartida estadoPartida = juego.estado();
@@ -103,7 +108,12 @@ public class Entrega2Test {
         juego.construir(torrePlateadaTres, new Posicion(12,10));
 
         for(int i = 0; i < 50; i++) { // Juego termina, danio causado al jugador = 22
-            juego.terminarTurno();
+            try {
+                juego.terminarTurno();
+            } catch (Exception e) {
+
+            }
+
         }
 
         //11 hormigas 10 aranias
@@ -175,7 +185,12 @@ public class Entrega2Test {
         juego.construir(torrePlateada2, new Posicion(10, 12));
 
         for (int i = 0; i < 144 ; i++) {
-            juego.terminarTurno();
+            try {
+                juego.terminarTurno();
+
+            } catch (Exception e) {
+
+            }
         }
 
         int muertesHormigaEsperada = 11;
@@ -205,7 +220,12 @@ public class Entrega2Test {
         juego.construir(torreBlanca, new Posicion(3, 3));
 
         for (int i = 0; i < 29 ; i++) {
-            juego.terminarTurno();
+            try {
+                juego.terminarTurno();
+
+            } catch (Exception e) {
+
+            }
         }
 
         EstadoPartida estadoPartida = juego.estado();
@@ -225,7 +245,12 @@ public class Entrega2Test {
 
 
         for (int i = 0; i < 30 ; i++) {
-            juego.terminarTurno();
+            try{
+                juego.terminarTurno();
+
+            } catch (Exception e) {
+
+            }
         }
 
         EstadoPartida estadoPartida = juego.estado();

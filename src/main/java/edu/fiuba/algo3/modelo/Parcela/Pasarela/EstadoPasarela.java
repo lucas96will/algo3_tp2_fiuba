@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 
 public interface EstadoPasarela {
     void insertarEnemigo (Enemigo unEnemigo, Posicion posicion);
@@ -14,5 +15,5 @@ public interface EstadoPasarela {
 
     EstadoPasarela actualizarEstado();
 
-    EstadoPasarela construir(TrampaDeArena nuevoEstado) throws Exception;
+    EstadoPasarela construir(TrampaDeArena nuevoEstado);
 }

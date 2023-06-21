@@ -26,7 +26,7 @@ public class Casilla implements EstadoPasarela {
         
     }
     public Posicion orientacionCosmica(Posicion posicion) {
-        return NullPosicion.obtenerNullPosicion();
+        return new NullPosicion();
     }
 
     public EstadoPasarela actualizarEstado(){

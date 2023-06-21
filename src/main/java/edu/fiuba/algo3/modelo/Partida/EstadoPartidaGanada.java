@@ -29,8 +29,7 @@ public class EstadoPartidaGanada implements EstadoPartida{
 
     @Override
     public void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa) {
-        jugador.comprar(defensa);
-        mapa.construir(defensa, posicion);
+
     }
 
     @Override
@@ -46,7 +45,6 @@ public class EstadoPartidaGanada implements EstadoPartida{
 
     @Override
     public void insertarEnemigos(List<Enemigo> enemigos, Mapa mapa) {
-        enemigos.forEach(e -> insertarEnemigo(e, mapa));
     }
 
 }

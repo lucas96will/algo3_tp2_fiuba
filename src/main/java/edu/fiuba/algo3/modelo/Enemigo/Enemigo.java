@@ -23,7 +23,7 @@ public abstract class Enemigo {
     }
 
     public Enemigo(EstadoEnemigo unEstado, Movimiento unMovimiento) {
-        posicion = NullPosicion.obtenerNullPosicion();
+        posicion = new NullPosicion();
         movimiento = unMovimiento;
         estado = unEstado;
     }

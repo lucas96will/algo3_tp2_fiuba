@@ -3,6 +3,7 @@ import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerEnemigo;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerTrampa;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -34,7 +35,8 @@ public class Meta implements EstadoPasarela {
         return this;
     }
     @Override
-    public EstadoPasarela construir(TrampaDeArena nuevoEstado) throws Exception{
+    public EstadoPasarela construir(TrampaDeArena nuevoEstado){
+        Jugador.getInstance().obtenerReembolso(new TrampaDeArena());
         throw new ParcelaNoPuedeContenerTrampa("No se puede contruir una trampa de arena en la meta");
     }
 }
