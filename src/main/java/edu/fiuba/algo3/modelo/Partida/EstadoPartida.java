@@ -12,8 +12,6 @@ import java.util.List;
 public interface EstadoPartida {
     boolean equals(Object o);
 
-    int hashCode();
-
     void terminarTurno(Mapa mapa);
 
     void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa);
