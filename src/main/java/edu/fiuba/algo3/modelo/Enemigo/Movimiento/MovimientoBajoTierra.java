@@ -20,8 +20,4 @@ public class MovimientoBajoTierra implements Movimiento {
         }
     }
 
-    @Override
-    public void moverseEnojado(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
-
-    }
 }

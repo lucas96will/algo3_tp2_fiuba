@@ -1,15 +1,17 @@
 package edu.fiuba.algo3.modelo.Enemigo.Movimiento;
 
+import edu.fiuba.algo3.modelo.Direccion.*;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import javafx.geometry.Pos;
 
 import java.util.List;
 
 public class MovimientoVolador implements Movimiento {
 
-    private Posicion obtenerPosicionMeta(List<Parcela> parcelas) {
+    protected Posicion obtenerPosicionMeta(List<Parcela> parcelas) {
         int i = 0;
         Parcela parcela = parcelas.get(i);
         Posicion destino = parcela.obtenerPosicionMeta();//TODO: Add eliminar getter(Encontrar mejor solucion)
@@ -33,23 +35,22 @@ public class MovimientoVolador implements Movimiento {
         }
 
         if (posActual.estaEnLaMismaColumna(destino)) {
-            posActual.acercarseVerticalmente(destino);
+            acercarseVerticalmente(posActual, destino);
         } else {
-            posActual.acercarseHorizontalmente(destino);
+            acercarseHorizontalmente(posActual, destino);
         }
     }
 
-    @Override
-    public void moverseEnojado(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
-        Posicion posLoggerActual = new Posicion(posActual);
 
-        Posicion destino = obtenerPosicionMeta(parcelas);
-
-        if (posActual.equals(destino) && !enemigo.muerto()) {
-            enemigo.daniarAlJugador();
-        }
-
-        posActual.acercarseDiagonalmente(destino); //Algoritmo de Bresenham
-
+    private void acercarseVerticalmente(Posicion actual, Posicion destino) {
+        Direccion direccion = actual.obtenerDireccionVerticalHacia(destino);
+        actual.mover(direccion);
     }
+
+    private void acercarseHorizontalmente(Posicion actual, Posicion destino) {
+        Direccion direccion = actual.obtenerDireccionHorizontalHacia(destino);
+        actual.mover(direccion);
+    }
+
+
 }

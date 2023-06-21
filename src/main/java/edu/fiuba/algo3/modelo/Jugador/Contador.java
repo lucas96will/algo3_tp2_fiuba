@@ -2,8 +2,13 @@ package edu.fiuba.algo3.modelo.Jugador;
 
 import java.util.Random;
 
-public class Contador {
 
+public class Contador {
+    private final int RECOMPENSA_HORMIGAS_MIN = 1;
+    private final int RECOMPENSA_HORMIGAS_MAX = 2;
+    private final int RECOMPENSA_ARANIAS_MIN = 1;
+    private final int RECOMPENSA_ARANIAS_MAX = 10;
+    private final int RECOMPENSA_LECHUZA = 10;
     private int contadorAraniasMuertas;
     private int contadorHormigasMuertas;
     
@@ -32,16 +37,16 @@ public class Contador {
 
     public int obtenerRecompensaHormiga() {
         if(contadorHormigasMuertas > 10) {
-            return 2;
+            return RECOMPENSA_HORMIGAS_MAX;
         }
-        return 1;
+        return RECOMPENSA_HORMIGAS_MIN;
     }
 
     public int obtenerRecompensaArania() {
-        return new Random().nextInt(10) + 1;
+        return new Random().nextInt(RECOMPENSA_ARANIAS_MAX) + RECOMPENSA_ARANIAS_MIN;
     }
 
     public int obtenerRecompensaLechuza() {
-        return 10;
+        return RECOMPENSA_LECHUZA;
     }
 }

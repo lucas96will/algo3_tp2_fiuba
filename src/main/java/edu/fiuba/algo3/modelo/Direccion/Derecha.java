@@ -4,7 +4,12 @@ import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class Derecha implements Direccion {
     @Override
-    public void moverDireccion(Posicion posicion) {
-        posicion.moverDerecha();
+    public int moverFila(int fila) {
+        return fila;
+    }
+
+    @Override
+    public int moverColumna(int columna) {
+        return columna + 1;
     }
 }

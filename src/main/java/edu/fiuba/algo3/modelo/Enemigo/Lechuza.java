@@ -1,10 +1,9 @@
 package edu.fiuba.algo3.modelo.Enemigo;
 
-import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigo;
-import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoEnojado;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoVivo;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoVolador;
+import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoVoladorEnojado;
 import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -43,14 +42,14 @@ public class Lechuza extends Enemigo{
     @Override
     public void recibirAtaque(int unDanio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
         if(posicion.estaEnRango(rangoAtacante, posicionAtacante)) {
-            estado.recibirAtaqueYEvolucionar(this, unDanio, posicionAtacante);
+            estado.recibirAtaque(this, unDanio, posicionAtacante);
         } else {
             throw new FueraDeRangoException();
         }
     }
 
-    public void enojate(int unaVida, int danio, int velocidad){
-        estado = new EstadoEnemigoEnojado(unaVida, danio, velocidad);
+    public void enojate(){
+        movimiento = new MovimientoVoladorEnojado();
     }
 
     public void moverseEnojado(){

@@ -55,11 +55,13 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
     }
 
     @Override
-    public void recibirAtaqueYEvolucionar(Lechuza lechuza, int unDanio, Posicion posicionAtacante) {
-        //Codigo que por temas de herencia solo recibe una lechuza
-        recibirAtaque(lechuza, unDanio, posicionAtacante);
-        if(vida <= vidaInicial * 0.5 && vida > 0){
-            lechuza.enojate(vida, danio, velocidad);
+    public void recibirAtaque(Lechuza lechuza, int unDanio, Posicion posicionAtacante){
+        vida -= unDanio;
+        Logger.getInstance().logExitoso(lechuza + " recibio ataque de Torre en " + posicionAtacante );
+        if(vida <= 0) {
+            lechuza.morir();
+        } else if(vida <= vidaInicial * 0.5 ) {
+            lechuza.enojate();
         }
     }
     

@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Direccion.*;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -62,19 +64,10 @@ public class Posicion {
         return ("( " + fila + ", " + columna + " )");
     }
 
-    public void moverArriba() {
-        fila -= 1;
+    public void mover(Direccion direccion) {
+        this.fila = direccion.moverFila(fila);
+        this.columna = direccion.moverColumna(columna);
     }
-    public void moverDerecha() {
-        columna += 1;
-    }
-    public void moverIzquierda(){
-        columna -= 1;
-    }
-    public void moverAbajo() {
-        fila += 1;
-    }
-    
 
     @Override
     public boolean equals(Object o) {
@@ -89,24 +82,8 @@ public class Posicion {
         return Objects.hash(fila, columna);
     }
 
-    public void acercarseHorizontalmente(Posicion destino) {
-        if(destino.columna > columna){
-            moverDerecha();
-        }if(destino.columna < columna){
-            moverIzquierda();
-        }
-    }
-
     public boolean estaEnLaMismaColumna(Posicion destino){
         return destino.columna == columna;
-    }
-
-    public void acercarseVerticalmente(Posicion destino) {
-        if(destino.fila > fila){
-            moverAbajo();
-        }if(destino.fila < fila){
-            moverArriba();
-        }
     }
 
     public void acercarseDiagonalmente(Posicion destino) {
@@ -132,5 +109,33 @@ public class Posicion {
 
     public int obtenerColumna() {
         return columna;
+    }
+
+    public Direccion obtenerDireccionHorizontalHacia(Posicion destino) {
+        if (columna < destino.columna) {
+            return new Derecha();
+        } else if (columna > destino.columna) {
+            return new Izquierda();
+        } else {
+            return new NullDireccion();
+        }
+    }
+
+    public Direccion obtenerDireccionVerticalHacia(Posicion destino) {
+        if(fila < destino.fila) {
+            return new Abajo();
+        } else if(fila > destino.fila) {
+            return new Arriba();
+        } else {
+            return new NullDireccion();
+        }
+    }
+
+    public int distanciasHorizontalA(Posicion destino) {
+        return Math.abs(destino.columna - columna);
+    }
+
+    public int distanciasVerticalA(Posicion destino) {
+        return Math.abs(destino.fila - fila);
     }
 }

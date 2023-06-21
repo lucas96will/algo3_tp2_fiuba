@@ -12,7 +12,7 @@ public interface EstadoEnemigo {
     void moverse(Movimiento movimiento, List<Parcela> parcelas, Enemigo enemigo, Posicion posActual);
     void daniarAlJugador(String nombreEnemigo);
     void recibirAtaque(Enemigo enemigo, int unDanio, Posicion posicionAtacante);
-    void recibirAtaqueYEvolucionar(Lechuza lechuza, int unDanio, Posicion posicionAtacante);
+    void recibirAtaque(Lechuza lechuza, int unDanio, Posicion posicionAtacante);
 
     void establecerVelocidadRestante(float reduccionVelocidad);
 }

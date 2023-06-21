@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface Movimiento {
     void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual);
-    void moverseEnojado(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual);
 }

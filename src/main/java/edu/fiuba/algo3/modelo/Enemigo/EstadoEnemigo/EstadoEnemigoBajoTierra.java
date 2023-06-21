@@ -57,7 +57,8 @@ public class EstadoEnemigoBajoTierra implements EstadoEnemigo {
     }
 
     @Override
-    public void recibirAtaqueYEvolucionar(Lechuza lechuza, int unDanio, Posicion posicionAtacante) {
+    public void recibirAtaque(Lechuza lechuza, int unDanio, Posicion posicionAtacante){
+
     }
 
     @Override
