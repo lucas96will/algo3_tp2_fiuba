@@ -14,5 +14,5 @@ public interface Parcela {
     Posicion obtenerPosicionMeta();
     Posicion obtenerPosicion();
 
-    void construir(TrampaDeArena trampa, Posicion posicion) throws Exception;
+    void construir(TrampaDeArena trampa, Posicion posicion);
 }

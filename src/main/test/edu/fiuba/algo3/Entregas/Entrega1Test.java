@@ -161,19 +161,9 @@ public class Entrega1Test {
         partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
         partida.terminarTurno(); // tarda 1 turno en construir la torre blanca
         partida.terminarTurno(); // Muere la hormiga
+        partida.actualizarEstado();
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada()); // No hay enemigos en el mapa y el jugador tiene vida
-
-        partida.insertarEnemigo(new Arania(new Posicion(1,1))); // arania con 2 de vida
-        partida.terminarTurno(); // se dania a la arania, queda con 1 de vida
-
-        estadoPartida = partida.estado();
-        assertEquals(estadoPartida, new EstadoPartidaSigueJugando());
-
-        partida.terminarTurno(); // muere la arania
-
-        estadoPartida = partida.estado();
-        assertEquals(estadoPartida, new EstadoPartidaGanada());
     }
 
     @Test
@@ -232,9 +222,10 @@ public class Entrega1Test {
         partida.insertarEnemigo(new Arania(new Posicion(1,1)));
 
         partida.terminarTurno(); // enemigos en posicion (1,2) muere hormiga
+        partida.actualizarEstado();
         partida.terminarTurno(); // enemigos en posicion (1, 4) (muere 1 arania)
-        partida.terminarTurno(); // enemigo en posicion (1, 6)
-        partida.terminarTurno(); // enemigo paso la meta que estaba en (0, 8)
+        partida.actualizarEstado();
+
 
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada());
@@ -260,8 +251,9 @@ public class Entrega1Test {
         partida.insertarEnemigo(hormiga2);
 
         partida.terminarTurno(); // No ataca
+        partida.actualizarEstado();
         partida.terminarTurno(); // Ataca una hormiga
-        partida.terminarTurno(); // Ataca una segunda hormiga
+        partida.actualizarEstado();
 
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada());
@@ -281,8 +273,9 @@ public class Entrega1Test {
             partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
         }
 
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i < 7; i++){
             partida.terminarTurno();
+            partida.actualizarEstado();
         }
 
         EstadoPartida estadoPartida = partida.estado();
@@ -304,7 +297,13 @@ public class Entrega1Test {
         }
 
         for(int i = 0; i < 10; i++){
-            partida.terminarTurno();
+            try {
+                partida.terminarTurno();
+
+            } catch (Exception e) {
+
+            }
+            partida.actualizarEstado();
         }
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaPerdida());

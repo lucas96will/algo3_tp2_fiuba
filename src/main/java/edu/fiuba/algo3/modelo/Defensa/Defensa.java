@@ -28,7 +28,7 @@ public abstract class Defensa implements Cobrable {
     }
     
     public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, String nombre) {
-        this.posicion = NullPosicion.obtenerNullPosicion();
+        this.posicion = new NullPosicion();
         this.estado = unEstadoDefensa;
         this.costeEnCreditos = costo;
         this.rango = rango;
@@ -43,7 +43,7 @@ public abstract class Defensa implements Cobrable {
             recurso.gastar(costeEnCreditos);
 
         } catch (RecursosInsuficientesException e) {
-            throw new NoSePudoComprarException();
+            throw new NoSePudoComprarException("Creditos insuficientes");
         }
     }
     

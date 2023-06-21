@@ -2,8 +2,6 @@ package edu.fiuba.algo3.modelo.Partida;
 
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
-import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -34,50 +32,28 @@ public class Partida {
 
 
     public void terminarTurno() {
-        try {
-            if (enemigosPorTurno.size() != 0) {
-                anadirEnemigos(enemigosPorTurno.get(0));
-                enemigosPorTurno.remove(0);
-            }
-            estado.terminarTurno(mapa);
-            turnos.incrementarTurno();
-            actualizarEstado();
-        } catch (RuntimeException e) {
-            //TODO: averiguar que hacer con esta excepcion
+        if (enemigosPorTurno.size() != 0) {
+            anadirEnemigos(enemigosPorTurno.get(0));
+            enemigosPorTurno.remove(0);
         }
-
+        estado.terminarTurno(mapa);
+        turnos.incrementarTurno();
+        actualizarEstado();
 
     }
 
     public void construir(Defensa defensa, Posicion posicion) {
-        try {
-            estado.construir(defensa, posicion, jugador, mapa);
-        } catch (NoSePudoComprarException a) {
-            throw new RuntimeException("No se pudo comprar defensa");
-        } catch (DefensaNoSePudoConstruir e) {
-            jugador.obtenerReembolso(defensa);
-            throw new RuntimeException("No se puede construir");
-        } //TODO: No usar el try catch como un if
+        estado.construir(defensa, posicion, jugador, mapa);
     }
 
     public void construir(TrampaDeArena trampa, Posicion posicion) {
-        try {
-            estado.construirTrampa(trampa, posicion, jugador, mapa);
-        } catch (NoSePudoComprarException e) {
-            throw new RuntimeException("No se pudo comprar trampa");
-        } catch (RuntimeException e) {
-            jugador.obtenerReembolso(trampa);
-            throw new RuntimeException("No se puede construir");
-        }//TODO: No usar el try catch como un if, codigo repetido
+        estado.construirTrampa(trampa, posicion, jugador, mapa);
     }
 
     public void insertarEnemigo(Enemigo enemigo) {
-        try {
-            estado.insertarEnemigo(enemigo, mapa);
-            actualizarEstado();
-        } catch (RuntimeException e) {
-            //TODO: averiguar que hacer con esta excepcion
-        }
+        estado.insertarEnemigo(enemigo, mapa);
+        actualizarEstado();
+
     }
 
     public EstadoPartida estado() {
@@ -85,12 +61,8 @@ public class Partida {
     }
 
     public void anadirEnemigos(List<Enemigo> enemigos) {
-        try {
-            estado.insertarEnemigos(enemigos, mapa);
-            actualizarEstado();
-        } catch (RuntimeException e) {
-        //TODO: averiguar que hacer con esta excepcion
-        }
+        estado.insertarEnemigos(enemigos, mapa);
+        actualizarEstado();
     }
 
     public void actualizarEstado() {

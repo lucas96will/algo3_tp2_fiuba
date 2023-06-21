@@ -3,15 +3,11 @@ import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import java.util.Arrays;
 import java.util.List;
 
-public final class NullPosicion extends Posicion {
+public class NullPosicion extends Posicion {
     private static NullPosicion pos = new NullPosicion();
 
-    private NullPosicion() {
+    public NullPosicion() {
         super(-1, -1);
-    }
-
-    public static NullPosicion obtenerNullPosicion() {
-        return pos;
     }
 
     public boolean estaEnRango(int rango, Posicion posicion) {

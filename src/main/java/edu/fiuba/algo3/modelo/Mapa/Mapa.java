@@ -78,7 +78,7 @@ public class Mapa {
     }
 
     public boolean sinEnemigos() {
-        return enemigos.size() == 0;
+        return enemigos.size() == 0 ;
     }
 
     public void agregarParcelaEnPosicion(Parcela parcela, Posicion posicion) {
@@ -93,11 +93,7 @@ public class Mapa {
     public void construirTrampa(TrampaDeArena trampa, Posicion posicion){
 
         for(Parcela parcela: parcelas){
-            try {
-                parcela.construir(trampa, posicion);
-            } catch (Exception e){
-                throw new RuntimeException("Trampa no se pudo Construir");
-            }
+            parcela.construir(trampa, posicion);
         }
         Logger.getInstance().logExitoso(trampa + " construida en " + posicion);
     }

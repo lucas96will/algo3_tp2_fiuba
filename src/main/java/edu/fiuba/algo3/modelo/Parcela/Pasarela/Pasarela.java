@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
@@ -22,10 +23,11 @@ public class Pasarela implements Parcela {
 
     public Pasarela(EstadoPasarela unEstado) {
         estado = unEstado;
-        posicion = NullPosicion.obtenerNullPosicion();
+        posicion = new NullPosicion();
     }
 
     public void insertarDefensa(Defensa defensa) throws Exception {
+        Jugador.getInstance().obtenerReembolso(defensa);
         throw new Exception("No se puede construir una defensa en una pasarela");
     }
     public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
@@ -75,7 +77,7 @@ public class Pasarela implements Parcela {
         estado = estado.actualizarEstado();
     }
 
-    public void construir(TrampaDeArena nuevoEstado, Posicion unaPosicion) throws Exception{
+    public void construir(TrampaDeArena nuevoEstado, Posicion unaPosicion){
         if(posicion.equals(unaPosicion)) {
             estado = estado.construir(nuevoEstado);
         }

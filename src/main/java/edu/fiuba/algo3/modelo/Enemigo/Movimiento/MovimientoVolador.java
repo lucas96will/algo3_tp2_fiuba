@@ -14,7 +14,7 @@ public class MovimientoVolador implements Movimiento {
         Parcela parcela = parcelas.get(i);
         Posicion destino = parcela.obtenerPosicionMeta();//TODO: Add eliminar getter(Encontrar mejor solucion)
 
-        while (destino.equals(NullPosicion.obtenerNullPosicion()) && i < parcelas.size() - 1) {
+        while (destino.equals(new NullPosicion()) && i < parcelas.size() - 1) {
             i++;
             parcela = parcelas.get(i);
             destino = parcela.obtenerPosicionMeta();

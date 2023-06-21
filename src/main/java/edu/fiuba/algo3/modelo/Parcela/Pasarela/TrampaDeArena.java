@@ -48,7 +48,7 @@ public class TrampaDeArena implements EstadoPasarela, Cobrable {
     }
 
     public Posicion orientacionCosmica(Posicion posicion) {
-        return NullPosicion.obtenerNullPosicion();
+        return new NullPosicion();
     }
 
     public void establecerAnterior(EstadoPasarela unEstadoPasarela) {
@@ -65,7 +65,7 @@ public class TrampaDeArena implements EstadoPasarela, Cobrable {
             recurso.gastar(costeEnCreditos);
 
         } catch (RecursosInsuficientesException e) {
-            throw new NoSePudoComprarException();
+            throw new NoSePudoComprarException("No se pudo comprar trampa de arena");
         }
     }
 
