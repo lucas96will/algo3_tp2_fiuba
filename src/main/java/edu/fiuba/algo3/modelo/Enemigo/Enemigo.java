@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigo;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
-import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -29,12 +28,8 @@ public abstract class Enemigo {
         estado = unEstado;
     }
 
-    public void recibirAtaque(int unDanio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
-        if(posicion.estaEnRango(rangoAtacante, posicionAtacante)) {
-            estado.recibirAtaque(this, unDanio, posicionAtacante);
-        } else {
-            throw new FueraDeRangoException();
-        }
+    public void recibirAtaque(int unDanio) {
+        estado.recibirAtaque(this, unDanio);
     }
 
     public abstract void morir();
@@ -52,8 +47,8 @@ public abstract class Enemigo {
     
     public abstract void daniarAlJugador();
 
-    public boolean estaEnRango(int rango, Posicion posicion) {
-        return this.posicion.estaEnRango(rango, posicion);
+    public boolean estaEnRango(int rango, Posicion unaPosicion) {
+        return this.posicion.estaEnRango(rango, unaPosicion);
     }
 
     public void establecerVelocidad(float reduccionVelocidad) {

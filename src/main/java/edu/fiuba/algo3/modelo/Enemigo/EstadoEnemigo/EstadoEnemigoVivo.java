@@ -43,18 +43,16 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
     }
 
     @Override
-    public void recibirAtaque(Enemigo unEnemigo, int unDanio, Posicion posicionAtacante) {
+    public void recibirAtaque(Enemigo unEnemigo, int unDanio) {
         vida -= unDanio;
-        Logger.getInstance().logExitoso(unEnemigo + " recibio ataque de Torre en " + posicionAtacante );
         if(vida <= 0) {
             unEnemigo.morir();
         }
     }
 
     @Override
-    public void recibirAtaque(Lechuza lechuza, int unDanio, Posicion posicionAtacante){
+    public void recibirAtaque(Lechuza lechuza, int unDanio){
         vida -= unDanio;
-        Logger.getInstance().logExitoso(lechuza + " recibio ataque de Torre en " + posicionAtacante );
         if(vida <= 0) {
             lechuza.morir();
         } else if(vida <= vidaInicial * 0.5 ) {

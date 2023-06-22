@@ -4,7 +4,6 @@ import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoVivo;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoVolador;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoVoladorEnojado;
-import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -43,12 +42,8 @@ public class Lechuza extends Enemigo{
     }
 
     @Override
-    public void recibirAtaque(int unDanio,int rangoAtacante, Posicion posicionAtacante) throws FueraDeRangoException {
-        if(posicion.estaEnRango(rangoAtacante, posicionAtacante)) {
-            estado.recibirAtaque(this, unDanio, posicionAtacante);
-        } else {
-            throw new FueraDeRangoException();
-        }
+    public void recibirAtaque(int unDanio){
+        estado.recibirAtaque(this, unDanio);
     }
 
     public void enojate(){
