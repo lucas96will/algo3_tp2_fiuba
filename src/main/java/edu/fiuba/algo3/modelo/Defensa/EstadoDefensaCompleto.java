@@ -7,19 +7,11 @@ import java.util.List;
 
 public class EstadoDefensaCompleto implements EstadoDefensa{
 
-    private boolean noAtacoEnEsteTurno;
+
 
     public EstadoDefensaCompleto(){
-        noAtacoEnEsteTurno = true;
-    }
-    @Override
-    public int atacar(List<Pasarela> pasarelasEnRango, int danio) {
-        return 0;
     }
 
-    public int atacarEnemigos(Pasarela pasarela, List<Enemigo> enemigos, int danio) {
-        return 0;
-    }
 
     @Override
     public void siguienteEstado(Defensa defensa) {

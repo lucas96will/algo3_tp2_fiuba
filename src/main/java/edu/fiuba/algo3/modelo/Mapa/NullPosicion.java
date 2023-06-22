@@ -19,9 +19,6 @@ public class NullPosicion extends Posicion {
         return false;
     }
 
-    public boolean esLateral(int cantColumnas, int cantFilas) {
-        return false;
-    }
 
     public int cantidadDePasarelasAlrededor(List<Parcela> pasarelas) {
         return 0;

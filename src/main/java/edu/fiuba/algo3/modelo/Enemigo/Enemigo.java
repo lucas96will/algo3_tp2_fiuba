@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigo;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Excepciones.FueraDeRangoException;
+import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
@@ -58,4 +59,7 @@ public abstract class Enemigo {
     public void establecerVelocidad(float reduccionVelocidad) {
         estado.establecerVelocidadRestante(reduccionVelocidad);
     }
+
+    public abstract void obtenerRecompensa(Recurso recursoJugador, int contadorMuertes);
+    public abstract String nombre();
 }

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoBajoTierra;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoTerrestre;
+import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 
@@ -38,5 +39,15 @@ public class Topo extends Enemigo {
     public void daniarAlJugador() {
         estado.daniarAlJugador(this.toString());
         this.estado = new EstadoEnemigoMuerto();
+    }
+
+    @Override
+    public void obtenerRecompensa(Recurso recursoJugador, int contadorMuertes) {
+        throw new RuntimeException("El topo es invencible porque va bajo tierra");
+    }
+
+    @Override
+    public String nombre() {
+        return ("Topo");
     }
 }

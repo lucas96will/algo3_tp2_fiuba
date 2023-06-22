@@ -45,16 +45,13 @@ public class Jugador {
         this.contador = unContador;
     }
 
-    public void incrementarContadorAranias() {
-        contador.incrementarContadorAranias();
+    public void incrementarContador(Enemigo unEnemigo) {
+        contador.incrementarContador(unEnemigo);
     }
 
-    public void incrementarContadorHormigas() {
-        contador.incrementarContadorHormigas();
-    }
 
-    public int obtenerMuertesHormigas() {
-        return contador.obtenerMuertesHormigas();
+    public int obtenerMuertes(Enemigo unEnemigo) {
+        return contador.obtenerMuertes(unEnemigo);
     }
 
     public int obtenerVidaJugador() {
@@ -65,9 +62,6 @@ public class Jugador {
         vida -= danio;
     }
 
-    public int obtenerMuertesArania() {
-        return contador.obtenerMuertesAranias();
-    }
 
     public void comprar(Cobrable cobrable) throws NoSePudoComprarException {
         cobrable.comprate(recurso);
@@ -98,7 +92,6 @@ public class Jugador {
     }
 
     public boolean muerto() {
-        //refactorizar
         Jugador jugador = Jugador.getInstance();
         return jugador.obtenerVidaJugador() <= 0;
     }
@@ -112,23 +105,9 @@ public class Jugador {
         return recurso.valorMonetario();
     }
 
-    public void sumarMonedas(int recompensa) {
-        recurso.sumarMonedas(recompensa);
-    }
 
-    public void obtenerRecompensa(Arania arania) {
-        int recompensa = contador.obtenerRecompensaArania();
-        recurso.sumarMonedas(recompensa);
-    }
-
-    public void obtenerRecompensa(Hormiga hormiga) {
-        int recompensa = contador.obtenerRecompensaHormiga();
-        recurso.sumarMonedas(recompensa);
-    }
-
-    public void obtenerRecompensa(Lechuza lechuza) {
-        int recompensa = contador.obtenerRecompensaLechuza();
-        recurso.sumarMonedas(recompensa);
+    public void obtenerRecompensa(Enemigo unEnemigo){
+        contador.obtenerRecompensa(unEnemigo, recurso);
     }
 
     public void eliminarPrimeraTorre() {

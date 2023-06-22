@@ -44,36 +44,6 @@ public class TorreTest {
         turnos.resetear();
     }
 
-/*    @Test
-    public void noAtacaSiEstaIncompleta(){
-        Logger.getInstance().logEstado("\n--> TESTUNITARIO TorreBlanca test 1: Torre no ataca si está incompleta");
-        EstadoDefensa estadoIncompletoMock = mock(EstadoDefensaIncompleto.class);
-        Hormiga hormigaMock = mock(Hormiga.class);
-
-        when(hormigaMock.estaEnRango(anyInt(), any(Posicion.class))).thenReturn(true);
-
-
-        Torre torreBlanca = new Torre(20,2,5, estadoIncompletoMock, new Posicion(1,4), "Torre Blanca");
-
-        List<Enemigo> enemigos = new ArrayList<Enemigo>();
-        enemigos.add(hormigaMock);
-        torreBlanca.atacar(enemigos);
-        verify(hormigaMock, never()).recibirAtaque(any(int.class), any(int.class), any(Posicion.class));
-    }
-
-    @Test
-    public void AtacaSiEstaCompleta(){
-        Logger.getInstance().logEstado("\n--> TESTUNITARIO TorreBlanca test 2: Torre ataca si está incompleta");
-        EstadoDefensa estadoCompletoMock = mock(EstadoDefensaCompleto.class);
-        Hormiga hormigaMock = mock(Hormiga.class);
-
-        Torre torrePlateada = new Torre(20,2,5, estadoCompletoMock, new Posicion(1,4), "Torre Blanca");
-        List<Enemigo> enemigos = new ArrayList<Enemigo>();
-        enemigos.add(hormigaMock);
-        torrePlateada.atacar(enemigos);
-        verify(hormigaMock).recibirAtaque(any(int.class), any(int.class), any(Posicion.class));
-
-    }*/
 
     @Test
     public void seConstruyeDespuesDeUnTurno() {

@@ -12,10 +12,6 @@ public class  EstadoDefensaIncompleto implements EstadoDefensa{
     public EstadoDefensaIncompleto(int tiempoConstruccion){
         this.tiempoConstruccion = tiempoConstruccion;
     }
-    @Override
-    public int atacar(List<Pasarela> pasarelasEnRango, int danio) {
-        return 0;
-    }
 
     @Override
     public void siguienteEstado(Defensa defensa) {

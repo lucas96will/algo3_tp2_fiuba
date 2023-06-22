@@ -55,7 +55,6 @@ public class CargadorJson implements Cargador {
     }
 
     private void guardarEnemigoEnLista(List<List<Enemigo>> listaDeEnemigosPorTurno, JSONObject jsonEnemigos) {
-        long numeroDeTurno = (long) jsonEnemigos.get("turno");
 
         JSONObject enemigos = (JSONObject) jsonEnemigos.get("enemigos");
         List<Enemigo> enemigosTurnoActual = new ArrayList<>();
@@ -190,13 +189,13 @@ public class CargadorJson implements Cargador {
             Mapa mapa = new Mapa();
             int contadorColumna;
             int cantidadColumnas = ((JSONArray) mapaJson.get(filas[1])).size();
-            String mapeo[][] = new String[filas.length][cantidadColumnas];
+            String[][] mapeo = new String[filas.length][cantidadColumnas];
 
-            for (int i = 0; i < filas.length; i++) {
+            for (Object fila : filas) {
                 contadorColumna = 0;
-                JSONArray columna = (JSONArray) mapaJson.get(filas[i]);
+                JSONArray columna = (JSONArray) mapaJson.get(fila);
                 for (Object parcela : columna) {
-                    mapeo[Integer.parseInt((String) filas[i]) - 1][contadorColumna] = (String) parcela;
+                    mapeo[Integer.parseInt((String) fila) - 1][contadorColumna] = (String) parcela;
                     contadorColumna++;
                 }
             }

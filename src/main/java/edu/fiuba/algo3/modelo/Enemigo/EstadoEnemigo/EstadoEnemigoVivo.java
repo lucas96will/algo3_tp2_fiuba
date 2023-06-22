@@ -32,10 +32,7 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
             movimiento.moverse(parcelas, enemigo, posActual);
             velocidadRestante--;
         }
-        /*
-        for(int i = 0; i < velocidad; i++){
-            movimiento.moverse(parcelas, enemigo, posActual);
-        }*/
+
     }
 
     @Override
@@ -70,11 +67,6 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
         if(velocidadRestante > 1){
             velocidadRestante *= reduccion;
         }
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     @Override

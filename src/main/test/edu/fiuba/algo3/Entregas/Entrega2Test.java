@@ -4,6 +4,10 @@ import edu.fiuba.algo3.modelo.Cargador.CargadorJson;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Defensa.Torre;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
+import edu.fiuba.algo3.modelo.Enemigo.Arania;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
+import edu.fiuba.algo3.modelo.Factory.EnemigoFactory;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Partida.*;
@@ -104,7 +108,7 @@ public class Entrega2Test {
         Torre torrePlateadaTres = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
 
         juego.construir(torrePlateada, new Posicion(3,3));
-        juego.construir(torrePlateadaDos, new Posicion(8,3));
+        juego.construir(torrePlateadaDos, new Posicion(6,1));
         juego.construir(torrePlateadaTres, new Posicion(12,10));
 
         for(int i = 0; i < 50; i++) { // Juego termina, danio causado al jugador = 22
@@ -113,12 +117,11 @@ public class Entrega2Test {
             } catch (Exception e) {
 
             }
-
         }
-
+        
         //11 hormigas 10 aranias
-        int contadorMuertesArania = jugador.obtenerMuertesArania();
-        int contadorMuertesHormiga = jugador.obtenerMuertesHormigas();
+        int contadorMuertesArania = jugador.obtenerMuertes(EnemigoFactory.obtener("arana"));
+        int contadorMuertesHormiga = jugador.obtenerMuertes(EnemigoFactory.obtener("hormiga"));
 
         int muertesAraniaEsperada = 10;
         int muertesHormigaEsperada = 11;
@@ -163,7 +166,7 @@ public class Entrega2Test {
         }
 
         int muertesHormigaEsperada = 4;
-        int contadorMuertesHormiga = Jugador.getInstance().obtenerMuertesHormigas();
+        int contadorMuertesHormiga = Jugador.getInstance().obtenerMuertes(EnemigoFactory.obtener("hormiga"));;
 
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde deberian y la torre fue construida en tierra
     }
@@ -201,8 +204,8 @@ public class Entrega2Test {
         int muertesHormigaEsperada = 11;
         int muertesAraniaEsperada = 10;
 
-        int contadorMuertesHormiga = Jugador.getInstance().obtenerMuertesHormigas();
-        int contadorMuertesArania = Jugador.getInstance().obtenerMuertesArania();
+        int contadorMuertesHormiga = Jugador.getInstance().obtenerMuertes(EnemigoFactory.obtener("hormiga"));
+        int contadorMuertesArania = Jugador.getInstance().obtenerMuertes(EnemigoFactory.obtener("Arania"));
         int vidaEsperada = 20;
         assertEquals(vidaEsperada, jugadorSingleton.obtenerVidaJugador());
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde y cuando deberian y
