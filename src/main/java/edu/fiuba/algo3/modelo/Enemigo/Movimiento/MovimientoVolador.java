@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import javafx.geometry.Pos;
 
 import java.util.List;
 
@@ -14,12 +13,12 @@ public class MovimientoVolador implements Movimiento {
     protected Posicion obtenerPosicionMeta(List<Parcela> parcelas) {
         int i = 0;
         Parcela parcela = parcelas.get(i);
-        Posicion destino = parcela.obtenerPosicionMeta();//TODO: Add eliminar getter(Encontrar mejor solucion)
+        Posicion destino = parcela.obtenerPosicionFinal();//TODO: Add eliminar getter(Encontrar mejor solucion)
 
         while (destino.equals(new NullPosicion()) && i < parcelas.size() - 1) {
             i++;
             parcela = parcelas.get(i);
-            destino = parcela.obtenerPosicionMeta();
+            destino = parcela.obtenerPosicionFinal();
         }
         return destino;
     }
@@ -39,6 +38,7 @@ public class MovimientoVolador implements Movimiento {
         } else {
             acercarseHorizontalmente(posActual, destino);
         }
+
     }
 
 

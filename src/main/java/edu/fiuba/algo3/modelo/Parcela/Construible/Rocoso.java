@@ -28,8 +28,7 @@ public class Rocoso extends Construible {
     }
 
     @Override
-    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
-        return false;
+    public void moveElEnemigo(Enemigo enemigo, Posicion actual) {
     }
 
     @Override

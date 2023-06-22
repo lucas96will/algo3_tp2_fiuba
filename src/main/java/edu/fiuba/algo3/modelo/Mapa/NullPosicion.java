@@ -1,11 +1,8 @@
 package edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
-import java.util.Arrays;
 import java.util.List;
 
 public class NullPosicion extends Posicion {
-    private static NullPosicion pos = new NullPosicion();
-
     public NullPosicion() {
         super(-1, -1);
     }

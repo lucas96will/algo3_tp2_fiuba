@@ -51,10 +51,6 @@ public class Lechuza extends Enemigo{
     public void enojate(){
         movimiento = new MovimientoVoladorEnojado();
     }
-
-    public void moverseEnojado(){
-        //Cuando tiene 50% menos de la vida
-    }
     
     @Override 
     public String toString() {

@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
 import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
@@ -22,11 +21,9 @@ public class TrampaDeArena implements EstadoPasarela, Cobrable {
         costeEnCreditos = 25;
     }
 
-    public boolean moverEnemigo(Enemigo enemigo, Posicion unaPosicion) {
-
+    public void moverEnemigo(Enemigo enemigo, Posicion unaPosicion) {
         enemigo.establecerVelocidad(reduccionVelocidad);
         estadoAnterior.moverEnemigo(enemigo, unaPosicion);
-        return true;
     }
 
     @Override
@@ -47,7 +44,7 @@ public class TrampaDeArena implements EstadoPasarela, Cobrable {
         return this;
     }
 
-    public Posicion orientacionCosmica(Posicion posicion) {
+    public Posicion obtenerPosicionFinal(Posicion posicion) {
         return new NullPosicion();
     }
 

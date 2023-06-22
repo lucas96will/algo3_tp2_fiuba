@@ -23,6 +23,7 @@ public class MovimientoVoladorEnojado extends MovimientoVolador{
 
 
     private void acercarseDiagonalmente(Posicion actual, Posicion destino) {
+        // Algoritmo de  Bresenham
         int distanciaVertical = actual.distanciasVerticalA(destino);
         int distanciaHorizontal = actual.distanciasHorizontalA(destino);
         Direccion direccionVertical = actual.obtenerDireccionVerticalHacia(destino);

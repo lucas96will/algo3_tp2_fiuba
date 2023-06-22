@@ -38,7 +38,7 @@ public abstract class Construible implements Parcela {
     }
 
     @Override
-    public Posicion obtenerPosicionMeta() {
+    public Posicion obtenerPosicionFinal() {
         return new NullPosicion();
     }
     

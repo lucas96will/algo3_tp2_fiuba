@@ -7,19 +7,14 @@ import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import java.util.List;
 
 public class MovimientoTerrestre implements Movimiento {
-
-    public MovimientoTerrestre(){
-
-    }
-
     @Override
     public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
-        boolean seMovio = false;
         int k = 0;
+        Posicion posicionInicial = new Posicion(posActual);
         Parcela unaParcela;
-        while (k < parcelas.size() && !seMovio) {
+        while (k < parcelas.size() && enemigo.estaEnRango(0, posicionInicial)) {
             unaParcela = parcelas.get(k);
-            seMovio = unaParcela.moveElEnemigo(enemigo, posActual);
+            unaParcela.moveElEnemigo(enemigo, posActual);
             k++;
         }
     }

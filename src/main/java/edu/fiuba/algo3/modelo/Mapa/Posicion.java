@@ -39,14 +39,6 @@ public class Posicion {
         return posiciones.stream().anyMatch(p -> p.fila == this.fila && p.columna == this.columna);
     }
 
-    public boolean esNull() {
-        return false;
-    }
-
-    public boolean esLateral(int cantColumnas, int cantFilas) {
-        return (fila == 1 || fila == cantFilas || columna == 1 || columna == cantColumnas);
-    }
-
     public int cantidadDePasarelasAlrededor(List<Parcela> pasarelas) {
         int contador = 0;
 
@@ -84,23 +76,6 @@ public class Posicion {
 
     public boolean estaEnLaMismaColumna(Posicion destino){
         return destino.columna == columna;
-    }
-
-    public void acercarseDiagonalmente(Posicion destino) {
-        // Algoritmo de  Bresenham
-        int distanciaHorizontal = Math.abs(destino.columna - columna);
-        int distanciaVertical = Math.abs(destino.fila - fila);
-        int direccionVertical = (columna < destino.columna) ? 1 : -1;
-        int direccionHorizontal = (fila < destino.fila) ? 1 : -1;
-        int error = (distanciaHorizontal- distanciaVertical) * 2;
-        
-        if(error > -distanciaVertical){
-            columna += direccionVertical;
-        }
-        if(error < distanciaHorizontal){
-            fila += direccionHorizontal;
-        }
-
     }
 
     public int obtenerFila() {

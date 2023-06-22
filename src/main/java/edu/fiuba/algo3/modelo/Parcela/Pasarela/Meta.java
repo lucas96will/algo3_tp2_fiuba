@@ -13,9 +13,8 @@ public class Meta implements EstadoPasarela {
 
     private Direccion direccion;
 
-    public boolean moverEnemigo(Enemigo enemigo, Posicion posicion) {
+    public void moverEnemigo(Enemigo enemigo, Posicion posicion) {
         enemigo.daniarAlJugador();
-        return true;
     }
     
     @Override
@@ -27,7 +26,7 @@ public class Meta implements EstadoPasarela {
     public void insertarEnemigo(Enemigo unEnemigo, Posicion posicion){
         
     }
-    public Posicion orientacionCosmica(Posicion posicion) {
+    public Posicion obtenerPosicionFinal(Posicion posicion) {
         return posicion;
     }
 

@@ -9,6 +9,7 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.Defensa;
     exports edu.fiuba.algo3.modelo.Parcela.Construible;
     exports edu.fiuba.algo3.modelo.Partida;
+    exports edu.fiuba.algo3.modelo.Direccion;
     exports edu.fiuba.algo3.modelo.Parcela;
     exports edu.fiuba.algo3.modelo.Factory;
     exports edu.fiuba.algo3.modelo.Mapa;

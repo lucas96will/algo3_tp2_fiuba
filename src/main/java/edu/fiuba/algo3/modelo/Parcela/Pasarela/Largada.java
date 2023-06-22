@@ -12,9 +12,8 @@ public class Largada implements EstadoPasarela {
 
     private Direccion direccion;
 
-    public boolean moverEnemigo(Enemigo enemigo, Posicion unaPosicion) {
+    public void moverEnemigo(Enemigo enemigo, Posicion unaPosicion) {
         unaPosicion.mover(direccion);
-        return true;
     }
 
     @Override
@@ -26,7 +25,7 @@ public class Largada implements EstadoPasarela {
     public void insertarEnemigo(Enemigo unEnemigo, Posicion posicion){
         unEnemigo.mover(posicion);
     }
-    public Posicion orientacionCosmica(Posicion posicion) {
+    public Posicion obtenerPosicionFinal(Posicion posicion) {
         return new NullPosicion();
     }
 
