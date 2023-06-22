@@ -61,6 +61,10 @@ public class Mapa {
     public void actualizarEstadoDefensas() {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarDefensas();
+
+        for(Parcela unaParcela : parcelas){
+            unaParcela.actualizarEstado();
+        }
     }
 
     public void defensasAtacar() {

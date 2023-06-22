@@ -38,5 +38,10 @@ public class Tierra extends Construible {
         this.posicion = posicion;
     }
 
+    @Override
+    public void actualizarEstado() {
+
+    }
+
 
 }

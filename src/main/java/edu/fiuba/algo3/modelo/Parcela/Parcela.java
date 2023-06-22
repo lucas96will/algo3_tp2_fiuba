@@ -15,4 +15,6 @@ public interface Parcela {
     Posicion obtenerPosicion();
 
     void construir(TrampaDeArena trampa, Posicion posicion);
+
+    void actualizarEstado();
 }

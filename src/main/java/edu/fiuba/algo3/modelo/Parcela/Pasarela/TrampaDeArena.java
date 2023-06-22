@@ -37,7 +37,7 @@ public class TrampaDeArena implements EstadoPasarela, Cobrable {
     }
 
     public EstadoPasarela actualizarEstado() {
-        if (vidaUtil == 0) {
+        if (vidaUtil == 1) {
             return estadoAnterior;
         }
         vidaUtil--;

@@ -118,7 +118,7 @@ public class Entrega2Test {
 
             }
         }
-        
+
         //11 hormigas 10 aranias
         int contadorMuertesArania = jugador.obtenerMuertes(EnemigoFactory.obtener("arana"));
         int contadorMuertesHormiga = jugador.obtenerMuertes(EnemigoFactory.obtener("hormiga"));
@@ -166,7 +166,7 @@ public class Entrega2Test {
         }
 
         int muertesHormigaEsperada = 4;
-        int contadorMuertesHormiga = Jugador.getInstance().obtenerMuertes(EnemigoFactory.obtener("hormiga"));;
+        int contadorMuertesHormiga = Jugador.getInstance().obtenerMuertes(EnemigoFactory.obtener("hormiga"));
 
         assertEquals(muertesHormigaEsperada, contadorMuertesHormiga); // reviso si la torre ataca de manera correcta, lo que quiere decir que los enemigos aparecieron donde deberian y la torre fue construida en tierra
     }
