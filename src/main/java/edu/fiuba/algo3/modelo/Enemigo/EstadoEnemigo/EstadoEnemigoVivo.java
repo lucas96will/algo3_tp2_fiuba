@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo;
 
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Enemigo.Lechuza;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -32,10 +31,7 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
             movimiento.moverse(parcelas, enemigo, posActual);
             velocidadRestante--;
         }
-        /*
-        for(int i = 0; i < velocidad; i++){
-            movimiento.moverse(parcelas, enemigo, posActual);
-        }*/
+
     }
 
     @Override
@@ -46,21 +42,13 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
     }
 
     @Override
-    public void recibirAtaque(Enemigo unEnemigo, int unDanio, Posicion posicionAtacante) {
+    public void recibirAtaque(Enemigo unEnemigo, int unDanio) {
         vida -= unDanio;
-        Logger.getInstance().logExitoso(unEnemigo + " recibio ataque de Torre en " + posicionAtacante );
         if(vida <= 0) {
             unEnemigo.morir();
+            unEnemigo.siguienteEstado(vida, vidaInicial);
         }
-    }
-
-    @Override
-    public void recibirAtaqueYEvolucionar(Lechuza lechuza, int unDanio, Posicion posicionAtacante) {
-        //Codigo que por temas de herencia solo recibe una lechuza
-        recibirAtaque(lechuza, unDanio, posicionAtacante);
-        if(vida <= vidaInicial * 0.5 && vida > 0){
-            lechuza.enojate(vida, danio, velocidad);
-        }
+        unEnemigo.siguienteEstado(vida, vidaInicial);
     }
     
     @Override
@@ -68,11 +56,6 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
         if(velocidadRestante > 1){
             velocidadRestante *= reduccion;
         }
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
     }
 
     @Override

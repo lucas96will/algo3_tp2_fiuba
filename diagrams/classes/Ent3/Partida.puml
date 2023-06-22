@@ -1,0 +1,77 @@
+@startuml
+!include Jugador.puml!WITHOUTHATTRIBUTES
+!include Mapa.puml!WITHOUTHATTRIBUTES
+
+class Partida.EstadoPartidaSigueJugando {
++ boolean equals(Object)
++ void terminarTurno(Mapa)
++ void construir(Defensa,Posicion,Jugador,Mapa)
++ void construirTrampa(TrampaDeArena,Posicion,Jugador,Mapa)
++ void insertarEnemigo(Enemigo,Mapa)
++ void insertarEnemigos(List<Enemigo>,Mapa)
+}
+interface Partida.EstadoPartida {
+~ boolean equals(Object)
+~ void terminarTurno(Mapa)
+~ void construir(Defensa,Posicion,Jugador,Mapa)
+~ void insertarEnemigo(Enemigo,Mapa)
+~ void insertarEnemigos(List<Enemigo>,Mapa)
+~ void construirTrampa(TrampaDeArena,Posicion,Jugador,Mapa)
+}
+class Partida.EstadoPartidaPerdida {
++ boolean equals(Object)
++ void terminarTurno(Mapa)
++ void construir(Defensa,Posicion,Jugador,Mapa)
++ void insertarEnemigo(Enemigo,Mapa)
++ void insertarEnemigos(List<Enemigo>,Mapa)
++ void construirTrampa(TrampaDeArena,Posicion,Jugador,Mapa)
+}
+class Partida.Logger {
+- {static} Logger logger
+- <<Create>> Logger()
++ {static} Logger getInstance()
++ void logExitoso(String)
++ void logError(String)
++ void logEstado(String)
+}
+class Partida.Partida {
++ <<Create>> Partida()
++ void crearPartida(Jugador,Mapa)
++ void terminarTurno()
++ void construir(Defensa,Posicion)
++ void construir(TrampaDeArena,Posicion)
++ void insertarEnemigo(Enemigo)
++ EstadoPartida estado()
++ void anadirEnemigos(List<Enemigo>)
++ void actualizarEstado()
+}
+class Partida.ContadorTurnos {
+- {static} ContadorTurnos contador
+- <<Create>> ContadorTurnos()
++ {static} ContadorTurnos obtenerContador()
++ int obtenerTurnoActual()
++ void incrementarTurno()
++ void resetear()
+}
+class Partida.EstadoPartidaGanada {
++ boolean equals(Object)
++ int hashCode()
++ void terminarTurno(Mapa)
++ void construir(Defensa,Posicion,Jugador,Mapa)
++ void construirTrampa(TrampaDeArena,Posicion,Jugador,Mapa)
++ void insertarEnemigo(Enemigo,Mapa)
++ void insertarEnemigos(List<Enemigo>,Mapa)
+}
+
+
+Partida.EstadoPartida <|.. Partida.EstadoPartidaSigueJugando
+Partida.EstadoPartida <|.. Partida.EstadoPartidaPerdida
+Partida.EstadoPartida <|.. Partida.EstadoPartidaGanada
+
+Partida.Partida *- EstadoPartida
+Partida.Partida *-- ContadorTurnos
+Partida.Partida ..> Logger
+
+Partida.Partida o-- Mapa.Mapa
+Partida.Partida o-- Jugador.Jugador
+@enduml

@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Parcela.Construible;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerEnemigo;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class Rocoso extends Construible {
@@ -16,6 +17,7 @@ public class Rocoso extends Construible {
 
     @Override
     public void insertarDefensa(Defensa defensa) throws Exception {
+        Jugador.getInstance().obtenerReembolso(defensa);
         throw new Exception("Solo la tierra puede contener una defensa");
     }
 
@@ -26,13 +28,17 @@ public class Rocoso extends Construible {
     }
 
     @Override
-    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
-        return false;
+    public void moveElEnemigo(Enemigo enemigo, Posicion actual) {
     }
 
     @Override
     public void establecerPosicion(Posicion posicion) {
         this.posicion = posicion;
+    }
+
+    @Override
+    public void actualizarEstado() {
+
     }
 
 }

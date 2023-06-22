@@ -55,7 +55,6 @@ public class CargadorJson implements Cargador {
     }
 
     private void guardarEnemigoEnLista(List<List<Enemigo>> listaDeEnemigosPorTurno, JSONObject jsonEnemigos) {
-        long numeroDeTurno = (long) jsonEnemigos.get("turno");
 
         JSONObject enemigos = (JSONObject) jsonEnemigos.get("enemigos");
         List<Enemigo> enemigosTurnoActual = new ArrayList<>();
@@ -75,7 +74,6 @@ public class CargadorJson implements Cargador {
         int cantidadColumnas = mapeo[0].length;
 
         int i = 0;
-        int j = 0;
         int adyascentes = 0;
         int filaActual = 0;
         int columnaActual = 0;
@@ -83,7 +81,7 @@ public class CargadorJson implements Cargador {
         int columnaSiguiente = 0;
         Direccion direccion = null;
         while (i < mapeo.length && adyascentes != 1) {
-            j = 0;
+            int j = 0;
             while (j < cantidadColumnas && adyascentes != 1) {
                 if (mapeo[i][j].equals("Pasarela")) {
                     filaActual = i;
@@ -188,16 +186,16 @@ public class CargadorJson implements Cargador {
 
             Object[] filas = mapaJson.keySet().toArray();
 
-            Mapa mapa = new Mapa(filas.length);
+            Mapa mapa = new Mapa();
             int contadorColumna;
             int cantidadColumnas = ((JSONArray) mapaJson.get(filas[1])).size();
-            String mapeo[][] = new String[filas.length][cantidadColumnas];
+            String[][] mapeo = new String[filas.length][cantidadColumnas];
 
-            for (int i = 0; i < filas.length; i++) {
+            for (Object fila : filas) {
                 contadorColumna = 0;
-                JSONArray columna = (JSONArray) mapaJson.get(filas[i]);
+                JSONArray columna = (JSONArray) mapaJson.get(fila);
                 for (Object parcela : columna) {
-                    mapeo[Integer.parseInt((String) filas[i]) - 1][contadorColumna] = (String) parcela;
+                    mapeo[Integer.parseInt((String) fila) - 1][contadorColumna] = (String) parcela;
                     contadorColumna++;
                 }
             }

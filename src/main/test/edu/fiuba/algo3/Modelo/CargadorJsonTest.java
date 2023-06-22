@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.Cargador.CargadorJson;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Defensa.Torre;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Partida.Logger;
@@ -76,6 +77,7 @@ public class CargadorJsonTest {
         Torre torreEnPosicionInvalida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), "Torre Blanca");
 
         assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida, new Posicion(2,2)));
+        assertThrows(DefensaNoSePudoConstruir.class, () -> mapa.construir(torreEnPosicionInvalida, new Posicion(1,1)));
         assertTrue(mapa.sinEnemigos());
     }
 

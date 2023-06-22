@@ -1,11 +1,13 @@
 package edu.fiuba.algo3.modelo.Direccion;
 
-import edu.fiuba.algo3.modelo.Mapa.Posicion;
-
 public class Izquierda implements Direccion {
+    @Override
+    public int moverFila(int fila) {
+        return fila;
+    }
 
     @Override
-    public void moverDireccion(Posicion posicion) {
-        posicion.moverIzquierda();
+    public int moverColumna(int columna) {
+        return columna - 1;
     }
 }

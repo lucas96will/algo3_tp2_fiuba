@@ -1,0 +1,46 @@
+@startuml
+class Defensa.EstadoDefensaIncompleto {
+
+}
+interface Defensa.EstadoDefensa {
+~ int atacar(List<Pasarela>,int)
+~ void siguienteEstado(Defensa)
+~ void atacar(Enemigo,int,int,Posicion)
+}
+abstract class Defensa.Defensa {
+# int costeEnCreditos
+# int rango
+# Posicion posicion
+# int danio
+# String nombre
++ <<Create>> Defensa(rango,danio,costo,EstadoDefensa,Posicion,String)
++ <<Create>> Defensa(rango,danio,costo,EstadoDefensa,String)
++ void comprate(Recurso)
++ void reembolsarCreditos(Recurso)
++ void establecerEstado(EstadoDefensa)
++ void siguienteEstado()
++ void atacar(List<Enemigo>)
++ boolean tieneLaMismaPosicion(Posicion)
++ void establecerPosicion(Posicion)
+}
+class Defensa.Torre {
++ <<Create>> Torre(rango,danio,costo,EstadoDefensa,Posicion,String)
++ <<Create>> Torre(rango,danio,costo,EstadoDefensa,String)
+}
+class Defensa.NullTorre {
+    +boolean equals()
+}
+class Defensa.EstadoDefensaCompleto {
+
+}
+
+
+Defensa.EstadoDefensa <|.. Defensa.EstadoDefensaIncompleto
+Cobrable.Cobrable <|.. Defensa.Defensa
+Defensa.Defensa <|-- Defensa.Torre
+Defensa.Defensa <|-- Defensa.NullTorre
+Defensa.EstadoDefensa <|.. Defensa.EstadoDefensaCompleto
+
+Defensa.Defensa o-- EstadoDefensa
+Defensa.Defensa o-- Posicion.Posicion
+@enduml

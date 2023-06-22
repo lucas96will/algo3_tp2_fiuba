@@ -1,0 +1,71 @@
+@startuml
+!include Mapa.puml!WITHOUTHATTRIBUTES
+
+abstract class Enemigo.Enemigo {
+# Posicion posicion
+}
+class Enemigo.EstadoEnemigo.EstadoEnemigoMuerto {
+
+}
+class Enemigo.Arania {
+
+}
+class Enemigo.EstadoEnemigo.EstadoEnemigoEnojado {
+
+}
+class Enemigo.Lechuza {
+
+}
+class Enemigo.Hormiga {
+
+}
+class Enemigo.Movimiento.MovimientoVolador {
++ void moverse(List<Parcela>,Enemigo,Posicion)
++ void moverseEnojado(List<Parcela>,Enemigo,Posicion)
+}
+interface Enemigo.Movimiento.Movimiento {
+~ void moverse(List<Parcela>,Enemigo,Posicion)
+~ void moverseEnojado(List<Parcela>,Enemigo,Posicion)
+}
+class Enemigo.EstadoEnemigo.EstadoEnemigoBajoTierra {
+
+}
+class Enemigo.Movimiento.MovimientoTerrestre {
++ void moverse(List<Parcela>,Enemigo,Posicion)
++ void moverseEnojado(List<Parcela>,Enemigo,Posicion)
+}
+class Enemigo.EstadoEnemigo.EstadoEnemigoVivo {
+
+}
+interface Enemigo.EstadoEnemigo.EstadoEnemigo {
+~ void moverse(Movimiento,List<Parcela>,Enemigo,Posicion)
+~ void daniarAlJugador(String)
+~ void recibirAtaque(Enemigo,int,Posicion)
+~ void recibirAtaqueYEvolucionar(Lechuza,int,Posicion)
+~ void establecerVelocidadRestante(float)
+}
+class Enemigo.Movimiento.MovimientoBajoTierra {
++ void moverse(List<Parcela>,Enemigo,Posicion)
++ void moverseEnojado(List<Parcela>,Enemigo,Posicion)
+}
+class Enemigo.Topo {
+
+}
+
+
+Enemigo.EstadoEnemigo.EstadoEnemigo <|.. Enemigo.EstadoEnemigo.EstadoEnemigoMuerto
+Enemigo.Enemigo <|-- Enemigo.Arania
+Enemigo.EstadoEnemigo.EstadoEnemigo <|.. Enemigo.EstadoEnemigo.EstadoEnemigoEnojado
+Enemigo.Enemigo <|-- Enemigo.Lechuza
+Enemigo.Enemigo <|-- Enemigo.Hormiga
+Enemigo.Movimiento.Movimiento <|.. Enemigo.Movimiento.MovimientoVolador
+Enemigo.EstadoEnemigo.EstadoEnemigo <|.. Enemigo.EstadoEnemigo.EstadoEnemigoBajoTierra
+Enemigo.Movimiento.Movimiento <|.. Enemigo.Movimiento.MovimientoTerrestre
+Enemigo.EstadoEnemigo.EstadoEnemigo <|.. Enemigo.EstadoEnemigo.EstadoEnemigoVivo
+Enemigo.Movimiento.Movimiento <|.. Enemigo.Movimiento.MovimientoBajoTierra
+Enemigo.Enemigo <|-- Enemigo.Topo
+
+Enemigo.Enemigo o-- "1" Enemigo.Movimiento.Movimiento
+Enemigo.Enemigo o-- "1" Enemigo.EstadoEnemigo.EstadoEnemigo
+
+@enduml

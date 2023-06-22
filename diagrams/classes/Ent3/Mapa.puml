@@ -1,0 +1,51 @@
+@startuml
+
+!include Parcela.puml!WITHOUTHATTRIBUTES
+!include Enemigo.puml!WITHOUTHATTRIBUTES
+!include Defensa.puml!WITHOUTHATTRIBUTES
+
+
+class Mapa.Mapa {
+
++ <<Create>> Mapa()
++ <<Create>> Mapa(int)
++ void insertarEnemigo(Enemigo)
++ void construir(Defensa,Posicion)
++ void actualizarEstadoDefensas()
++ void defensasAtacar()
++ void moverEnemigos()
++ void agregarParcelaEnPosicion(Parcela,Posicion)
++ void establecerTerreno(List<Parcela>)
++ void construirTrampa(TrampaDeArena,Posicion)
+}
+class Mapa.Posicion {
+- int fila
+- int columna
++ <<Create>> Posicion(int,int)
++ <<Create>> Posicion(Posicion)
++ boolean estaEnRango(int,Posicion)
++ boolean esIgual(Posicion)
++ void moverArriba()
++ void moverDerecha()
++ void moverIzquierda()
++ void moverAbajo()
+}
+
+class Mapa.NullPosicion {
+- {static} NullPosicion pos
+- <<Create>> NullPosicion()
++ {static} NullPosicion obtenerNullPosicion()
++ boolean estaEnRango(int,Posicion)
++ boolean estaEnRangoLaterales(Posicion)
++ boolean esIgual(Posicion)
++ boolean esLateral(int,int)
++ int cantidadDePasarelasAlrededor(List<Parcela>)
+}
+
+Mapa.Posicion <|-- Mapa.NullPosicion
+
+Mapa.Mapa o-- "*" Defensa
+Mapa.Mapa o-- "*" Enemigo
+Mapa.Mapa o-- "*" Parcela
+
+@enduml

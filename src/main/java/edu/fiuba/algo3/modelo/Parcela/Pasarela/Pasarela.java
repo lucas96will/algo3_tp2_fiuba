@@ -3,12 +3,10 @@ package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Pasarela implements Parcela {
 
@@ -22,26 +20,21 @@ public class Pasarela implements Parcela {
 
     public Pasarela(EstadoPasarela unEstado) {
         estado = unEstado;
-        posicion = NullPosicion.obtenerNullPosicion();
+        posicion = new NullPosicion();
     }
 
     public void insertarDefensa(Defensa defensa) throws Exception {
+        Jugador.getInstance().obtenerReembolso(defensa);
         throw new Exception("No se puede construir una defensa en una pasarela");
     }
-    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
+    public void moveElEnemigo(Enemigo enemigo, Posicion actual) {
         if (actual.equals(posicion)) {
             estado.moverEnemigo(enemigo, actual);
-            return true;
         }
-        return false;
     }
 
     public void insertarEnemigo(Enemigo unEnemigo) {
         estado.insertarEnemigo(unEnemigo, posicion);
-    }
-
-    public boolean esExtremo(List<Parcela> pasarelas) {
-        return this.posicion.cantidadDePasarelasAlrededor(pasarelas.stream().filter(p->p.getClass().equals(this.getClass())).collect(Collectors.toList())) <= 1;
     }
 
     @Override
@@ -50,8 +43,13 @@ public class Pasarela implements Parcela {
     }
 
     @Override
-    public Posicion obtenerPosicionMeta() {
-        return estado.orientacionCosmica(posicion);
+    public Posicion obtenerPosicionFinal() {
+        return estado.obtenerPosicionFinal(posicion);
+    }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
     }
 
     @Override
@@ -70,7 +68,7 @@ public class Pasarela implements Parcela {
         estado = estado.actualizarEstado();
     }
 
-    public void construir(TrampaDeArena nuevoEstado, Posicion unaPosicion) throws Exception{
+    public void construir(TrampaDeArena nuevoEstado, Posicion unaPosicion){
         if(posicion.equals(unaPosicion)) {
             estado = estado.construir(nuevoEstado);
         }

@@ -4,7 +4,7 @@
 !include clase_localize.plantuml
 !include clase_mensaje.plantuml
 
-title $MiVar\n
+title $MiVar
 
 Localize <|-- Mensaje
 

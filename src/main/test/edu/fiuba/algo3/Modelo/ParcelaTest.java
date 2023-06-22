@@ -179,7 +179,18 @@ public class ParcelaTest {
 
     @Test
     public void trampaArenosaDuraLoQueTieneQueDurarCorrectamente() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO Parcela test: Lechuza no trampa arenosa correctamente");
+        Cargador cargador = new CargadorJson();
+        Mapa mapa = cargador.procesarMapa("data/jsonTests/mapa.json");
+        Enemigo enemigo = EnemigoFactory.obtener("arania");
+        mapa.construirTrampa(new TrampaDeArena(), new Posicion(2, 2));
+        mapa.actualizarEstadoDefensas();
+        mapa.actualizarEstadoDefensas();
+        mapa.actualizarEstadoDefensas();
+        mapa.insertarEnemigo(enemigo);
+        mapa.moverEnemigos();
 
+        assertTrue(enemigo.estaEnRango(0, new Posicion(3, 2)));
     }
 
     @Test
@@ -208,8 +219,7 @@ public class ParcelaTest {
         jugadorSingleton.actualizarEstado(10, recursoUsado, "Ariel");
         Cargador cargador = new CargadorJson();
         Mapa mapa = cargador.procesarMapa(rutaJsonMapa);
-        Partida partida = new Partida();
-        partida.crearPartida(jugadorSingleton, mapa);
+        Partida partida = new Partida(jugadorSingleton, mapa);
         assertThrows(RuntimeException.class, () -> partida.construir(trampa, new Posicion(2, 1)));
         assertEquals(25, recursoUsado.valorMonetario());
     }
@@ -221,8 +231,7 @@ public class ParcelaTest {
         jugadorSingleton.actualizarEstado(10, recursoUsado, "Ariel");
         Cargador cargador = new CargadorJson();
         Mapa mapa = cargador.procesarMapa(rutaJsonMapa);
-        Partida partida = new Partida();
-        partida.crearPartida(jugadorSingleton, mapa);
+        Partida partida = new Partida(jugadorSingleton, mapa);
         assertThrows(RuntimeException.class, () -> partida.construir(trampa, new Posicion(1, 1)));
         assertEquals(25, recursoUsado.valorMonetario());
     }
@@ -234,8 +243,7 @@ public class ParcelaTest {
         jugadorSingleton.actualizarEstado(10, recursoUsado, "Ariel");
         Cargador cargador = new CargadorJson();
         Mapa mapa = cargador.procesarMapa(rutaJsonMapa);
-        Partida partida = new Partida();
-        partida.crearPartida(jugadorSingleton, mapa);
+        Partida partida = new Partida(jugadorSingleton, mapa);
         assertThrows(RuntimeException.class, () -> partida.construir(trampa, new Posicion(11, 15)));
         assertEquals(25, recursoUsado.valorMonetario());
     }
@@ -247,8 +255,7 @@ public class ParcelaTest {
         jugadorSingleton.actualizarEstado(10, recursoUsado, "Ariel");
         Cargador cargador = new CargadorJson();
         Mapa mapa = cargador.procesarMapa(rutaJsonMapa);
-        Partida partida = new Partida();
-        partida.crearPartida(jugadorSingleton, mapa);
+        Partida partida = new Partida(jugadorSingleton, mapa);
         assertThrows(RuntimeException.class, () -> partida.construir(trampa, new Posicion(1, 2)));
         assertEquals(50, recursoUsado.valorMonetario());
     }

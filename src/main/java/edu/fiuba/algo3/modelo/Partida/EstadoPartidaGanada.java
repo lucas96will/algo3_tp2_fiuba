@@ -29,8 +29,7 @@ public class EstadoPartidaGanada implements EstadoPartida{
 
     @Override
     public void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa) {
-        jugador.comprar(defensa);
-        mapa.construir(defensa, posicion);
+        throw new RuntimeException("No se puede construir, la partida ya esta ganada");
     }
 
     @Override
@@ -41,12 +40,14 @@ public class EstadoPartidaGanada implements EstadoPartida{
 
     @Override
     public void insertarEnemigo(Enemigo enemigo, Mapa mapa) {
-        mapa.insertarEnemigo(enemigo);
     }
 
     @Override
     public void insertarEnemigos(List<Enemigo> enemigos, Mapa mapa) {
-        enemigos.forEach(e -> insertarEnemigo(e, mapa));
     }
 
+    @Override
+    public EstadoPartida siguienteEstado(Mapa mapa, Jugador jugador, List<List<Enemigo>> enemigosPorTurno) {
+        return new EstadoPartidaGanada();
+    }
 }

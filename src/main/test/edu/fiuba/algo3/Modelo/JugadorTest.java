@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JugadorTest {
 
     public Mapa obtenerMapaGenerico() {
-        Mapa mapa = new Mapa(8);
+        Mapa mapa = new Mapa();
 
         mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
 
@@ -39,13 +39,11 @@ public class JugadorTest {
 
     @Test
     public void jugadorEmpiezaConVidaYCreditosCorrespondientes() {
-
-        Partida partida = new Partida();
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(100),"Joaquin");
         Mapa mapa = obtenerMapaGenerico();
-        partida.crearPartida(jugador,mapa);
-
+        Partida partida = new Partida(jugador,mapa);
+        partida.terminarTurno();
         assertTrue(jugador.estaIntacto());
         assertFalse(jugador.muerto());
     }

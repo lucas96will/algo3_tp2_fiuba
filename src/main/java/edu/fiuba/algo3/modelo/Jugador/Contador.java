@@ -1,47 +1,36 @@
 package edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Enemigo.*;
+import java.util.HashMap;
 
-import java.util.Random;
 
 public class Contador {
-
-    private int contadorAraniasMuertas;
-    private int contadorHormigasMuertas;
+    private final HashMap<String, Integer> registroMuertes;
+    private final HashMap<String, Integer> recompensas;
     
     public Contador() {
-        this.contadorAraniasMuertas = 0;
-        this.contadorHormigasMuertas = 0;
-    }
-  
-    
-    public void incrementarContadorAranias(){
-        this.contadorAraniasMuertas++;
-    }
-    
-    public void incrementarContadorHormigas(){
-        this.contadorHormigasMuertas++;
+        this.registroMuertes = new HashMap<>();
+        this.recompensas = new HashMap<>();
     }
 
-    public int obtenerMuertesHormigas() {
-        return contadorHormigasMuertas;
+    public void incrementarContador(Enemigo unEnemigo) {
+        int numeroMuertes = obtenerMuertes(unEnemigo);
+        registroMuertes.put(unEnemigo.nombre(), numeroMuertes + 1);
     }
 
-    public int obtenerMuertesAranias() {
-        return contadorAraniasMuertas;
+    public int obtenerMuertes(Enemigo unEnemigo){
+        registroMuertes.putIfAbsent(unEnemigo.nombre(), 0);
+        return registroMuertes.get(unEnemigo.nombre());
     }
 
 
-    public int obtenerRecompensaHormiga() {
-        if(contadorHormigasMuertas > 10) {
-            return 2;
-        }
-        return 1;
+    public void obtenerRecompensa(Enemigo unEnemigo, Recurso recurso){
+        int cantidadMuertesEnemigo = obtenerMuertes(unEnemigo);
+        unEnemigo.obtenerRecompensa(recurso, cantidadMuertesEnemigo);
     }
 
-    public int obtenerRecompensaArania() {
-        return new Random().nextInt(10) + 1;
+    private int obtenerCantidadMuertes(Enemigo unEnemigo){
+        registroMuertes.putIfAbsent(unEnemigo.nombre(), 0);
+        return registroMuertes.get(unEnemigo.nombre());
     }
 
-    public int obtenerRecompensaLechuza() {
-        return 10;
-    }
 }

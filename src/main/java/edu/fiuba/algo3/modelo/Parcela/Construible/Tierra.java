@@ -22,12 +22,6 @@ public class Tierra extends Construible {
         Logger.getInstance().logExitoso(defensa + " construida en " + posicion);
 
     }
-/*
-    @Override
-    public boolean moveElEnemigo(Enemigo enemigo) {
-        return false;
-    }
-*/
 
     @Override
     public void insertarEnemigo(Enemigo unEnemigo) throws Exception {
@@ -36,13 +30,17 @@ public class Tierra extends Construible {
 
 
     @Override
-    public boolean moveElEnemigo(Enemigo enemigo, Posicion actual) {
-        return false;
+    public void moveElEnemigo(Enemigo enemigo, Posicion actual) {
     }
 
     @Override
     public void establecerPosicion(Posicion posicion) {
         this.posicion = posicion;
+    }
+
+    @Override
+    public void actualizarEstado() {
+
     }
 
 

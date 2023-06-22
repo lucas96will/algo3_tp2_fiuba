@@ -8,22 +8,15 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import java.util.List;
 
 
-public final class NullTorre extends Defensa {
+public class NullTorre extends Defensa {
 
-    private static NullTorre torre = new NullTorre();
 
-    private NullTorre() {
+    public NullTorre() {
         super(0, 0, 0, new EstadoDefensaIncompleto(4000), new Posicion(-1, -1), "Null");
     }
 
-    ;
-
-    public static NullTorre obtenerNullTorre() {
-        return torre;
-    }
-
     public void comprate(Recurso recursos) {
-        throw new NoSePudoComprarException();
+        throw new NoSePudoComprarException("No se puede comprar torre inexistente");
     }
 
     public void reembolsarCreditos(Recurso recurso) {

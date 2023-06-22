@@ -1,0 +1,81 @@
+@startuml
+!include Mapa.puml!WITHOUTHATTRIBUTES
+
+class Parcela.Construible.Rocoso {
+}
+
+class Parcela.Pasarela.Pasarela {
++ <<Create>> Pasarela(Posicion,EstadoPasarela)
++ <<Create>> Pasarela(EstadoPasarela)
++ void insertarDefensa(Defensa)
++ boolean moveElEnemigo(Enemigo,Posicion)
++ void insertarEnemigo(Enemigo)
++ boolean esExtremo(List<Parcela>)
++ void establecerPosicion(Posicion)
++ Posicion obtenerPosicionMeta()
++ boolean tieneLaMismaPosicion(Posicion)
++ boolean estaEnRangoLateralesA(Posicion)
++ void establecerDireccion(Direccion)
++ void actualizarEstado()
++ void construir(TrampaDeArena,Posicion)
+}
+class Parcela.Construible.Tierra {
+}
+interface Parcela.Parcela {
+~ void insertarEnemigo(Enemigo)
+~ void insertarDefensa(Defensa)
+~ boolean moveElEnemigo(Enemigo,Posicion)
+~ boolean tieneLaMismaPosicion(Posicion)
+~ boolean estaEnRangoLateralesA(Posicion)
+~ void establecerPosicion(Posicion)
+~ Posicion obtenerPosicionMeta()
+~ void construir(TrampaDeArena,Posicion)
+}
+class Parcela.Pasarela.TrampaDeArena {
+
+}
+class Parcela.Pasarela.Casilla {
+
+}
+class Parcela.Pasarela.Meta {
+
+}
+abstract class Parcela.Construible.Construible {
+# Posicion posicion
+# Defensa defensa
++ <<Create>> Construible()
++ <<Create>> Construible(Posicion)
++ {abstract}void insertarDefensa(Defensa)
++ boolean tieneLaMismaPosicion(Posicion)
++ boolean estaEnRangoLateralesA(Posicion)
++ Posicion obtenerPosicionMeta()
++ void construir(TrampaDeArena,Posicion)
+}
+class Parcela.Pasarela.Largada {
+
+}
+interface Parcela.Pasarela.EstadoPasarela {
+~ void insertarEnemigo(Enemigo,Posicion)
+~ boolean moverEnemigo(Enemigo,Posicion)
+~ void establecerDireccion(Direccion)
+~ Posicion orientacionCosmica(Posicion)
+~ EstadoPasarela actualizarEstado()
+~ EstadoPasarela construir(TrampaDeArena)
+}
+
+
+Parcela.Construible.Construible <|-- Parcela.Construible.Rocoso
+Parcela.Parcela <|.. Parcela.Pasarela.Pasarela
+Parcela.Construible.Construible <|-- Parcela.Construible.Tierra
+Parcela.Pasarela.EstadoPasarela <|.. Parcela.Pasarela.TrampaDeArena
+Cobrable.Cobrable <|.. Parcela.Pasarela.TrampaDeArena
+Parcela.Pasarela.EstadoPasarela <|.. Parcela.Pasarela.Casilla
+Parcela.Pasarela.EstadoPasarela <|.. Parcela.Pasarela.Meta
+Parcela.Parcela <|.. Parcela.Construible.Construible
+Parcela.Pasarela.EstadoPasarela <|.. Parcela.Pasarela.Largada
+
+Parcela.Pasarela.Pasarela o-- Mapa.Posicion
+Parcela.Pasarela.Pasarela o-- EstadoPasarela
+Parcela.Construible.Construible o-- Mapa.Posicion
+
+@enduml

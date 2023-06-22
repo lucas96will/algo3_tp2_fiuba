@@ -1,11 +1,11 @@
 package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
-import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public abstract class Defensa implements Cobrable {
     }
     
     public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, String nombre) {
-        this.posicion = NullPosicion.obtenerNullPosicion();
+        this.posicion = new NullPosicion();
         this.estado = unEstadoDefensa;
         this.costeEnCreditos = costo;
         this.rango = rango;
@@ -39,12 +39,7 @@ public abstract class Defensa implements Cobrable {
     
     @Override
     public void comprate(Recurso recurso) throws NoSePudoComprarException {
-        try {
             recurso.gastar(costeEnCreditos);
-
-        } catch (RecursosInsuficientesException e) {
-            throw new NoSePudoComprarException();
-        }
     }
     
     @Override
@@ -64,7 +59,11 @@ public abstract class Defensa implements Cobrable {
     public void atacar(List<Enemigo> enemigos) {
         for(Enemigo enemigo : enemigos) {
             try {
-                estado.atacar(enemigo, danio, rango, posicion);
+                if(enemigo.estaEnRango(rango, posicion)){
+                    estado.atacar(enemigo, danio);
+                    Logger.getInstance().logExitoso(enemigo + " recibio ataque de Torre en " + posicion );
+                }
+                //estado.atacar(enemigo, danio, rango, posicion);
             } catch (Exception e) {
 
             }

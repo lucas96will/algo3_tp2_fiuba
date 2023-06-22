@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.Mapa;
 import edu.fiuba.algo3.modelo.Direccion.*;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -37,14 +38,6 @@ public class Posicion {
         return posiciones.stream().anyMatch(p -> p.fila == this.fila && p.columna == this.columna);
     }
 
-    public boolean esNull() {
-        return false;
-    }
-
-    public boolean esLateral(int cantColumnas, int cantFilas) {
-        return (fila == 1 || fila == cantFilas || columna == 1 || columna == cantColumnas);
-    }
-
     public int cantidadDePasarelasAlrededor(List<Parcela> pasarelas) {
         int contador = 0;
 
@@ -62,19 +55,10 @@ public class Posicion {
         return ("( " + fila + ", " + columna + " )");
     }
 
-    public void moverArriba() {
-        fila -= 1;
+    public void mover(Direccion direccion) {
+        this.fila = direccion.moverFila(fila);
+        this.columna = direccion.moverColumna(columna);
     }
-    public void moverDerecha() {
-        columna += 1;
-    }
-    public void moverIzquierda(){
-        columna -= 1;
-    }
-    public void moverAbajo() {
-        fila += 1;
-    }
-    
 
     @Override
     public boolean equals(Object o) {
@@ -89,40 +73,39 @@ public class Posicion {
         return Objects.hash(fila, columna);
     }
 
-    public void acercarseHorizontalmente(Posicion destino) {
-        if(destino.columna > columna){
-            moverDerecha();
-        }if(destino.columna < columna){
-            moverIzquierda();
-        }
-    }
-
     public boolean estaEnLaMismaColumna(Posicion destino){
         return destino.columna == columna;
     }
 
-    public void acercarseVerticalmente(Posicion destino) {
-        if(destino.fila > fila){
-            moverAbajo();
-        }if(destino.fila < fila){
-            moverArriba();
+    public int obtenerFila() {
+        return fila;
+    }
+
+    public int obtenerColumna() {
+        return columna;
+    }
+
+    public Direccion obtenerDireccionHorizontalHacia(Posicion destino) {
+        if (columna < destino.columna) {
+            return new Derecha();
+        } else {
+            return new Izquierda();
         }
     }
 
-    public void acercarseDiagonalmente(Posicion destino) {
-        // Algoritmo de  Bresenham
-        int distanciaHorizontal = Math.abs(destino.columna - columna);
-        int distanciaVertical = Math.abs(destino.fila - fila);
-        int direccionVertical = (columna < destino.columna) ? 1 : -1;
-        int direccionHorizontal = (fila < destino.fila) ? 1 : -1;
-        int error = (distanciaHorizontal- distanciaVertical) * 2;
-        
-        if(error > -distanciaVertical){
-            columna += direccionVertical;
+    public Direccion obtenerDireccionVerticalHacia(Posicion destino) {
+        if(fila < destino.fila) {
+            return new Abajo();
+        } else {
+            return new Arriba();
         }
-        if(error < distanciaHorizontal){
-            fila += direccionHorizontal;
-        }
+    }
 
+    public int distanciasHorizontalA(Posicion destino) {
+        return Math.abs(destino.columna - columna);
+    }
+
+    public int distanciasVerticalA(Posicion destino) {
+        return Math.abs(destino.fila - fila);
     }
 }

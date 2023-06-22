@@ -1,0 +1,58 @@
+@startuml
+
+!include Defensa.puml!WITHOUTHATTRIBUTES
+
+class Jugador.Jugador {
+- {static} Jugador jugador
+- int vida
+- String nombre
+- int vidaMaxima
+- <<Create>> Jugador()
++ {static} Jugador getInstance()
++ void actualizarEstado(int,Recurso,String)
++ void actualizarContador(Contador)
++ void incrementarContadorAranias()
++ void incrementarContadorHormigas()
++ int obtenerMuertesHormigas()
++ int obtenerVidaJugador()
++ void reducirVidaJugador(int)
++ int obtenerMuertesArania()
++ void comprar(Cobrable)
++ void actualizarDefensas()
++ void defensasAtacar(List<Enemigo>)
++ void resetearDefensas()
++ List<Defensa> obtenerDefensas()
++ void obtenerReembolso(Cobrable)
++ boolean muerto()
++ boolean estaIntacto()
++ int valorCreditos()
++ void sumarMonedas(int)
++ void obtenerRecompensa(Arania)
++ void obtenerRecompensa(Hormiga)
++ void obtenerRecompensa(Lechuza)
++ void eliminarPrimeraTorre()
+}
+class Jugador.Contador {
+- int contadorAraniasMuertas
+- int contadorHormigasMuertas
++ <<Create>> Contador()
++ void incrementarContadorAranias()
++ void incrementarContadorHormigas()
++ int obtenerMuertesHormigas()
++ int obtenerMuertesAranias()
++ int obtenerRecompensaHormiga()
++ int obtenerRecompensaArania()
++ int obtenerRecompensaLechuza()
+}
+class Jugador.Recurso {
+- int creditos
++ <<Create>> Recurso(int)
++ void gastar(int)
++ int valorMonetario()
++ void sumarMonedas(int)
+}
+
+Jugador.Jugador o-- Contador
+Jugador.Jugador o-- Recurso
+Jugador.Jugador o-- "*" Defensa
+@enduml

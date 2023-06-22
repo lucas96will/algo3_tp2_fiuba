@@ -7,12 +7,12 @@ import edu.fiuba.algo3.modelo.Mapa.Posicion;
 public interface EstadoPasarela {
     void insertarEnemigo (Enemigo unEnemigo, Posicion posicion);
 
-    boolean moverEnemigo(Enemigo enemigo, Posicion posicion);
+    void moverEnemigo(Enemigo enemigo, Posicion posicion);
 
     void establecerDireccion(Direccion unaDireccion);
-    Posicion orientacionCosmica(Posicion posicion);
+    Posicion obtenerPosicionFinal(Posicion posicion);
 
     EstadoPasarela actualizarEstado();
 
-    EstadoPasarela construir(TrampaDeArena nuevoEstado) throws Exception;
+    EstadoPasarela construir(TrampaDeArena nuevoEstado);
 }

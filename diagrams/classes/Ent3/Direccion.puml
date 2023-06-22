@@ -1,0 +1,23 @@
+@startuml
+interface Direccion.Direccion {
++ void moverDireccion(Posicion)
+}
+class Direccion.Derecha {
++ void moverDireccion(Posicion)
+}
+class Direccion.Arriba {
++ void moverDireccion(Posicion)
+}
+class Direccion.Izquierda {
++ void moverDireccion(Posicion)
+}
+class Direccion.Abajo {
++ void moverDireccion(Posicion)
+}
+
+
+Direccion.Direccion <|.. Direccion.Derecha
+Direccion.Direccion <|.. Direccion.Arriba
+Direccion.Direccion <|.. Direccion.Izquierda
+Direccion.Direccion <|.. Direccion.Abajo
+@enduml
