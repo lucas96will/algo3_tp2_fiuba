@@ -60,13 +60,8 @@ public class TrampaDeArena implements EstadoPasarela, Cobrable {
     }
 
     @Override
-    public void comprate(Recurso recurso) throws NoSePudoComprarException {
-        try {
+    public void comprate(Recurso recurso) throws RecursosInsuficientesException {
             recurso.gastar(costeEnCreditos);
-
-        } catch (RecursosInsuficientesException e) {
-            throw new NoSePudoComprarException("No se pudo comprar trampa de arena");
-        }
     }
 
     @Override

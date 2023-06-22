@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Direccion.Derecha;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
 import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
@@ -106,7 +107,7 @@ public class Entrega1Test {
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
         Defensa torreBlanca2 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
         assertDoesNotThrow(() ->jugador.comprar(torreBlanca1));
-        assertThrows(NoSePudoComprarException.class, ()-> jugador.comprar(torreBlanca2));
+        assertThrows(RecursosInsuficientesException.class, ()-> jugador.comprar(torreBlanca2));
     }
 
     @Test

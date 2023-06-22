@@ -39,12 +39,7 @@ public abstract class Defensa implements Cobrable {
     
     @Override
     public void comprate(Recurso recurso) throws NoSePudoComprarException {
-        try {
             recurso.gastar(costeEnCreditos);
-
-        } catch (RecursosInsuficientesException e) {
-            throw new NoSePudoComprarException("Creditos insuficientes");
-        }
     }
     
     @Override
