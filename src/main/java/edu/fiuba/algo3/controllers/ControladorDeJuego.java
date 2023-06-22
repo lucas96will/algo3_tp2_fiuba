@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.modelo.Cargador.Juego;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
@@ -18,7 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,7 +34,11 @@ public class ControladorDeJuego implements Initializable {
 
     @FXML private GridPane mapaGrid;
     @FXML private GridPane opcionesGrid;
-    @FXML private SplitPane pnlDatosJugador;
+    @FXML private Button btnTerminarTurno;
+    @FXML private VBox vBoxDatos;
+    @FXML private AnchorPane datosJugador;
+    @FXML private GridPane enemigosGrid;
+
     private int colGrid;
     private int filGrid;
     private List<Button> btnDefensas = new ArrayList<>();
@@ -40,21 +46,47 @@ public class ControladorDeJuego implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        Juego.getInstance().cargarJugador(Jugador.getInstance());
+        Juego.getInstance().iniciar();
+
+        Juego.getInstance().terminarTurno();
+
         Jugador jugador = Jugador.getInstance();
+        String nombreJugador = jugador.obtenerNombreJugador();
+        Label nombre = new Label(nombreJugador);
+        nombre.setTextFill(Color.WHITE);
+        vBoxDatos.getChildren().add(nombre);
         int vidaJugador = jugador.obtenerVidaJugador();
         Label vida = new Label();
+        vida.setTextFill(Color.WHITE);
         vida.setText(String.valueOf(vidaJugador));
-        pnlDatosJugador.getItems().add(vida);
+        vBoxDatos.getChildren().add(vida);
         Label creditos = new Label();
         creditos.setText(String.valueOf(jugador.valorCreditos()));
-        pnlDatosJugador.getItems().add(creditos);
+        creditos.setTextFill(Color.WHITE);
+        vBoxDatos.getChildren().add(creditos);
         Label turnos = new Label();
         turnos.setText(String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
-        pnlDatosJugador.getItems().add(turnos);
+        turnos.setTextFill(Color.WHITE);
+        vBoxDatos.getChildren().add(turnos);
+        ImageView terminarTurnoBackground = new ImageView();
+        URL urlTerminarTurno = getClass().getResource("/images/TerminarTurno.png");
+        terminarTurnoBackground.setImage(new Image(urlTerminarTurno.toString()));
+        terminarTurnoBackground.setFitHeight(107);
+        terminarTurnoBackground.setFitWidth(350);
+        btnTerminarTurno.setGraphic(terminarTurnoBackground);
+        btnTerminarTurno.setAlignment(Pos.CENTER);
+        URL urlimagenDatos = getClass().getResource("/images/Lateral.png");
+        Image imagenDatos = new Image(urlimagenDatos.toString());
+        BackgroundImage fondoDatos = new BackgroundImage(imagenDatos, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        datosJugador.setBackground(new Background(fondoDatos));
+
 
 
         mapaGrid.setStyle("-fx-background-color: #28752c;");
         List<Parcela> terreno = Juego.getInstance().obtenerParcelas();
+        List<Enemigo> enemigos = Juego.getInstance().obtenerEnemigos();
         terreno.forEach(parcela -> {
             URL url = getClass().getResource("/images/" + parcela.getClass().getSimpleName() + ".png");
             Button btnTerreno = new Button();
@@ -79,7 +111,29 @@ public class ControladorDeJuego implements Initializable {
             btnOpciones.setVisible(false);
             btnOpciones.setOnAction(this::construirDefensa);
             opcionesGrid.add(btnOpciones,parcela.obtenerPosicion().obtenerColumna(),parcela.obtenerPosicion().obtenerFila());
+
+            Button btnEnemigo = new Button();
+            btnEnemigo.setPrefHeight(48);
+            btnEnemigo.setPrefWidth(48);
+            btnEnemigo.setPadding(new Insets(-1));
+            btnEnemigo.setStyle("-fx-background-color: rgba(0,0,0,0);");
+            btnEnemigo.setVisible(false);
+            btnEnemigo.setOnAction(this::construirDefensa);
+            enemigosGrid.add(btnEnemigo,parcela.obtenerPosicion().obtenerColumna(),parcela.obtenerPosicion().obtenerFila());
         });
+
+
+
+        enemigos.forEach(enemigo->{
+            ImageView enemigoBackground = new ImageView();
+            enemigoBackground.setImage(new Image(getClass().getResource("/images/Hormiga.png").toString()));
+            enemigoBackground.setFitHeight(33);
+            enemigoBackground.setFitWidth(33);
+            GridPane.setValignment(enemigoBackground, VPos.CENTER);
+            GridPane.setHalignment(enemigoBackground, HPos.CENTER);
+            enemigosGrid.add(enemigoBackground, 2, 1);
+        });
+
         filGrid = (int) mapaGrid.getChildren().stream()
                 .mapToInt(GridPane::getRowIndex)
                 .filter(Objects::nonNull)
@@ -91,6 +145,7 @@ public class ControladorDeJuego implements Initializable {
                 .distinct()
                 .count();
         opcionesGrid.setMouseTransparent(true);
+        enemigosGrid.setMouseTransparent(true);
         opcionesGrid.setVisible(false);
         opcionesGrid.setStyle("-fx-background-color: transparent;");
     }
