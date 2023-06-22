@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo;
 
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Enemigo.Lechuza;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -51,10 +50,6 @@ public class EstadoEnemigoBajoTierra implements EstadoEnemigo {
     public void recibirAtaque(Enemigo enemigo, int unDanio) {
     }
 
-    @Override
-    public void recibirAtaque(Lechuza lechuza, int unDanio){
-
-    }
 
     @Override
     public void establecerVelocidadRestante(float reduccion) {

@@ -43,6 +43,13 @@ public class Arania extends Enemigo{
         return ("Araña");
     }
 
+    @Override
+    public void siguienteEstado(int vidaActual, int vidaInicial) {
+        if(vidaActual == 0){
+            estado = new EstadoEnemigoMuerto();
+        }
+    }
+
 
     public void moverse(List<Parcela> parcelas) {
         estado.moverse(movimiento, parcelas, this, posicion);

@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Mapa;
 
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
-import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Enemigo.*;
 import edu.fiuba.algo3.modelo.Defensa.*;
@@ -11,7 +10,6 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Mapa {
     private final List<Parcela> parcelas;

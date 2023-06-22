@@ -8,8 +8,6 @@ import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 
-import java.util.List;
-
 public abstract class Construible implements Parcela {
     protected Posicion posicion;
     protected Defensa defensa;

@@ -57,4 +57,5 @@ public abstract class Enemigo {
 
     public abstract void obtenerRecompensa(Recurso recursoJugador, int contadorMuertes);
     public abstract String nombre();
+    public abstract void siguienteEstado(int vidaActual, int vidaInicial);
 }

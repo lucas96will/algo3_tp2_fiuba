@@ -50,4 +50,11 @@ public class Topo extends Enemigo {
     public String nombre() {
         return ("Topo");
     }
+
+    @Override
+    public void siguienteEstado(int vidaActual, int vidaInicial) {
+        if(vidaActual == 0){
+            estado = new EstadoEnemigoMuerto();
+        }
+    }
 }

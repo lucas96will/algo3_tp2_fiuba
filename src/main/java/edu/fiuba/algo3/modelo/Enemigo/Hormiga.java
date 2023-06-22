@@ -62,4 +62,11 @@ public class Hormiga extends Enemigo{
     public String nombre() {
         return ("Hormiga");
     }
+
+    @Override
+    public void siguienteEstado(int vidaActual, int vidaInicial) {
+        if(vidaActual == 0){
+            estado = new EstadoEnemigoMuerto();
+        }
+    }
 }

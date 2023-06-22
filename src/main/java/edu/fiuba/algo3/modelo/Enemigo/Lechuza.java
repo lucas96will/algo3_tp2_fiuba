@@ -69,4 +69,14 @@ public class Lechuza extends Enemigo{
     public String nombre() {
         return ("Lechuza");
     }
+
+    @Override
+    public void siguienteEstado(int vidaActual, int vidaInicial) {
+        if(vidaActual <= 0) {
+            estado = new EstadoEnemigoMuerto();
+        } else if(vidaActual <= vidaInicial * 0.5 ) {
+            movimiento = new MovimientoVoladorEnojado();
+        }
+    }
+
 }

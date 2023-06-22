@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo;
 
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Enemigo.Lechuza;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
@@ -25,10 +24,7 @@ public class EstadoEnemigoMuerto implements EstadoEnemigo {
         
     }
 
-    @Override
-    public void recibirAtaque(Lechuza lechuza, int unDanio){
 
-    }
 
     @Override
     public boolean equals(Object obj) {
