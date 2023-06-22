@@ -31,6 +31,10 @@ public class Jugador {
         return jugador;
     }
 
+    public String obtenerNombreJugador(){
+        return nombre;
+    }
+
     public void actualizarEstado(int vida, Recurso recursos, String nombre) {
         vidaMaxima = vida;
         this.vida = vida;

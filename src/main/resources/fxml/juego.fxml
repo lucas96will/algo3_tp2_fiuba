@@ -5,9 +5,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane fx:id="divide" dividerPositions="0.5" prefHeight="762.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorDeJuego">
+<SplitPane fx:id="divide" dividerPositions="0.6934369602763385" prefHeight="762.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorDeJuego">
    <items>
       <AnchorPane fx:id="mapa" prefHeight="762.0" prefWidth="800.0">
          <children>
@@ -19,25 +20,25 @@
                    <GridPane fx:id="opcionesGrid" alignment="CENTER_LEFT" prefHeight="762.0" prefWidth="800.0" StackPane.alignment="CENTER">
 
        </GridPane>
+                   <GridPane fx:id="enemigosGrid" alignment="CENTER_LEFT" prefHeight="762.0" prefWidth="800.0" StackPane.alignment="CENTER">
+
+                   </GridPane>
                </children>
             </StackPane>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="datosJugador" prefHeight="762.0" prefWidth="352.0">
          <children>
-            <SplitPane dividerPositions="0.8" orientation="VERTICAL" prefHeight="762.0" prefWidth="352.0">
-              <items>
-                  <SplitPane fx:id="pnlDatosJugador" orientation="VERTICAL" prefHeight="562.0" prefWidth="352.0" />
-                <AnchorPane fx:id="pnlBotonera" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="762.0">
-                     <children>
-                         <Button fx:id="btnTerminarTurno" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-background-color: rgb(255, 206, 91); -fx-padding: 20px 100px 18px 100px;" text="TerminarTurno" textAlignment="CENTER" textFill="WHITE">
-                             <font>
-                                 <Font name="System Bold" size="36.0" />
-                             </font>
-                         </Button>
-                     </children></AnchorPane>
-              </items>
-            </SplitPane>
+            <VBox fx:id="vBoxDatos" alignment="TOP_CENTER" prefHeight="572.0" prefWidth="352.0" style="-fx-padding: 10px; -fx-spacing: 10px;" />
+            <AnchorPane layoutY="553.0" prefHeight="209.0" prefWidth="352.0">
+               <children>
+                   <Button fx:id="btnTerminarTurno" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="77.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="332.0" style="-fx-background-radius: 10; -fx-background-color: rgb(255, 206, 91); -fx-padding: 0px 0px 0px 0px;">
+                       <font>
+                           <Font name="System Bold" size="19.0" />
+                       </font>
+                   </Button>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </items>
