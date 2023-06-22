@@ -53,7 +53,7 @@ public class Topo extends Enemigo {
 
     @Override
     public void siguienteEstado(int vidaActual, int vidaInicial) {
-        if(vidaActual == 0){
+        if(vidaActual <= 0){
             estado = new EstadoEnemigoMuerto();
         }
     }

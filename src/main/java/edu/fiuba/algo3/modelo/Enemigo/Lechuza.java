@@ -24,9 +24,7 @@ public class Lechuza extends Enemigo{
     @Override
     public void morir() {
         Jugador jugador = Jugador.getInstance();
-
         jugador.obtenerRecompensa(this);
-        this.estado = new EstadoEnemigoMuerto();
         Logger.getInstance().logExitoso(this + " murió.");
     }
 
@@ -46,9 +44,6 @@ public class Lechuza extends Enemigo{
         estado.recibirAtaque(this, unDanio);
     }
 
-    public void enojate(){
-        movimiento = new MovimientoVoladorEnojado();
-    }
     
     @Override 
     public String toString() {

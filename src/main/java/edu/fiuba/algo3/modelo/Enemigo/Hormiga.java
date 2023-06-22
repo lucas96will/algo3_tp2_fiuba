@@ -29,7 +29,6 @@ public class Hormiga extends Enemigo{
         Jugador jugador = Jugador.getInstance();
         jugador.obtenerRecompensa(this);
         jugador.incrementarContador(this);
-        this.estado = new EstadoEnemigoMuerto();
         Logger.getInstance().logExitoso(this + " murio.");
     }
 
@@ -65,7 +64,7 @@ public class Hormiga extends Enemigo{
 
     @Override
     public void siguienteEstado(int vidaActual, int vidaInicial) {
-        if(vidaActual == 0){
+        if(vidaActual <= 0){
             estado = new EstadoEnemigoMuerto();
         }
     }
