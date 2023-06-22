@@ -10,7 +10,6 @@ import java.util.List;
 public class MovimientoVoladorEnojado extends MovimientoVolador{
     @Override
     public void moverse(List<Parcela> parcelas, Enemigo enemigo, Posicion posActual) {
-        Posicion posLoggerActual = new Posicion(posActual);
 
         Posicion destino = obtenerPosicionMeta(parcelas);
 

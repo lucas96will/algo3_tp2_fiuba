@@ -88,20 +88,16 @@ public class Posicion {
     public Direccion obtenerDireccionHorizontalHacia(Posicion destino) {
         if (columna < destino.columna) {
             return new Derecha();
-        } else if (columna > destino.columna) {
-            return new Izquierda();
         } else {
-            return new NullDireccion();
+            return new Izquierda();
         }
     }
 
     public Direccion obtenerDireccionVerticalHacia(Posicion destino) {
         if(fila < destino.fila) {
             return new Abajo();
-        } else if(fila > destino.fila) {
-            return new Arriba();
         } else {
-            return new NullDireccion();
+            return new Arriba();
         }
     }
 
