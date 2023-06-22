@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Movimiento.MovimientoTerrestre;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 
 
 import java.util.List;
