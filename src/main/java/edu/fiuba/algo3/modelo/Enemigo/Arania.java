@@ -64,4 +64,9 @@ public class Arania extends Enemigo{
     public void obtenerRecompensa(Recurso recursoJugador, int contadorMuertes) {
         recursoJugador.sumarMonedas( new Random().nextInt(RECOMPENSA_MAX) + RECOMPENSA_MIN);
     }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
+    }
 }

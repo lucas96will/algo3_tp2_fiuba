@@ -67,4 +67,9 @@ public class Hormiga extends Enemigo{
             estado = new EstadoEnemigoMuerto();
         }
     }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
+    }
 }

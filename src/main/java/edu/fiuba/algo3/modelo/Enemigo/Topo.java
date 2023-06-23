@@ -58,4 +58,9 @@ public class Topo extends Enemigo {
             estado = new EstadoEnemigoMuerto();
         }
     }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
+    }
 }

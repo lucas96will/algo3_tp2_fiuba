@@ -9,4 +9,9 @@ public class Torre extends Defensa{
     public Torre(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, String nombre) {
         super(costo, danio, rango, unEstadoDefensa, nombre);
     }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
+    }
 }

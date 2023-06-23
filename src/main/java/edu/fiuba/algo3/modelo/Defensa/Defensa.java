@@ -6,10 +6,11 @@ import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 import edu.fiuba.algo3.modelo.Partida.Logger;
+import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 
 import java.util.List;
 
-public abstract class Defensa implements Cobrable {
+public abstract class Defensa implements Cobrable, Posicionable {
     protected int costeEnCreditos;
     protected int rango;
     protected Posicion posicion;

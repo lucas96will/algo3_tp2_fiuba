@@ -43,4 +43,9 @@ public class NullTorre extends Defensa {
     public void establecerPosicion(Posicion posicion) {
         return;
     }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return new Posicion(-1,-1);
+    }
 }

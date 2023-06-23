@@ -3,8 +3,9 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
+import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 
-public interface Parcela {
+public interface Parcela extends Posicionable {
     void insertarEnemigo(Enemigo unEnemigo) throws Exception;
     void insertarDefensa(Defensa defensa) throws Exception;
     void moveElEnemigo(Enemigo enemigo, Posicion actual);

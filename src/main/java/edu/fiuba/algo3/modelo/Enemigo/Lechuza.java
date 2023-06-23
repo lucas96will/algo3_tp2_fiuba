@@ -74,4 +74,9 @@ public class Lechuza extends Enemigo{
         }
     }
 
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
+    }
+
 }
