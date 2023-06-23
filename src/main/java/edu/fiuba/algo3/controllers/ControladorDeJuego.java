@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -87,17 +86,17 @@ public class ControladorDeJuego implements Initializable {
         EventHandler construir = event -> {
                 Button clickedButton = (Button) event.getSource();
                 lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton),GridPane.getColumnIndex(clickedButton));
-                clickedButton.setStyle("-fx-background-color: rgba(0,0,0,0.8);");
+                clickedButton.setStyle("-fx-background-color: rgba(0,0,0,8);");
                 List<Posicion> posiciones = obtenerPosicionesValidas(lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
                 Button defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(0).obtenerColumna(), posiciones.get(0).obtenerFila());
                 btnDefensas.add(defensa);
-                configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TorrePlateada.png"));
+                configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TorrePlateada.png"));
                 defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(1).obtenerColumna(), posiciones.get(1).obtenerFila());
                 btnDefensas.add(defensa);
-                configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TorreBlanca.png"));
+                configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TorreBlanca.png"));
                 defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(2).obtenerColumna(), posiciones.get(2).obtenerFila());
                 btnDefensas.add(defensa);
-                configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TrampaDeArena.png"));
+                configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TrampaDeArena.png"));
                 opcionesGrid.setVisible(true);
                 opcionesGrid.setMouseTransparent(false);
         };
@@ -128,8 +127,11 @@ public class ControladorDeJuego implements Initializable {
             ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setOnAction(null);
             mapaGrid.add(parcelaBackground,lugarDeConstruccion.obtenerColumna(),lugarDeConstruccion.obtenerFila());
             btnDefensas.forEach(btn -> {btn.setGraphic(null);btn.setVisible(false);});
+            ControladorDeSonido.getInstance().modificarVolumenEfecto(1);
+            ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre.mp3");
             opcionesGrid.setVisible(false);
             opcionesGrid.setMouseTransparent(true);
+
         };
         opcionesGrid = controladorDeGrillaDefensas.obtenerGrillaSuperpuestas(filGrid,colGrid,construirDefensas);
         opcionesGrid.setMouseTransparent(true);
@@ -137,7 +139,6 @@ public class ControladorDeJuego implements Initializable {
         opcionesGrid.setVisible(false);
         opcionesGrid.setStyle("-fx-background-color: transparent;");
         stackPane.getChildren().add(opcionesGrid);
-
 
 
         ControladorDeGrilla controladorDeGrillaEnemigos = new ControladorDeGrilla();
@@ -148,7 +149,7 @@ public class ControladorDeJuego implements Initializable {
     }
 
 
-    private void configurarBotomDeConstruccion(Button defensa, URL urlImagen) {
+    private void configurarBotonDeConstruccion(Button defensa, URL urlImagen) {
         ImageView parcelaBackground = new ImageView();
         Image image = new Image(urlImagen.toString());
         parcelaBackground.setImage(image);
