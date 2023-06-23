@@ -127,7 +127,8 @@ public class ControladorDeJuego implements Initializable {
             ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setOnAction(null);
             mapaGrid.add(parcelaBackground,lugarDeConstruccion.obtenerColumna(),lugarDeConstruccion.obtenerFila());
             btnDefensas.forEach(btn -> {btn.setGraphic(null);btn.setVisible(false);});
-            ControladorDeSonido.getInstance().modificarVolumenEfecto(1);
+            ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
+            controladorSonido.modificarVolumenEfecto(1);
             ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre.mp3");
             opcionesGrid.setVisible(false);
             opcionesGrid.setMouseTransparent(true);
