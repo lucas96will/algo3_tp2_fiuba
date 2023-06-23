@@ -1,22 +1,21 @@
 package edu.fiuba.algo3.controllers;
 
+import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
-import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
-import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
-import javafx.event.ActionEvent;
+import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -32,12 +31,13 @@ import java.util.ResourceBundle;
 
 public class ControladorDeJuego implements Initializable {
 
-    @FXML private GridPane mapaGrid;
-    @FXML private GridPane opcionesGrid;
+    private GridPane mapaGrid;
+    private GridPane opcionesGrid;
     @FXML private Button btnTerminarTurno;
     @FXML private VBox vBoxDatos;
     @FXML private AnchorPane datosJugador;
-    @FXML private GridPane enemigosGrid;
+    private GridPane enemigosGrid;
+    @FXML private StackPane stackPane;
 
     private int colGrid;
     private int filGrid;
@@ -82,58 +82,28 @@ public class ControladorDeJuego implements Initializable {
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         datosJugador.setBackground(new Background(fondoDatos));
 
-
-
-        mapaGrid.setStyle("-fx-background-color: #28752c;");
-        List<Parcela> terreno = Juego.getInstance().obtenerParcelas();
-        List<Enemigo> enemigos = Juego.getInstance().obtenerEnemigos();
-        terreno.forEach(parcela -> {
-            URL url = getClass().getResource("/images/" + parcela.getClass().getSimpleName() + ".png");
-            Button btnTerreno = new Button();
-            ImageView parcelaBackground = new ImageView();
-            Image image = new Image(url.toString());
-            parcelaBackground.setImage(image);
-            parcelaBackground.setFitHeight(50);
-            parcelaBackground.setFitWidth(50);
-            btnTerreno.setPadding(new Insets(-1));
-            btnTerreno.setGraphic(parcelaBackground);
-            btnTerreno.setOnAction(this::construir);
-            btnTerreno.setAlignment(Pos.CENTER);
-            btnTerreno.setId(Integer.toString(parcela.obtenerPosicion().obtenerFila()).concat(Integer.toString(parcela.obtenerPosicion().obtenerColumna())));
-            mapaGrid.add(btnTerreno,parcela.obtenerPosicion().obtenerColumna(),parcela.obtenerPosicion().obtenerFila());
-
-
-            Button btnOpciones = new Button();
-            btnOpciones.setPrefHeight(48);
-            btnOpciones.setPrefWidth(48);
-            btnOpciones.setPadding(new Insets(-1));
-            btnOpciones.setStyle("-fx-background-color: rgba(0,0,0,0.6);");
-            btnOpciones.setVisible(false);
-            btnOpciones.setOnAction(this::construirDefensa);
-            opcionesGrid.add(btnOpciones,parcela.obtenerPosicion().obtenerColumna(),parcela.obtenerPosicion().obtenerFila());
-
-            Button btnEnemigo = new Button();
-            btnEnemigo.setPrefHeight(48);
-            btnEnemigo.setPrefWidth(48);
-            btnEnemigo.setPadding(new Insets(-1));
-            btnEnemigo.setStyle("-fx-background-color: rgba(0,0,0,0);");
-            btnEnemigo.setVisible(false);
-            btnEnemigo.setOnAction(this::construirDefensa);
-            enemigosGrid.add(btnEnemigo,parcela.obtenerPosicion().obtenerColumna(),parcela.obtenerPosicion().obtenerFila());
-        });
-
-
-
-        enemigos.forEach(enemigo->{
-            ImageView enemigoBackground = new ImageView();
-            enemigoBackground.setImage(new Image(getClass().getResource("/images/Hormiga.png").toString()));
-            enemigoBackground.setFitHeight(33);
-            enemigoBackground.setFitWidth(33);
-            GridPane.setValignment(enemigoBackground, VPos.CENTER);
-            GridPane.setHalignment(enemigoBackground, HPos.CENTER);
-            enemigosGrid.add(enemigoBackground, 2, 1);
-        });
-
+        ControladorDeGrilla controladorDeGrillaParcelas = new ControladorDeGrilla();
+        controladorDeGrillaParcelas.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
+        EventHandler construir = event -> {
+                Button clickedButton = (Button) event.getSource();
+                lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton),GridPane.getColumnIndex(clickedButton));
+                clickedButton.setStyle("-fx-background-color: rgba(0,0,0,0.8);");
+                List<Posicion> posiciones = obtenerPosicionesValidas(lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
+                Button defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(0).obtenerColumna(), posiciones.get(0).obtenerFila());
+                btnDefensas.add(defensa);
+                configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TorrePlateada.png"));
+                defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(1).obtenerColumna(), posiciones.get(1).obtenerFila());
+                btnDefensas.add(defensa);
+                configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TorreBlanca.png"));
+                defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(2).obtenerColumna(), posiciones.get(2).obtenerFila());
+                btnDefensas.add(defensa);
+                configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TrampaDeArena.png"));
+                opcionesGrid.setVisible(true);
+                opcionesGrid.setMouseTransparent(false);
+        };
+        List<Posicionable> parcelas = (List<Posicionable>) (List<?>) Juego.getInstance().obtenerParcelas();
+        mapaGrid = controladorDeGrillaParcelas.obtenerGrillaDelTerreno(parcelas,construir);
+        stackPane.getChildren().add(mapaGrid);
         filGrid = (int) mapaGrid.getChildren().stream()
                 .mapToInt(GridPane::getRowIndex)
                 .filter(Objects::nonNull)
@@ -144,36 +114,48 @@ public class ControladorDeJuego implements Initializable {
                 .filter(Objects::nonNull)
                 .distinct()
                 .count();
+
+        ControladorDeGrilla controladorDeGrillaDefensas = new ControladorDeGrilla();
+        controladorDeGrillaDefensas.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
+        EventHandler construirDefensas = event -> {
+            Button clickedButton = (Button) event.getSource();
+            ImageView parcelaBackground = new ImageView();
+            parcelaBackground.setImage(((ImageView)clickedButton.getGraphic()).getImage());
+            parcelaBackground.setFitHeight(33);
+            parcelaBackground.setFitWidth(33);
+            GridPane.setValignment(parcelaBackground, VPos.CENTER);
+            GridPane.setHalignment(parcelaBackground, HPos.CENTER);
+            ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setOnAction(null);
+            mapaGrid.add(parcelaBackground,lugarDeConstruccion.obtenerColumna(),lugarDeConstruccion.obtenerFila());
+            btnDefensas.forEach(btn -> {btn.setGraphic(null);btn.setVisible(false);});
+            opcionesGrid.setVisible(false);
+            opcionesGrid.setMouseTransparent(true);
+        };
+        opcionesGrid = controladorDeGrillaDefensas.obtenerGrillaSuperpuestas(filGrid,colGrid,construirDefensas);
         opcionesGrid.setMouseTransparent(true);
-        enemigosGrid.setMouseTransparent(true);
+        opcionesGrid.setMouseTransparent(true);
         opcionesGrid.setVisible(false);
         opcionesGrid.setStyle("-fx-background-color: transparent;");
+        stackPane.getChildren().add(opcionesGrid);
+
+
+
+        ControladorDeGrilla controladorDeGrillaEnemigos = new ControladorDeGrilla();
+        controladorDeGrillaEnemigos.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
+        enemigosGrid = controladorDeGrillaEnemigos.obtenerGrillaSuperpuestas(filGrid,colGrid,null);
+        enemigosGrid.setMouseTransparent(true);
+        stackPane.getChildren().add(enemigosGrid);
     }
 
-    public void construir(ActionEvent event) {
-        Button clickedButton = (Button) event.getSource();
-        lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton),GridPane.getColumnIndex(clickedButton));
-        clickedButton.setStyle("-fx-background-color: rgba(0,0,0,0.8);");
-        List<Posicion> posiciones = obtenerPosicionesValidas(lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
-        Button defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(0).obtenerColumna(), posiciones.get(0).obtenerFila());
-        btnDefensas.add(defensa);
-        configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TorrePlateada.png"));
-        defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(1).obtenerColumna(), posiciones.get(1).obtenerFila());
-        btnDefensas.add(defensa);
-        configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TorreBlanca.png"));
-        defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(2).obtenerColumna(), posiciones.get(2).obtenerFila());
-        btnDefensas.add(defensa);
-        configurarBotomDeConstruccion(defensa, getClass().getResource("/images/TrampaDeArena.png"));
-        opcionesGrid.setVisible(true);
-        opcionesGrid.setMouseTransparent(false);
-    }
 
     private void configurarBotomDeConstruccion(Button defensa, URL urlImagen) {
         ImageView parcelaBackground = new ImageView();
         Image image = new Image(urlImagen.toString());
         parcelaBackground.setImage(image);
-        parcelaBackground.setFitHeight(30);
-        parcelaBackground.setFitWidth(30);
+        parcelaBackground.setFitHeight(33);
+        parcelaBackground.setFitWidth(33);
+        defensa.setPrefWidth(45);
+        defensa.setPrefHeight(45);
         defensa.setGraphic(parcelaBackground);
         defensa.setAlignment(Pos.CENTER);
         defensa.setStyle("-fx-background-color: rgba(0,0,0,0.6);");
@@ -212,19 +194,4 @@ public class ControladorDeJuego implements Initializable {
         return null;
     }
 
-    public void construirDefensa(ActionEvent event) {
-        Button clickedButton = (Button) event.getSource();
-        ImageView parcelaBackground = new ImageView();
-        parcelaBackground.setImage(((ImageView)clickedButton.getGraphic()).getImage());
-        parcelaBackground.setFitHeight(33);
-        parcelaBackground.setFitWidth(33);
-        GridPane.setValignment(parcelaBackground, VPos.CENTER);
-        GridPane.setHalignment(parcelaBackground, HPos.CENTER);
-        ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setOnAction(null);
-        mapaGrid.add(parcelaBackground,lugarDeConstruccion.obtenerColumna(),lugarDeConstruccion.obtenerFila());
-        btnDefensas.forEach(btn -> {btn.setGraphic(null);btn.setVisible(false);});
-        opcionesGrid.setVisible(false);
-        opcionesGrid.setMouseTransparent(true);
-
-    }
 }

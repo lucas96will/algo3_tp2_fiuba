@@ -12,7 +12,7 @@
    <items>
       <AnchorPane fx:id="mapa" prefHeight="762.0" prefWidth="800.0">
          <children>
-            <StackPane alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="800.0">
+            <StackPane fx:id="stackPane" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="762.0" prefWidth="800.0">
                <children>
                   <GridPane fx:id="mapaGrid" alignment="CENTER_LEFT" prefHeight="762.0" prefWidth="800.0" StackPane.alignment="CENTER">
 
