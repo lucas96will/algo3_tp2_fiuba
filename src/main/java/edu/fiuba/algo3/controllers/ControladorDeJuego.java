@@ -124,7 +124,7 @@ public class ControladorDeJuego implements Initializable {
             parcelaBackground.setFitWidth(33);
             GridPane.setValignment(parcelaBackground, VPos.CENTER);
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
-            ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setOnAction(null);
+            ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
             mapaGrid.add(parcelaBackground,lugarDeConstruccion.obtenerColumna(),lugarDeConstruccion.obtenerFila());
             btnDefensas.forEach(btn -> {btn.setGraphic(null);btn.setVisible(false);});
             ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();

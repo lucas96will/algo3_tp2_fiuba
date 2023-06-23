@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.net.URL;
@@ -33,9 +35,27 @@ public class ControladorDeGrilla implements Initializable {
             controladorDeBoton.initialize((App.class.getResource("/fxml/boton.fxml")), null);
             Button boton;
             String parcela = posicionable.getClass().getSimpleName().toString();
+
+
             if(parcela.equals("Pasarela") || parcela.equals("Rocoso") || parcela.equals("Tierra")) {
                 boton = controladorDeBoton.obtenerBoton(
                         "/images/" + parcela + ".png", event);
+                ImageView backgroundHover = new ImageView();
+                Image imagenHover = new Image(getClass().getResource("/images/TierraHover.png").toString());
+                backgroundHover.setImage(imagenHover);
+                backgroundHover.setFitHeight(50);
+                backgroundHover.setFitWidth(50);
+
+                ImageView backgroundDefault = (ImageView) boton.getGraphic();
+                backgroundDefault.setFitHeight(50);
+                backgroundDefault.setFitWidth(50);
+
+                boton.setOnMouseEntered(eventMouse ->{
+                    boton.setGraphic(backgroundHover);
+                });
+                boton.setOnMouseExited(eventMouse ->{
+                    boton.setGraphic(backgroundDefault);
+                });
             } else {
                 boton = controladorDeBoton.obtenerBoton("", null);
                 boton.setVisible(false);
