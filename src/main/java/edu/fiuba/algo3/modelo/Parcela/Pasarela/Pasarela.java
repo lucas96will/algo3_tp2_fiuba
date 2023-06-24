@@ -68,7 +68,7 @@ public class Pasarela implements Parcela {
     }
 
     public void construir(TrampaDeArena nuevoEstado, Posicion unaPosicion){
-        if(posicion.equals(unaPosicion)) {
+        if(posicion.equals(unaPosicion)) { // TODO viola tda
             estado = estado.construir(nuevoEstado);
         }
     }

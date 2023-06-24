@@ -59,11 +59,10 @@ public abstract class Defensa implements Cobrable, Posicionable {
     public void atacar(List<Enemigo> enemigos) {
         for(Enemigo enemigo : enemigos) {
             try {
-                if(enemigo.estaEnRango(rango, posicion)){
+                if(enemigo.estaEnRango(rango, posicion)){ //TODO viola tda
                     estado.atacar(enemigo, danio);
                     Logger.getInstance().logExitoso(enemigo + " recibio ataque de Torre en " + posicion );
                 }
-                //estado.atacar(enemigo, danio, rango, posicion);
             } catch (Exception e) {
 
             }
