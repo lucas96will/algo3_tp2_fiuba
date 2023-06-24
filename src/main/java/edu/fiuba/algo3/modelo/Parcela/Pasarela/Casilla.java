@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.modelo.Parcela.Pasarela;
 import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class Casilla implements EstadoPasarela {
@@ -22,7 +21,7 @@ public class Casilla implements EstadoPasarela {
         
     }
     public Posicion obtenerPosicionFinal(Posicion posicion) {
-        return new NullPosicion();
+        return null;
     }
 
     public EstadoPasarela actualizarEstado(){

@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
-import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public abstract class Enemigo implements Posicionable {
     }
 
     public Enemigo(EstadoEnemigo unEstado, Movimiento unMovimiento) {
-        posicion = new NullPosicion();
+        posicion = null;
         movimiento = unMovimiento;
         estado = unEstado;
     }

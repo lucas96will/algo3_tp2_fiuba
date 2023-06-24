@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
-import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 import edu.fiuba.algo3.modelo.Partida.Logger;
@@ -29,7 +28,7 @@ public abstract class Defensa implements Cobrable, Posicionable {
     }
     
     public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, String nombre) {
-        this.posicion = new NullPosicion();
+        this.posicion = null;
         this.estado = unEstadoDefensa;
         this.costeEnCreditos = costo;
         this.rango = rango;

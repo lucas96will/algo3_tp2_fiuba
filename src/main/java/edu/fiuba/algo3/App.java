@@ -27,8 +27,6 @@ public class App extends Application {
         App.stage = stage;
         stage.setTitle("Algo Tower Defense");
         CargadorDeEscena.cargarScene("/fxml/inicio.fxml",stage);
-
-
         ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
         controladorSonido.reproducirMusica("Age_of_Empires_1_Intro.mp3");
     }

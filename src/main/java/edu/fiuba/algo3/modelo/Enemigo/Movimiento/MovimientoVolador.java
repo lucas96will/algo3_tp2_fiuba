@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.Enemigo.Movimiento;
 
 import edu.fiuba.algo3.modelo.Direccion.*;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 
@@ -15,7 +14,7 @@ public class MovimientoVolador implements Movimiento {
         Parcela parcela = parcelas.get(i);
         Posicion destino = parcela.obtenerPosicionFinal();//TODO: Add eliminar getter(Encontrar mejor solucion)
 
-        while (destino.equals(new NullPosicion()) && i < parcelas.size() - 1) {
+        while (destino == null && i < parcelas.size() - 1) {
             i++;
             parcela = parcelas.get(i);
             destino = parcela.obtenerPosicionFinal();

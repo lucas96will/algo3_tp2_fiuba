@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class Tierra extends Construible {
+
     public Tierra(Posicion unaPosicion) {
         super(unaPosicion);
     }
@@ -17,10 +18,8 @@ public class Tierra extends Construible {
 
     @Override
     public void insertarDefensa(Defensa defensa) {
-
         defensa.establecerPosicion(posicion);
         Logger.getInstance().logExitoso(defensa + " construida en " + posicion);
-
     }
 
     @Override

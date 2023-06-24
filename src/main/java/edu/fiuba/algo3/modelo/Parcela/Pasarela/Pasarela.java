@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
-import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 
 public class Pasarela implements Parcela {
 
@@ -20,7 +19,7 @@ public class Pasarela implements Parcela {
 
     public Pasarela(EstadoPasarela unEstado) {
         estado = unEstado;
-        posicion = new NullPosicion();
+        posicion = null;
     }
 
     public void insertarDefensa(Defensa defensa) throws Exception {

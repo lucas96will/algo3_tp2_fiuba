@@ -1,23 +1,18 @@
 package edu.fiuba.algo3.modelo.Parcela.Construible;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
-import edu.fiuba.algo3.modelo.Defensa.NullTorre;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerTrampa;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
-import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 
 public abstract class Construible implements Parcela {
     protected Posicion posicion;
-    protected Defensa defensa;
 
-    public Construible() {
-        this.defensa = new NullTorre();
+    public Construible() { //TODO: borrar inicializaciones que no seteen los atributos o los pongan en null.
     }
 
     public Construible(Posicion unaPosicion) {
-        this.defensa = new NullTorre();
         this.posicion = unaPosicion;
     }
 
@@ -37,7 +32,7 @@ public abstract class Construible implements Parcela {
 
     @Override
     public Posicion obtenerPosicionFinal() {
-        return new NullPosicion();
+        return null;
     }
     
     @Override

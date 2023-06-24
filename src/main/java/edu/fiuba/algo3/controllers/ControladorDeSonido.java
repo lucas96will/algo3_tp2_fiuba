@@ -71,7 +71,6 @@ public class ControladorDeSonido {
         File[] archivos = directorio.listFiles();
         for(File archivo : archivos){
             URL mediaUrl = Objects.requireNonNull(getClass().getResource("/sonidos/" + carpeta + "/" + archivo.getName()));
-            //TODO: modificar url, que sea del directorio src/,,,sonidos
             Media media = new Media(mediaUrl.toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setVolume(volumenDefault);

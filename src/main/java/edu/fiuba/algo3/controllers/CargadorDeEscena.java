@@ -15,8 +15,6 @@ public class CargadorDeEscena {
         stage.setResizable(false);
         stage.centerOnScreen();
         stage.sizeToScene();
-/*        ControladorDeEfectosDeSonido controladorSonido = ControladorDeEfectosDeSonido.obtenerControlador();
-        controladorSonido.reproducirMusica("Age_of_Empires_1_Intro.mp3");*/
         stage.show();
     }
 

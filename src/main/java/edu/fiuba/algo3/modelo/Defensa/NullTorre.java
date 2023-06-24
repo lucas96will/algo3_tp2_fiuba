@@ -1,3 +1,4 @@
+/*
 package edu.fiuba.algo3.modelo.Defensa;
 
 import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
@@ -49,3 +50,4 @@ public class NullTorre extends Defensa {
         return new Posicion(-1,-1);
     }
 }
+*/
