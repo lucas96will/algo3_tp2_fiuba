@@ -8,6 +8,7 @@ import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.BotonPantallaInicio;
 import edu.fiuba.algo3.view.BotonTerminarTurno;
+import edu.fiuba.algo3.view.PanelDatos;
 import edu.fiuba.algo3.view.PantallaIngresarNombre;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,43 +51,14 @@ public class ControladorDeJuego implements Initializable {
 
         Jugador jugador = Jugador.getInstance();
 
-        ControladorDeDato controladorDeDato = new ControladorDeDato();
-        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Nombre.png")),jugador.obtenerNombreJugador()));
-
-        controladorDeDato = new ControladorDeDato();
-        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Vida.png")),String.valueOf(jugador.obtenerVidaJugador())));
-
-        controladorDeDato = new ControladorDeDato();
-        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos())));
-
-        controladorDeDato = new ControladorDeDato();
-        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual())));
-
-        controladorDeDato = new ControladorDeDato();
-        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size())));
-
-        controladorDeDato = new ControladorDeDato();
-        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size())));
-
-        /*ImageView terminarTurnoBackground = new ImageView();
-        URL urlTerminarTurno = getClass().getResource("/images/TerminarTurno.png");
-        terminarTurnoBackground.setImage(new Image(urlTerminarTurno.toString()));
-        terminarTurnoBackground.setFitHeight(107);
-        terminarTurnoBackground.setFitWidth(402);
-        btnTerminarTurno.setGraphic(terminarTurnoBackground);
-        btnTerminarTurno.setAlignment(Pos.CENTER);*/
+        configurarDatosJugador((App.class.getResource("/images/Nombre.png")),jugador.obtenerNombreJugador());
+        configurarDatosJugador((App.class.getResource("/images/Vida.png")),String.valueOf(jugador.obtenerVidaJugador()));
+        configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()));
+        configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
+        configurarDatosJugador((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size()));
+        configurarDatosJugador((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size()));
         configurarBotonTerminarTurno();
-        URL urlimagenDatos = getClass().getResource("/images/Lateral.png");
-        Image imagenDatos = new Image(urlimagenDatos.toString());
-        BackgroundImage fondoDatos = new BackgroundImage(imagenDatos, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,new BackgroundSize(402, 700,false,false,false,true));
-        datosJugador.setBackground(new Background(fondoDatos));
+        configurarPanelDatosJugador();
 
         ControladorDeGrilla controladorDeGrillaParcelas = new ControladorDeGrilla();
         controladorDeGrillaParcelas.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
@@ -220,6 +192,16 @@ public class ControladorDeJuego implements Initializable {
     private void configurarBotonTerminarTurno() {
         btnTerminarTurno = BotonTerminarTurno.fijarBotonTerminarTurno(this);
         botonera.getChildren().add(btnTerminarTurno);
+    }
+    private void configurarDatosJugador(URL path, String dato) {
+        Pane pane = PanelDatos.fijarDatoJugador(path, dato);
+        vBoxDatos.getChildren().add(pane);
+    }
+
+    private void configurarPanelDatosJugador(){
+        BackgroundImage fondoDatos = new BackgroundImage(new Image(getClass().getResource("/images/Lateral.png").toString()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT,new BackgroundSize(402, 700,false,false,false,true));
+        datosJugador.setBackground(new Background(fondoDatos));
     }
 
 }

@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.view.BotonIngresarNombre;
 import edu.fiuba.algo3.view.BotonPantallaInicio;
+import edu.fiuba.algo3.view.PantallaJuego;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +39,7 @@ public class ControladorDeIngresarNombre implements Initializable {
                 jugador.actualizarEstado(100, new Recurso(100), nombre.getText());
                 Juego.getInstance().cargarJugador(Jugador.getInstance());
                 Juego.getInstance().iniciar();
-                CargadorDeEscena.cargarScene("/fxml/juego.fxml", App.obtenerStage());
+                new PantallaJuego(App.getInstance(), App.obtenerStage());
         };
     }
 
