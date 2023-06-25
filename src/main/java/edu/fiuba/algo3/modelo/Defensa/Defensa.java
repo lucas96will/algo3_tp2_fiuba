@@ -1,4 +1,5 @@
 package edu.fiuba.algo3.modelo.Defensa;
+
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -27,12 +28,12 @@ public abstract class Defensa implements Cobrable, Posicionable {
         this.nombre = nombre;
     }
 
-    
+
     @Override
     public void comprate(Recurso recurso) throws NoSePudoComprarException {
-            recurso.gastar(costeEnCreditos);
+        recurso.gastar(costeEnCreditos);
     }
-    
+
     @Override
     public void reembolsarCreditos(Recurso recurso) {
         recurso.sumarMonedas(costeEnCreditos);
@@ -43,20 +44,13 @@ public abstract class Defensa implements Cobrable, Posicionable {
     }
 
     public void siguienteEstado() {
-         estado.siguienteEstado(this);
+        estado.siguienteEstado(this);
     }
 
 
     public void atacar(List<Enemigo> enemigos) {
-        for(Enemigo enemigo : enemigos) {
-            try {
-                if(enemigo.estaEnRango(rango, posicion)){ //TODO viola tda
-                    estado.atacar(enemigo, danio);
-                    Logger.getInstance().logExitoso(enemigo + " recibio ataque de Torre en " + posicion );
-                }
-            } catch (Exception e) {
-
-            }
+        for (Enemigo enemigo : enemigos) {
+            estado.atacar(enemigo, danio, rango, posicion);
         }
     }
 

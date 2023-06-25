@@ -58,6 +58,7 @@ public class EstadoEnemigoVivo implements EstadoEnemigo {
         }
     }
 
+
     @Override
     public boolean equals(Object obj) {
         return super.equals(obj);

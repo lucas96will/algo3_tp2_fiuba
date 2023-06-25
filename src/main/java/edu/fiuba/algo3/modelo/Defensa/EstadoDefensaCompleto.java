@@ -1,14 +1,12 @@
 package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.DefensaIncompletaNoPuedeAtacar;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class EstadoDefensaCompleto implements EstadoDefensa{
 
-
-
     public EstadoDefensaCompleto(){
     }
-
 
     @Override
     public void siguienteEstado(Defensa defensa) {
@@ -17,8 +15,8 @@ public class EstadoDefensaCompleto implements EstadoDefensa{
 
 
     @Override
-    public void atacar(Enemigo enemigo, int danio) throws DefensaIncompletaNoPuedeAtacar {
-        enemigo.recibirAtaque(danio);
+    public void atacar(Enemigo enemigo, int danio, int rango, Posicion posicion) {
+        enemigo.recibirAtaque(danio, rango, posicion);
     }
 
 }

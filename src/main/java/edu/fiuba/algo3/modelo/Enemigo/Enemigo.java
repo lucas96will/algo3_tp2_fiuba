@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 
 import java.util.List;
@@ -58,4 +59,11 @@ public abstract class Enemigo implements Posicionable {
     public abstract void obtenerRecompensa(Recurso recursoJugador, int contadorMuertes);
     public abstract String nombre();
     public abstract void siguienteEstado(int vidaActual, int vidaInicial);
+
+    public void recibirAtaque(int unDanio, int unRango, Posicion unaPosicion) {
+        if(posicion.estaEnRango(unRango, unaPosicion)){
+            estado.recibirAtaque(this, unDanio);
+            Logger.getInstance().logExitoso(this + " recibio ataque de Torre en " + posicion);
+        }
+    }
 }
