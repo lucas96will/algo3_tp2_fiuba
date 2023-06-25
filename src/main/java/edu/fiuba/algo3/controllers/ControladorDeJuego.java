@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,16 +33,16 @@ public class ControladorDeJuego implements Initializable {
 
     private GridPane mapaGrid;
     private GridPane opcionesGrid;
-    @FXML private Button btnTerminarTurno;
-    @FXML private VBox vBoxDatos;
-    @FXML private AnchorPane datosJugador;
     private GridPane enemigosGrid;
-    @FXML private StackPane stackPane;
-
     private int colGrid;
     private int filGrid;
     private List<Button> btnDefensas = new ArrayList<>();
     private Posicion lugarDeConstruccion;
+    @FXML private Button btnTerminarTurno;
+    @FXML private VBox vBoxDatos;
+    @FXML private AnchorPane datosJugador;
+    @FXML private StackPane stackPane;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -51,23 +52,24 @@ public class ControladorDeJuego implements Initializable {
         Juego.getInstance().terminarTurno();
 
         Jugador jugador = Jugador.getInstance();
-        String nombreJugador = jugador.obtenerNombreJugador();
-        Label nombre = new Label(nombreJugador);
-        nombre.setTextFill(Color.WHITE);
-        vBoxDatos.getChildren().add(nombre);
-        int vidaJugador = jugador.obtenerVidaJugador();
-        Label vida = new Label();
-        vida.setTextFill(Color.WHITE);
-        vida.setText(String.valueOf(vidaJugador));
-        vBoxDatos.getChildren().add(vida);
-        Label creditos = new Label();
-        creditos.setText(String.valueOf(jugador.valorCreditos()));
-        creditos.setTextFill(Color.WHITE);
-        vBoxDatos.getChildren().add(creditos);
-        Label turnos = new Label();
-        turnos.setText(String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
-        turnos.setTextFill(Color.WHITE);
-        vBoxDatos.getChildren().add(turnos);
+
+        ControladorDeDato controladorDeDato = new ControladorDeDato();
+        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato(jugador.obtenerNombreJugador()));
+
+        controladorDeDato = new ControladorDeDato();
+        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato(String.valueOf(jugador.obtenerVidaJugador())));
+
+        controladorDeDato = new ControladorDeDato();
+        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato(String.valueOf(jugador.valorCreditos())));
+
+        controladorDeDato = new ControladorDeDato();
+        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato(String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual())));
+
+
         ImageView terminarTurnoBackground = new ImageView();
         URL urlTerminarTurno = getClass().getResource("/images/TerminarTurno.png");
         terminarTurnoBackground.setImage(new Image(urlTerminarTurno.toString()));
@@ -83,71 +85,24 @@ public class ControladorDeJuego implements Initializable {
 
         ControladorDeGrilla controladorDeGrillaParcelas = new ControladorDeGrilla();
         controladorDeGrillaParcelas.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
-        EventHandler construir = event -> {
-                Button clickedButton = (Button) event.getSource();
-                lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton),GridPane.getColumnIndex(clickedButton));
-                clickedButton.setStyle("-fx-background-color: rgba(0,0,0,8);");
-                List<Posicion> posiciones = obtenerPosicionesValidas(lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
-                Button defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(0).obtenerColumna(), posiciones.get(0).obtenerFila());
-                btnDefensas.add(defensa);
-                configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TorrePlateada.png"));
-                defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(1).obtenerColumna(), posiciones.get(1).obtenerFila());
-                btnDefensas.add(defensa);
-                configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TorreBlanca.png"));
-                defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(2).obtenerColumna(), posiciones.get(2).obtenerFila());
-                btnDefensas.add(defensa);
-                configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TrampaDeArena.png"));
-                opcionesGrid.setVisible(true);
-                opcionesGrid.setMouseTransparent(false);
-        };
         List<Posicionable> parcelas = (List<Posicionable>) (List<?>) Juego.getInstance().obtenerParcelas();
-        mapaGrid = controladorDeGrillaParcelas.obtenerGrillaDelTerreno(parcelas,construir);
+        mapaGrid = controladorDeGrillaParcelas.obtenerGrillaDelTerreno(parcelas,construirOpciones());
         stackPane.getChildren().add(mapaGrid);
-        filGrid = (int) mapaGrid.getChildren().stream()
-                .mapToInt(GridPane::getRowIndex)
-                .filter(Objects::nonNull)
-                .distinct()
-                .count();
-        colGrid = (int) mapaGrid.getChildren().stream()
-                .mapToInt(GridPane::getColumnIndex)
-                .filter(Objects::nonNull)
-                .distinct()
-                .count();
+        setearDimensionesDeGrilla();
 
         ControladorDeGrilla controladorDeGrillaDefensas = new ControladorDeGrilla();
         controladorDeGrillaDefensas.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
-        EventHandler construirDefensas = event -> {
-            Button clickedButton = (Button) event.getSource();
-            ImageView parcelaBackground = new ImageView();
-            parcelaBackground.setImage(((ImageView)clickedButton.getGraphic()).getImage());
-            parcelaBackground.setFitHeight(33);
-            parcelaBackground.setFitWidth(33);
-            GridPane.setValignment(parcelaBackground, VPos.CENTER);
-            GridPane.setHalignment(parcelaBackground, HPos.CENTER);
-            ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
-            mapaGrid.add(parcelaBackground,lugarDeConstruccion.obtenerColumna(),lugarDeConstruccion.obtenerFila());
-            btnDefensas.forEach(btn -> {btn.setGraphic(null);btn.setVisible(false);});
-            ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
-            controladorSonido.modificarVolumenEfecto(1);
-            ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre.mp3");
-            opcionesGrid.setVisible(false);
-            opcionesGrid.setMouseTransparent(true);
-
-        };
-        opcionesGrid = controladorDeGrillaDefensas.obtenerGrillaSuperpuestas(filGrid,colGrid,construirDefensas);
-        opcionesGrid.setMouseTransparent(true);
-        opcionesGrid.setMouseTransparent(true);
+        opcionesGrid = controladorDeGrillaDefensas.obtenerGrillaSuperpuestas(filGrid,colGrid,construirDefensas());
         opcionesGrid.setVisible(false);
         opcionesGrid.setStyle("-fx-background-color: transparent;");
         stackPane.getChildren().add(opcionesGrid);
 
-
         ControladorDeGrilla controladorDeGrillaEnemigos = new ControladorDeGrilla();
         controladorDeGrillaEnemigos.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
         enemigosGrid = controladorDeGrillaEnemigos.obtenerGrillaSuperpuestas(filGrid,colGrid,null);
-        enemigosGrid.setMouseTransparent(true);
         stackPane.getChildren().add(enemigosGrid);
     }
+
 
 
     private void configurarBotonDeConstruccion(Button defensa, URL urlImagen) {
@@ -194,6 +149,62 @@ public class ControladorDeJuego implements Initializable {
             }
         }
         return null;
+    }
+
+    private void setearDimensionesDeGrilla() {
+        filGrid = (int) mapaGrid.getChildren().stream()
+                .mapToInt(GridPane::getRowIndex)
+                .filter(Objects::nonNull)
+                .distinct()
+                .count();
+        colGrid = (int) mapaGrid.getChildren().stream()
+                .mapToInt(GridPane::getColumnIndex)
+                .filter(Objects::nonNull)
+                .distinct()
+                .count();
+    }
+
+    private EventHandler<ActionEvent> construirDefensas() {
+        return event -> {
+            Button clickedButton = (Button) event.getSource();
+            ImageView parcelaBackground = new ImageView();
+            parcelaBackground.setImage(((ImageView) clickedButton.getGraphic()).getImage());
+            parcelaBackground.setFitHeight(33);
+            parcelaBackground.setFitWidth(33);
+            GridPane.setValignment(parcelaBackground, VPos.CENTER);
+            GridPane.setHalignment(parcelaBackground, HPos.CENTER);
+            ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
+            mapaGrid.add(parcelaBackground, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
+            btnDefensas.forEach(btn -> {
+                btn.setGraphic(null);
+                btn.setVisible(false);
+            });
+            ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
+            controladorSonido.modificarVolumenEfecto(1);
+            ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre.mp3");
+            opcionesGrid.setVisible(false);
+            opcionesGrid.setMouseTransparent(true);
+        };
+    }
+
+    private EventHandler<ActionEvent> construirOpciones () {
+        return event -> {
+            Button clickedButton = (Button) event.getSource();
+            lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton),GridPane.getColumnIndex(clickedButton));
+            clickedButton.setStyle("-fx-background-color: rgba(0,0,0,8);");
+            List<Posicion> posiciones = obtenerPosicionesValidas(lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
+            Button defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(0).obtenerColumna(), posiciones.get(0).obtenerFila());
+            btnDefensas.add(defensa);
+            configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TorrePlateada.png"));
+            defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(1).obtenerColumna(), posiciones.get(1).obtenerFila());
+            btnDefensas.add(defensa);
+            configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TorreBlanca.png"));
+            defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(2).obtenerColumna(), posiciones.get(2).obtenerFila());
+            btnDefensas.add(defensa);
+            configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TrampaDeArena.png"));
+            opcionesGrid.setVisible(true);
+            opcionesGrid.setMouseTransparent(false);
+        };
     }
 
 }

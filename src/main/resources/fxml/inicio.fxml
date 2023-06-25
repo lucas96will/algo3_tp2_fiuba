@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="768.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorPantallaInicio">
             <children>
-               <StackPane prefHeight="768.0" prefWidth="1152.0">
+               <StackPane fx:id="stackPane" prefHeight="768.0" prefWidth="1152.0">
                   <children>
                      <ImageView fitHeight="768.0" fitWidth="1152.0" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -52,11 +52,6 @@
                            <Image url="@../images/castle.png" />
                         </image>
                      </ImageView>
-                     <Button id="buttom" fx:id="btnJugar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#jugar" style="-fx-background-radius: 10; -fx-background-color: rgb(255, 206, 91); -fx-padding: 20px 100px 18px 100px;" text="Jugar" textAlignment="CENTER" textFill="WHITE" translateY="-120.0" StackPane.alignment="BOTTOM_CENTER">
-                        <font>
-                           <Font name="System Bold" size="36.0" />
-                        </font>
-                     </Button>
                   </children>
                </StackPane>
             </children>

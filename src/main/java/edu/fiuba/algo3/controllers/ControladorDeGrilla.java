@@ -6,6 +6,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,17 +42,13 @@ public class ControladorDeGrilla implements Initializable {
             if(parcela.equals("Pasarela") || parcela.equals("Rocoso") || parcela.equals("Tierra")) {
                 boton = controladorDeBoton.obtenerBoton(
                         "/images/" + parcela + ".png", event);
-                ImageView backgroundHover = new ImageView();
-                Image imagenHover = new Image(getClass().getResource("/images/TierraHover.png").toString());
-                backgroundHover.setImage(imagenHover);
-                backgroundHover.setFitHeight(50);
-                backgroundHover.setFitWidth(50);
-
+                configurarBotonGrilla(boton);
                 ImageView backgroundDefault = (ImageView) boton.getGraphic();
-                backgroundDefault.setFitHeight(50);
-                backgroundDefault.setFitWidth(50);
 
                 boton.setOnMouseEntered(eventMouse ->{
+                    ImageView backgroundHover = new ImageView(new Image(getClass().getResource("/images/TierraHover.png").toString()));
+                    backgroundHover.setFitWidth(boton.getPrefHeight());
+                    backgroundHover.setFitHeight(boton.getPrefHeight());
                     boton.setGraphic(backgroundHover);
                 });
                 boton.setOnMouseExited(eventMouse ->{
@@ -58,6 +56,7 @@ public class ControladorDeGrilla implements Initializable {
                 });
             } else {
                 boton = controladorDeBoton.obtenerBoton("", null);
+                configurarBotonGrilla(boton);
                 boton.setVisible(false);
             }
             gridpane.add(boton, posicionable.obtenerPosicion().obtenerColumna(), posicionable.obtenerPosicion().obtenerFila());
@@ -66,31 +65,28 @@ public class ControladorDeGrilla implements Initializable {
     }
 
     public GridPane obtenerGrillaSuperpuestas(int fila, int columna, EventHandler event) {
-        /*posicionables.forEach(posicionable -> {
-            ControladorDeBoton controladorDeBoton = new ControladorDeBoton();
-            controladorDeBoton.initialize((App.class.getResource("/fxml/boton.fxml")), null);
-            Button boton;
-            String parcela = posicionable.getClass().getSimpleName().toString();
-            if(parcela.equals("Pasarela") || parcela.equals("Rocoso") || parcela.equals("Tierra")) {
-                boton = controladorDeBoton.obtenerBoton(
-                        "/images/" + parcela + ".png", event);
-            } else {
-                boton = controladorDeBoton.obtenerBoton("", null);
-                boton.setVisible(false);
-            }
-            gridpane.add(boton, posicionable.obtenerPosicion().obtenerColumna(), posicionable.obtenerPosicion().obtenerFila());
-        });*/
-
         for (int i = 1; i <= fila; i++){
             for (int j = 1; j <= columna; j++){
                 ControladorDeBoton controladorDeBoton = new ControladorDeBoton();
                 controladorDeBoton.initialize((App.class.getResource("/fxml/boton.fxml")), null);
-                Button boton;
-                boton = controladorDeBoton.obtenerBoton("", event);
+                Button boton = controladorDeBoton.obtenerBoton("", event);;
+                configurarBotonGrilla(boton);
                 boton.setVisible(false);
                 gridpane.add(boton, j, i);
             }
         }
+        gridpane.setMouseTransparent(true);
         return this.gridpane;
+    }
+
+    private void configurarBotonGrilla(Button boton) {
+        boton.setPrefWidth(50);
+        boton.setPrefHeight(50);
+        boton.setFocusTraversable(false);
+        ((ImageView)(boton.getGraphic())).setFitHeight(boton.getPrefHeight());
+        ((ImageView)(boton.getGraphic())).setFitWidth(boton.getPrefWidth());
+        boton.setStyle("-fx-background-color: transparent;");
+        boton.setPadding(new Insets(-2));
+        boton.setAlignment(Pos.CENTER);
     }
 }
