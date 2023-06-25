@@ -79,13 +79,13 @@ public class ControladorDeJuego implements Initializable {
         URL urlTerminarTurno = getClass().getResource("/images/TerminarTurno.png");
         terminarTurnoBackground.setImage(new Image(urlTerminarTurno.toString()));
         terminarTurnoBackground.setFitHeight(107);
-        terminarTurnoBackground.setFitWidth(350);
+        terminarTurnoBackground.setFitWidth(402);
         btnTerminarTurno.setGraphic(terminarTurnoBackground);
         btnTerminarTurno.setAlignment(Pos.CENTER);
         URL urlimagenDatos = getClass().getResource("/images/Lateral.png");
         Image imagenDatos = new Image(urlimagenDatos.toString());
         BackgroundImage fondoDatos = new BackgroundImage(imagenDatos, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+                BackgroundPosition.DEFAULT,new BackgroundSize(402, 700,false,false,false,true));
         datosJugador.setBackground(new Background(fondoDatos));
 
         ControladorDeGrilla controladorDeGrillaParcelas = new ControladorDeGrilla();

@@ -4,6 +4,8 @@ import edu.fiuba.algo3.controllers.CargadorDeEscena;
 import edu.fiuba.algo3.controllers.ControladorDeSonido;
 import edu.fiuba.algo3.view.PantallaInicio;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -24,7 +26,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage){
-        PantallaInicio pantallaInicio = new PantallaInicio(this, stage); //Hay que enchufarle nuestro modelo, no usar clases de otros 25/6
+        PantallaInicio pantallaInicio = new PantallaInicio(this, stage);
     }
 
     public static Stage obtenerStage () {return App.stage;}
