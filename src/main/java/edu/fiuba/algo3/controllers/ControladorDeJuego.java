@@ -6,10 +6,7 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
-import edu.fiuba.algo3.view.BotonPantallaInicio;
-import edu.fiuba.algo3.view.BotonTerminarTurno;
-import edu.fiuba.algo3.view.PanelDatos;
-import edu.fiuba.algo3.view.PantallaIngresarNombre;
+import edu.fiuba.algo3.view.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -59,25 +56,9 @@ public class ControladorDeJuego implements Initializable {
         configurarDatosJugador((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size()));
         configurarBotonTerminarTurno();
         configurarPanelDatosJugador();
-
-        ControladorDeGrilla controladorDeGrillaParcelas = new ControladorDeGrilla();
-        controladorDeGrillaParcelas.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
-        List<Posicionable> parcelas = (List<Posicionable>) (List<?>) Juego.getInstance().obtenerParcelas();
-        mapaGrid = controladorDeGrillaParcelas.obtenerGrillaDelTerreno(parcelas,construirOpciones());
-        stackPane.getChildren().add(mapaGrid);
-        setearDimensionesDeGrilla();
-
-        ControladorDeGrilla controladorDeGrillaDefensas = new ControladorDeGrilla();
-        controladorDeGrillaDefensas.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
-        opcionesGrid = controladorDeGrillaDefensas.obtenerGrillaSuperpuestas(filGrid,colGrid,construirDefensas());
-        opcionesGrid.setVisible(false);
-        opcionesGrid.setStyle("-fx-background-color: transparent;");
-        stackPane.getChildren().add(opcionesGrid);
-
-        ControladorDeGrilla controladorDeGrillaEnemigos = new ControladorDeGrilla();
-        controladorDeGrillaEnemigos.initialize((App.class.getResource("/fxml/grilla.fxml")),null);
-        enemigosGrid = controladorDeGrillaEnemigos.obtenerGrillaSuperpuestas(filGrid,colGrid,null);
-        stackPane.getChildren().add(enemigosGrid);
+        configurarGrillaTerreno();
+        configurarGrillaDefensa();
+        configurarGrillaEnemigos();
     }
 
 
@@ -202,6 +183,25 @@ public class ControladorDeJuego implements Initializable {
         BackgroundImage fondoDatos = new BackgroundImage(new Image(getClass().getResource("/images/Lateral.png").toString()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT,new BackgroundSize(402, 700,false,false,false,true));
         datosJugador.setBackground(new Background(fondoDatos));
+    }
+
+    private void configurarGrillaTerreno(){
+        List<Posicionable> parcelas = (List<Posicionable>) (List<?>) Juego.getInstance().obtenerParcelas();
+        mapaGrid = Grilla.fijarGrilla(parcelas,construirOpciones());
+        stackPane.getChildren().add(mapaGrid);
+        setearDimensionesDeGrilla();
+    }
+
+    private void configurarGrillaDefensa(){
+        opcionesGrid = Grilla.fijarGrillaSuperpuestas(filGrid,colGrid,construirDefensas());
+        opcionesGrid.setVisible(false);
+        opcionesGrid.setStyle("-fx-background-color: transparent;");
+        stackPane.getChildren().add(opcionesGrid);
+    }
+
+    private void configurarGrillaEnemigos() {
+        enemigosGrid = Grilla.fijarGrillaSuperpuestas(filGrid,colGrid,null);
+        stackPane.getChildren().add(enemigosGrid);
     }
 
 }
