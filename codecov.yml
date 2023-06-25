@@ -3,3 +3,4 @@ ignore:
   - "src/main/java/edu/fiuba/algo3/vistas"
   - "src/main/java/edu/fiuba/algo3/App.java"
   - "src/main/java/edu/fiuba/algo3/Main.java"
+  - "src/main/java/edu/fiuba/algo3/view"
