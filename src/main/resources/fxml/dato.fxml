@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-
-<Label fx:id="dato" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" />
+<HBox fx:id="dato" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="352.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="icono" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" translateX="10.0" translateY="10.0" />
+      <Label fx:id="valor" maxWidth="120.0" prefHeight="80.0" translateX="30.0" translateY="10.0">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font></Label>
+   </children>
+</HBox>

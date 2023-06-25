@@ -15,11 +15,9 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -55,20 +53,27 @@ public class ControladorDeJuego implements Initializable {
 
         ControladorDeDato controladorDeDato = new ControladorDeDato();
         controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato(jugador.obtenerNombreJugador()));
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Nombre.png")),jugador.obtenerNombreJugador()));
 
         controladorDeDato = new ControladorDeDato();
         controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato(String.valueOf(jugador.obtenerVidaJugador())));
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Vida.png")),String.valueOf(jugador.obtenerVidaJugador())));
 
         controladorDeDato = new ControladorDeDato();
         controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato(String.valueOf(jugador.valorCreditos())));
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos())));
 
         controladorDeDato = new ControladorDeDato();
         controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
-        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato(String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual())));
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual())));
 
+        controladorDeDato = new ControladorDeDato();
+        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size())));
+
+        controladorDeDato = new ControladorDeDato();
+        controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
+        vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size())));
 
         ImageView terminarTurnoBackground = new ImageView();
         URL urlTerminarTurno = getClass().getResource("/images/TerminarTurno.png");
