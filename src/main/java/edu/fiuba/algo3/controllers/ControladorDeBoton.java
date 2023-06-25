@@ -31,17 +31,8 @@ public class ControladorDeBoton implements Initializable {
         ImageView background = new ImageView();
         Image image = new Image(String.valueOf(getClass().getResource(path)));
         background.setImage(image);
-
-        boton.setPrefWidth(50);
-        boton.setPrefHeight(50);
-        boton.setFocusTraversable(false);
-        background.setFitHeight(boton.getPrefHeight());
-        background.setFitWidth(boton.getPrefWidth());
-        boton.setStyle("-fx-background-color: transparent;");
-        boton.setPadding(new Insets(-2));
         boton.setGraphic(background);
         boton.setOnAction(event);
-        boton.setAlignment(Pos.CENTER);
         return this.boton;
     }
 }
