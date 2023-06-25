@@ -61,8 +61,6 @@ public class ControladorDeJuego implements Initializable {
         configurarGrillaEnemigos();
     }
 
-
-
     private void configurarBotonDeConstruccion(Button defensa, URL urlImagen) {
         ImageView parcelaBackground = new ImageView();
         Image image = new Image(urlImagen.toString());
