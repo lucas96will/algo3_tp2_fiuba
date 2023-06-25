@@ -2,6 +2,7 @@ package edu.fiuba.algo3;
 
 import edu.fiuba.algo3.controllers.CargadorDeEscena;
 import edu.fiuba.algo3.controllers.ControladorDeSonido;
+import edu.fiuba.algo3.view.PantallaInicio;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -23,14 +24,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage){
-
-        App.stage = stage;
-        stage.setTitle("Algo Tower Defense");
-        CargadorDeEscena.cargarScene("/fxml/inicio.fxml",stage);
-        ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
-        controladorSonido.reproducirMusica("Age_of_Empires_1_Intro.mp3");
+        PantallaInicio pantallaInicio = new PantallaInicio(this, stage); //Hay que enchufarle nuestro modelo, no usar clases de otros 25/6
     }
 
     public static Stage obtenerStage () {return App.stage;}
 
+    public void setStage(Stage unStage){ stage = unStage;}
 }
