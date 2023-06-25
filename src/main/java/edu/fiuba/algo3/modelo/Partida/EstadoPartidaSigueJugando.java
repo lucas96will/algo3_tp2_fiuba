@@ -31,9 +31,8 @@ public class EstadoPartidaSigueJugando implements EstadoPartida{
     }
 
     @Override
-    public void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa) {
-        jugador.comprar(defensa);
-        mapa.construir(defensa, posicion);
+    public void construir(Defensa defensa, Jugador jugador, Mapa mapa) {
+        mapa.construir(defensa);
     }
     
     @Override

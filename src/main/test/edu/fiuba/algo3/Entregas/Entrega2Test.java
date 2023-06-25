@@ -100,13 +100,13 @@ public class Entrega2Test {
         juego.cargarJugador(jugador);
         juego.iniciar();
 
-        Torre torrePlateada = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
-        Torre torrePlateadaDos = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
-        Torre torrePlateadaTres = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
+        Torre torrePlateada = new Torre(20,2,5,new EstadoDefensaIncompleto(2), new Posicion(3,3), "Torre Plateada");
+        Torre torrePlateadaDos = new Torre(20,2,5,new EstadoDefensaIncompleto(2), new Posicion(6,1), "Torre Plateada");
+        Torre torrePlateadaTres = new Torre(20,2,5,new EstadoDefensaIncompleto(2), new Posicion(12,10),"Torre Plateada");
 
-        juego.construir(torrePlateada, new Posicion(3,3));
-        juego.construir(torrePlateadaDos, new Posicion(6,1));
-        juego.construir(torrePlateadaTres, new Posicion(12,10));
+        juego.construir(torrePlateada);
+        juego.construir(torrePlateadaDos);
+        juego.construir(torrePlateadaTres);
 
         for(int i = 0; i < 50; i++) { // Juego termina, danio causado al jugador = 22
             try {
@@ -145,13 +145,13 @@ public class Entrega2Test {
         juego.cargarJugador(jugador);
         juego.iniciar();
 
-        Torre torrePlateada1 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
-        Torre torrePlateada2 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
+        Torre torrePlateada1 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), new Posicion(1, 1), "Torre Plateada");
+        Torre torrePlateada2 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), new Posicion(3, 1),"Torre Plateada");
 
 
-        assertThrows(Exception.class, () -> juego.construir(torrePlateada1, new Posicion(1, 1))); //reviso que construir tire excepcion en la parcela rocoso
+        assertThrows(Exception.class, () -> juego.construir(torrePlateada1)); //reviso que construir tire excepcion en la parcela rocoso
 
-        juego.construir(torrePlateada2, new Posicion(3, 1));
+        juego.construir(torrePlateada2);
 
         for (int i = 0; i < 4 ; i++) {
             try {
@@ -181,13 +181,13 @@ public class Entrega2Test {
         juego.cargarJugador(jugador);
         juego.iniciar();
 
-        Torre torrePlateada1 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
-        Torre torrePlateada2 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), "Torre Plateada");
+        Torre torrePlateada1 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), new Posicion(15, 2), "Torre Plateada");
+        Torre torrePlateada2 = new Torre(20,2,5,new EstadoDefensaIncompleto(2), new Posicion(10, 12),"Torre Plateada");
 
 
-        assertThrows(Exception.class, () -> juego.construir(torrePlateada1, new Posicion(15, 2))); //reviso que construir tire excepcion en la parcela rocoso
+        assertThrows(Exception.class, () -> juego.construir(torrePlateada1)); //reviso que construir tire excepcion en la parcela rocoso
 
-        juego.construir(torrePlateada2, new Posicion(10, 12));
+        juego.construir(torrePlateada2);
 
         for (int i = 0; i < 144 ; i++) {
             try {
@@ -221,8 +221,8 @@ public class Entrega2Test {
         juego.cargarJugador(jugador);
         juego.iniciar();
 
-        Torre torreBlanca = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
-        juego.construir(torreBlanca, new Posicion(3, 3));
+        Torre torreBlanca = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(3, 3), "Torre Blanca");
+        juego.construir(torreBlanca);
 
         for (int i = 0; i < 29 ; i++) {
             try {

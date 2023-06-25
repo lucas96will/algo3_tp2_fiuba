@@ -38,17 +38,6 @@ public class Posicion {
         return posiciones.stream().anyMatch(p -> p.fila == this.fila && p.columna == this.columna);
     }
 
-    public int cantidadDePasarelasAlrededor(List<Parcela> pasarelas) {
-        int contador = 0;
-
-        for(Parcela pasarela : pasarelas){
-            if(pasarela.estaEnRangoLateralesA(this)){
-                contador++;
-            }
-        }
-        return contador;
-    }
-
     @Override
     public String toString() {
 

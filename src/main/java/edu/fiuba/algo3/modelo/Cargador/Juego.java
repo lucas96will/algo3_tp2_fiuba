@@ -58,8 +58,8 @@ public class Juego {
         return partida.estado();
     }
 
-    public void construir(Defensa torre, Posicion posicion) {
-        partida.construir(torre, posicion);
+    public void construir(Defensa torre) {
+        partida.construir(torre);
     }
 
     public List<Enemigo> obtenerEnemigos () {return mapa.obtenerEnemigos();}

@@ -41,8 +41,8 @@ public class Partida {
         actualizarEstado();
     }
 
-    public void construir(Defensa defensa, Posicion posicion) {
-        estado.construir(defensa, posicion, jugador, mapa);
+    public void construir(Defensa defensa){
+        estado.construir(defensa, jugador, mapa);
     }
 
     public void construir(TrampaDeArena trampa, Posicion posicion) {

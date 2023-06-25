@@ -26,16 +26,7 @@ public abstract class Defensa implements Cobrable, Posicionable {
         this.danio = danio;
         this.nombre = nombre;
     }
-    
-    public Defensa(int costo, int danio, int rango, EstadoDefensa unEstadoDefensa, String nombre) {
-        this.posicion = null;
-        this.estado = unEstadoDefensa;
-        this.costeEnCreditos = costo;
-        this.rango = rango;
-        this.danio = danio;
-        this.nombre = nombre;
-    }
-    
+
     
     @Override
     public void comprate(Recurso recurso) throws NoSePudoComprarException {
@@ -72,13 +63,14 @@ public abstract class Defensa implements Cobrable, Posicionable {
     public boolean tieneLaMismaPosicion(Posicion posicion) {
         return this.posicion.esIgual(posicion);
     }
-    
-    public void establecerPosicion(Posicion posicion) {
-        this.posicion = posicion;
-    }
 
     @Override
     public String toString() {
         return nombre;
     }
+
+    public boolean mismaPosicionQueDefensa(Defensa unaDefensa) {
+        return posicion.equals(unaDefensa.posicion);
+    }
+
 }

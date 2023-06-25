@@ -16,7 +16,7 @@ public class FactoryTest {
     public void test01DefensaFactoryDevuelveExcepcionSiLePidoUnaDefensaInexistente() {
         DefensaFactory defensaFactory = new DefensaFactory();
 
-        assertThrows(DefensaNoIdentificadaException.class, () -> defensaFactory.obtenerDefensa("voladora"));
+        assertThrows(DefensaNoIdentificadaException.class, () -> defensaFactory.obtenerDefensa("voladora", new Posicion(1,1)));
     }
 
     @Test

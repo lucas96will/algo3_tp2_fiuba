@@ -28,7 +28,7 @@ public class EstadoPartidaPerdida implements EstadoPartida{
     }
 
     @Override
-    public void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa) {
+    public void construir(Defensa defensa, Jugador jugador, Mapa mapa) {
         throw new RuntimeException("No se puede construir, la partida esta perdida");
     }
 

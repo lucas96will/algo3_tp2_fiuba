@@ -32,27 +32,19 @@ public class Mapa {
         enemigos.add(unEnemigo);
     }
 
-    public void construir(Defensa defensa, Posicion posicion) {
+    public void construir(Defensa defensa) {
         Jugador jugador = Jugador.getInstance();
         List<Defensa> defensasJugador = jugador.obtenerDefensas();
-
-        if (defensasJugador.stream().anyMatch(d -> d.tieneLaMismaPosicion(posicion))) {
+        if (defensasJugador.stream().anyMatch(d -> d.mismaPosicionQueDefensa(defensa))) {
             return;
         }
-        Parcela parcelaElegida = parcelas.stream()
-                .filter(p -> p.tieneLaMismaPosicion(posicion))
-                .findFirst().orElse(null);
 
-        try {
-            if (parcelaElegida != null) {
-                parcelaElegida.insertarDefensa(defensa);
-                if (defensa.tieneLaMismaPosicion(posicion)) {
-                    defensasJugador.add(defensa);
-                }
-            }
-        } catch (Exception e) {
-            throw new DefensaNoSePudoConstruir();
+        for (Parcela parcela : parcelas) {
+            parcela.insertarDefensa(defensa, defensasJugador);
         }
+
+        jugador.comprar(defensa);
+
 
     }
 
@@ -60,7 +52,7 @@ public class Mapa {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarDefensas();
 
-        for(Parcela unaParcela : parcelas){
+        for (Parcela unaParcela : parcelas) {
             unaParcela.actualizarEstado();
         }
     }
@@ -80,21 +72,21 @@ public class Mapa {
     }
 
     public boolean sinEnemigos() {
-        return enemigos.size() == 0 ;
+        return enemigos.size() == 0;
     }
 
-    public void agregarParcelaEnPosicion(Parcela parcela, Posicion posicion) {
-        parcela.establecerPosicion(posicion);
-        parcelas.add(parcela);
+
+    public void agregarParcela(Parcela unaParcela) {
+        parcelas.add(unaParcela);
     }
 
     public void establecerTerreno(List<Parcela> parcelas) {
         this.parcelas.addAll(parcelas);
     }
 
-    public void construirTrampa(TrampaDeArena trampa, Posicion posicion){
+    public void construirTrampa(TrampaDeArena trampa, Posicion posicion) {
 
-        for(Parcela parcela: parcelas){
+        for (Parcela parcela : parcelas) {
             parcela.construir(trampa, posicion);
         }
         Logger.getInstance().logExitoso(trampa + " construida en " + posicion);

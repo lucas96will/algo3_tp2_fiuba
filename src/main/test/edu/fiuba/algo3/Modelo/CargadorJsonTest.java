@@ -73,11 +73,11 @@ public class CargadorJsonTest {
         CargadorJson cargadorJson = new CargadorJson();
         Mapa mapa = cargadorJson.procesarMapa(rutaJsonMapaTest);
 
-        Torre torreEnPosicionValida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), "Torre Blanca");
-        Torre torreEnPosicionInvalida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), "Torre Blanca");
+        Torre torreEnPosicionValida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), new Posicion(2,2), "Torre Blanca");
+        Torre torreEnPosicionInvalida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), new Posicion(1,1),"Torre Blanca");
 
-        assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida, new Posicion(2,2)));
-        assertThrows(DefensaNoSePudoConstruir.class, () -> mapa.construir(torreEnPosicionInvalida, new Posicion(1,1)));
+        assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida));
+        assertThrows(DefensaNoSePudoConstruir.class, () -> mapa.construir(torreEnPosicionInvalida));
         assertTrue(mapa.sinEnemigos());
     }
 

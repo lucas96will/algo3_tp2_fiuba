@@ -3,6 +3,7 @@ package edu.fiuba.algo3.Modelo;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Defensa.Torre;
+import edu.fiuba.algo3.modelo.Direccion.Derecha;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
@@ -37,23 +38,28 @@ public class EstadoPartidaTest {
 
     public Mapa obtenerMapaGenerico() {
         Mapa mapa = new Mapa();
-
-        mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
+        Pasarela pasarela = new Pasarela(new Posicion(1,1), new Largada());
+        pasarela.establecerDireccion(new Derecha());
+        mapa.agregarParcela(pasarela);
 
         for(int i = 2; i < 7; i++){
-            mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,i));
+            pasarela = new Pasarela(new Posicion(1,i), new Casilla());
+            pasarela.establecerDireccion(new Derecha());
+            mapa.agregarParcela(pasarela);
         }
-        mapa.agregarParcelaEnPosicion(new Pasarela(new Meta()), new Posicion(1,7));
+        pasarela = new Pasarela(new Posicion(1,7), new Meta());
+        pasarela.establecerDireccion(new Derecha());
+        mapa.agregarParcela(pasarela);
 
         for(int j = 2; j < 8; j++) {
             for(int k = 1; k < 8; k++) {
-                mapa.agregarParcelaEnPosicion(new Tierra(), new Posicion(j, k));
+
+                mapa.agregarParcela(new Tierra(new Posicion(j, k)));
             }
         }
         for(int h = 1; h < 8; h++) {
-            mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
+            mapa.agregarParcela(new Rocoso(new Posicion(7, h)));
         }
-
 
         return mapa;
     }
@@ -63,9 +69,9 @@ public class EstadoPartidaTest {
         EstadoPartida estado = new EstadoPartidaGanada();
         Jugador jugador = Jugador.getInstance();
         Mapa mapa = obtenerMapaGenerico();
-        Defensa defensa = new Torre(1,1,1, new EstadoDefensaIncompleto(2), "Torre");
+        Defensa defensa = new Torre(1,1,1, new EstadoDefensaIncompleto(2), new Posicion(1,1), "Torre");
 
-        assertThrows( RuntimeException.class, ()-> estado.construir(defensa, new Posicion(2,2), jugador, mapa) );
+        assertThrows( RuntimeException.class, ()-> estado.construir(defensa, jugador, mapa) );
     }
 
     @Test
@@ -90,9 +96,9 @@ public class EstadoPartidaTest {
         EstadoPartida estado = new EstadoPartidaSigueJugando();
         Jugador jugador = Jugador.getInstance();
         Mapa mapa = obtenerMapaGenerico();
-        Defensa defensa = new Torre(1,1,1, new EstadoDefensaIncompleto(2), "Torre");
+        Defensa defensaValida = new Torre(1,1,1, new EstadoDefensaIncompleto(2), new Posicion(2,2),"Torre");
 
-        assertDoesNotThrow( ()-> estado.construir(defensa, new Posicion(2,2), jugador, mapa) );
+        assertDoesNotThrow( ()-> estado.construir(defensaValida, jugador, mapa) );
     }
 
     @Test
@@ -117,9 +123,9 @@ public class EstadoPartidaTest {
         EstadoPartida estado = new EstadoPartidaPerdida();
         Jugador jugador = Jugador.getInstance();
         Mapa mapa = obtenerMapaGenerico();
-        Defensa defensa = new Torre(1,1,1, new EstadoDefensaIncompleto(2), "Torre");
+        Defensa defensa = new Torre(1,1,1, new EstadoDefensaIncompleto(2), new Posicion(1,1), "Torre");
 
-        assertThrows(RuntimeException.class, ()-> estado.construir(defensa, new Posicion(2,2), jugador, mapa) );
+        assertThrows(RuntimeException.class, ()-> estado.construir(defensa, jugador, mapa) );
     }
 
     @Test

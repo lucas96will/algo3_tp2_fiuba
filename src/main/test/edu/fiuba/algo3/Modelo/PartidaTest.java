@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.Modelo;
 
+import edu.fiuba.algo3.modelo.Direccion.Derecha;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -21,25 +22,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PartidaTest {
 
     public Mapa obtenerMapaGenerico() {
-            Mapa mapa = new Mapa();
+        Mapa mapa = new Mapa();
+        Pasarela pasarela = new Pasarela(new Posicion(1,1), new Largada());
+        pasarela.establecerDireccion(new Derecha());
+        mapa.agregarParcela(pasarela);
 
-            mapa.agregarParcelaEnPosicion(new Pasarela(new Largada()), new Posicion(1,1));
-
-            for(int i = 2; i < 7; i++){
-                mapa.agregarParcelaEnPosicion(new Pasarela(new Casilla()), new Posicion(1,i));
-            }
-            mapa.agregarParcelaEnPosicion(new Pasarela(new Meta()), new Posicion(1,7));
-
-            for(int j = 2; j < 8; j++) {
-                for(int k = 1; k < 8; k++) {
-                    mapa.agregarParcelaEnPosicion(new Tierra(), new Posicion(j, k));
-                }
-            }
-            for(int h = 1; h < 8; h++) {
-                mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
-            }
-            return mapa;
+        for(int i = 2; i < 7; i++){
+            pasarela = new Pasarela(new Posicion(1,i), new Casilla());
+            pasarela.establecerDireccion(new Derecha());
+            mapa.agregarParcela(pasarela);
         }
+        pasarela = new Pasarela(new Posicion(1,7), new Meta());
+        pasarela.establecerDireccion(new Derecha());
+        mapa.agregarParcela(pasarela);
+
+        for(int j = 2; j < 8; j++) {
+            for(int k = 1; k < 8; k++) {
+
+                mapa.agregarParcela(new Tierra(new Posicion(j, k)));
+            }
+        }
+        for(int h = 1; h < 8; h++) {
+            mapa.agregarParcela(new Rocoso(new Posicion(7, h)));
+        }
+
+        return mapa;
+    }
 
     @BeforeEach
     public void setUp() {

@@ -51,26 +51,27 @@ public class EnemigoTest {
 
     public Mapa obtenerMapaGenerico() {
             Mapa mapa = new Mapa();
-            Pasarela pasarela = new Pasarela(new Largada());
+            Pasarela pasarela = new Pasarela(new Posicion(1,1), new Largada());
             pasarela.establecerDireccion(new Derecha());
-            mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,1));
+            mapa.agregarParcela(pasarela);
     
             for(int i = 2; i < 7; i++){
-                pasarela = new Pasarela(new Casilla());
+                pasarela = new Pasarela(new Posicion(1,i), new Casilla());
                 pasarela.establecerDireccion(new Derecha());
-                mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,i));
+                mapa.agregarParcela(pasarela);
             }
-            pasarela = new Pasarela(new Meta());
+            pasarela = new Pasarela(new Posicion(1,7), new Meta());
             pasarela.establecerDireccion(new Derecha());
-            mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,7));
+            mapa.agregarParcela(pasarela);
     
             for(int j = 2; j < 8; j++) {
                 for(int k = 1; k < 8; k++) {
-                    mapa.agregarParcelaEnPosicion(new Tierra(), new Posicion(j, k));
+
+                    mapa.agregarParcela(new Tierra(new Posicion(j, k)));
                 }
             }
             for(int h = 1; h < 8; h++) {
-                mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
+                mapa.agregarParcela(new Rocoso(new Posicion(7, h)));
             }
             
             return mapa;
@@ -402,8 +403,8 @@ public class EnemigoTest {
         Enemigo lechuza = new Lechuza(new Posicion(1, 1));
 
         DefensaFactory factoria = new DefensaFactory();
-        defensas.add(factoria.obtenerDefensa("Blanca"));
-        defensas.add(factoria.obtenerDefensa("Blanca"));
+        defensas.add(factoria.obtenerDefensa("Blanca", new Posicion(2,2)));
+        defensas.add(factoria.obtenerDefensa("Blanca", new Posicion(2,2)));
 
         Pasarela parcela = new Pasarela(new Posicion(1,1), new Meta());
         List<Parcela> parcelas = new ArrayList<>();
@@ -420,9 +421,9 @@ public class EnemigoTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO enemigo test 17 Lechuza debería estar en la posicion esperada");
         Mapa mapa = cargador.procesarMapa("data/jsonTests/mapa.json");
         Enemigo lechuza = new Lechuza(new Posicion(9, 12));
-        Defensa torre = new Torre(10 , 3, 3, new EstadoDefensaCompleto(), "Torrecilla");
+        Defensa torre = new Torre(10 , 3, 3, new EstadoDefensaCompleto(), new Posicion(1,3), "Torrecilla");
 
-        mapa.construir(torre, new Posicion(1,3));
+        mapa.construir(torre);
         mapa.actualizarEstadoDefensas();
         mapa.insertarEnemigo(lechuza);
         mapa.defensasAtacar();
