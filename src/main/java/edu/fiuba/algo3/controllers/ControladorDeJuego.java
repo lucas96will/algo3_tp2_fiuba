@@ -6,6 +6,9 @@ import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
+import edu.fiuba.algo3.view.BotonPantallaInicio;
+import edu.fiuba.algo3.view.BotonTerminarTurno;
+import edu.fiuba.algo3.view.PantallaIngresarNombre;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,14 +43,10 @@ public class ControladorDeJuego implements Initializable {
     @FXML private VBox vBoxDatos;
     @FXML private AnchorPane datosJugador;
     @FXML private StackPane stackPane;
+    @FXML private AnchorPane botonera;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        Juego.getInstance().cargarJugador(Jugador.getInstance());
-        Juego.getInstance().iniciar();
-
-        Juego.getInstance().terminarTurno();
 
         Jugador jugador = Jugador.getInstance();
 
@@ -75,13 +74,14 @@ public class ControladorDeJuego implements Initializable {
         controladorDeDato.initialize((App.class.getResource("/fxml/dato.fxml")),null);
         vBoxDatos.getChildren().add(controladorDeDato.obtenerDato((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size())));
 
-        ImageView terminarTurnoBackground = new ImageView();
+        /*ImageView terminarTurnoBackground = new ImageView();
         URL urlTerminarTurno = getClass().getResource("/images/TerminarTurno.png");
         terminarTurnoBackground.setImage(new Image(urlTerminarTurno.toString()));
         terminarTurnoBackground.setFitHeight(107);
         terminarTurnoBackground.setFitWidth(402);
         btnTerminarTurno.setGraphic(terminarTurnoBackground);
-        btnTerminarTurno.setAlignment(Pos.CENTER);
+        btnTerminarTurno.setAlignment(Pos.CENTER);*/
+        configurarBotonTerminarTurno();
         URL urlimagenDatos = getClass().getResource("/images/Lateral.png");
         Image imagenDatos = new Image(urlimagenDatos.toString());
         BackgroundImage fondoDatos = new BackgroundImage(imagenDatos, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
@@ -210,6 +210,16 @@ public class ControladorDeJuego implements Initializable {
             opcionesGrid.setVisible(true);
             opcionesGrid.setMouseTransparent(false);
         };
+    }
+
+    public EventHandler<ActionEvent> terminarTurno(){
+        return event -> {};
+
+    }
+
+    private void configurarBotonTerminarTurno() {
+        btnTerminarTurno = BotonTerminarTurno.fijarBotonTerminarTurno(this);
+        botonera.getChildren().add(btnTerminarTurno);
     }
 
 }

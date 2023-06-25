@@ -3,7 +3,7 @@ package edu.fiuba.algo3.controllers;
 import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.view.BotonPantallaInicio;
-import edu.fiuba.algo3.view.IngresarNombre;
+import edu.fiuba.algo3.view.PantallaIngresarNombre;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ public class ControladorPantallaInicio implements Initializable {
                 String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
                 String rutaJsonMapa = "data/jsonTests/mapa.json";
                 Juego.getInstance().cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
-                IngresarNombre ingresarNombre = new IngresarNombre(App.getInstance(), App.obtenerStage());
+                new PantallaIngresarNombre(App.getInstance(), App.obtenerStage());
             } catch (RuntimeException e){
                 e.printStackTrace();
             }

@@ -26,7 +26,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage){
-        PantallaInicio pantallaInicio = new PantallaInicio(this, stage);
+        new PantallaInicio(this, stage);
     }
 
     public static Stage obtenerStage () {return App.stage;}
