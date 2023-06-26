@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +64,7 @@ public class Jugador {
     }
 
 
-    public void comprar(Cobrable cobrable) throws NoSePudoComprarException {
+    public void comprar(Cobrable cobrable) throws RecursosInsuficientesException {
         cobrable.comprate(recurso);
     }
 
@@ -95,11 +95,6 @@ public class Jugador {
     public boolean muerto() {
         Jugador jugador = Jugador.getInstance();
         return jugador.obtenerVidaJugador() <= 0;
-    }
-
-    public boolean estaIntacto() {
-        Jugador jugador = Jugador.getInstance();
-        return jugador.obtenerVidaJugador() == vidaMaxima;
     }
 
     public int valorCreditos() {

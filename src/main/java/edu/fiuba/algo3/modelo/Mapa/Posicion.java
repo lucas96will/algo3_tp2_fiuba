@@ -28,11 +28,6 @@ public class Posicion {
         return dist <= rango;
     }
 
-    public boolean estaEnRangoLaterales(Posicion posicion){
-        int distLateral = Math.abs(fila - posicion.fila) + Math.abs(columna - posicion.columna);
-        return distLateral == 1;
-     }
-
     public boolean esIgual(Posicion ... unasPosiciones) {
         List<Posicion> posiciones = Arrays.asList(unasPosiciones);
         return posiciones.stream().anyMatch(p -> p.fila == this.fila && p.columna == this.columna);

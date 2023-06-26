@@ -1,11 +1,10 @@
 package edu.fiuba.algo3.modelo.Defensa;
 
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
-import edu.fiuba.algo3.modelo.Partida.Logger;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public abstract class Defensa implements Cobrable, Posicionable {
 
 
     @Override
-    public void comprate(Recurso recurso) throws NoSePudoComprarException {
+    public void comprate(Recurso recurso) throws RecursosInsuficientesException {
         recurso.gastar(costeEnCreditos);
     }
 

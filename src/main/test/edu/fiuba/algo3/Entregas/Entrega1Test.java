@@ -75,7 +75,7 @@ public class Entrega1Test {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(100), "Joaquín");
 
-        assertTrue(jugador.estaIntacto());
+        assertEquals(10, jugador.obtenerVidaJugador());
         assertEquals(100, jugador.valorCreditos());
     }
 
@@ -241,7 +241,7 @@ public class Entrega1Test {
 
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada());
-        assertTrue(jugador.estaIntacto());
+        assertEquals(10, jugador.obtenerVidaJugador());
     }
 
     @Test

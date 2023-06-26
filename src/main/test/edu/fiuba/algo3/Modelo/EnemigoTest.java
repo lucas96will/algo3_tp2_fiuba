@@ -98,7 +98,8 @@ public class EnemigoTest {
             }
         }
 
-        assertFalse(jugador.estaIntacto()); //hormiga llego al final :c
+        assertEquals(99, jugador.obtenerVidaJugador());
+        assertEquals(10, jugador.valorCreditos());
 
     }
 

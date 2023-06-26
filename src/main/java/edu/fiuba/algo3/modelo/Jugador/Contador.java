@@ -28,9 +28,4 @@ public class Contador {
         unEnemigo.obtenerRecompensa(recurso, cantidadMuertesEnemigo);
     }
 
-    private int obtenerCantidadMuertes(Enemigo unEnemigo){
-        registroMuertes.putIfAbsent(unEnemigo.nombre(), 0);
-        return registroMuertes.get(unEnemigo.nombre());
-    }
-
 }
