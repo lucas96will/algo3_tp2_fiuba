@@ -34,16 +34,19 @@ public class EstadoPartidaGanada implements EstadoPartida{
 
     @Override
     public void construirTrampa(TrampaDeArena trampa, Posicion posicion, Jugador jugador, Mapa mapa) {
-        jugador.comprar(trampa);
-        mapa.construirTrampa(trampa, posicion);
+        throw new RuntimeException("No se puede construir, la partida ya esta ganada");
     }
 
     @Override
     public void insertarEnemigo(Enemigo enemigo, Mapa mapa) {
+        throw new RuntimeException("No se puede insertar enemigo, la partida ya esta ganada");
+
     }
 
     @Override
     public void insertarEnemigos(List<Enemigo> enemigos, Mapa mapa) {
+        throw new RuntimeException("No se puede insertar enemigos, la partida ya esta ganada");
+
     }
 
     @Override
