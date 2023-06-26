@@ -70,7 +70,7 @@ public class CargadorJsonTest {
 
         assertThrows(RutaInvalidaException.class, () -> cargadorJson.procesarMapa(rutaJsonMapaIncorrecto));
     }
-    
+
 
     @Test
     public void mapaSeCargaCorrectamente() {
@@ -116,5 +116,19 @@ public class CargadorJsonTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO CargadorJson no carga correctamente jsonEnemigosErroneo.");
         Cargador cargador = new CargadorJson();
         assertThrows(EnemigosJsonParseException.class, () -> cargador.procesarEnemigos(rutaJsonEnemigoMalFormato));
+    }
+
+    @Test
+    public void archivoEsCorrectoLanzaExcepcionConRutaMala() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO metodo archivoEsCorrecto Lanza Excepcion");
+        Cargador cargador = new CargadorJson();
+        assertThrows(RuntimeException.class, () -> cargador.archivoEsCorrecto("sfsafsfs", "3333333"));
+    }
+
+    @Test
+    public void procesarEnemigosLanzaExcepcionConRutaMala() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO metodo procesar enemigos lanza exepcion con ruta mala");
+        Cargador cargador = new CargadorJson();
+        assertThrows(RuntimeException.class, () -> cargador.procesarEnemigos("sfsafsfs"));
     }
 }
