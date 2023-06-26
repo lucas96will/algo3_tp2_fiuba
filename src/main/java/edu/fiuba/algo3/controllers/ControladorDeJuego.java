@@ -140,7 +140,7 @@ public class ControladorDeJuego implements Initializable {
             });
             ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
             controladorSonido.modificarVolumenEfecto(1);
-            ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre.mp3");
+            ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
             opcionesGrid.setVisible(false);
             opcionesGrid.setMouseTransparent(true);
         };
