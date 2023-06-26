@@ -4,18 +4,15 @@ import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
-import edu.fiuba.algo3.view.BotonIngresarNombre;
-import edu.fiuba.algo3.view.BotonPantallaInicio;
+import edu.fiuba.algo3.view.BotonEmpezar;
 import edu.fiuba.algo3.view.PantallaJuego;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -44,7 +41,7 @@ public class ControladorDeIngresarNombre implements Initializable {
     }
 
     private void configurarBotonEmpezar() {
-        boton = BotonIngresarNombre.fijarBotonEmpezar(this);
+        boton = BotonEmpezar.fijarBotonEmpezar(this);
         anchorPane.getChildren().add(boton);
     }
 }

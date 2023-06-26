@@ -5,6 +5,9 @@ import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
+import edu.fiuba.algo3.modelo.Partida.EstadoPartidaGanada;
+import edu.fiuba.algo3.modelo.Partida.EstadoPartidaPerdida;
+import edu.fiuba.algo3.modelo.Partida.EstadoPartidaSigueJugando;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
 import javafx.event.ActionEvent;
@@ -164,8 +167,18 @@ public class ControladorDeJuego implements Initializable {
     }
 
     public EventHandler<ActionEvent> terminarTurno(){
-        return event -> {};
-
+        return event -> {
+            Juego.getInstance().terminarTurno();
+            if (!Juego.getInstance().estado().equals(new EstadoPartidaSigueJugando())) {
+                ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
+                if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
+                    controladorPantallaFinal.configurarMensajeFinal("¡Ganaste!");
+                } else if (Juego.getInstance().estado().equals(new EstadoPartidaPerdida())) {
+                    controladorPantallaFinal.configurarMensajeFinal("¡Perdiste!");
+                }
+                new PantallaFinal(App.getInstance(), App.obtenerStage());
+            }
+        };
     }
 
     private void configurarBotonTerminarTurno() {
