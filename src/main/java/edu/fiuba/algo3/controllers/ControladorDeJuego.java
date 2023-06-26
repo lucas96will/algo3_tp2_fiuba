@@ -139,7 +139,6 @@ public class ControladorDeJuego implements Initializable {
                 btn.setVisible(false);
             });
             ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
-            controladorSonido.modificarVolumenEfecto(1);
             ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
             opcionesGrid.setVisible(false);
             opcionesGrid.setMouseTransparent(true);
@@ -181,6 +180,18 @@ public class ControladorDeJuego implements Initializable {
         };
     }
 
+    public EventHandler<ActionEvent> configuracion(){
+        return event -> {
+            // abrir vbox con los siguientes botones
+            /* Informacion del juego
+            * hbox con siguiente cancion, parar o play musica, skip cancion
+            * una barra horizontal para manejar el volumen de musica
+            * una barra horizontal para manejar el volumen de los sonidos de efectos */
+            //App.getInstance().configuracion();
+
+        };
+    }
+
     private void configurarBotonTerminarTurno() {
         btnTerminarTurno = BotonTerminarTurno.fijarBotonTerminarTurno(this);
         botonera.getChildren().add(btnTerminarTurno);
@@ -214,5 +225,6 @@ public class ControladorDeJuego implements Initializable {
         enemigosGrid = Grilla.fijarGrillaSuperpuestas(filGrid,colGrid,null);
         stackPane.getChildren().add(enemigosGrid);
     }
+
 
 }

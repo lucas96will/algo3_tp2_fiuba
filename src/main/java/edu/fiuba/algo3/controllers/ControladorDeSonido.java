@@ -6,7 +6,9 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class ControladorDeSonido {
@@ -97,8 +99,37 @@ public class ControladorDeSonido {
         }
     }
 
-    public void detenerMusica() {
-        reproduccionActual.stop();
+    public void play() {
+        if(reproduccionActual.getStatus() == MediaPlayer.Status.PLAYING){
+            reproduccionActual.pause();
+        } else {
+            reproduccionActual.play();
+        }
     }
+
+    public void siguienteCancion() {
+        reproduccionActual.stop();
+        List<MediaPlayer> canciones = new ArrayList<>(musica.values());
+
+        reproduccionActual = canciones.get((canciones.indexOf(reproduccionActual) + 1 ) % canciones.size());
+
+        reproduccionActual.play();
+
+    }
+
+    public void cancionAnterior() {
+        reproduccionActual.stop();
+
+        List<MediaPlayer> canciones = new ArrayList<>(musica.values());
+
+        int posicionCancionActual = canciones.indexOf(reproduccionActual);
+        int posicionCancionAnterior = posicionCancionActual - 1 < 0 ? canciones.size() - 1 : posicionCancionActual - 1;
+
+        reproduccionActual = canciones.get(posicionCancionAnterior);
+        reproduccionActual.play();
+
+    }
+
+
 
 }

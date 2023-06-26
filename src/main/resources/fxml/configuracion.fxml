@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="150.0" prefWidth="89.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControlDeConfiguracion">
+   <children>
+      <Button mnemonicParsing="false" onAction="#mostrarInformacion" prefHeight="25.0" prefWidth="89.0" text="Información" />
+      <HBox prefHeight="36.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#anteriorCancion" text="⏮" />
+            <Button mnemonicParsing="false" onAction="#play" text="⏸▶" />
+            <Button mnemonicParsing="false" onAction="#skip" text="⏭" />
+         </children>
+      </HBox>
+      <Slider showTickMarks="true" />
+      <Slider showTickMarks="true" />
+   </children>
+</VBox>

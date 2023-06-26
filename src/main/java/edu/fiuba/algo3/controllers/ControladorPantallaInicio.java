@@ -8,8 +8,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
+
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,6 +36,12 @@ public class ControladorPantallaInicio implements Initializable {
             } catch (RuntimeException e){
                 e.printStackTrace();
             }
+        };
+    }
+
+    public EventHandler<ActionEvent> configuracion(){
+        return event -> {
+            //App.getInstance().configuracion();
         };
     }
 
