@@ -38,7 +38,7 @@ public class DefensaTest {
 
         Enemigo hormiga = new Hormiga(new Posicion(2,2));
 
-        List<Enemigo> enemigos = new ArrayList<Enemigo>();
+        List<Enemigo> enemigos = new ArrayList<>();
         enemigos.add(hormiga);
 
         assertFalse(hormiga.muerto());

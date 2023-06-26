@@ -18,5 +18,8 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.Cargador;
     exports edu.fiuba.algo3.modelo.Enemigo.Movimiento;
     exports edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo;
+    exports edu.fiuba.algo3.modelo.Excepciones;
+    exports edu.fiuba.algo3.modelo.Posicionable;
+    exports edu.fiuba.algo3.modelo.Cobrable;
     opens edu.fiuba.algo3.controllers to javafx.fxml;
 }

@@ -22,8 +22,8 @@ public class ControladorDeSonido {
     private MediaPlayer efecto;
 
     private ControladorDeSonido(){
-        efectosDeSonido = new HashMap<String, MediaPlayer>();
-        musica = new HashMap<String, MediaPlayer>();
+        efectosDeSonido = new HashMap<>();
+        musica = new HashMap<>();
         cargar("efectos", efectosDeSonido);
         cargar("musica", musica);
     }
@@ -69,6 +69,9 @@ public class ControladorDeSonido {
             throw new RuntimeException("Error: No se encontro la carpeta de sonidos!");
         }
         File[] archivos = directorio.listFiles();
+        if(archivos == null){
+            throw new RuntimeException("Error: No se encontraron efectos de sonidos dentro de la carpeta de sonidos/efectos/");
+        }
         for(File archivo : archivos){
             URL mediaUrl = Objects.requireNonNull(getClass().getResource("/sonidos/" + carpeta + "/" + archivo.getName()));
             Media media = new Media(mediaUrl.toString());

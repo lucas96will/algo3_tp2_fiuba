@@ -9,7 +9,7 @@ import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import java.util.List;
 
 public interface Parcela extends Posicionable {
-    void insertarEnemigo(Enemigo unEnemigo) throws Exception;
+    void insertarEnemigo(Enemigo unEnemigo) throws Exception; // TODO: lanzar una runtimeException propia para el usuario
     void insertarDefensa(Defensa defensa, List<Defensa> defensasJugador) throws DefensaNoSePudoConstruir;
     void moveElEnemigo(Enemigo enemigo, Posicion actual);
     Posicion obtenerPosicionFinal();

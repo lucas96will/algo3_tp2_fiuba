@@ -25,9 +25,7 @@ public class ControladorDeIngresarNombre implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         configurarBotonEmpezar();
         boton.setDisable(true);
-        nombre.textProperty().addListener((obs, oldText, newText) -> {
-            boton.setDisable(newText.isEmpty());
-        });
+        nombre.textProperty().addListener((obs, oldText, newText) -> boton.setDisable(newText.isEmpty()));
     }
 
     public EventHandler empezar () {

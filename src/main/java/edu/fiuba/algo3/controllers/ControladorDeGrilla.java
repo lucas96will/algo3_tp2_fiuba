@@ -36,7 +36,7 @@ public class ControladorDeGrilla implements Initializable {
             ControladorDeBoton controladorDeBoton = new ControladorDeBoton();
             controladorDeBoton.initialize((App.class.getResource("/fxml/boton.fxml")), null);
             Button boton;
-            String parcela = posicionable.getClass().getSimpleName().toString();
+            String parcela = posicionable.getClass().getSimpleName();
 
 
             if(parcela.equals("Pasarela") || parcela.equals("Rocoso") || parcela.equals("Tierra")) {
@@ -69,7 +69,7 @@ public class ControladorDeGrilla implements Initializable {
             for (int j = 1; j <= columna; j++){
                 ControladorDeBoton controladorDeBoton = new ControladorDeBoton();
                 controladorDeBoton.initialize((App.class.getResource("/fxml/boton.fxml")), null);
-                Button boton = controladorDeBoton.obtenerBoton("", event);;
+                Button boton = controladorDeBoton.obtenerBoton("", event);
                 configurarBotonGrilla(boton);
                 boton.setVisible(false);
                 gridpane.add(boton, j, i);

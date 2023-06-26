@@ -29,10 +29,6 @@ public abstract class Enemigo implements Posicionable {
         estado = unEstado;
     }
 
-    public void recibirAtaque(int unDanio) {
-        estado.recibirAtaque(this, unDanio);
-    }
-
     public abstract void morir();
 
     public boolean muerto() {

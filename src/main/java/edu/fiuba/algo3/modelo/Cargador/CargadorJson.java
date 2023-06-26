@@ -29,9 +29,7 @@ public class CargadorJson implements Cargador {
             parser.parse(new FileReader(rutaJsonEnemigos));
             parser.parse(new FileReader(rutaJsonMapa));
 
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ParseException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -181,7 +179,7 @@ public class CargadorJson implements Cargador {
     public Mapa procesarMapa(String rutaJsonMapa) {
 
         try {
-            List<Parcela> parcelas = new ArrayList<Parcela>();
+            List<Parcela> parcelas = new ArrayList<>();
             JSONParser parser = new JSONParser();
             FileReader lector = new FileReader(rutaJsonMapa);
             JSONObject json = (JSONObject) parser.parse(lector);

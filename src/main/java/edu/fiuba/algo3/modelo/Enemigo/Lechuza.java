@@ -40,7 +40,7 @@ public class Lechuza extends Enemigo{
     }
 
     @Override
-    public void recibirAtaque(int unDanio){
+    public void recibirAtaque(int unDanio, int unRango, Posicion unaPosicion){
         estado.recibirAtaque(this, unDanio);
     }
 
