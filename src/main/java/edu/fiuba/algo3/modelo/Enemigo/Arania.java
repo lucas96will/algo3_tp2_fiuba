@@ -25,14 +25,6 @@ public class Arania extends Enemigo{
     }
 
     @Override
-    public void morir() {
-        Jugador jugador = Jugador.getInstance();
-        jugador.obtenerRecompensa(this);
-        jugador.incrementarContador(this);
-        Logger.getInstance().logExitoso(this + " murio.");
-    }
-
-    @Override
     public String toString() {
         return ("Araña en " +  posicion.toString());
     }

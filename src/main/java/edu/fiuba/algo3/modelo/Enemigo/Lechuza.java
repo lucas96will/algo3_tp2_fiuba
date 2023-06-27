@@ -21,12 +21,6 @@ public class Lechuza extends Enemigo{
     public Lechuza(){
         super(new EstadoEnemigoVivo(5,1,5), new MovimientoVolador());
     }
-    @Override
-    public void morir() {
-        Jugador jugador = Jugador.getInstance();
-        jugador.obtenerRecompensa(this);
-        Logger.getInstance().logExitoso(this + " murió.");
-    }
 
     @Override
     public void moverse(List<Parcela> parcelas){

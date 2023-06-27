@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigo;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -29,7 +30,12 @@ public abstract class Enemigo implements Posicionable {
         estado = unEstado;
     }
 
-    public abstract void morir();
+    public void morir(){
+        Jugador jugador = Jugador.getInstance();
+        jugador.obtenerRecompensa(this);
+        jugador.incrementarContador(this);
+        Logger.getInstance().logExitoso(this + " murio.");
+    }
 
     public boolean muerto() {
         return estado.getClass().equals(EstadoEnemigoMuerto.class); //Mal y pronto

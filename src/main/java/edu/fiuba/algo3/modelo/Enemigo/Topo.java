@@ -22,11 +22,6 @@ public class Topo extends Enemigo {
     }
 
     @Override
-    public void morir() {
-
-    }
-    
-    @Override
     public void moverse(List<Parcela> parcelas) {
         estado.moverse(movimiento, parcelas, this, posicion);
     }
