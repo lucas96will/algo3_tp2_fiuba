@@ -85,10 +85,10 @@ public class ControladorDeJuego implements Initializable {
         ImageView parcelaBackground = new ImageView();
         Image image = new Image(urlImagen.toString());
         parcelaBackground.setImage(image);
-        parcelaBackground.setFitHeight(33);
-        parcelaBackground.setFitWidth(33);
-        defensa.setPrefWidth(45);
-        defensa.setPrefHeight(45);
+        parcelaBackground.setFitHeight(47.5);
+        parcelaBackground.setFitWidth(47.5);
+        defensa.setPrefWidth(64.8);
+        defensa.setPrefHeight(64.8);
         defensa.setGraphic(parcelaBackground);
         defensa.setAlignment(Pos.CENTER);
         defensa.setStyle("-fx-background-color: rgba(0,0,0,0.6);");
@@ -147,8 +147,8 @@ public class ControladorDeJuego implements Initializable {
             Button clickedButton = (Button) event.getSource();
             ImageView parcelaBackground = new ImageView();
             parcelaBackground.setImage(((ImageView) clickedButton.getGraphic()).getImage());
-            parcelaBackground.setFitHeight(33);
-            parcelaBackground.setFitWidth(33);
+            parcelaBackground.setFitHeight(47.5);
+            parcelaBackground.setFitWidth(47.5);
 
             Posicion pos = new Posicion(lugarDeConstruccion.obtenerFila(), lugarDeConstruccion.obtenerColumna());
             String construible = parcelaBackground.getImage().getUrl();
