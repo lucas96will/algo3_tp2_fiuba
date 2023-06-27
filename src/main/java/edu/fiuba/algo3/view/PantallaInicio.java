@@ -9,9 +9,9 @@ public class PantallaInicio {
     public PantallaInicio(App app, Stage stage){
         app.setStage(stage);
         stage.setTitle("Algo Tower Defense");
-        CargadorDeEscena.cargarScene("/fxml/inicio.fxml",stage);
         ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
         controladorSonido.reproducirMusica("Age_of_Empires_1_Intro.mp3");
+        CargadorDeEscena.cargarScene("/fxml/inicio.fxml",stage);
     }
 
 }

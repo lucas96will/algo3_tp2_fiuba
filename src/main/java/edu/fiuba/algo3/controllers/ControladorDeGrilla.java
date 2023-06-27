@@ -46,7 +46,7 @@ public class ControladorDeGrilla implements Initializable {
                 ImageView backgroundDefault = (ImageView) boton.getGraphic();
 
                 boton.setOnMouseEntered(eventMouse ->{
-                    ImageView backgroundHover = new ImageView(new Image(getClass().getResource("/images/TierraHover.png").toString()));
+                    ImageView backgroundHover = new ImageView(new Image(getClass().getResource("/images/"+ parcela +"Hover.png").toString()));
                     backgroundHover.setFitWidth(boton.getPrefHeight());
                     backgroundHover.setFitHeight(boton.getPrefHeight());
                     boton.setGraphic(backgroundHover);
@@ -64,12 +64,12 @@ public class ControladorDeGrilla implements Initializable {
         return this.gridpane;
     }
 
-    public GridPane obtenerGrillaSuperpuestas(int fila, int columna, EventHandler event) {
+    public GridPane obtenerGrillaSuperpuestas(int fila, int columna) {
         for (int i = 1; i <= fila; i++){
             for (int j = 1; j <= columna; j++){
                 ControladorDeBoton controladorDeBoton = new ControladorDeBoton();
                 controladorDeBoton.initialize((App.class.getResource("/fxml/boton.fxml")), null);
-                Button boton = controladorDeBoton.obtenerBoton("", event);
+                Button boton = controladorDeBoton.obtenerBoton("", null);
                 configurarBotonGrilla(boton);
                 boton.setVisible(false);
                 gridpane.add(boton, j, i);
