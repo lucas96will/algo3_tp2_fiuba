@@ -14,7 +14,7 @@ public class CargadorDeEscena {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.centerOnScreen();
-        stage.sizeToScene();
+        stage.setFullScreen(true);
         stage.show();
     }
 

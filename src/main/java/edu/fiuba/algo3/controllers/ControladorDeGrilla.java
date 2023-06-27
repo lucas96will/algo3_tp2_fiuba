@@ -81,8 +81,8 @@ public class ControladorDeGrilla implements Initializable {
     }
 
     private void configurarBotonGrilla(Button boton) {
-        boton.setPrefWidth(50);
-        boton.setPrefHeight(50);
+        boton.setPrefWidth(72);
+        boton.setPrefHeight(72);
         boton.setFocusTraversable(false);
         ((ImageView)(boton.getGraphic())).setFitHeight(boton.getPrefHeight());
         ((ImageView)(boton.getGraphic())).setFitWidth(boton.getPrefWidth());
