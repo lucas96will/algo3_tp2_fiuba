@@ -16,6 +16,12 @@ import edu.fiuba.algo3.modelo.Partida.EstadoPartidaPerdida;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartidaSigueJugando;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -63,6 +69,10 @@ public class ControladorDeJuego implements Initializable {
         Jugador jugador = Jugador.getInstance();
 
         configurarDatosJugador((App.class.getResource("/images/Nombre.png")),jugador.obtenerNombreJugador());
+
+        StringProperty vidaJugador = new SimpleStringProperty();
+        vidaJugador.set(String.valueOf(jugador.obtenerVidaJugador()));
+
         configurarDatosJugador((App.class.getResource("/images/Vida.png")),String.valueOf(jugador.obtenerVidaJugador()));
         configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()));
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
@@ -171,6 +181,7 @@ public class ControladorDeJuego implements Initializable {
                 System.out.println(e.getMessage());
                 return;
             }
+
 
             GridPane.setValignment(parcelaBackground, VPos.CENTER);
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
@@ -284,6 +295,7 @@ public class ControladorDeJuego implements Initializable {
         Pane pane = PanelDatos.fijarDatoJugador(path, dato);
         vBoxDatos.getChildren().add(pane);
     }
+
 
     private void configurarPanelDatosJugador(){
         BackgroundImage fondoDatos = new BackgroundImage(new Image(getClass().getResource("/images/Lateral.png").toString()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
