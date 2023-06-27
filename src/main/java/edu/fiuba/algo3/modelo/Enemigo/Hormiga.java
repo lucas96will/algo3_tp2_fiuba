@@ -29,10 +29,6 @@ public class Hormiga extends Enemigo{
 
         return ("Hormiga en " +  posicion.toString());
     }
-    
-    public void moverse(List<Parcela> parcelas) {
-        estado.moverse(movimiento, parcelas, this, posicion);
-    }
 
     @Override
     public void daniarAlJugador() {

@@ -23,11 +23,6 @@ public class Lechuza extends Enemigo{
     }
 
     @Override
-    public void moverse(List<Parcela> parcelas){
-        estado.moverse(movimiento, parcelas, this, posicion);
-    }
-
-    @Override
     public void daniarAlJugador() {
         Jugador.getInstance().eliminarPrimeraTorre();
         this.estado = new EstadoEnemigoMuerto();
