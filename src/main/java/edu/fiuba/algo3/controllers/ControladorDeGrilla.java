@@ -31,34 +31,35 @@ public class ControladorDeGrilla implements Initializable {
         loader.setController(this);
     }
 
-    public GridPane obtenerGrillaDelTerreno(List<Posicionable> posicionables, EventHandler event) {
+    public GridPane obtenerGrillaDelTerreno(List<Posicionable> posicionables, EventHandler eventTierra, EventHandler eventPasarela, EventHandler eventRocoso) {
         posicionables.forEach(posicionable -> {
             ControladorDeBoton controladorDeBoton = new ControladorDeBoton();
             controladorDeBoton.initialize((App.class.getResource("/fxml/boton.fxml")), null);
             Button boton;
             String parcela = posicionable.getClass().getSimpleName();
-
-
-            if(parcela.equals("Pasarela") || parcela.equals("Rocoso") || parcela.equals("Tierra")) {
-                boton = controladorDeBoton.obtenerBoton(
-                        "/images/" + parcela + ".png", event);
-                configurarBotonGrilla(boton);
-                ImageView backgroundDefault = (ImageView) boton.getGraphic();
-
-                boton.setOnMouseEntered(eventMouse ->{
-                    ImageView backgroundHover = new ImageView(new Image(getClass().getResource("/images/"+ parcela +"Hover.png").toString()));
-                    backgroundHover.setFitWidth(boton.getPrefHeight());
-                    backgroundHover.setFitHeight(boton.getPrefHeight());
-                    boton.setGraphic(backgroundHover);
-                });
-                boton.setOnMouseExited(eventMouse ->{
-                    boton.setGraphic(backgroundDefault);
-                });
-            } else {
-                boton = controladorDeBoton.obtenerBoton("", null);
-                configurarBotonGrilla(boton);
-                boton.setVisible(false);
+            EventHandler event;
+            if(parcela.equals("Tierra")){
+                event = eventTierra;
+            } else if(parcela.equals("Pasarela")){
+                event = eventPasarela;
+            } else{
+                event = eventRocoso;
             }
+            boton = controladorDeBoton.obtenerBoton(
+                    "/images/" + parcela + ".png", event);
+            configurarBotonGrilla(boton);
+            ImageView backgroundDefault = (ImageView) boton.getGraphic();
+
+            boton.setOnMouseEntered(eventMouse ->{
+                ImageView backgroundHover = new ImageView(new Image(getClass().getResource("/images/"+ parcela +"Hover.png").toString()));
+                backgroundHover.setFitWidth(boton.getPrefHeight());
+                backgroundHover.setFitHeight(boton.getPrefHeight());
+                boton.setGraphic(backgroundHover);
+            });
+            boton.setOnMouseExited(eventMouse ->{
+                boton.setGraphic(backgroundDefault);
+            });
+            
             gridpane.add(boton, posicionable.obtenerPosicion().obtenerColumna(), posicionable.obtenerPosicion().obtenerFila());
         });
         return this.gridpane;
