@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.App;
+import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.view.BotonVolverAEmpezar;
 import edu.fiuba.algo3.view.PantallaInicio;
 import javafx.event.EventHandler;

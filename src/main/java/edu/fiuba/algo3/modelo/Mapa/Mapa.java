@@ -43,8 +43,6 @@ public class Mapa {
             parcela.insertarDefensa(defensa, defensasJugador);
         }
 
-        jugador.comprar(defensa);
-
     }
 
     public void actualizarEstadoDefensas() {

@@ -24,7 +24,7 @@ public class EstadoPartidaGanada implements EstadoPartida{
 
     @Override
     public void terminarTurno(Mapa mapa) {
-        throw new RuntimeException();
+        throw new RuntimeException("Partida ganada!");
     }
 
     @Override

@@ -2,6 +2,7 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
+import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
 import edu.fiuba.algo3.modelo.Factory.ParcelaFactory;
@@ -162,11 +163,14 @@ public class ControladorDeJuego implements Initializable {
             try{
                 if (construible.equals("TrampaDeArena")) {
                     TrampaDeArena trampa = new TrampaDeArena();
+                    Jugador.getInstance().comprar(trampa);
                     Juego.getInstance().construir(trampa, pos);
                     ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
                 } else {
                     DefensaFactory factoryDefensa = new DefensaFactory();
-                    Juego.getInstance().construir(factoryDefensa.obtenerDefensa(construible, pos));
+                    Defensa defensa = factoryDefensa.obtenerDefensa(construible, pos);
+                    Jugador.getInstance().comprar(defensa);
+                    Juego.getInstance().construir(defensa);
                     ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
 
                 }
@@ -232,8 +236,24 @@ public class ControladorDeJuego implements Initializable {
 
     public EventHandler<ActionEvent> terminarTurno(){
         return event -> {
-            Juego.getInstance().terminarTurno();
-            if (!Juego.getInstance().estado().equals(new EstadoPartidaSigueJugando())) {
+            try {
+                Juego.getInstance().terminarTurno();
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+
+            if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
+                ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
+                controladorPantallaFinal.configurarMensajeFinal("¡Ganaste!");
+                new PantallaFinal(App.getInstance(), App.obtenerStage());
+            } else if (Juego.getInstance().estado().equals(new EstadoPartidaPerdida())) {
+                ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
+                controladorPantallaFinal.configurarMensajeFinal("¡Perdiste!");
+                new PantallaFinal(App.getInstance(), App.obtenerStage());
+            }
+
+
+            /*if (!Juego.getInstance().estado().equals(new EstadoPartidaSigueJugando())) {
                 ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
                 if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
                     controladorPantallaFinal.configurarMensajeFinal("¡Ganaste!");
@@ -241,7 +261,7 @@ public class ControladorDeJuego implements Initializable {
                     controladorPantallaFinal.configurarMensajeFinal("¡Perdiste!");
                 }
                 new PantallaFinal(App.getInstance(), App.obtenerStage());
-            }
+            }*/
         };
     }
 

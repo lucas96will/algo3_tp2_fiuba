@@ -44,6 +44,7 @@ public class Juego {
 
 
     public void cargarJugador(Jugador jugador) {
+        jugador.resetearDefensas();
         this.jugador = jugador;
     }
 
@@ -69,5 +70,6 @@ public class Juego {
 
     public List<Enemigo> obtenerEnemigos () {return mapa.obtenerEnemigos();}
     public List<Parcela> obtenerParcelas () {return mapa.obtenerParcelas();}
+
 }
 
