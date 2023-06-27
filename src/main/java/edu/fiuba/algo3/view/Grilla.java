@@ -2,7 +2,6 @@ package edu.fiuba.algo3.view;
 
 import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.controllers.ControladorDeGrilla;
-import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
@@ -10,8 +9,6 @@ import javafx.scene.layout.GridPane;
 import java.util.List;
 
 public class Grilla extends GridPane {
-
-
 
     public static GridPane fijarGrilla(List<Posicionable> posicionables,EventHandler event){
         ControladorDeGrilla controladorDeGrilla = cargarControlador();

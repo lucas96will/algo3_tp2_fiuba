@@ -16,7 +16,7 @@
             <VBox fx:id="vBoxDatos" alignment="TOP_CENTER" prefHeight="572.0" prefWidth="352.0" style="-fx-padding: 10px; -fx-spacing: 10px;" />
             <AnchorPane fx:id="botonera" layoutY="553.0" prefHeight="150.0" prefWidth="352.0">
             </AnchorPane>
-             <ImageView fitHeight="40.0" fitWidth="200.0" layoutX="355.0" layoutY="10.0" onMouseClicked="#configuracion" pickOnBounds="true" preserveRatio="true">
+             <ImageView fx:id="configuracion" fitHeight="40.0" fitWidth="200.0" layoutX="355.0" layoutY="10.0" onMouseClicked="#configuracion" pickOnBounds="true" preserveRatio="true">
                  <image>
                      <Image url="@../images/botonConfiguracionMadera.png" />
                  </image>

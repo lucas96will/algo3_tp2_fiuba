@@ -21,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.net.URL;
@@ -40,11 +41,13 @@ public class ControladorDeJuego implements Initializable {
     private int filGrid;
     private List<Button> btnDefensas = new ArrayList<>();
     private Posicion lugarDeConstruccion;
+    private VBox opcionesConfiguracion;
     @FXML private Button btnTerminarTurno;
     @FXML private VBox vBoxDatos;
     @FXML private AnchorPane datosJugador;
     @FXML private StackPane stackPane;
     @FXML private AnchorPane botonera;
+    @FXML private ImageView configuracion;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,6 +65,8 @@ public class ControladorDeJuego implements Initializable {
         configurarGrillaTerreno();
         configurarGrillaDefensa();
         configurarGrillaEnemigos();
+        configurarConfiguracion();
+        configuracion.setOnMouseClicked(configuracion());
     }
 
     private void configurarBotonDeConstruccion(Button defensa, URL urlImagen) {
@@ -180,15 +185,9 @@ public class ControladorDeJuego implements Initializable {
         };
     }
 
-    public EventHandler<ActionEvent> configuracion(){
+    public EventHandler<MouseEvent> configuracion(){
         return event -> {
-            // abrir vbox con los siguientes botones
-            /* Informacion del juego
-            * hbox con siguiente cancion, parar o play musica, skip cancion
-            * una barra horizontal para manejar el volumen de musica
-            * una barra horizontal para manejar el volumen de los sonidos de efectos */
-            //App.getInstance().configuracion();
-
+            opcionesConfiguracion.setVisible(!opcionesConfiguracion.isVisible());
         };
     }
 
@@ -226,5 +225,12 @@ public class ControladorDeJuego implements Initializable {
         stackPane.getChildren().add(enemigosGrid);
     }
 
+    private void configurarConfiguracion() {
+        opcionesConfiguracion = Configuracion.fijarConfiguracion();
+        opcionesConfiguracion.setVisible(false);
+        opcionesConfiguracion.setTranslateY(-340);
+        opcionesConfiguracion.setTranslateX(170);
+        vBoxDatos.getChildren().add(opcionesConfiguracion);
+    }
 
 }
