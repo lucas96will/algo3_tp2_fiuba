@@ -242,12 +242,11 @@ public class ControladorDeJuego implements Initializable {
                 System.out.println(e.getMessage());
             }
 
+            ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
             if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
-                ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
                 controladorPantallaFinal.configurarMensajeFinal("¡Ganaste!");
                 new PantallaFinal(App.getInstance(), App.obtenerStage());
             } else if (Juego.getInstance().estado().equals(new EstadoPartidaPerdida())) {
-                ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
                 controladorPantallaFinal.configurarMensajeFinal("¡Perdiste!");
                 new PantallaFinal(App.getInstance(), App.obtenerStage());
             }
