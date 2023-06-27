@@ -4,6 +4,7 @@ import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.view.BotonPantallaInicio;
 import edu.fiuba.algo3.view.Configuracion;
+import edu.fiuba.algo3.view.Constantes;
 import edu.fiuba.algo3.view.PantallaIngresarNombre;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -51,6 +52,7 @@ public class ControladorPantallaInicio implements Initializable {
     public EventHandler<MouseEvent> configuracion(){
         return event -> {
             opcionesConfiguracion.setVisible(!opcionesConfiguracion.isVisible());
+            ControladorDeSonido.getInstance().reproducirEfecto(Constantes.SONIDO_EFECTO_CLICK_GENERICO);
         };
     }
 

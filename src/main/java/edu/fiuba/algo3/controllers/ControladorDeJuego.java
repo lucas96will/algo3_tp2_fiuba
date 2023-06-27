@@ -188,6 +188,7 @@ public class ControladorDeJuego implements Initializable {
     public EventHandler<MouseEvent> configuracion(){
         return event -> {
             opcionesConfiguracion.setVisible(!opcionesConfiguracion.isVisible());
+            ControladorDeSonido.getInstance().reproducirEfecto(Constantes.SONIDO_EFECTO_CLICK_GENERICO);
         };
     }
 
