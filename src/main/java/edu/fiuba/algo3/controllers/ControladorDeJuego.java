@@ -67,9 +67,6 @@ public class ControladorDeJuego implements Initializable {
 
         configurarDatosJugador((App.class.getResource("/images/Nombre.png")),jugador.obtenerNombreJugador());
 
-        StringProperty vidaJugador = new SimpleStringProperty();
-        vidaJugador.set(String.valueOf(jugador.obtenerVidaJugador()));
-
         configurarDatosJugador((App.class.getResource("/images/Vida.png")),String.valueOf(jugador.obtenerVidaJugador()));
         configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()));
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
@@ -162,7 +159,6 @@ public class ControladorDeJuego implements Initializable {
             try{
                 if (construible.equals("TrampaDeArena")) {
                     TrampaDeArena trampa = new TrampaDeArena();
-                    Jugador.getInstance().comprar(trampa);
                     Juego.getInstance().construir(trampa, pos);
                     ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
                 } else {
