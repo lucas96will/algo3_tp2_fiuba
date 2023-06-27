@@ -1,16 +1,18 @@
 package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.App;
-import edu.fiuba.algo3.view.Configuracion;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Slider;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -29,6 +31,10 @@ public class ControladorDeConfiguracion implements Initializable {
     private Button anterior;
     @FXML
     private Button masInformacion;
+    @FXML
+    private Slider volumenMusica;
+    @FXML
+    private Slider volumenEfectos;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,6 +45,10 @@ public class ControladorDeConfiguracion implements Initializable {
             anterior = (Button) opcionesConfiguracion.lookup("#anterior");
             siguiente = (Button) opcionesConfiguracion.lookup("#siguiente");
             masInformacion = (Button) opcionesConfiguracion.lookup("#masInformacion");
+            volumenMusica = (Slider) opcionesConfiguracion.lookup("#volumenMusica");
+            volumenEfectos = (Slider) opcionesConfiguracion.lookup("#volumenEfectos");
+            volumenEfectos.setValue(ControladorDeSonido.getInstance().obtenerVolumen());
+            volumenMusica.setValue(ControladorDeSonido.getInstance().obtenerVolumen());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -77,11 +87,28 @@ public class ControladorDeConfiguracion implements Initializable {
         };
     }
 
+    private EventHandler<MouseEvent> modificarVolumenMusica() {
+        return event -> {
+            Slider slider = (Slider) event.getSource();
+            ControladorDeSonido.getInstance().modificarVolumenMusica(slider.getValue());
+        };
+    }
+
+    private EventHandler<MouseEvent> modificarVolumenEfectos() {
+        return event -> {
+            Slider slider = (Slider) event.getSource();
+            ControladorDeSonido.getInstance().modificarVolumenEfecto(slider.getValue());
+        };
+    }
+
     public VBox obtenerConfiguracion() {
         masInformacion.setOnAction(mostrarInformacion());
         anterior.setOnAction(anteriorCancion());
         siguiente.setOnAction(skip());
         play.setOnAction(play());
+        volumenMusica.setOnMouseReleased(modificarVolumenMusica());
+        volumenEfectos.setOnMouseReleased(modificarVolumenEfectos());
+
         return opcionesConfiguracion;
     }
 }

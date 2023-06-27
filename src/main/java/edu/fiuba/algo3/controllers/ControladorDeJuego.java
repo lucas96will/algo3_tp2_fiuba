@@ -230,7 +230,7 @@ public class ControladorDeJuego implements Initializable {
         opcionesConfiguracion = Configuracion.fijarConfiguracion();
         opcionesConfiguracion.setVisible(false);
         opcionesConfiguracion.setTranslateY(-340);
-        opcionesConfiguracion.setTranslateX(170);
+        opcionesConfiguracion.setTranslateX(160);
         vBoxDatos.getChildren().add(opcionesConfiguracion);
     }
 

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.controllers;
 
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -130,6 +131,9 @@ public class ControladorDeSonido {
 
     }
 
+    public double obtenerVolumen() {
+        return reproduccionActual.volumeProperty().doubleValue();
+    }
 
 
 }
