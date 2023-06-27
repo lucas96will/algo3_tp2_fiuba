@@ -2,8 +2,13 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
+import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
+import edu.fiuba.algo3.modelo.Factory.ParcelaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
+import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartidaGanada;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartidaPerdida;
@@ -25,6 +30,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -145,19 +152,46 @@ public class ControladorDeJuego implements Initializable {
             parcelaBackground.setImage(((ImageView) clickedButton.getGraphic()).getImage());
             parcelaBackground.setFitHeight(33);
             parcelaBackground.setFitWidth(33);
+
+            Posicion pos = new Posicion(lugarDeConstruccion.obtenerFila(), lugarDeConstruccion.obtenerColumna());
+            String construible = parcelaBackground.getImage().getUrl();
+            int primerIndice = Math.max(construible.lastIndexOf('/'), construible.lastIndexOf('\\')) + 1;
+            int ultimoIndice = construible.lastIndexOf('.');
+            construible = construible.substring(primerIndice, ultimoIndice);
+
+            try{
+                if (construible.equals("TrampaDeArena")) {
+                    TrampaDeArena trampa = new TrampaDeArena();
+                    Juego.getInstance().construir(trampa, pos);
+                    ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
+                } else {
+                    DefensaFactory factoryDefensa = new DefensaFactory();
+                    Juego.getInstance().construir(factoryDefensa.obtenerDefensa(construible, pos));
+                    ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
+
+                }
+            } catch (RuntimeException e){
+                ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
+                System.out.println(e.getMessage());
+                return;
+            }
+
             GridPane.setValignment(parcelaBackground, VPos.CENTER);
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
             ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
             mapaGrid.add(parcelaBackground, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
-            btnDefensas.forEach(btn -> {
-                btn.setGraphic(null);
-                btn.setVisible(false);
-            });
-            ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
-            ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
-            opcionesGrid.setVisible(false);
-            opcionesGrid.setMouseTransparent(true);
+            ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
+
         };
+    }
+
+    private void ocultarOpcionesConstruir(List<Button> opciones, GridPane grid){
+        opciones.forEach(btn -> {
+            btn.setGraphic(null);
+            btn.setVisible(false);
+        });
+        grid.setVisible(false);
+        grid.setMouseTransparent(true);
     }
 
     private EventHandler<ActionEvent> cancelarConstruccion() {
@@ -166,7 +200,6 @@ public class ControladorDeJuego implements Initializable {
                 btn.setGraphic(null);
                 btn.setVisible(false);
             });
-            ControladorDeSonido controladorSonido = ControladorDeSonido.getInstance();
             ControladorDeSonido.getInstance().reproducirEfecto("Cancelar.mp3");
             opcionesGrid.setVisible(false);
             opcionesGrid.setMouseTransparent(true);

@@ -45,7 +45,6 @@ public class Mapa {
 
         jugador.comprar(defensa);
 
-
     }
 
     public void actualizarEstadoDefensas() {

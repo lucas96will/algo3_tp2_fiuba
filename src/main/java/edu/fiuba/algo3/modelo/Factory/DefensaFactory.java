@@ -25,5 +25,7 @@ public class DefensaFactory {
     private void crearDefensas(Posicion unaPosicion){
         this.tipoDeDefensa.put("Blanca", new Torre(10,1,3,new EstadoDefensaIncompleto(1), unaPosicion,"Torre Blanca"));
         this.tipoDeDefensa.put("Plateada", new Torre(20,2,5,new EstadoDefensaIncompleto(2), unaPosicion, "Torre Plateada"));
+        this.tipoDeDefensa.put("TorreBlanca", new Torre(10,1,3,new EstadoDefensaIncompleto(1), unaPosicion,"Torre Blanca"));
+        this.tipoDeDefensa.put("TorrePlateada", new Torre(20,2,5,new EstadoDefensaIncompleto(2), unaPosicion, "Torre Plateada"));
     }
 }

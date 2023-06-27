@@ -41,7 +41,6 @@ public class App extends Application {
 
     public void abrirInformacionDelJuego() throws URISyntaxException {
         URL url = getClass().getResource(Constantes.RUTA_INFORMACION_JUEGO);
-
         File file = new File(url.toURI());
         HostServices host = getHostServices();
         host.showDocument(file.getAbsolutePath());
