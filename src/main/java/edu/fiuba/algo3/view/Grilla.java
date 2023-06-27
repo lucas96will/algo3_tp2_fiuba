@@ -15,9 +15,9 @@ public class Grilla extends GridPane {
         return controladorDeGrilla.obtenerGrillaDelTerreno(posicionables, event);
     }
 
-    public static GridPane fijarGrillaSuperpuestas(int filas, int columnas ,EventHandler event){
+    public static GridPane fijarGrillaSuperpuestas(int filas, int columnas){
         ControladorDeGrilla controladorDeGrillaSuperpesta = cargarControlador();
-        return controladorDeGrillaSuperpesta.obtenerGrillaSuperpuestas(filas,columnas,event);
+        return controladorDeGrillaSuperpesta.obtenerGrillaSuperpuestas(filas,columnas);
     }
 
     private static ControladorDeGrilla cargarControlador() {
