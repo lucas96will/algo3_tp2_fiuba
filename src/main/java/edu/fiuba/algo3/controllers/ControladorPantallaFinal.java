@@ -38,6 +38,5 @@ public class ControladorPantallaFinal implements Initializable {
     private void configurarBotonEmpezar() {
         boton = BotonVolverAEmpezar.fijarBotonVolverAEmpezar(this, "Volver a empezar");
         anchorPane.getChildren().add(boton);
-        resultado = (Text) anchorPane.lookup("resultado");
     }
 }

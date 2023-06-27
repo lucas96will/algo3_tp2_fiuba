@@ -252,29 +252,19 @@ public class ControladorDeJuego implements Initializable {
         return event -> {
             try {
                 Juego.getInstance().terminarTurno();
+                return;
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
 
+
             ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
             if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
                 controladorPantallaFinal.configurarMensajeFinal("¡Ganaste!");
-                new PantallaFinal(App.getInstance(), App.obtenerStage());
             } else if (Juego.getInstance().estado().equals(new EstadoPartidaPerdida())) {
                 controladorPantallaFinal.configurarMensajeFinal("¡Perdiste!");
-                new PantallaFinal(App.getInstance(), App.obtenerStage());
             }
-
-
-            /*if (!Juego.getInstance().estado().equals(new EstadoPartidaSigueJugando())) {
-                ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
-                if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
-                    controladorPantallaFinal.configurarMensajeFinal("¡Ganaste!");
-                } else if (Juego.getInstance().estado().equals(new EstadoPartidaPerdida())) {
-                    controladorPantallaFinal.configurarMensajeFinal("¡Perdiste!");
-                }
-                new PantallaFinal(App.getInstance(), App.obtenerStage());
-            }*/
+            new PantallaFinal(App.getInstance(), App.obtenerStage());
         };
     }
 
@@ -289,6 +279,7 @@ public class ControladorDeJuego implements Initializable {
         btnTerminarTurno = BotonTerminarTurno.fijarBotonTerminarTurno(this);
         botonera.getChildren().add(btnTerminarTurno);
     }
+
     private void configurarDatosJugador(URL path, String dato) {
         Pane pane = PanelDatos.fijarDatoJugador(path, dato);
         vBoxDatos.getChildren().add(pane);
