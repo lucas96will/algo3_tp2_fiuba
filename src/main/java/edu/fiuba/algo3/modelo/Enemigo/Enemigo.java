@@ -45,9 +45,8 @@ public abstract class Enemigo implements Posicionable {
         this.posicion = new Posicion(unaPosicion);
     }
 
-    public abstract void moverse(List<Parcela> parcelas);
-    
-    
+    public void moverse(List<Parcela> parcelas){estado.moverse(movimiento, parcelas, this, posicion);}
+
     public abstract void daniarAlJugador();
 
     public boolean estaEnRango(int rango, Posicion unaPosicion) {

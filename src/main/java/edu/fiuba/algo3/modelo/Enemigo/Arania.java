@@ -41,11 +41,6 @@ public class Arania extends Enemigo{
         }
     }
 
-
-    public void moverse(List<Parcela> parcelas) {
-        estado.moverse(movimiento, parcelas, this, posicion);
-    }
-
     @Override
     public void daniarAlJugador() {
         estado.daniarAlJugador(this.toString());
