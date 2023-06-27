@@ -84,13 +84,14 @@ public class Entrega1Test {
         Logger.getInstance().logEstado("\n--> Caso 2 Cada defensa tarde en construirse lo que dice que tarda.");
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
-        jugador.actualizarEstado(10, recurso, "Joaquín");
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
+        jugador.actualizarEstado(10, recurso, "Joaquín");
 
 
         Defensa torrePlateada = (new DefensaFactory()).obtenerDefensa("Plateada", new Posicion(2,6));
         partida.insertarEnemigo(new Hormiga(new Posicion(1, 1)));
+        jugador.comprar(torrePlateada);
         partida.construir(torrePlateada); // 2 turnos para construirse
         partida.terminarTurno(); // arania en posicion (1,3)
         assertEquals(80, recurso.valorMonetario());
@@ -138,11 +139,12 @@ public class Entrega1Test {
 
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
-        jugador.actualizarEstado(100, recurso, "Josesito");
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
+        jugador.actualizarEstado(100, recurso, "Josesito");
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(2,6),"Torre Blanca");
+        jugador.comprar(torreBlanca1);
         partida.construir(torreBlanca1);
 
         //Enemigo hormiga = Enemigo.crearHormiga(1,null);
@@ -196,13 +198,13 @@ public class Entrega1Test {
 
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
-        jugador.actualizarEstado(100, recurso, "Josesito");
         /*100*/
-
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
+        jugador.actualizarEstado(100, recurso, "Josesito");
 
         Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(2,2), "Torre Blanca");
+        jugador.comprar(torreBlanca1);
         partida.construir(torreBlanca1);
         // 100-10 = 90
 

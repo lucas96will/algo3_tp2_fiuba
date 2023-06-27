@@ -58,12 +58,11 @@ public class TorreTest {
 
     @Test
     public void jugadorNoPuedeComprarTorreLanzaExcepcionRecursosInsuficientesException() {
-        jugadorSingleton.actualizarEstado(100, new Recurso(5), "pepe");
         Mapa mapa = new CargadorJson().procesarMapa(rutaJsonMapa);
         Partida partida = new Partida(jugadorSingleton, mapa);
-
+        jugadorSingleton.actualizarEstado(100, new Recurso(5), "pepe");
         Defensa defensa = new DefensaFactory().obtenerDefensa("Blanca", new Posicion(2,2));
 
-        assertThrows(RecursosInsuficientesException.class, () -> partida.construir(defensa));
+        assertThrows(RecursosInsuficientesException.class, () ->         jugadorSingleton.comprar(defensa));
     }
 }
