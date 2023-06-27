@@ -31,6 +31,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -39,11 +40,7 @@ import javafx.scene.layout.*;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
-
+import java.util.*;
 
 
 public class ControladorDeJuego implements Initializable {
@@ -178,6 +175,7 @@ public class ControladorDeJuego implements Initializable {
                 }
             } catch (RuntimeException e){
                 ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
+                ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
                 System.out.println(e.getMessage());
                 return;
             }
@@ -187,6 +185,7 @@ public class ControladorDeJuego implements Initializable {
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
             ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
             mapaGrid.add(parcelaBackground, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
+            actualizarRecursos();
             ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
 
         };
@@ -215,7 +214,7 @@ public class ControladorDeJuego implements Initializable {
 
     private EventHandler<ActionEvent> construirOpcionesRocoso() {
         return event -> {
-            ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
+            ControladorDeSonido.getInstance().reproducirEfecto("Cancelar.mp3");
         };
     }
 
@@ -330,4 +329,10 @@ public class ControladorDeJuego implements Initializable {
         vBoxDatos.getChildren().add(opcionesConfiguracion);
     }
 
+
+    private void actualizarRecursos() {
+       List<Node> children = vBoxDatos.getChildren();
+       Label valor = (Label) ((HBox)children.get(2)).getChildren().get(1);
+       valor.setText(String.valueOf(Jugador.getInstance().valorCreditos()));
+    }
 }
