@@ -52,7 +52,7 @@ public class ControladorPantallaFinal implements Initializable {
             resultado.translateXProperty().set(-300.0);
         } else {
             resultado.setText("PERDISTE MINNESOTA STICKER BALL");
-            resultado.translateXProperty().set(-200.0);
+            resultado.translateXProperty().set(-450.0);
         }
         anchorPane.getChildren().addAll(boton);
     }

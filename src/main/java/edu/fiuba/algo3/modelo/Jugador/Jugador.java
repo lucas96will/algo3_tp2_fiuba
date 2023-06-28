@@ -105,7 +105,9 @@ public class Jugador {
     }
 
     public void eliminarPrimeraTorre() {
-        defensas.remove(0);
+        if(!defensas.isEmpty()) {
+            defensas.remove(0);
+        }
     }
 
 }
