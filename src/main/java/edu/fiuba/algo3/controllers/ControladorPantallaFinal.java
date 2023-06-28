@@ -2,6 +2,9 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
+import edu.fiuba.algo3.modelo.Jugador.Contador;
+import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
+import edu.fiuba.algo3.modelo.Partida.EstadoPartidaGanada;
 import edu.fiuba.algo3.view.BotonVolverAEmpezar;
 import edu.fiuba.algo3.view.PantallaInicio;
 import javafx.event.EventHandler;
@@ -36,6 +39,7 @@ public class ControladorPantallaFinal implements Initializable {
 
     public EventHandler volverAEmpezar () {
         return event -> {
+            ContadorTurnos.obtenerContador().resetear();
             new PantallaInicio(App.getInstance(), App.obtenerStage());
         };
     }
@@ -43,8 +47,13 @@ public class ControladorPantallaFinal implements Initializable {
 
     private void configurarBotonEmpezar() {
         boton = BotonVolverAEmpezar.fijarBotonVolverAEmpezar(this, "Volver a empezar");
-
-        //resultado.setText("MENSAJE DE SALIDA");
+        if(Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
+            resultado.setText("GANASTE GUARDIAN DE LA BAHIA");
+            resultado.translateXProperty().set(-300.0);
+        } else {
+            resultado.setText("PERDISTE MINNESOTA STICKER BALL");
+            resultado.translateXProperty().set(-200.0);
+        }
         anchorPane.getChildren().addAll(boton);
     }
 }
