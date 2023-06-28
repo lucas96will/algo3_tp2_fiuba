@@ -19,13 +19,13 @@ public class BotonTerminarTurno extends Button {
         boton.setAlignment(Pos.CENTER);
         boton.setContentDisplay(ContentDisplay.CENTER);
         boton.setMnemonicParsing(false);
-        boton.setStyle("-fx-background-radius: 10; -fx-background-color: rgb(255, 206, 91); -fx-padding: 20px 100px 18px 100px;");
+        boton.setStyle("-fx-background-radius: 10; -fx-background-color: rgb(255, 206, 91); -fx-padding: 30px 150px 30px 150px;");
         boton.setText("Terminar turno");
         boton.setTextAlignment(TextAlignment.CENTER);
         boton.setTextFill(Color.WHITE);
-        boton.setTranslateX(18);
-        boton.setTranslateY(90);
-        boton.setFont(new Font(25));
+        boton.setTranslateX(150);
+        boton.setTranslateY(320);
+        boton.setFont(new Font(35));
         boton.setId("terminarTurno");
         return boton;
     }

@@ -4,6 +4,7 @@ import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -11,12 +12,6 @@ import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
-import javafx.animation.AnimationTimer;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -77,7 +72,11 @@ public class ControladorDeJuego implements Initializable {
         configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()), datosJugadorObservable.creditoProperty());
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()), datosJugadorObservable.turnoProperty());
         configurarDatosJugador((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size()), datosJugadorObservable.cantDefensasProperty());
-        configurarDatosJugador((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size()), datosJugadorObservable.cantEnemigosProperty());
+        //configurarDatosJugador((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size()), datosJugadorObservable.cantEnemigosProperty());
+        configurarDatosJugador((App.class.getResource("/images/Hormiga.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Hormiga")).collect(Collectors.toList()).size()), datosJugadorObservable.cantHormigaProperty());
+        configurarDatosJugador((App.class.getResource("/images/Arania.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Arania")).collect(Collectors.toList()).size()), datosJugadorObservable.cantAraniaProperty());
+        configurarDatosJugador((App.class.getResource("/images/Topo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Topo")).collect(Collectors.toList()).size()), datosJugadorObservable.cantTopoProperty());
+        configurarDatosJugador((App.class.getResource("/images/Buho.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Lechuza")).collect(Collectors.toList()).size()), datosJugadorObservable.cantLechuzaProperty());
         configurarMensaje();
         configurarBotonTerminarTurno();
         configurarPanelDatosJugador();
@@ -87,7 +86,6 @@ public class ControladorDeJuego implements Initializable {
         configurarConfiguracion();
         configurarDisplay();
         configuracion.setOnMouseClicked(configuracion());
-
     }
 
     private void configurarBotonDeConstruccion(Button boton, URL urlImagen, EventHandler<ActionEvent> evento) {
