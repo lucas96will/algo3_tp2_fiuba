@@ -279,7 +279,7 @@ public class ControladorDeJuego implements Initializable {
         return event -> {
             ImageView sprite = new ImageView();
             ventana.getChildren().add(sprite);
-            ControladorDeAnimacion animador = new ControladorDeAnimacion(61, 20, 2, sprite, "HormigaEnMovimiento", display);
+            ControladorDeAnimacion animador = new ControladorDeAnimacion(61, 20, 2, sprite, "HormigaEnMovimiento", display, "TerminarTurno.mp3");
             animador.start();
             try {
                 eliminarImagenEnemigosAntesDeTerminarTurno();

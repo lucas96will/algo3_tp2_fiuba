@@ -19,8 +19,9 @@ public class ControladorDeAnimacion {
     private AnimationTimer animador;
     private Image frames[];
     private long tiempoDeInicio;
+    private String efecto;
 
-    public ControladorDeAnimacion(int cantidadDeFrames, int duracionFrame, int duracion, ImageView sprite, String directorio, StackPane container){
+    public ControladorDeAnimacion(int cantidadDeFrames, int duracionFrame, int duracion, ImageView sprite, String directorio, StackPane container, String nombreEfecto){
         display = container;
         this.cantidadDeFrames = cantidadDeFrames;
         this.duracionTotal = Duration.seconds(duracion);
@@ -29,6 +30,8 @@ public class ControladorDeAnimacion {
         display.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
         display.getChildren().add(sprite);
         frames = new Image[cantidadDeFrames];
+        efecto = nombreEfecto;
+
 
         for(int i = 0; i< cantidadDeFrames; i++){
             frames[i] = new Image(getClass().getResource("/Animations/"+ directorio +"/tile" + i + ".png").toString());
@@ -43,6 +46,7 @@ public class ControladorDeAnimacion {
                 } else{
                     long tiempoTranscurrido = ahora - tiempoDeInicio;
                     if(tiempoTranscurrido >= duracionTotal.toMillis() * 1000000){
+                        ControladorDeSonido.getInstance().detenerEfecto();
                         display.getChildren().clear();
                         display.setVisible(false);
                         stop();
@@ -62,6 +66,7 @@ public class ControladorDeAnimacion {
         display.setMouseTransparent(false);
         display.setVisible(true);
         animador.start();
+        ControladorDeSonido.getInstance().reproducirEfecto(efecto);
     }
 
 }

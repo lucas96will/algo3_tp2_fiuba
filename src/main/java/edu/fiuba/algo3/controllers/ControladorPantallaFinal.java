@@ -48,12 +48,13 @@ public class ControladorPantallaFinal implements Initializable {
     private void configurarBotonEmpezar() {
         boton = BotonVolverAEmpezar.fijarBotonVolverAEmpezar(this, "Volver a empezar");
         if(Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
+            ControladorDeSonido.getInstance().reproducirEfecto("Victoria.mp3");
             resultado.setText("GANASTE GUARDIAN DE LA BAHIA");
-            resultado.translateXProperty().set(-300.0);
         } else {
+            ControladorDeSonido.getInstance().reproducirEfecto("Derrota.mp3");
             resultado.setText("PERDISTE MINNESOTA STICKER BALL");
-            resultado.translateXProperty().set(-450.0);
         }
+        resultado.setTranslateX((1920 - resultado.getLayoutBounds().getWidth())/ 2);
         anchorPane.getChildren().addAll(boton);
     }
 }

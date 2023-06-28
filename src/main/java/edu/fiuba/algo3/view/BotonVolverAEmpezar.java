@@ -4,6 +4,7 @@ import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.controllers.ControladorDeBoton;
 import edu.fiuba.algo3.controllers.ControladorDeIngresarNombre;
 import edu.fiuba.algo3.controllers.ControladorPantallaFinal;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -23,8 +24,10 @@ public class BotonVolverAEmpezar extends Button {
         boton.setText(mensaje);
         boton.setTextAlignment(TextAlignment.CENTER);
         boton.setTextFill(Color.WHITE);
-        boton.setTranslateX(350);
-        boton.setTranslateY(550);
+        Platform.runLater(() -> {
+            boton.setTranslateX((1920 - boton.getWidth()) / 2);
+            boton.setTranslateY((1080 - boton.getHeight()) / 2 + 50);
+        });
         boton.setFont(new Font(36));
         boton.setId(mensaje);
         return boton;
