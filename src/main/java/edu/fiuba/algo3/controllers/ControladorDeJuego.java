@@ -17,6 +17,7 @@ import edu.fiuba.algo3.modelo.Partida.EstadoPartidaPerdida;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartidaSigueJugando;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
+import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.property.DoubleProperty;
@@ -56,6 +57,8 @@ public class ControladorDeJuego implements Initializable {
     private Posicion lugarDeConstruccion;
     private VBox opcionesConfiguracion;
     @FXML
+    private StackPane ventana;
+    @FXML
     private Button btnTerminarTurno;
     @FXML
     private VBox vBoxDatos;
@@ -67,6 +70,8 @@ public class ControladorDeJuego implements Initializable {
     private AnchorPane botonera;
     @FXML
     private ImageView configuracion;
+    @FXML
+    private StackPane display;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -74,7 +79,6 @@ public class ControladorDeJuego implements Initializable {
         Jugador jugador = Jugador.getInstance();
 
         configurarDatosJugador((App.class.getResource("/images/Nombre.png")), jugador.obtenerNombreJugador());
-
         configurarDatosJugador((App.class.getResource("/images/Vida.png")), String.valueOf(jugador.obtenerVidaJugador()));
         configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()));
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
@@ -86,6 +90,7 @@ public class ControladorDeJuego implements Initializable {
         configurarGrillaDefensa();
         configurarGrillaEnemigos();
         configurarConfiguracion();
+        configurarDisplay();
         configuracion.setOnMouseClicked(configuracion());
     }
 
@@ -263,10 +268,17 @@ public class ControladorDeJuego implements Initializable {
             opcionesGrid.setMouseTransparent(false);
         };
     }
+    private int frameActual = 0;
+    private long tiempoFinal = 0;
 
     public EventHandler<ActionEvent> terminarTurno() {
         return event -> {
+            ImageView sprite = new ImageView();
+            ventana.getChildren().add(sprite);
+            ControladorDeAnimacion animador = new ControladorDeAnimacion(61, 20, 2, sprite, "HormigaEnMovimiento", display);
+            animador.start();
             try {
+
                 Juego.getInstance().terminarTurno();
                 List<Enemigo> enemigos = Juego.getInstance().obtenerEnemigos();
                 List<Node> nodosABorrar = enemigosGrid.getChildren().stream().filter(n -> n instanceof ImageView).collect(Collectors.toList());
@@ -346,6 +358,10 @@ public class ControladorDeJuego implements Initializable {
         opcionesConfiguracion.setTranslateY(configuracion.getTranslateY() + 50);
         opcionesConfiguracion.setTranslateX(configuracion.getTranslateX() - 73);
         datosJugador.getChildren().add(opcionesConfiguracion);
+    }
+
+    private void configurarDisplay() {
+        display.setVisible(false);
     }
 
 
