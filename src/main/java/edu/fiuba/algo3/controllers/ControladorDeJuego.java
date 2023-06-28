@@ -11,8 +11,6 @@ import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,7 +21,6 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +41,7 @@ public class ControladorDeJuego implements Initializable {
     private List<Button> btnDefensas = new ArrayList<>();
     private Posicion lugarDeConstruccion;
     private VBox opcionesConfiguracion;
+    DatosJugadorObservable datosJugadorObservable;
     @FXML
     private Button btnTerminarTurno;
     @FXML
@@ -57,16 +55,19 @@ public class ControladorDeJuego implements Initializable {
     @FXML
     private ImageView configuracion;
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        datosJugadorObservable = new DatosJugadorObservable();
         Jugador jugador = Jugador.getInstance();
-        configurarDatosJugador((App.class.getResource("/images/Nombre.png")), jugador.obtenerNombreJugador());
-        configurarDatosJugador((App.class.getResource("/images/Vida.png")), String.valueOf(jugador.obtenerVidaJugador()));
-        configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()));
-        configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
-        configurarDatosJugador((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size()));
-        configurarDatosJugador((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size()));
+        configurarDatosJugador((App.class.getResource("/images/Nombre.png")), jugador.obtenerNombreJugador(), datosJugadorObservable.nombreProperty());
+        configurarDatosJugador((App.class.getResource("/images/Vida.png")), String.valueOf(jugador.obtenerVidaJugador()), datosJugadorObservable.vidaJugadorProperty());
+        configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()), datosJugadorObservable.creditoProperty());
+        configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()), datosJugadorObservable.turnoProperty());
+        configurarDatosJugador((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size()), datosJugadorObservable.cantDefensasProperty());
+        configurarDatosJugador((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size()), datosJugadorObservable.cantEnemigosProperty());
         configurarBotonTerminarTurno();
         configurarPanelDatosJugador();
         configurarGrillaTerreno();
@@ -74,6 +75,7 @@ public class ControladorDeJuego implements Initializable {
         configurarGrillaEnemigos();
         configurarConfiguracion();
         configuracion.setOnMouseClicked(configuracion());
+
     }
 
     private void configurarBotonDeConstruccion(Button defensa, URL urlImagen, EventHandler<ActionEvent> evento) {
@@ -176,8 +178,8 @@ public class ControladorDeJuego implements Initializable {
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
             ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
             mapaGrid.add(parcelaBackground, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
-            actualizarCreditos();
-            actualizarDefensas();
+            actualizarCreditosObservables();
+            actualizarDefensasObservables();
             ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
 
         };
@@ -257,7 +259,7 @@ public class ControladorDeJuego implements Initializable {
                 eliminarImagenEnemigosAntesDeTerminarTurno();
                 Juego.getInstance().terminarTurno();
                 agregarImagenEnemigosLuegoDeTerminarTurno();
-                actualizarRecursos();
+                datosJugadorObservable.actualizar();
                 return;
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
@@ -295,8 +297,9 @@ public class ControladorDeJuego implements Initializable {
         botonera.getChildren().add(btnTerminarTurno);
     }
 
-    private void configurarDatosJugador(URL path, String dato) {
-        Pane pane = PanelDatos.fijarDatoJugador(path, dato);
+
+    private void configurarDatosJugador(URL path, String dato, StringProperty property) {
+        Pane pane = PanelDatos.fijarDatoJugador(path, dato, property);
         vBoxDatos.getChildren().add(pane);
     }
 
@@ -335,41 +338,14 @@ public class ControladorDeJuego implements Initializable {
     }
 
 
-    private void actualizarVida() {
-        List<Node> children = vBoxDatos.getChildren();
-        Label valor = (Label) ((HBox) children.get(1)).getChildren().get(1);
-        valor.setText(String.valueOf(Jugador.getInstance().obtenerVidaJugador()));
+
+    private void actualizarCreditosObservables() {
+        datosJugadorObservable.setCredito(String.valueOf(Jugador.getInstance().valorCreditos()));
     }
 
-    private void actualizarCreditos() {
-        List<Node> children = vBoxDatos.getChildren();
-        Label valor = (Label) ((HBox) children.get(2)).getChildren().get(1);
-        valor.setText(String.valueOf(Jugador.getInstance().valorCreditos()));
+    private void actualizarDefensasObservables() {
+        datosJugadorObservable.setCantDefensas(String.valueOf(Jugador.getInstance().obtenerDefensas().size()));
     }
 
-    private void actualizarDefensas() {
-        List<Node> children = vBoxDatos.getChildren();
-        Label valor = (Label) ((HBox) children.get(4)).getChildren().get(1);
-        valor.setText(String.valueOf(Jugador.getInstance().obtenerDefensas().size()));
-    }
 
-    private void actualizarTurnoActual() {
-        List<Node> children = vBoxDatos.getChildren();
-        Label valor = (Label) ((HBox) children.get(3)).getChildren().get(1);
-        valor.setText(String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
-    }
-
-    private void actualizarEnemigos() {
-        List<Node> children = vBoxDatos.getChildren();
-        Label valor = (Label) ((HBox) children.get(5)).getChildren().get(1);
-        valor.setText(String.valueOf(Juego.getInstance().obtenerEnemigos().size()));
-    }
-
-    private void actualizarRecursos() {
-        actualizarVida();
-        actualizarCreditos();
-        actualizarDefensas();
-        actualizarTurnoActual();
-        actualizarEnemigos();
-    }
 }

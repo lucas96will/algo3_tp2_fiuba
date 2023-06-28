@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,5 +47,8 @@ public class ControladorDeDato implements Initializable {
         return dato;
     }
 
+    public void unirPropiedad(StringProperty property){
+        property.bindBidirectional(valor.textProperty());
+    }
 
 }
