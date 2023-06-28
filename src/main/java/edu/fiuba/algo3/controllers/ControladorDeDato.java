@@ -43,6 +43,7 @@ public class ControladorDeDato implements Initializable {
         valor.setText(informacion);
         valor.setTextFill(Color.WHITE);
         valor.setFont(new Font("System Bold", 25));
+        valor.setPrefWidth(200);
         dato.setTranslateX(10);
         return dato;
     }
