@@ -4,6 +4,7 @@ import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
+import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
 import edu.fiuba.algo3.modelo.Factory.ParcelaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
@@ -41,6 +42,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class ControladorDeJuego implements Initializable {
@@ -258,18 +260,31 @@ public class ControladorDeJuego implements Initializable {
         return event -> {
             try {
                 Juego.getInstance().terminarTurno();
+                List<Enemigo> enemigos = Juego.getInstance().obtenerEnemigos();
+                List<Node> nodosABorrar = enemigosGrid.getChildren().stream().filter(n -> n instanceof ImageView).collect(Collectors.toList());
+                enemigosGrid.getChildren().removeAll(nodosABorrar);
+
+                for(Enemigo unEnemigo : enemigos){
+                    String urlenemy = Constantes.urlImagenesEnemigos.get(unEnemigo.nombre());
+                    ImageView enemigo = new ImageView(getClass().getResource(urlenemy).toString());
+                    enemigo.setFitHeight(47.5);
+                    enemigo.setFitWidth(47.5);
+                    enemigosGrid.add(enemigo, unEnemigo.obtenerPosicion().obtenerColumna(), unEnemigo.obtenerPosicion().obtenerFila());
+                }
+
+                actualizarRecursos();
+
                 return;
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
 
 
-            ControladorPantallaFinal controladorPantallaFinal = new ControladorPantallaFinal();
-            if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
-                controladorPantallaFinal.configurarMensajeFinal("¡Ganaste!");
+            /*if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
+
             } else if (Juego.getInstance().estado().equals(new EstadoPartidaPerdida())) {
-                controladorPantallaFinal.configurarMensajeFinal("¡Perdiste!");
-            }
+
+            }*/
             new PantallaFinal(App.getInstance(), App.obtenerStage());
         };
     }

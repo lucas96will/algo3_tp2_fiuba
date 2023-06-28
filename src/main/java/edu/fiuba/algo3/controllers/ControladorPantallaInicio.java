@@ -39,7 +39,7 @@ public class ControladorPantallaInicio implements Initializable {
     public EventHandler<ActionEvent> jugar(){
         return event -> {
             try {
-                String rutaJsonEnemigos = "data/jsonTests/enemigos.json";
+                String rutaJsonEnemigos = "data/jsonTests/enemigosV2.json";
                 String rutaJsonMapa = "data/jsonTests/mapa.json";
                 Juego.getInstance().cargarEnemigosYMapa(rutaJsonEnemigos, rutaJsonMapa);
                 new PantallaIngresarNombre(App.getInstance(), App.obtenerStage());
