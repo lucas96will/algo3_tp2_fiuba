@@ -55,21 +55,27 @@ public class ControladorDeJuego implements Initializable {
     private List<Button> btnDefensas = new ArrayList<>();
     private Posicion lugarDeConstruccion;
     private VBox opcionesConfiguracion;
-    @FXML private Button btnTerminarTurno;
-    @FXML private VBox vBoxDatos;
-    @FXML private AnchorPane datosJugador;
-    @FXML private StackPane stackPane;
-    @FXML private AnchorPane botonera;
-    @FXML private ImageView configuracion;
+    @FXML
+    private Button btnTerminarTurno;
+    @FXML
+    private VBox vBoxDatos;
+    @FXML
+    private AnchorPane datosJugador;
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private AnchorPane botonera;
+    @FXML
+    private ImageView configuracion;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         Jugador jugador = Jugador.getInstance();
 
-        configurarDatosJugador((App.class.getResource("/images/Nombre.png")),jugador.obtenerNombreJugador());
+        configurarDatosJugador((App.class.getResource("/images/Nombre.png")), jugador.obtenerNombreJugador());
 
-        configurarDatosJugador((App.class.getResource("/images/Vida.png")),String.valueOf(jugador.obtenerVidaJugador()));
+        configurarDatosJugador((App.class.getResource("/images/Vida.png")), String.valueOf(jugador.obtenerVidaJugador()));
         configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()));
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
         configurarDatosJugador((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size()));
@@ -98,7 +104,7 @@ public class ControladorDeJuego implements Initializable {
         defensa.setVisible(true);
     }
 
-    private List<Posicion> obtenerPosicionesValidas (int col, int row) {
+    private List<Posicion> obtenerPosicionesValidas(int col, int row) {
         List<Posicion> posiciones = new ArrayList<>();
         if ((this.colGrid == col)) {
             col--;
@@ -106,15 +112,15 @@ public class ControladorDeJuego implements Initializable {
             col++;
         }
         if (row == this.filGrid) {
-            posiciones.add(new Posicion((row - 2),col));
-            posiciones.add(new Posicion((row - 1),col));
-            posiciones.add(new Posicion((row),col));
+            posiciones.add(new Posicion((row - 2), col));
+            posiciones.add(new Posicion((row - 1), col));
+            posiciones.add(new Posicion((row), col));
         } else if ((row + 1) == this.filGrid) {
-            posiciones.add(new Posicion((row - 1),col));
-            posiciones.add(new Posicion((row),col));
-            posiciones.add(new Posicion((row + 1),col));
+            posiciones.add(new Posicion((row - 1), col));
+            posiciones.add(new Posicion((row), col));
+            posiciones.add(new Posicion((row + 1), col));
 
-        } else{
+        } else {
             posiciones.add(new Posicion((row), col));
             posiciones.add(new Posicion((row + 1), col));
             posiciones.add(new Posicion((row + 2), col));
@@ -123,7 +129,7 @@ public class ControladorDeJuego implements Initializable {
     }
 
     private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-            for (Node node : gridPane.getChildren()) {
+        for (Node node : gridPane.getChildren()) {
             if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
                 return node;
             }
@@ -158,7 +164,7 @@ public class ControladorDeJuego implements Initializable {
             int ultimoIndice = construible.lastIndexOf('.');
             construible = construible.substring(primerIndice, ultimoIndice);
 
-            try{
+            try {
                 if (construible.equals("TrampaDeArena")) {
                     TrampaDeArena trampa = new TrampaDeArena();
                     Juego.getInstance().construir(trampa, pos);
@@ -171,7 +177,7 @@ public class ControladorDeJuego implements Initializable {
                     ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
 
                 }
-            } catch (RuntimeException e){
+            } catch (RuntimeException e) {
                 ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
                 ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
                 System.out.println(e.getMessage());
@@ -183,13 +189,14 @@ public class ControladorDeJuego implements Initializable {
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
             ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
             mapaGrid.add(parcelaBackground, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
-            actualizarRecursos();
+            actualizarCreditos();
+            actualizarDefensas();
             ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
 
         };
     }
 
-    private void ocultarOpcionesConstruir(List<Button> opciones, GridPane grid){
+    private void ocultarOpcionesConstruir(List<Button> opciones, GridPane grid) {
         opciones.forEach(btn -> {
             btn.setGraphic(null);
             btn.setVisible(false);
@@ -219,9 +226,9 @@ public class ControladorDeJuego implements Initializable {
     private EventHandler<ActionEvent> construirOpcionesPasarela() {
         return event -> {
             Button clickedButton = (Button) event.getSource();
-            String url = ((ImageView)(clickedButton.getGraphic())).getImage().getUrl();
+            String url = ((ImageView) (clickedButton.getGraphic())).getImage().getUrl();
             String tipoParcela = url.substring(url.lastIndexOf("/") + 1, url.indexOf("H"));
-            lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton),GridPane.getColumnIndex(clickedButton));
+            lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton), GridPane.getColumnIndex(clickedButton));
             clickedButton.setStyle("-fx-background-color: rgba(0,0,0,8);");
             List<Posicion> posiciones = obtenerPosicionesValidas(lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
             int i = 0;
@@ -235,10 +242,11 @@ public class ControladorDeJuego implements Initializable {
             opcionesGrid.setMouseTransparent(false);
         };
     }
-    private EventHandler<ActionEvent> construirOpcionesTierra () {
+
+    private EventHandler<ActionEvent> construirOpcionesTierra() {
         return event -> {
             Button clickedButton = (Button) event.getSource();
-            lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton),GridPane.getColumnIndex(clickedButton));
+            lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton), GridPane.getColumnIndex(clickedButton));
             clickedButton.setStyle("-fx-background-color: rgba(0,0,0,8);");
             List<Posicion> posiciones = obtenerPosicionesValidas(lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
             int i = 0;
@@ -256,7 +264,7 @@ public class ControladorDeJuego implements Initializable {
         };
     }
 
-    public EventHandler<ActionEvent> terminarTurno(){
+    public EventHandler<ActionEvent> terminarTurno() {
         return event -> {
             try {
                 Juego.getInstance().terminarTurno();
@@ -264,7 +272,7 @@ public class ControladorDeJuego implements Initializable {
                 List<Node> nodosABorrar = enemigosGrid.getChildren().stream().filter(n -> n instanceof ImageView).collect(Collectors.toList());
                 enemigosGrid.getChildren().removeAll(nodosABorrar);
 
-                for(Enemigo unEnemigo : enemigos){
+                for (Enemigo unEnemigo : enemigos) {
                     String urlenemy = Constantes.urlImagenesEnemigos.get(unEnemigo.nombre());
                     ImageView enemigo = new ImageView(getClass().getResource(urlenemy).toString());
                     enemigo.setFitHeight(47.5);
@@ -289,7 +297,7 @@ public class ControladorDeJuego implements Initializable {
         };
     }
 
-    public EventHandler<MouseEvent> configuracion(){
+    public EventHandler<MouseEvent> configuracion() {
         return event -> {
             opcionesConfiguracion.setVisible(!opcionesConfiguracion.isVisible());
             ControladorDeSonido.getInstance().reproducirEfecto(Constantes.SONIDO_EFECTO_CLICK_GENERICO);
@@ -307,28 +315,28 @@ public class ControladorDeJuego implements Initializable {
     }
 
 
-    private void configurarPanelDatosJugador(){
+    private void configurarPanelDatosJugador() {
         BackgroundImage fondoDatos = new BackgroundImage(new Image(getClass().getResource("/images/Lateral.png").toString()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,new BackgroundSize(402, 700,false,false,false,true));
+                BackgroundPosition.DEFAULT, new BackgroundSize(402, 700, false, false, false, true));
         datosJugador.setBackground(new Background(fondoDatos));
     }
 
-    private void configurarGrillaTerreno(){
+    private void configurarGrillaTerreno() {
         List<Posicionable> parcelas = (List<Posicionable>) (List<?>) Juego.getInstance().obtenerParcelas();
         mapaGrid = Grilla.fijarGrilla(parcelas, construirOpcionesTierra(), construirOpcionesPasarela(), construirOpcionesRocoso());
         stackPane.getChildren().add(mapaGrid);
         setearDimensionesDeGrilla();
     }
 
-    private void configurarGrillaDefensa(){
-        opcionesGrid = Grilla.fijarGrillaSuperpuestas(filGrid,colGrid);
+    private void configurarGrillaDefensa() {
+        opcionesGrid = Grilla.fijarGrillaSuperpuestas(filGrid, colGrid);
         opcionesGrid.setVisible(false);
         opcionesGrid.setStyle("-fx-background-color: transparent;");
         stackPane.getChildren().add(opcionesGrid);
     }
 
     private void configurarGrillaEnemigos() {
-        enemigosGrid = Grilla.fijarGrillaSuperpuestas(filGrid,colGrid);
+        enemigosGrid = Grilla.fijarGrillaSuperpuestas(filGrid, colGrid);
         stackPane.getChildren().add(enemigosGrid);
     }
 
@@ -341,9 +349,41 @@ public class ControladorDeJuego implements Initializable {
     }
 
 
+    private void actualizarVida() {
+        List<Node> children = vBoxDatos.getChildren();
+        Label valor = (Label) ((HBox) children.get(1)).getChildren().get(1);
+        valor.setText(String.valueOf(Jugador.getInstance().obtenerVidaJugador()));
+    }
+
+    private void actualizarCreditos() {
+        List<Node> children = vBoxDatos.getChildren();
+        Label valor = (Label) ((HBox) children.get(2)).getChildren().get(1);
+        valor.setText(String.valueOf(Jugador.getInstance().valorCreditos()));
+    }
+
+    private void actualizarDefensas() {
+        List<Node> children = vBoxDatos.getChildren();
+        Label valor = (Label) ((HBox) children.get(4)).getChildren().get(1);
+        valor.setText(String.valueOf(Jugador.getInstance().obtenerDefensas().size()));
+    }
+
+    private void actualizarTurnoActual() {
+        List<Node> children = vBoxDatos.getChildren();
+        Label valor = (Label) ((HBox) children.get(3)).getChildren().get(1);
+        valor.setText(String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
+    }
+
+    private void actualizarEnemigos() {
+        List<Node> children = vBoxDatos.getChildren();
+        Label valor = (Label) ((HBox) children.get(5)).getChildren().get(1);
+        valor.setText(String.valueOf(Juego.getInstance().obtenerEnemigos().size()));
+    }
+
     private void actualizarRecursos() {
-       List<Node> children = vBoxDatos.getChildren();
-       Label valor = (Label) ((HBox)children.get(2)).getChildren().get(1);
-       valor.setText(String.valueOf(Jugador.getInstance().valorCreditos()));
+        actualizarVida();
+        actualizarCreditos();
+        actualizarDefensas();
+        actualizarTurnoActual();
+        actualizarEnemigos();
     }
 }

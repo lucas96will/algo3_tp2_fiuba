@@ -27,7 +27,6 @@ public class EstadoPartidaSigueJugando implements EstadoPartida{
         mapa.defensasAtacar();
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
-        ContadorTurnos.obtenerContador().incrementarTurno();
     }
 
     @Override
