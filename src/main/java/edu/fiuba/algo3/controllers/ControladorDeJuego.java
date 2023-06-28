@@ -230,6 +230,7 @@ public class ControladorDeJuego implements Initializable {
 
     private EventHandler<ActionEvent> construirOpcionesPasarela() {
         return event -> {
+            ControladorDeSonido.getInstance().reproducirEfecto("building_house2.wav");
             Button clickedButton = (Button) event.getSource();
             String url = ((ImageView) (clickedButton.getGraphic())).getImage().getUrl();
             String tipoParcela = url.substring(url.lastIndexOf("/") + 1, url.indexOf("H"));
@@ -250,6 +251,7 @@ public class ControladorDeJuego implements Initializable {
 
     private EventHandler<ActionEvent> construirOpcionesTierra() {
         return event -> {
+            ControladorDeSonido.getInstance().reproducirEfecto("building_house2.wav");
             Button clickedButton = (Button) event.getSource();
             lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton), GridPane.getColumnIndex(clickedButton));
             clickedButton.setStyle("-fx-background-color: rgba(0,0,0,8);");
