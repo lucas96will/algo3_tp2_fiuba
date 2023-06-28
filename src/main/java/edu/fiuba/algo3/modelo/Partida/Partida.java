@@ -32,7 +32,7 @@ public class Partida {
 
 
     public void terminarTurno() {
-        if (enemigosPorTurno.size() != 0) {
+            if (enemigosPorTurno.size() != 0) {
             anadirEnemigos(enemigosPorTurno.get(0));
             enemigosPorTurno.remove(0);
         }

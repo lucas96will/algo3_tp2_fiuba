@@ -184,6 +184,7 @@ public class ControladorDeJuego implements Initializable {
             } catch (RuntimeException e) {
                 ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
                 ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
+                datosJugadorObservable.mensajeProperty().set("RECURSOS INSUFICIENTES");
                 PanelDatos.obtenerControladorMensaje().animar();
                 System.out.println(e.getMessage());
                 return;
@@ -317,6 +318,7 @@ public class ControladorDeJuego implements Initializable {
 
                 Juego.getInstance().terminarTurno();
                 agregarImagenEnemigosLuegoDeTerminarTurno();
+                eliminarImagenesDeTorresDestruidas();
                 datosJugadorObservable.actualizar();
                 return;
             } catch (RuntimeException e) {
@@ -341,6 +343,36 @@ public class ControladorDeJuego implements Initializable {
             enemigo.setFitWidth(47.5);
             enemigosGrid.add(enemigo, unEnemigo.obtenerPosicion().obtenerColumna(), unEnemigo.obtenerPosicion().obtenerFila());
         }
+    }
+
+    private void eliminarImagenesDeTorresDestruidas() {
+        List<Defensa> defensasEliminadas = Jugador.getInstance().obtenerDefensasEliminadas();
+        Posicion posicionALimpiar;
+        while (!defensasEliminadas.isEmpty()) {
+            datosJugadorObservable.mensajeProperty().set("TORRE DESTRUIDA");
+            PanelDatos.obtenerControladorMensaje().animar();
+            posicionALimpiar = defensasEliminadas.get(0).obtenerPosicion();
+            Button botoncito = ((Button) getNodeFromGridPane(mapaGrid, posicionALimpiar.obtenerColumna(), posicionALimpiar.obtenerFila()));
+            botoncito.setMouseTransparent(false);
+            eliminarImagenEn(posicionALimpiar);
+            defensasEliminadas.remove(0);
+        }
+    }
+
+    private void eliminarImagenEn(Posicion pos) {
+        List<Node> children = mapaGrid.getChildren();
+        ImageView imagenAEliminar = null;
+
+        for(Node nodo : children) {
+            int columna = mapaGrid.getColumnIndex(nodo);
+            int fila = mapaGrid.getRowIndex(nodo);
+            if(columna == pos.obtenerColumna() && fila == pos.obtenerFila() && nodo instanceof ImageView) {
+                imagenAEliminar = (ImageView) nodo;
+                break;
+            }
+        }
+
+        mapaGrid.getChildren().remove(imagenAEliminar);
     }
 
     public EventHandler<MouseEvent> configuracion() {

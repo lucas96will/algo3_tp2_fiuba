@@ -10,11 +10,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="mensajeBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="352.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="mensajeBox" alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="450.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="mensaje" maxWidth="350.0" prefHeight="90.0" translateX="30.0" translateY="10.0">
+        <Label fx:id="mensaje" maxWidth="400.0" prefHeight="120.0" translateX="30.0" translateY="10.0">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font></Label>
     </children>
 </HBox>
+

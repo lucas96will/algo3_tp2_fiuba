@@ -41,6 +41,7 @@ public class ControladorMensaje implements Initializable {
         mensaje.setFont(new Font("System Bold", 25));
         mensajeBox.setTranslateX(10);
         mensaje.setOpacity(0);
+        mensaje.setPrefWidth(500);
         return mensajeBox;
     }
 

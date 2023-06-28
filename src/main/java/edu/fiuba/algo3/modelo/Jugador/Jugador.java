@@ -15,6 +15,7 @@ public class Jugador {
     private int vidaMaxima;
     private Contador contador;
     private List<Defensa> defensas;
+    private List<Defensa> defensasEliminadas;
 
     private Jugador() {
         recurso = new Recurso(100);
@@ -23,6 +24,7 @@ public class Jugador {
         nombre = "Mario";
         contador = new Contador();
         defensas = new ArrayList<>();
+        defensasEliminadas = new ArrayList<>();
     }
 
     static public Jugador getInstance() {
@@ -106,8 +108,13 @@ public class Jugador {
 
     public void eliminarPrimeraTorre() {
         if(!defensas.isEmpty()) {
+            defensasEliminadas.add(defensas.get(0));
             defensas.remove(0);
         }
+    }
+
+    public List<Defensa> obtenerDefensasEliminadas() {
+        return defensasEliminadas;
     }
 
 }

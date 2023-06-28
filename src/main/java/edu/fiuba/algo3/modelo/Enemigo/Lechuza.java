@@ -25,15 +25,10 @@ public class Lechuza extends Enemigo{
     @Override
     public void daniarAlJugador() {
         Jugador.getInstance().eliminarPrimeraTorre();
+        Logger.getInstance().logError(this.nombre() + " destruyo una torre.");
         this.estado = new EstadoEnemigoMuerto();
     }
 
-    @Override
-    public void recibirAtaque(int unDanio, int unRango, Posicion unaPosicion){
-        estado.recibirAtaque(this, unDanio);
-    }
-
-    
     @Override 
     public String toString() {
         return ("Lechuza en " + posicion.toString());
