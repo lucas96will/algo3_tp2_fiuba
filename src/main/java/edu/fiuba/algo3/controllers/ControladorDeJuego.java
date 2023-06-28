@@ -2,26 +2,17 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
-import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
-import edu.fiuba.algo3.modelo.Factory.ParcelaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
-import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
-import edu.fiuba.algo3.modelo.Partida.EstadoPartidaGanada;
-import edu.fiuba.algo3.modelo.Partida.EstadoPartidaPerdida;
-import edu.fiuba.algo3.modelo.Partida.EstadoPartidaSigueJugando;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,8 +30,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -72,9 +61,7 @@ public class ControladorDeJuego implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         Jugador jugador = Jugador.getInstance();
-
         configurarDatosJugador((App.class.getResource("/images/Nombre.png")), jugador.obtenerNombreJugador());
-
         configurarDatosJugador((App.class.getResource("/images/Vida.png")), String.valueOf(jugador.obtenerVidaJugador()));
         configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()));
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
@@ -267,34 +254,33 @@ public class ControladorDeJuego implements Initializable {
     public EventHandler<ActionEvent> terminarTurno() {
         return event -> {
             try {
+                eliminarImagenEnemigosAntesDeTerminarTurno();
                 Juego.getInstance().terminarTurno();
-                List<Enemigo> enemigos = Juego.getInstance().obtenerEnemigos();
-                List<Node> nodosABorrar = enemigosGrid.getChildren().stream().filter(n -> n instanceof ImageView).collect(Collectors.toList());
-                enemigosGrid.getChildren().removeAll(nodosABorrar);
-
-                for (Enemigo unEnemigo : enemigos) {
-                    String urlenemy = Constantes.urlImagenesEnemigos.get(unEnemigo.nombre());
-                    ImageView enemigo = new ImageView(getClass().getResource(urlenemy).toString());
-                    enemigo.setFitHeight(47.5);
-                    enemigo.setFitWidth(47.5);
-                    enemigosGrid.add(enemigo, unEnemigo.obtenerPosicion().obtenerColumna(), unEnemigo.obtenerPosicion().obtenerFila());
-                }
-
+                agregarImagenEnemigosLuegoDeTerminarTurno();
                 actualizarRecursos();
-
                 return;
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
 
-
-            /*if (Juego.getInstance().estado().equals(new EstadoPartidaGanada())){
-
-            } else if (Juego.getInstance().estado().equals(new EstadoPartidaPerdida())) {
-
-            }*/
             new PantallaFinal(App.getInstance(), App.obtenerStage());
         };
+    }
+
+    private void eliminarImagenEnemigosAntesDeTerminarTurno() {
+        List<Node> nodosABorrar = enemigosGrid.getChildren().stream().filter(n -> n instanceof ImageView).collect(Collectors.toList());
+        enemigosGrid.getChildren().removeAll(nodosABorrar);
+    }
+
+    private void agregarImagenEnemigosLuegoDeTerminarTurno() {
+        List<Enemigo> enemigos = Juego.getInstance().obtenerEnemigos();
+        for (Enemigo unEnemigo : enemigos) {
+            String urlenemy = Constantes.urlImagenesEnemigos.get(unEnemigo.nombre());
+            ImageView enemigo = new ImageView(getClass().getResource(urlenemy).toString());
+            enemigo.setFitHeight(47.5);
+            enemigo.setFitWidth(47.5);
+            enemigosGrid.add(enemigo, unEnemigo.obtenerPosicion().obtenerColumna(), unEnemigo.obtenerPosicion().obtenerFila());
+        }
     }
 
     public EventHandler<MouseEvent> configuracion() {
