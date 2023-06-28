@@ -10,12 +10,18 @@ import java.io.IOException;
 public class CargadorDeEscena {
 
     public static void cargarScene (String otraScene, Stage stage) {
-        Scene scene = new Scene(CargadorDeEscena.cargarArchivo(otraScene));
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.centerOnScreen();
-        stage.setFullScreen(true);
+        Parent root = CargadorDeEscena.cargarArchivo(otraScene);
+        if(stage.getScene() == null){
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+        } else{
+            stage.getScene().setRoot(root);
+        }
         stage.show();
+        //stage.setResizable(false);
+        //stage.centerOnScreen();
+        //stage.setFullScreen(true);
+        //stage.show();
     }
 
     private static Parent cargarArchivo (String nombreDeScene) {

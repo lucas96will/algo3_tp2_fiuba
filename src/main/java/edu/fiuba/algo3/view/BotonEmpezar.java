@@ -22,10 +22,11 @@ public class BotonEmpezar extends Button {
         boton.setText("Empezar");
         boton.setTextAlignment(TextAlignment.CENTER);
         boton.setTextFill(Color.WHITE);
-        boton.setTranslateX(420);
-        boton.setTranslateY(550);
         boton.setFont(new Font(36));
         boton.setId("empezar");
+        boton.setTranslateX(785);
+        boton.setTranslateY(615);
+
         return boton;
     }
 }

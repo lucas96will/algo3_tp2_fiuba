@@ -55,9 +55,13 @@ public class ControladorDeGrilla implements Initializable {
                 backgroundHover.setFitWidth(boton.getPrefHeight());
                 backgroundHover.setFitHeight(boton.getPrefHeight());
                 boton.setGraphic(backgroundHover);
+                ((ImageView)(boton.getGraphic())).setFitHeight(boton.getPrefHeight());
+                ((ImageView)(boton.getGraphic())).setFitWidth(boton.getPrefWidth());
             });
             boton.setOnMouseExited(eventMouse ->{
                 boton.setGraphic(backgroundDefault);
+                ((ImageView)(boton.getGraphic())).setFitHeight(boton.getPrefHeight());
+                ((ImageView)(boton.getGraphic())).setFitWidth(boton.getPrefWidth());
             });
             
             gridpane.add(boton, posicionable.obtenerPosicion().obtenerColumna(), posicionable.obtenerPosicion().obtenerFila());
@@ -87,7 +91,7 @@ public class ControladorDeGrilla implements Initializable {
         ((ImageView)(boton.getGraphic())).setFitHeight(boton.getPrefHeight());
         ((ImageView)(boton.getGraphic())).setFitWidth(boton.getPrefWidth());
         boton.setStyle("-fx-background-color: transparent;");
-        boton.setPadding(new Insets(-2));
+        boton.setPadding(new Insets(0));
         boton.setAlignment(Pos.CENTER);
     }
 }

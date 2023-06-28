@@ -343,9 +343,9 @@ public class ControladorDeJuego implements Initializable {
     private void configurarConfiguracion() {
         opcionesConfiguracion = Configuracion.fijarConfiguracion();
         opcionesConfiguracion.setVisible(false);
-        opcionesConfiguracion.setTranslateY(-340);
-        opcionesConfiguracion.setTranslateX(160);
-        vBoxDatos.getChildren().add(opcionesConfiguracion);
+        opcionesConfiguracion.setTranslateY(configuracion.getTranslateY() + 50);
+        opcionesConfiguracion.setTranslateX(configuracion.getTranslateX() - 73);
+        datosJugador.getChildren().add(opcionesConfiguracion);
     }
 
 

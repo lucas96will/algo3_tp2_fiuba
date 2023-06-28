@@ -64,8 +64,8 @@ public class ControladorPantallaInicio implements Initializable {
     private void configurarConfiguracion() {
         opcionesConfiguracion = Configuracion.fijarConfiguracion();
         opcionesConfiguracion.setVisible(false);
-        opcionesConfiguracion.setTranslateY(-220);
-        opcionesConfiguracion.setTranslateX(510);
+        opcionesConfiguracion.setTranslateY(configuracion.getTranslateY() + 110);
+        opcionesConfiguracion.setTranslateX(configuracion.getTranslateX() - 35);
         stackPane.getChildren().add(opcionesConfiguracion);
     }
 }

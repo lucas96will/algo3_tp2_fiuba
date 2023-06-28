@@ -32,6 +32,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage){
+        stage.setFullScreen(true);
+        stage.setResizable(false);
+        stage.centerOnScreen();
         new PantallaInicio(this, stage);
     }
 
