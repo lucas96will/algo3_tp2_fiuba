@@ -11,6 +11,12 @@ import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
+import javafx.animation.AnimationTimer;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -43,6 +49,8 @@ public class ControladorDeJuego implements Initializable {
     private VBox opcionesConfiguracion;
     DatosJugadorObservable datosJugadorObservable;
     @FXML
+    private StackPane ventana;
+    @FXML
     private Button btnTerminarTurno;
     @FXML
     private VBox vBoxDatos;
@@ -54,6 +62,8 @@ public class ControladorDeJuego implements Initializable {
     private AnchorPane botonera;
     @FXML
     private ImageView configuracion;
+    @FXML
+    private StackPane display;
 
 
 
@@ -74,6 +84,7 @@ public class ControladorDeJuego implements Initializable {
         configurarGrillaDefensa();
         configurarGrillaEnemigos();
         configurarConfiguracion();
+        configurarDisplay();
         configuracion.setOnMouseClicked(configuracion());
 
     }
@@ -214,6 +225,7 @@ public class ControladorDeJuego implements Initializable {
 
     private EventHandler<ActionEvent> construirOpcionesPasarela() {
         return event -> {
+            ControladorDeSonido.getInstance().reproducirEfecto("building_house2.wav");
             Button clickedButton = (Button) event.getSource();
             String url = ((ImageView) (clickedButton.getGraphic())).getImage().getUrl();
             String tipoParcela = url.substring(url.lastIndexOf("/") + 1, url.indexOf("H"));
@@ -234,6 +246,7 @@ public class ControladorDeJuego implements Initializable {
 
     private EventHandler<ActionEvent> construirOpcionesTierra() {
         return event -> {
+            ControladorDeSonido.getInstance().reproducirEfecto("building_house2.wav");
             Button clickedButton = (Button) event.getSource();
             lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton), GridPane.getColumnIndex(clickedButton));
             clickedButton.setStyle("-fx-background-color: rgba(0,0,0,8);");
@@ -252,11 +265,18 @@ public class ControladorDeJuego implements Initializable {
             opcionesGrid.setMouseTransparent(false);
         };
     }
+    private int frameActual = 0;
+    private long tiempoFinal = 0;
 
     public EventHandler<ActionEvent> terminarTurno() {
         return event -> {
+            ImageView sprite = new ImageView();
+            ventana.getChildren().add(sprite);
+            ControladorDeAnimacion animador = new ControladorDeAnimacion(61, 20, 2, sprite, "HormigaEnMovimiento", display);
+            animador.start();
             try {
                 eliminarImagenEnemigosAntesDeTerminarTurno();
+
                 Juego.getInstance().terminarTurno();
                 agregarImagenEnemigosLuegoDeTerminarTurno();
                 datosJugadorObservable.actualizar();
@@ -335,6 +355,10 @@ public class ControladorDeJuego implements Initializable {
         opcionesConfiguracion.setTranslateY(configuracion.getTranslateY() + 50);
         opcionesConfiguracion.setTranslateX(configuracion.getTranslateX() - 73);
         datosJugador.getChildren().add(opcionesConfiguracion);
+    }
+
+    private void configurarDisplay() {
+        display.setVisible(false);
     }
 
 
