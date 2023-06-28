@@ -18,6 +18,8 @@ public class DatosJugadorObservable {
 
     StringProperty cantEnemigos;
 
+    StringProperty mensaje;
+
     public DatosJugadorObservable() {
         nombre = new SimpleStringProperty();
         vidaJugador = new SimpleStringProperty();
@@ -25,6 +27,7 @@ public class DatosJugadorObservable {
         turno = new SimpleStringProperty();
         cantDefensas = new SimpleStringProperty();
         cantEnemigos = new SimpleStringProperty();
+        mensaje = new SimpleStringProperty();
     }
 
     public String getNombre() {
@@ -75,6 +78,14 @@ public class DatosJugadorObservable {
         return cantEnemigos;
     }
 
+    public String getMensaje() {
+        return mensaje.get();
+    }
+
+    public StringProperty mensajeProperty() {
+        return mensaje;
+    }
+
     public void setVidaJugador(String vidaJugador) {
         this.vidaJugador.set(vidaJugador);
     }
@@ -93,6 +104,10 @@ public class DatosJugadorObservable {
 
     public void setCantEnemigos(String cantEnemigos) {
         this.cantEnemigos.set(cantEnemigos);
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje.set(mensaje);
     }
 
     public void actualizar() {
