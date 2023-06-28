@@ -130,6 +130,11 @@ public class ControladorDeSonido {
         reproduccionActual.play();
 
     }
+    public void detenerEfecto(){
+        if(efecto != null){
+            efecto.stop();
+        }
+    }
 
     public double obtenerVolumen() {
         return reproduccionActual.volumeProperty().doubleValue();
