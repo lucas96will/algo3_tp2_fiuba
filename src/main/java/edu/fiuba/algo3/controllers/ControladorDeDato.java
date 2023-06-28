@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,4 +45,6 @@ public class ControladorDeDato implements Initializable {
         dato.setTranslateX(10);
         return dato;
     }
+
+
 }

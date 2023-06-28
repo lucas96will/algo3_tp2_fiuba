@@ -16,6 +16,12 @@ import edu.fiuba.algo3.modelo.Partida.EstadoPartidaPerdida;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartidaSigueJugando;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +31,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,11 +40,7 @@ import javafx.scene.layout.*;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
-
+import java.util.*;
 
 
 public class ControladorDeJuego implements Initializable {
@@ -63,6 +66,7 @@ public class ControladorDeJuego implements Initializable {
         Jugador jugador = Jugador.getInstance();
 
         configurarDatosJugador((App.class.getResource("/images/Nombre.png")),jugador.obtenerNombreJugador());
+
         configurarDatosJugador((App.class.getResource("/images/Vida.png")),String.valueOf(jugador.obtenerVidaJugador()));
         configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()));
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
@@ -81,10 +85,10 @@ public class ControladorDeJuego implements Initializable {
         ImageView parcelaBackground = new ImageView();
         Image image = new Image(urlImagen.toString());
         parcelaBackground.setImage(image);
-        parcelaBackground.setFitHeight(33);
-        parcelaBackground.setFitWidth(33);
-        defensa.setPrefWidth(45);
-        defensa.setPrefHeight(45);
+        parcelaBackground.setFitHeight(47.5);
+        parcelaBackground.setFitWidth(47.5);
+        defensa.setPrefWidth(64.8);
+        defensa.setPrefHeight(64.8);
         defensa.setGraphic(parcelaBackground);
         defensa.setAlignment(Pos.CENTER);
         defensa.setStyle("-fx-background-color: rgba(0,0,0,0.6);");
@@ -143,8 +147,8 @@ public class ControladorDeJuego implements Initializable {
             Button clickedButton = (Button) event.getSource();
             ImageView parcelaBackground = new ImageView();
             parcelaBackground.setImage(((ImageView) clickedButton.getGraphic()).getImage());
-            parcelaBackground.setFitHeight(33);
-            parcelaBackground.setFitWidth(33);
+            parcelaBackground.setFitHeight(47.5);
+            parcelaBackground.setFitWidth(47.5);
 
             Posicion pos = new Posicion(lugarDeConstruccion.obtenerFila(), lugarDeConstruccion.obtenerColumna());
             String construible = parcelaBackground.getImage().getUrl();
@@ -155,7 +159,6 @@ public class ControladorDeJuego implements Initializable {
             try{
                 if (construible.equals("TrampaDeArena")) {
                     TrampaDeArena trampa = new TrampaDeArena();
-                    Jugador.getInstance().comprar(trampa);
                     Juego.getInstance().construir(trampa, pos);
                     ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
                 } else {
@@ -168,14 +171,17 @@ public class ControladorDeJuego implements Initializable {
                 }
             } catch (RuntimeException e){
                 ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
+                ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
                 System.out.println(e.getMessage());
                 return;
             }
+
 
             GridPane.setValignment(parcelaBackground, VPos.CENTER);
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
             ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
             mapaGrid.add(parcelaBackground, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
+            actualizarRecursos();
             ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
 
         };
@@ -204,7 +210,7 @@ public class ControladorDeJuego implements Initializable {
 
     private EventHandler<ActionEvent> construirOpcionesRocoso() {
         return event -> {
-            ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
+            ControladorDeSonido.getInstance().reproducirEfecto("Cancelar.mp3");
         };
     }
 
@@ -285,6 +291,7 @@ public class ControladorDeJuego implements Initializable {
         vBoxDatos.getChildren().add(pane);
     }
 
+
     private void configurarPanelDatosJugador(){
         BackgroundImage fondoDatos = new BackgroundImage(new Image(getClass().getResource("/images/Lateral.png").toString()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT,new BackgroundSize(402, 700,false,false,false,true));
@@ -318,4 +325,10 @@ public class ControladorDeJuego implements Initializable {
         vBoxDatos.getChildren().add(opcionesConfiguracion);
     }
 
+
+    private void actualizarRecursos() {
+       List<Node> children = vBoxDatos.getChildren();
+       Label valor = (Label) ((HBox)children.get(2)).getChildren().get(1);
+       valor.setText(String.valueOf(Jugador.getInstance().valorCreditos()));
+    }
 }

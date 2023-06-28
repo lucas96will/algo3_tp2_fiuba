@@ -4,12 +4,10 @@ import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
 import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Jugador {
-
     private static Jugador jugador = new Jugador();
     private Recurso recurso;
     private int vida;
@@ -109,4 +107,5 @@ public class Jugador {
     public void eliminarPrimeraTorre() {
         defensas.remove(0);
     }
+
 }
