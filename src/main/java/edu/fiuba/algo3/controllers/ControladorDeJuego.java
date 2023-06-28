@@ -78,6 +78,7 @@ public class ControladorDeJuego implements Initializable {
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()), datosJugadorObservable.turnoProperty());
         configurarDatosJugador((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size()), datosJugadorObservable.cantDefensasProperty());
         configurarDatosJugador((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size()), datosJugadorObservable.cantEnemigosProperty());
+        configurarMensaje();
         configurarBotonTerminarTurno();
         configurarPanelDatosJugador();
         configurarGrillaTerreno();
@@ -180,6 +181,7 @@ public class ControladorDeJuego implements Initializable {
             } catch (RuntimeException e) {
                 ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
                 ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
+                PanelDatos.obtenerControladorMensaje().animar();
                 System.out.println(e.getMessage());
                 return;
             }
@@ -194,6 +196,11 @@ public class ControladorDeJuego implements Initializable {
             ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
 
         };
+    }
+
+    private void configurarMensaje() {
+        Pane pane = PanelDatos.fijarMensaje("RECURSOS INSUFICIENTES", datosJugadorObservable.mensajeProperty());
+        vBoxDatos.getChildren().add(pane);
     }
 
     private void ocultarOpcionesConstruir(List<Button> opciones, GridPane grid) {
