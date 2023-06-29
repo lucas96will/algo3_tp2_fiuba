@@ -1,10 +1,10 @@
 ![tp2](https://github.com/lucas96will/algo3_tp2_fiuba/actions/workflows/build.yml/badge.svg) [![codecov](https://codecov.io/gh/lucas96will/algo3_tp2_fiuba/branch/master/graph/badge.svg)](https://codecov.io/gh/lucas96will/algo3_tp2_fiuba)
 
-# TP2 Algoritmos 3: {nombre} 
+# TP2 Algoritmos 3: Algo Tower Defense 
 
 Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA
 
-## Grupo {N}
+## Grupo 4
 
 * **Integrante 1** - [Manuel Mendoza](https://github.com/crokibolt)
 * **Integrante 2** - [lucas williams](https://github.com/lucas96will)
@@ -12,7 +12,7 @@ Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUB
 * **Integrante 4** - [Ariel Folgueira](https://github.com/ArielFol)
 * **Integrante 5** - [Carlos Orqueda](https://github.com/CarlosOrqueda)
 
-Corrector: **{Corrector}**
+Corrector: **Joaquin Gomez**
 
 ## Aplicación
 
