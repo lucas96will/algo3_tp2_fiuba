@@ -4,7 +4,6 @@ import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -34,19 +33,19 @@ import java.util.stream.Collectors;
 
 public class ControladorDeJuego implements Initializable {
 
+    public HBox divide;
+    public AnchorPane mapa;
     private GridPane mapaGrid;
     private GridPane opcionesGrid;
     private GridPane enemigosGrid;
     private int colGrid;
     private int filGrid;
-    private List<Button> btnDefensas = new ArrayList<>();
+    private final List<Button> btnDefensas = new ArrayList<>();
     private Posicion lugarDeConstruccion;
     private VBox opcionesConfiguracion;
     DatosJugadorObservable datosJugadorObservable;
     @FXML
     private StackPane ventana;
-    @FXML
-    private Button btnTerminarTurno;
     @FXML
     private VBox vBoxDatos;
     @FXML
@@ -72,11 +71,10 @@ public class ControladorDeJuego implements Initializable {
         configurarDatosJugador((App.class.getResource("/images/Credito.png")), String.valueOf(jugador.valorCreditos()), datosJugadorObservable.creditoProperty());
         configurarDatosJugador((App.class.getResource("/images/Turno.png")), String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()), datosJugadorObservable.turnoProperty());
         configurarDatosJugador((App.class.getResource("/images/Defensa.png")), String.valueOf(jugador.obtenerDefensas().size()), datosJugadorObservable.cantDefensasProperty());
-        //configurarDatosJugador((App.class.getResource("/images/Enemigo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().size()), datosJugadorObservable.cantEnemigosProperty());
-        configurarDatosJugador((App.class.getResource("/images/Hormiga.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Hormiga")).collect(Collectors.toList()).size()), datosJugadorObservable.cantHormigaProperty());
-        configurarDatosJugador((App.class.getResource("/images/Arania.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Arania")).collect(Collectors.toList()).size()), datosJugadorObservable.cantAraniaProperty());
-        configurarDatosJugador((App.class.getResource("/images/Topo.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Topo")).collect(Collectors.toList()).size()), datosJugadorObservable.cantTopoProperty());
-        configurarDatosJugador((App.class.getResource("/images/Buho.png")), String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Lechuza")).collect(Collectors.toList()).size()), datosJugadorObservable.cantLechuzaProperty());
+        configurarDatosJugador((App.class.getResource("/images/Hormiga.png")), String.valueOf((int) Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Hormiga")).count()), datosJugadorObservable.cantHormigaProperty());
+        configurarDatosJugador((App.class.getResource("/images/Arania.png")), String.valueOf((int) Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Arania")).count()), datosJugadorObservable.cantAraniaProperty());
+        configurarDatosJugador((App.class.getResource("/images/Topo.png")), String.valueOf((int) Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Topo")).count()), datosJugadorObservable.cantTopoProperty());
+        configurarDatosJugador((App.class.getResource("/images/Buho.png")), String.valueOf((int) Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Lechuza")).count()), datosJugadorObservable.cantLechuzaProperty());
         configurarMensaje();
         configurarBotonTerminarTurno();
         configurarPanelDatosJugador();
@@ -161,7 +159,7 @@ public class ControladorDeJuego implements Initializable {
             int primerIndice = Math.max(construible.lastIndexOf('/'), construible.lastIndexOf('\\')) + 7;
             int ultimoIndice = construible.lastIndexOf('.');
             construible = construible.substring(primerIndice, ultimoIndice);
-            parcelaBackground.setImage(new Image(getClass().getResource("/images/" + construible + ".png").toString()));
+            parcelaBackground.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/" + construible + ".png")).toString()));
             parcelaBackground.setFitHeight(47.5);
             parcelaBackground.setFitWidth(47.5);
 
@@ -191,7 +189,7 @@ public class ControladorDeJuego implements Initializable {
 
             GridPane.setValignment(parcelaBackground, VPos.CENTER);
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
-            ((Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila())).setMouseTransparent(true);
+            (Objects.requireNonNull(getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila()))).setMouseTransparent(true);
             mapaGrid.add(parcelaBackground, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
             actualizarCreditosObservables();
             actualizarDefensasObservables();
@@ -233,7 +231,7 @@ public class ControladorDeJuego implements Initializable {
     private void configurarBotonConstruccionHover(Button boton, ImageView backgroundDefault){
         boton.setOnMouseEntered(eventMouse ->{
             String path = backgroundDefault.getImage().getUrl();
-            ImageView backgroundHover = new ImageView(new Image(getClass().getResource("/images/Precio"+ path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf(".")) +".png").toString()));
+            ImageView backgroundHover = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/images/Precio" + path.substring(path.lastIndexOf("/") + 1, path.lastIndexOf(".")) + ".png")).toString()));
             backgroundHover.setFitWidth(47.5);
             backgroundHover.setFitHeight(47.5);
             boton.setGraphic(backgroundHover);
@@ -246,30 +244,26 @@ public class ControladorDeJuego implements Initializable {
     }
 
     private EventHandler<ActionEvent> construirOpcionesRocoso() {
-        return event -> {
-            ControladorDeSonido.getInstance().reproducirEfecto("Cancelar.mp3");
-        };
+        return event -> ControladorDeSonido.getInstance().reproducirEfecto("Cancelar.mp3");
     }
 
     private EventHandler<ActionEvent> construirOpcionesPasarela() {
         return event -> {
             ControladorDeSonido.getInstance().reproducirEfecto("building_house2.wav");
             Button clickedButton = (Button) event.getSource();
-            String url = ((ImageView) (clickedButton.getGraphic())).getImage().getUrl();
-            String tipoParcela = url.substring(url.lastIndexOf("/") + 1, url.indexOf("H"));
             lugarDeConstruccion = new Posicion(GridPane.getRowIndex(clickedButton), GridPane.getColumnIndex(clickedButton));
             clickedButton.setStyle("-fx-background-color: rgba(0,0,0,8);");
             List<Posicion> posiciones = obtenerPosicionesValidas(lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
             int i = 0;
             Button boton = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(i).obtenerColumna(), posiciones.get(i++).obtenerFila());
             btnDefensas.add(boton);
-            configurarBotonDeConstruccion(boton, getClass().getResource("/images/TrampaDeArena.png"), construirDefensas());
+            configurarBotonDeConstruccion(Objects.requireNonNull(boton), Objects.requireNonNull(getClass().getResource("/images/TrampaDeArena.png")), construirDefensas());
             ImageView backgroundDefault = (ImageView) boton.getGraphic();
             configurarBotonConstruccionHover(boton, backgroundDefault );
 
             Button boton2 = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(i).obtenerColumna(), posiciones.get(i++).obtenerFila());
             btnDefensas.add(boton2);
-            configurarBotonDeConstruccion(boton2, getClass().getResource("/images/CancelarConstruccion.png"), cancelarConstruccion());
+            configurarBotonDeConstruccion(Objects.requireNonNull(boton2), Objects.requireNonNull(getClass().getResource("/images/CancelarConstruccion.png")), cancelarConstruccion());
             opcionesGrid.setVisible(true);
             opcionesGrid.setMouseTransparent(false);
         };
@@ -285,25 +279,23 @@ public class ControladorDeJuego implements Initializable {
             int i = 0;
             Button defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(i).obtenerColumna(), posiciones.get(i++).obtenerFila());
             btnDefensas.add(defensa);
-            configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TorrePlateada.png"), construirDefensas());
+            configurarBotonDeConstruccion(Objects.requireNonNull(defensa), Objects.requireNonNull(getClass().getResource("/images/TorrePlateada.png")), construirDefensas());
             ImageView backgroundDefault1 = (ImageView) defensa.getGraphic();
             configurarBotonConstruccionHover(defensa, backgroundDefault1 );
 
             defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(i).obtenerColumna(), posiciones.get(i++).obtenerFila());
             btnDefensas.add(defensa);
-            configurarBotonDeConstruccion(defensa, getClass().getResource("/images/TorreBlanca.png"), construirDefensas());
+            configurarBotonDeConstruccion(Objects.requireNonNull(defensa), Objects.requireNonNull(getClass().getResource("/images/TorreBlanca.png")), construirDefensas());
             ImageView backgroundDefault2 = (ImageView) defensa.getGraphic();
             configurarBotonConstruccionHover(defensa, backgroundDefault2 );
 
             defensa = (Button) getNodeFromGridPane(opcionesGrid, posiciones.get(i).obtenerColumna(), posiciones.get(i++).obtenerFila());
             btnDefensas.add(defensa);
-            configurarBotonDeConstruccion(defensa, getClass().getResource("/images/CancelarConstruccion.png"), cancelarConstruccion());
+            configurarBotonDeConstruccion(Objects.requireNonNull(defensa), Objects.requireNonNull(getClass().getResource("/images/CancelarConstruccion.png")), cancelarConstruccion());
             opcionesGrid.setVisible(true);
             opcionesGrid.setMouseTransparent(false);
         };
     }
-    private int frameActual = 0;
-    private long tiempoFinal = 0;
 
     public EventHandler<ActionEvent> terminarTurno() {
         return event -> {
@@ -336,7 +328,7 @@ public class ControladorDeJuego implements Initializable {
         List<Enemigo> enemigos = Juego.getInstance().obtenerEnemigos();
         for (Enemigo unEnemigo : enemigos) {
             String urlenemy = Constantes.urlImagenesEnemigos.get(unEnemigo.nombre());
-            ImageView enemigo = new ImageView(getClass().getResource(urlenemy).toString());
+            ImageView enemigo = new ImageView(Objects.requireNonNull(getClass().getResource(urlenemy)).toString());
             enemigo.setFitHeight(47.5);
             enemigo.setFitWidth(47.5);
             enemigosGrid.add(enemigo, unEnemigo.obtenerPosicion().obtenerColumna(), unEnemigo.obtenerPosicion().obtenerFila());
@@ -351,7 +343,7 @@ public class ControladorDeJuego implements Initializable {
             PanelDatos.obtenerControladorMensaje().animar();
             posicionALimpiar = defensasEliminadas.get(0).obtenerPosicion();
             Button botoncito = ((Button) getNodeFromGridPane(mapaGrid, posicionALimpiar.obtenerColumna(), posicionALimpiar.obtenerFila()));
-            botoncito.setMouseTransparent(false);
+            Objects.requireNonNull(botoncito).setMouseTransparent(false);
             eliminarImagenEn(posicionALimpiar);
             defensasEliminadas.remove(0);
         }
@@ -362,8 +354,8 @@ public class ControladorDeJuego implements Initializable {
         ImageView imagenAEliminar = null;
 
         for(Node nodo : children) {
-            int columna = mapaGrid.getColumnIndex(nodo);
-            int fila = mapaGrid.getRowIndex(nodo);
+            int columna = GridPane.getColumnIndex(nodo);
+            int fila = GridPane.getRowIndex(nodo);
             if(columna == pos.obtenerColumna() && fila == pos.obtenerFila() && nodo instanceof ImageView) {
                 imagenAEliminar = (ImageView) nodo;
                 break;
@@ -381,7 +373,7 @@ public class ControladorDeJuego implements Initializable {
     }
 
     private void configurarBotonTerminarTurno() {
-        btnTerminarTurno = BotonTerminarTurno.fijarBotonTerminarTurno(this);
+        Button btnTerminarTurno = BotonTerminarTurno.fijarBotonTerminarTurno(this);
         botonera.getChildren().add(btnTerminarTurno);
     }
 
@@ -393,7 +385,7 @@ public class ControladorDeJuego implements Initializable {
 
 
     private void configurarPanelDatosJugador() {
-        BackgroundImage fondoDatos = new BackgroundImage(new Image(getClass().getResource("/images/Lateral.png").toString()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+        BackgroundImage fondoDatos = new BackgroundImage(new Image(Objects.requireNonNull(getClass().getResource("/images/Lateral.png")).toString()), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT, new BackgroundSize(402, 700, false, false, false, true));
         datosJugador.setBackground(new Background(fondoDatos));
     }

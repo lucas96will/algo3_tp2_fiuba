@@ -2,7 +2,6 @@ package edu.fiuba.algo3.view;
 
 import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.controllers.ControladorDeBoton;
-import edu.fiuba.algo3.controllers.ControladorDeIngresarNombre;
 import edu.fiuba.algo3.controllers.ControladorDeJuego;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -24,7 +23,7 @@ public class BotonTerminarTurno extends Button {
         boton.setTextAlignment(TextAlignment.CENTER);
         boton.setTextFill(Color.WHITE);
         boton.setTranslateX(150);
-        boton.setTranslateY(320);
+        boton.setTranslateY(360);
         boton.setFont(new Font(35));
         boton.setId("terminarTurno");
         return boton;

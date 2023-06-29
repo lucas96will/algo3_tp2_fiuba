@@ -1,11 +1,10 @@
 package edu.fiuba.algo3.controllers;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,13 +37,16 @@ public class ControladorDeDato implements Initializable {
 
     public HBox obtenerDato(URL path, String informacion) {
         icono.setImage(new Image(path.toString()));
-        icono.setFitWidth(30);
-        icono.setFitHeight(30);
+        icono.setFitWidth(55);
+        icono.setFitHeight(55);
         valor.setText(informacion);
         valor.setTextFill(Color.WHITE);
-        valor.setFont(new Font("System Bold", 25));
+        valor.setTranslateX(40);
+        valor.setFont(new Font("System Bold", 40));
         valor.setPrefWidth(200);
-        dato.setTranslateX(10);
+        dato.setTranslateX(15);
+        dato.setTranslateY(5);
+        dato.setPadding(new Insets(0,0,10,0));
         return dato;
     }
 

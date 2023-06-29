@@ -6,8 +6,6 @@ import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.util.stream.Collectors;
-
 public class DatosJugadorObservable {
     StringProperty nombre;
     StringProperty vidaJugador;
@@ -17,8 +15,6 @@ public class DatosJugadorObservable {
     StringProperty turno;
 
     StringProperty cantDefensas;
-
-    StringProperty cantEnemigos;
 
     StringProperty mensaje;
 
@@ -34,7 +30,6 @@ public class DatosJugadorObservable {
         credito = new SimpleStringProperty();
         turno = new SimpleStringProperty();
         cantDefensas = new SimpleStringProperty();
-        cantEnemigos = new SimpleStringProperty();
         mensaje = new SimpleStringProperty();
         cantHormiga = new SimpleStringProperty();
         cantArania = new SimpleStringProperty();
@@ -50,16 +45,8 @@ public class DatosJugadorObservable {
         return nombre;
     }
 
-    public String getVidaJugador() {
-        return vidaJugador.get();
-    }
-
     public StringProperty vidaJugadorProperty() {
         return vidaJugador;
-    }
-
-    public String getCredito() {
-        return credito.get();
     }
 
     public StringProperty creditoProperty() {
@@ -74,24 +61,8 @@ public class DatosJugadorObservable {
         return turno;
     }
 
-    public String getCantDefensas() {
-        return cantDefensas.get();
-    }
-
     public StringProperty cantDefensasProperty() {
         return cantDefensas;
-    }
-
-    public String getCantEnemigos() {
-        return cantEnemigos.get();
-    }
-
-    public StringProperty cantEnemigosProperty() {
-        return cantEnemigos;
-    }
-
-    public String getMensaje() {
-        return mensaje.get();
     }
 
     public StringProperty mensajeProperty() {
@@ -112,12 +83,6 @@ public class DatosJugadorObservable {
 
     public void setCantDefensas(String cantDefensas) {
         this.cantDefensas.set(cantDefensas);
-    }
-
-    public void setCantEnemigos(String cantEnemigos) {this.cantEnemigos.set(cantEnemigos);}
-
-    public void setMensaje(String mensaje) {
-        this.mensaje.set(mensaje);
     }
     public String getHormiga() {
         return cantHormiga.get();
@@ -153,10 +118,9 @@ public class DatosJugadorObservable {
         setCredito(String.valueOf(Jugador.getInstance().valorCreditos()));
         setCantDefensas(String.valueOf(Jugador.getInstance().obtenerDefensas().size()));
         setTurno(String.valueOf(ContadorTurnos.obtenerContador().obtenerTurnoActual()));
-        setCantEnemigos(String.valueOf(Juego.getInstance().obtenerEnemigos().size()));
-        setCantHormiga(String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Hormiga")).collect(Collectors.toList()).size()));
-        setCantArania(String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Arania")).collect(Collectors.toList()).size()));
-        setCantTopo(String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Topo")).collect(Collectors.toList()).size()));
-        setCantLechuza(String.valueOf(Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Lechuza")).collect(Collectors.toList()).size()));
+        setCantHormiga(String.valueOf((int) Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Hormiga")).count()));
+        setCantArania(String.valueOf((int) Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Arania")).count()));
+        setCantTopo(String.valueOf((int) Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Topo")).count()));
+        setCantLechuza(String.valueOf((int) Juego.getInstance().obtenerEnemigos().stream().filter(enemigo -> enemigo.getClass().getSimpleName().equals("Lechuza")).count()));
     }
 }
