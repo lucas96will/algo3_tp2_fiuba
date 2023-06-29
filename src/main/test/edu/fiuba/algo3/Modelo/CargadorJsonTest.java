@@ -1,10 +1,12 @@
 package edu.fiuba.algo3.Modelo;
 
+import edu.fiuba.algo3.modelo.Cargador.Cargador;
 import edu.fiuba.algo3.modelo.Cargador.CargadorJson;
 import edu.fiuba.algo3.modelo.Defensa.EstadoDefensaIncompleto;
 import edu.fiuba.algo3.modelo.Defensa.Torre;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
+import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Partida.Logger;
@@ -19,6 +21,9 @@ public class CargadorJsonTest {
     private final String rutaJsonEnemigosTest = "data/jsonTests/enemigosTest.json";
     private final String rutaJsonMapaTest = "data/jsonTests/mapaTest.json";
     private final String rutaJsonEnemigosV2 = "data/jsonTests/enemigosV2.json";
+    private final String rutaJsonConEnemigoNoReconocido = "data/jsonTests/enemigosErroneo.json";
+    private final String rutaJsonEnemigoMalFormato = "data/jsonTests/enemigosMalFormato.json";
+
 
     List<List<Enemigo>> enemigosPorTurno;
 
@@ -65,7 +70,7 @@ public class CargadorJsonTest {
 
         assertThrows(RutaInvalidaException.class, () -> cargadorJson.procesarMapa(rutaJsonMapaIncorrecto));
     }
-    
+
 
     @Test
     public void mapaSeCargaCorrectamente() {
@@ -73,11 +78,11 @@ public class CargadorJsonTest {
         CargadorJson cargadorJson = new CargadorJson();
         Mapa mapa = cargadorJson.procesarMapa(rutaJsonMapaTest);
 
-        Torre torreEnPosicionValida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), "Torre Blanca");
-        Torre torreEnPosicionInvalida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), "Torre Blanca");
+        Torre torreEnPosicionValida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), new Posicion(2,2), "Torre Blanca");
+        Torre torreEnPosicionInvalida = new Torre(10, 1, 3,new EstadoDefensaIncompleto(1), new Posicion(1,1),"Torre Blanca");
 
-        assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida, new Posicion(2,2)));
-        assertThrows(DefensaNoSePudoConstruir.class, () -> mapa.construir(torreEnPosicionInvalida, new Posicion(1,1)));
+        assertDoesNotThrow(()-> mapa.construir(torreEnPosicionValida));
+        assertThrows(DefensaNoSePudoConstruir.class, () -> mapa.construir(torreEnPosicionInvalida));
         assertTrue(mapa.sinEnemigos());
     }
 
@@ -99,4 +104,31 @@ public class CargadorJsonTest {
         assertEquals(2, enemigosPorTurno.get(11).size());
     }
 
+    @Test
+    public void cargadorJsonAlIntroducirUnJsonConEnemigosNoReconocidosLanzaExcepcionEnemigosJsonParseException() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO CargadorJson no carga correctamente jsonEnemigosErroneo.");
+        Cargador cargador = new CargadorJson();
+        assertThrows(EnemigosJsonParseException.class, () -> cargador.procesarEnemigos(rutaJsonConEnemigoNoReconocido));
+    }
+
+    @Test
+    public void cargadorJsonAlIntroducirUnJsonMalFormateadoSeLanzaExcepcionEnemigosJsonparseException() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO CargadorJson no carga correctamente jsonEnemigosErroneo.");
+        Cargador cargador = new CargadorJson();
+        assertThrows(EnemigosJsonParseException.class, () -> cargador.procesarEnemigos(rutaJsonEnemigoMalFormato));
+    }
+
+    @Test
+    public void archivoEsCorrectoLanzaExcepcionConRutaMala() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO metodo archivoEsCorrecto Lanza Excepcion");
+        Cargador cargador = new CargadorJson();
+        assertThrows(RuntimeException.class, () -> cargador.archivoEsCorrecto("sfsafsfs", "3333333"));
+    }
+
+    @Test
+    public void procesarEnemigosLanzaExcepcionConRutaMala() {
+        Logger.getInstance().logEstado("\n--> TESTUNITARIO metodo procesar enemigos lanza exepcion con ruta mala");
+        Cargador cargador = new CargadorJson();
+        assertThrows(RuntimeException.class, () -> cargador.procesarEnemigos("sfsafsfs"));
+    }
 }

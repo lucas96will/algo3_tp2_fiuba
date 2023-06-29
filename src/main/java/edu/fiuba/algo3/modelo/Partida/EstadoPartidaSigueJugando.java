@@ -27,13 +27,11 @@ public class EstadoPartidaSigueJugando implements EstadoPartida{
         mapa.defensasAtacar();
         mapa.actualizarEstadoDefensas();
         mapa.moverEnemigos();
-        ContadorTurnos.obtenerContador().incrementarTurno();
     }
 
     @Override
-    public void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa) {
-        jugador.comprar(defensa);
-        mapa.construir(defensa, posicion);
+    public void construir(Defensa defensa, Jugador jugador, Mapa mapa) {
+        mapa.construir(defensa);
     }
     
     @Override

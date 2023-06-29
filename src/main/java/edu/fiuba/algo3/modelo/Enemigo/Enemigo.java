@@ -3,14 +3,16 @@ package edu.fiuba.algo3.modelo.Enemigo;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigo;
 import edu.fiuba.algo3.modelo.Enemigo.EstadoEnemigo.EstadoEnemigoMuerto;
 import edu.fiuba.algo3.modelo.Enemigo.Movimiento.Movimiento;
+import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
-import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
+import edu.fiuba.algo3.modelo.Partida.Logger;
+import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 
 import java.util.List;
 
-public abstract class Enemigo {
+public abstract class Enemigo implements Posicionable {
     protected EstadoEnemigo estado;
     protected Posicion posicion;
     protected Movimiento movimiento;
@@ -23,16 +25,17 @@ public abstract class Enemigo {
     }
 
     public Enemigo(EstadoEnemigo unEstado, Movimiento unMovimiento) {
-        posicion = new NullPosicion();
+        posicion = null;
         movimiento = unMovimiento;
         estado = unEstado;
     }
 
-    public void recibirAtaque(int unDanio) {
-        estado.recibirAtaque(this, unDanio);
+    public void morir(){
+        Jugador jugador = Jugador.getInstance();
+        jugador.obtenerRecompensa(this);
+        jugador.incrementarContador(this);
+        Logger.getInstance().logExitoso(this + " murio.");
     }
-
-    public abstract void morir();
 
     public boolean muerto() {
         return estado.getClass().equals(EstadoEnemigoMuerto.class); //Mal y pronto
@@ -42,9 +45,8 @@ public abstract class Enemigo {
         this.posicion = new Posicion(unaPosicion);
     }
 
-    public abstract void moverse(List<Parcela> parcelas);
-    
-    
+    public void moverse(List<Parcela> parcelas){estado.moverse(movimiento, parcelas, this, posicion);}
+
     public abstract void daniarAlJugador();
 
     public boolean estaEnRango(int rango, Posicion unaPosicion) {
@@ -58,4 +60,11 @@ public abstract class Enemigo {
     public abstract void obtenerRecompensa(Recurso recursoJugador, int contadorMuertes);
     public abstract String nombre();
     public abstract void siguienteEstado(int vidaActual, int vidaInicial);
+
+    public void recibirAtaque(int unDanio, int unRango, Posicion unaPosicion) {
+        if(posicion.estaEnRango(unRango, unaPosicion)){
+            estado.recibirAtaque(this, unDanio);
+            Logger.getInstance().logExitoso(this + " recibio ataque de Torre en " + posicion);
+        }
+    }
 }

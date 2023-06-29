@@ -3,13 +3,11 @@ package edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Cobrable.Cobrable;
-import edu.fiuba.algo3.modelo.Excepciones.NoSePudoComprarException;
-
+import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Jugador {
-
     private static Jugador jugador = new Jugador();
     private Recurso recurso;
     private int vida;
@@ -17,6 +15,7 @@ public class Jugador {
     private int vidaMaxima;
     private Contador contador;
     private List<Defensa> defensas;
+    private List<Defensa> defensasEliminadas;
 
     private Jugador() {
         recurso = new Recurso(100);
@@ -25,6 +24,7 @@ public class Jugador {
         nombre = "Mario";
         contador = new Contador();
         defensas = new ArrayList<>();
+        defensasEliminadas = new ArrayList<>();
     }
 
     static public Jugador getInstance() {
@@ -64,7 +64,7 @@ public class Jugador {
     }
 
 
-    public void comprar(Cobrable cobrable) throws NoSePudoComprarException {
+    public void comprar(Cobrable cobrable) throws RecursosInsuficientesException {
         cobrable.comprate(recurso);
     }
 
@@ -97,11 +97,6 @@ public class Jugador {
         return jugador.obtenerVidaJugador() <= 0;
     }
 
-    public boolean estaIntacto() {
-        Jugador jugador = Jugador.getInstance();
-        return jugador.obtenerVidaJugador() == vidaMaxima;
-    }
-
     public int valorCreditos() {
         return recurso.valorMonetario();
     }
@@ -112,6 +107,14 @@ public class Jugador {
     }
 
     public void eliminarPrimeraTorre() {
-        defensas.remove(0);
+        if(!defensas.isEmpty()) {
+            defensasEliminadas.add(defensas.get(0));
+            defensas.remove(0);
+        }
     }
+
+    public List<Defensa> obtenerDefensasEliminadas() {
+        return defensasEliminadas;
+    }
+
 }

@@ -25,14 +25,6 @@ public class Arania extends Enemigo{
     }
 
     @Override
-    public void morir() {
-        Jugador jugador = Jugador.getInstance();
-        jugador.obtenerRecompensa(this);
-        jugador.incrementarContador(this);
-        Logger.getInstance().logExitoso(this + " murio.");
-    }
-
-    @Override
     public String toString() {
         return ("Araña en " +  posicion.toString());
     }
@@ -49,11 +41,6 @@ public class Arania extends Enemigo{
         }
     }
 
-
-    public void moverse(List<Parcela> parcelas) {
-        estado.moverse(movimiento, parcelas, this, posicion);
-    }
-
     @Override
     public void daniarAlJugador() {
         estado.daniarAlJugador(this.toString());
@@ -63,5 +50,10 @@ public class Arania extends Enemigo{
     @Override
     public void obtenerRecompensa(Recurso recursoJugador, int contadorMuertes) {
         recursoJugador.sumarMonedas( new Random().nextInt(RECOMPENSA_MAX) + RECOMPENSA_MIN);
+    }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
     }
 }

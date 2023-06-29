@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.Modelo;
 
 import edu.fiuba.algo3.modelo.Excepciones.DefensaNoIdentificadaException;
-import edu.fiuba.algo3.modelo.Excepciones.EnemigoNoIdentificadaException;
+import edu.fiuba.algo3.modelo.Excepciones.EnemigoNoIdentificadoException;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoIdentificadaException;
 import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
 import edu.fiuba.algo3.modelo.Factory.EnemigoFactory;
@@ -16,12 +16,12 @@ public class FactoryTest {
     public void test01DefensaFactoryDevuelveExcepcionSiLePidoUnaDefensaInexistente() {
         DefensaFactory defensaFactory = new DefensaFactory();
 
-        assertThrows(DefensaNoIdentificadaException.class, () -> defensaFactory.obtenerDefensa("voladora"));
+        assertThrows(DefensaNoIdentificadaException.class, () -> defensaFactory.obtenerDefensa("voladora", new Posicion(1,1)));
     }
 
     @Test
     public void test02EnemigosFactoryDevuelveExcepcionSiLePidoUnEnemigoInexistente() {
-        assertThrows(EnemigoNoIdentificadaException.class, () -> EnemigoFactory.obtener("superman"));
+        assertThrows(EnemigoNoIdentificadoException.class, () -> EnemigoFactory.obtener("superman"));
     }
 
     @Test

@@ -23,22 +23,11 @@ public class Hormiga extends Enemigo{
         super(new EstadoEnemigoVivo(unaVida,unDanio,unaVelocidad), new MovimientoTerrestre());
     }
 
-    @Override
-    public void morir() {
-        Jugador jugador = Jugador.getInstance();
-        jugador.obtenerRecompensa(this);
-        jugador.incrementarContador(this);
-        Logger.getInstance().logExitoso(this + " murio.");
-    }
 
     @Override
     public String toString() {
 
         return ("Hormiga en " +  posicion.toString());
-    }
-    
-    public void moverse(List<Parcela> parcelas) {
-        estado.moverse(movimiento, parcelas, this, posicion);
     }
 
     @Override
@@ -66,5 +55,10 @@ public class Hormiga extends Enemigo{
         if(vidaActual <= 0){
             estado = new EstadoEnemigoMuerto();
         }
+    }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
     }
 }

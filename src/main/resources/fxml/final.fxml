@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorPantallaFinal">
+    <ImageView fitHeight="1080.0" fitWidth="1920.0">
+        <effect>
+            <ColorAdjust brightness="0.2"/>
+        </effect>
+        <Image url="@../images/Background.jpg"/>
+    </ImageView>
+    <Text fx:id="resultado" fill="#5eb7fe" layoutY="663.0" lineSpacing="1.0" stroke="#f3c457" strokeLineCap="ROUND"
+          strokeLineJoin="ROUND" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="5.0" textAlignment="CENTER"
+          translateY="-250.0">
+        <font>
+            <Font name="Tw Cen MT Condensed" size="110.0"/>
+        </font>
+    </Text>
+</AnchorPane>

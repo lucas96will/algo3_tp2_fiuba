@@ -163,8 +163,8 @@ public class ParcelaTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO Parcela test: Lechuza no trampa arenosa correctamente");
         Cargador cargador = new CargadorJson();
         Mapa mapa = cargador.procesarMapa("data/jsonTests/mapa.json");
-        Defensa torre = new Torre(10, 3, 3, new EstadoDefensaCompleto(), "Torrecilla");
-        mapa.construir(torre, new Posicion(1, 3));
+        Defensa torre = new Torre(10, 3, 3, new EstadoDefensaCompleto(), new Posicion(1, 3),"Torrecilla");
+        mapa.construir(torre);
         Enemigo lechuza = EnemigoFactory.obtener("Lechuza");
         mapa.construirTrampa(new TrampaDeArena(), new Posicion(2, 2));
         mapa.actualizarEstadoDefensas();

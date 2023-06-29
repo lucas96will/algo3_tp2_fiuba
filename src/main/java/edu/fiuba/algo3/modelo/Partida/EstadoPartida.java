@@ -14,7 +14,7 @@ public interface EstadoPartida {
 
     void terminarTurno(Mapa mapa);
 
-    void construir(Defensa defensa, Posicion posicion, Jugador jugador, Mapa mapa);
+    void construir(Defensa defensa, Jugador jugador, Mapa mapa);
 
     void insertarEnemigo(Enemigo enemigo, Mapa mapa);
 

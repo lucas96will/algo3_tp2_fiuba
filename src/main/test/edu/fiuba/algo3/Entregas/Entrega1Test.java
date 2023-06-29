@@ -4,7 +4,9 @@ import edu.fiuba.algo3.modelo.Defensa.*;
 import edu.fiuba.algo3.modelo.Direccion.Derecha;
 import edu.fiuba.algo3.modelo.Enemigo.Hormiga;
 import edu.fiuba.algo3.modelo.Enemigo.Arania;
+import edu.fiuba.algo3.modelo.Excepciones.DefensaNoSePudoConstruir;
 import edu.fiuba.algo3.modelo.Excepciones.RecursosInsuficientesException;
+import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Contador;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Jugador.Recurso;
@@ -20,6 +22,9 @@ import org.junit.jupiter.api.Test;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Meta;
 import edu.fiuba.algo3.modelo.Parcela.Pasarela.Largada;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class Entrega1Test {
@@ -33,31 +38,32 @@ public class Entrega1Test {
 
     }
 
-    
+
 
 
     public Mapa obtenerMapaGenerico() {
         Mapa mapa = new Mapa();
-        Pasarela pasarela = new Pasarela(new Largada());
+        Pasarela pasarela = new Pasarela(new Posicion(1,1), new Largada());
         pasarela.establecerDireccion(new Derecha());
-        mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,1));
+        mapa.agregarParcela(pasarela);
 
         for(int i = 2; i < 7; i++){
-            pasarela = new Pasarela(new Casilla());
+            pasarela = new Pasarela(new Posicion(1,i), new Casilla());
             pasarela.establecerDireccion(new Derecha());
-            mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,i));
+            mapa.agregarParcela(pasarela);
         }
-        pasarela = new Pasarela(new Meta());
+        pasarela = new Pasarela(new Posicion(1,7), new Meta());
         pasarela.establecerDireccion(new Derecha());
-        mapa.agregarParcelaEnPosicion(pasarela, new Posicion(1,7));
+        mapa.agregarParcela(pasarela);
 
         for(int j = 2; j < 8; j++) {
             for(int k = 1; k < 8; k++) {
-                mapa.agregarParcelaEnPosicion(new Tierra(), new Posicion(j, k));
+
+                mapa.agregarParcela(new Tierra(new Posicion(j, k)));
             }
         }
         for(int h = 1; h < 8; h++) {
-            mapa.agregarParcelaEnPosicion(new Rocoso(), new Posicion(7, h));
+            mapa.agregarParcela(new Rocoso(new Posicion(7, h)));
         }
 
         return mapa;
@@ -69,7 +75,7 @@ public class Entrega1Test {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(100), "Joaquín");
 
-        assertTrue(jugador.estaIntacto());
+        assertEquals(10, jugador.obtenerVidaJugador());
         assertEquals(100, jugador.valorCreditos());
     }
 
@@ -78,14 +84,15 @@ public class Entrega1Test {
         Logger.getInstance().logEstado("\n--> Caso 2 Cada defensa tarde en construirse lo que dice que tarda.");
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
-        jugador.actualizarEstado(10, recurso, "Joaquín");
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
+        jugador.actualizarEstado(10, recurso, "Joaquín");
 
 
-        Defensa torrePlateada = new Torre(20, 2,5, new EstadoDefensaIncompleto(2), "Torre Plateada");
+        Defensa torrePlateada = (new DefensaFactory()).obtenerDefensa("Plateada", new Posicion(2,6));
         partida.insertarEnemigo(new Hormiga(new Posicion(1, 1)));
-        partida.construir(torrePlateada, new Posicion(2,6)); // 2 turnos para construirse
+        jugador.comprar(torrePlateada);
+        partida.construir(torrePlateada); // 2 turnos para construirse
         partida.terminarTurno(); // arania en posicion (1,3)
         assertEquals(80, recurso.valorMonetario());
         partida.terminarTurno(); // (1,5) , torre no construida , arania vida = 2, torrePlateada construida
@@ -103,8 +110,8 @@ public class Entrega1Test {
         Jugador jugador = Jugador.getInstance();
         jugador.actualizarEstado(10, new Recurso(10), "Josesito");
 
-        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
-        Defensa torreBlanca2 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca");
+        Defensa torreBlanca1 = (new DefensaFactory()).obtenerDefensa("Blanca", new Posicion(1,1));
+        Defensa torreBlanca2 = (new DefensaFactory()).obtenerDefensa("Blanca", new Posicion(1,1));
         assertDoesNotThrow(() ->jugador.comprar(torreBlanca1));
         assertThrows(RecursosInsuficientesException.class, ()-> jugador.comprar(torreBlanca2));
     }
@@ -115,8 +122,14 @@ public class Entrega1Test {
         Tierra tierra = new Tierra(new Posicion(1,1));
         Rocoso rocoso = new Rocoso(new Posicion(2,2));
 
-        assertDoesNotThrow(() -> tierra.insertarDefensa(new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca")));
-        assertThrows(Exception.class,() -> rocoso.insertarDefensa(new Torre(10, 1, 3, new EstadoDefensaIncompleto(2), "Torre Blanca")));
+        assertDoesNotThrow(() ->
+                tierra.insertarDefensa(new Torre(10, 1, 3, new EstadoDefensaIncompleto(2),
+                        new Posicion(1,1),"Torre Blanca"),
+                        new ArrayList<>()));
+        assertThrows(Exception.class,() ->
+                rocoso.insertarDefensa(new Torre(10, 1, 3, new EstadoDefensaIncompleto(2),
+                        new Posicion(2,2), "Torre Blanca"),
+                        new ArrayList<>()));
     }
 
     @Test
@@ -126,12 +139,13 @@ public class Entrega1Test {
 
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
-        jugador.actualizarEstado(100, recurso, "Josesito");
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
+        jugador.actualizarEstado(100, recurso, "Josesito");
 
-        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
-        partida.construir(torreBlanca1, new Posicion(2,6));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(2,6),"Torre Blanca");
+        jugador.comprar(torreBlanca1);
+        partida.construir(torreBlanca1);
 
         //Enemigo hormiga = Enemigo.crearHormiga(1,null);
         Hormiga hormiga = new Hormiga(new Posicion(1,1));
@@ -155,8 +169,8 @@ public class Entrega1Test {
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
 
-        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
-        partida.construir(torreBlanca1, new Posicion(2,2));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(2,2), "Torre Blanca");
+        partida.construir(torreBlanca1);
 
         partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
         partida.terminarTurno(); // tarda 1 turno en construir la torre blanca
@@ -184,14 +198,14 @@ public class Entrega1Test {
 
         Recurso recurso = new Recurso(100);
         Jugador jugador = Jugador.getInstance();
-        jugador.actualizarEstado(100, recurso, "Josesito");
         /*100*/
-
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
+        jugador.actualizarEstado(100, recurso, "Josesito");
 
-        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
-        partida.construir(torreBlanca1, new Posicion(2,2));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(2,2), "Torre Blanca");
+        jugador.comprar(torreBlanca1);
+        partida.construir(torreBlanca1);
         // 100-10 = 90
 
         Hormiga hormiga = new Hormiga(new Posicion(1,1));
@@ -215,8 +229,8 @@ public class Entrega1Test {
         partida.insertarEnemigo(new Hormiga(new Posicion(1,1)));
         partida.insertarEnemigo(new Arania(new Posicion(1,1)));
 
-        Defensa torreBlanca1 = new Torre( 10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
-        partida.construir(torreBlanca1, new Posicion(2,2));
+        Defensa torreBlanca1 = new Torre( 10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(2,2), "Torre Blanca");
+        partida.construir(torreBlanca1);
 
         /*rango de ataque de torre blanca = 0 - 4 fila ; 0 - 4 columna*/
         partida.terminarTurno(); // Torre construida
@@ -229,7 +243,7 @@ public class Entrega1Test {
 
         EstadoPartida estadoPartida = partida.estado();
         assertEquals(estadoPartida, new EstadoPartidaGanada());
-        assertTrue(jugador.estaIntacto());
+        assertEquals(10, jugador.obtenerVidaJugador());
     }
 
     @Test
@@ -241,8 +255,8 @@ public class Entrega1Test {
         Mapa mapa = obtenerMapaGenerico();
         Partida partida = new Partida(jugador,mapa);
 
-        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), "Torre Blanca");
-        partida.construir(torreBlanca1, new Posicion(2,2));
+        Defensa torreBlanca1 = new Torre(10, 1, 3, new EstadoDefensaIncompleto(1), new Posicion(2,2),"Torre Blanca");
+        partida.construir(torreBlanca1);
 
         Hormiga hormiga = new Hormiga(new Posicion(1,1));
         partida.insertarEnemigo(hormiga);

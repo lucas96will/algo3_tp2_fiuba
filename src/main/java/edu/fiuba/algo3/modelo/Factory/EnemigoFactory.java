@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.Factory;
 
 import edu.fiuba.algo3.modelo.Enemigo.*;
-import edu.fiuba.algo3.modelo.Excepciones.EnemigoNoIdentificadaException;
+import edu.fiuba.algo3.modelo.Excepciones.EnemigoNoIdentificadoException;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -16,7 +16,7 @@ public class EnemigoFactory {
         Enemigo enemigo = factory.tipoDeEnemigos.get(nombreEnemigo.toLowerCase(Locale.ROOT));
 
         if(enemigo == null) {
-            throw new EnemigoNoIdentificadaException();
+            throw new EnemigoNoIdentificadoException();
         }
         return enemigo;
     }

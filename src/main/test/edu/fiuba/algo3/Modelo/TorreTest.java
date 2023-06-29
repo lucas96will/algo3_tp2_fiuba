@@ -41,7 +41,7 @@ public class TorreTest {
         Logger.getInstance().logEstado("\n--> TESTUNITARIO TorreBlanca test 3: Se construye después de un turno");
         EstadoDefensaIncompleto incompletoMock= mock(EstadoDefensaIncompleto.class);
         EstadoDefensaCompleto completoMock = mock(EstadoDefensaCompleto.class);
-        Torre torreBlanca = new Torre(10, 1, 3, incompletoMock, "Torre Blanca");
+        Torre torreBlanca = new Torre(10, 1, 3, incompletoMock, new Posicion(1,1),"Torre Blanca");
 
         doAnswer(invocationOnMock -> {
             Object[] args = invocationOnMock.getArguments();
@@ -58,12 +58,11 @@ public class TorreTest {
 
     @Test
     public void jugadorNoPuedeComprarTorreLanzaExcepcionRecursosInsuficientesException() {
-        jugadorSingleton.actualizarEstado(100, new Recurso(5), "pepe");
         Mapa mapa = new CargadorJson().procesarMapa(rutaJsonMapa);
         Partida partida = new Partida(jugadorSingleton, mapa);
+        jugadorSingleton.actualizarEstado(100, new Recurso(5), "pepe");
+        Defensa defensa = new DefensaFactory().obtenerDefensa("Blanca", new Posicion(2,2));
 
-        Defensa defensa = new DefensaFactory().obtenerDefensa("Blanca");
-
-        assertThrows(RecursosInsuficientesException.class, () -> partida.construir(defensa, new Posicion(2,2)));
+        assertThrows(RecursosInsuficientesException.class, () ->         jugadorSingleton.comprar(defensa));
     }
 }

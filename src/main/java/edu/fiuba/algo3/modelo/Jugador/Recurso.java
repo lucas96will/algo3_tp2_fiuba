@@ -11,7 +11,7 @@ public class Recurso {
 
     public void gastar(int costeEnCreditos) throws RecursosInsuficientesException {
         if(creditos < costeEnCreditos){
-            throw new RecursosInsuficientesException();
+            throw new RecursosInsuficientesException("No se pudo comprar, recursos insuficientes");
         }
         creditos = creditos - costeEnCreditos;
     }

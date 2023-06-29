@@ -5,11 +5,9 @@ import java.util.HashMap;
 
 public class Contador {
     private final HashMap<String, Integer> registroMuertes;
-    private final HashMap<String, Integer> recompensas;
-    
+
     public Contador() {
         this.registroMuertes = new HashMap<>();
-        this.recompensas = new HashMap<>();
     }
 
     public void incrementarContador(Enemigo unEnemigo) {
@@ -23,14 +21,9 @@ public class Contador {
     }
 
 
-    public void obtenerRecompensa(Enemigo unEnemigo, Recurso recurso){
+    public void obtenerRecompensa(Enemigo unEnemigo, Recurso recursosJugador){
         int cantidadMuertesEnemigo = obtenerMuertes(unEnemigo);
-        unEnemigo.obtenerRecompensa(recurso, cantidadMuertesEnemigo);
-    }
-
-    private int obtenerCantidadMuertes(Enemigo unEnemigo){
-        registroMuertes.putIfAbsent(unEnemigo.nombre(), 0);
-        return registroMuertes.get(unEnemigo.nombre());
+        unEnemigo.obtenerRecompensa(recursosJugador, cantidadMuertesEnemigo);
     }
 
 }

@@ -32,7 +32,7 @@ public class Partida {
 
 
     public void terminarTurno() {
-        if (enemigosPorTurno.size() != 0) {
+            if (enemigosPorTurno.size() != 0) {
             anadirEnemigos(enemigosPorTurno.get(0));
             enemigosPorTurno.remove(0);
         }
@@ -41,8 +41,8 @@ public class Partida {
         actualizarEstado();
     }
 
-    public void construir(Defensa defensa, Posicion posicion) {
-        estado.construir(defensa, posicion, jugador, mapa);
+    public void construir(Defensa defensa){
+        estado.construir(defensa, jugador, mapa);
     }
 
     public void construir(TrampaDeArena trampa, Posicion posicion) {

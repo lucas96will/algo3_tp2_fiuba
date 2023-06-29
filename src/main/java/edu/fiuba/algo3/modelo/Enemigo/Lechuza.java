@@ -21,30 +21,14 @@ public class Lechuza extends Enemigo{
     public Lechuza(){
         super(new EstadoEnemigoVivo(5,1,5), new MovimientoVolador());
     }
-    @Override
-    public void morir() {
-        Jugador jugador = Jugador.getInstance();
-        jugador.obtenerRecompensa(this);
-        Logger.getInstance().logExitoso(this + " murió.");
-    }
-
-    @Override
-    public void moverse(List<Parcela> parcelas){
-        estado.moverse(movimiento, parcelas, this, posicion);
-    }
 
     @Override
     public void daniarAlJugador() {
         Jugador.getInstance().eliminarPrimeraTorre();
+        Logger.getInstance().logError(this.nombre() + " destruyo una torre.");
         this.estado = new EstadoEnemigoMuerto();
     }
 
-    @Override
-    public void recibirAtaque(int unDanio){
-        estado.recibirAtaque(this, unDanio);
-    }
-
-    
     @Override 
     public String toString() {
         return ("Lechuza en " + posicion.toString());
@@ -72,6 +56,11 @@ public class Lechuza extends Enemigo{
         } else if(vidaActual <= vidaInicial * 0.5 ) {
             movimiento = new MovimientoVoladorEnojado();
         }
+    }
+
+    @Override
+    public Posicion obtenerPosicion() {
+        return posicion;
     }
 
 }

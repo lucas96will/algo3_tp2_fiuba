@@ -3,7 +3,6 @@ import edu.fiuba.algo3.modelo.Direccion.Direccion;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerTrampa;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
-import edu.fiuba.algo3.modelo.Mapa.NullPosicion;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class Largada implements EstadoPasarela {
@@ -24,7 +23,7 @@ public class Largada implements EstadoPasarela {
         unEnemigo.mover(posicion);
     }
     public Posicion obtenerPosicionFinal(Posicion posicion) {
-        return new NullPosicion();
+        return null;
     }
 
     @Override

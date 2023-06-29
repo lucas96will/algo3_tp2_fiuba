@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.Cargador;
 
 import edu.fiuba.algo3.modelo.Direccion.*;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.EnemigoNoIdentificadoException;
 import edu.fiuba.algo3.modelo.Excepciones.EnemigosJsonParseException;
 import edu.fiuba.algo3.modelo.Excepciones.RutaInvalidaException;
 import edu.fiuba.algo3.modelo.Factory.EnemigoFactory;
@@ -28,9 +29,7 @@ public class CargadorJson implements Cargador {
             parser.parse(new FileReader(rutaJsonEnemigos));
             parser.parse(new FileReader(rutaJsonMapa));
 
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ParseException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -46,11 +45,13 @@ public class CargadorJson implements Cargador {
             listaDeEnemigosJson.forEach(enemigosJson -> guardarEnemigoEnLista(listaDeEnemigosPorTurno, (JSONObject) enemigosJson));
             return listaDeEnemigosPorTurno;
 
-        } catch (IOException e) {
-            throw new RutaInvalidaException();
+        } catch (EnemigoNoIdentificadoException s) {
+            throw new EnemigosJsonParseException("Error, no se puede cargar enemigos desconocidos");
         } catch (ParseException p) {
             p.printStackTrace();
-            throw new EnemigosJsonParseException();
+            throw new EnemigosJsonParseException("Error, no se puede leer archivo de enemigos correctamente");
+        } catch (IOException e) {
+            throw new RutaInvalidaException();
         }
     }
 
@@ -178,7 +179,7 @@ public class CargadorJson implements Cargador {
     public Mapa procesarMapa(String rutaJsonMapa) {
 
         try {
-            List<Parcela> parcelas = new ArrayList<Parcela>();
+            List<Parcela> parcelas = new ArrayList<>();
             JSONParser parser = new JSONParser();
             FileReader lector = new FileReader(rutaJsonMapa);
             JSONObject json = (JSONObject) parser.parse(lector);

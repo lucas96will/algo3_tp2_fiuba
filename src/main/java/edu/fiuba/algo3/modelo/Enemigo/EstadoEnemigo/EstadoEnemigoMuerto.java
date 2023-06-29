@@ -21,7 +21,6 @@ public class EstadoEnemigoMuerto implements EstadoEnemigo {
 
     @Override
     public void recibirAtaque(Enemigo enemigo, int unDanio) {
-        
     }
 
 

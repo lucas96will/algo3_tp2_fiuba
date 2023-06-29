@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,56 +8,25 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1152.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorPantallaInicio">
-            <children>
-               <StackPane prefHeight="768.0" prefWidth="1152.0">
-                  <children>
-                     <ImageView fitHeight="768.0" fitWidth="1152.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../images/background.jpg" />
-                        </image>
-                     </ImageView>
-                     <ImageView fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" scaleX="1.3" scaleY="1.3" translateX="-345.0" translateY="-109.0" StackPane.alignment="BOTTOM_LEFT">
-                        <image>
-                           <Image url="@../images/castle.png" />
-                        </image>
-                     </ImageView>
-                     <ImageView fitHeight="500.0" fitWidth="350.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true" scaleX="2.3" scaleY="2.3" translateX="80.0" StackPane.alignment="BOTTOM_RIGHT">
-                        <image>
-                           <Image url="@../images/boar.png" />
-                        </image>
-                     </ImageView>
-                     <ImageView fitHeight="160.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateX="-80.0" translateY="-45.0">
-                        <image>
-                           <Image url="@../images/castle.png" />
-                        </image>
-                     </ImageView>
-                     <ImageView fitHeight="750.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_LEFT">
-                        <image>
-                           <Image url="@../images/king.png" />
-                        </image>
-                     </ImageView>
-                     <ImageView fitHeight="75.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateX="500.0" translateY="-80.0">
-                        <image>
-                           <Image url="@../images/castle.png" />
-                        </image>
-                     </ImageView>
-                     <Text fill="#5eb7fe" lineSpacing="1.0" stroke="#f3c457" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="5.0" text="Algo Tower Defense" textAlignment="CENTER" translateY="-250.0">
-                        <font>
-                           <Font name="Tw Cen MT Condensed" size="110.0" />
-                        </font>
-                     </Text>
-                     <ImageView fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateX="175.0" translateY="97.0" StackPane.alignment="TOP_LEFT">
-                        <image>
-                           <Image url="@../images/castle.png" />
-                        </image>
-                     </ImageView>
-                     <Button id="buttom" fx:id="btnJugar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#jugar" style="-fx-background-radius: 10; -fx-background-color: rgb(255, 206, 91); -fx-padding: 20px 100px 18px 100px;" text="Jugar" textAlignment="CENTER" textFill="WHITE" translateY="-120.0" StackPane.alignment="BOTTOM_CENTER">
-                        <font>
-                           <Font name="System Bold" size="36.0" />
-                        </font>
-                     </Button>
-                  </children>
-               </StackPane>
-            </children>
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.fiuba.algo3.controllers.ControladorPantallaInicio">
+    <StackPane fx:id="stackPane" prefWidth="1152.0">
+        <ImageView cache="true" cacheHint="QUALITY" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+            <effect>
+                <ColorAdjust brightness="0.21" hue="0.02"/>
+            </effect>
+            <Image url="@../images/Background.jpg"/>
+        </ImageView>
+        <Text fill="#5eb7fe" lineSpacing="1.0" stroke="#f3c457" strokeLineCap="ROUND" strokeLineJoin="ROUND"
+              strokeMiterLimit="0.0" strokeType="OUTSIDE" strokeWidth="5.0" text="Algo Tower Defense"
+              textAlignment="CENTER" translateY="-250.0">
+            <font>
+                <Font name="Tw Cen MT Condensed" size="110.0"/>
+            </font>
+        </Text>
+        <ImageView fx:id="configuracion" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"
+                   translateX="920.0" translateY="-500.0">
+            <Image url="@../images/botonConfiguracionMadera.png"/>
+        </ImageView>
+    </StackPane>
 </AnchorPane>

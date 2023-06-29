@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
-import edu.fiuba.algo3.modelo.Excepciones.DefensaIncompletaNoPuedeAtacar;
+import edu.fiuba.algo3.modelo.Mapa.Posicion;
 
 public class  EstadoDefensaIncompleto implements EstadoDefensa{
 
@@ -22,9 +22,7 @@ public class  EstadoDefensaIncompleto implements EstadoDefensa{
     }
 
 
-
     @Override
-    public void atacar(Enemigo enemigo, int danio) throws DefensaIncompletaNoPuedeAtacar {
-        throw new DefensaIncompletaNoPuedeAtacar("Defensa incompleta no puede atacar");
+    public void atacar(Enemigo enemigo, int danio, int rango, Posicion posicion) {
     }
 }

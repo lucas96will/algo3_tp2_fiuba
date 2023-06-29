@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Mapa;
 import edu.fiuba.algo3.modelo.Parcela.Parcela;
+import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 import edu.fiuba.algo3.modelo.Partida.EstadoPartida;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
 import edu.fiuba.algo3.modelo.Partida.Partida;
@@ -43,6 +44,7 @@ public class Juego {
 
 
     public void cargarJugador(Jugador jugador) {
+        jugador.resetearDefensas();
         this.jugador = jugador;
     }
 
@@ -58,11 +60,16 @@ public class Juego {
         return partida.estado();
     }
 
-    public void construir(Defensa torre, Posicion posicion) {
-        partida.construir(torre, posicion);
+    public void construir(Defensa torre) {
+        partida.construir(torre);
+    }
+
+    public void construir(TrampaDeArena unaTrampa, Posicion unaPosicion){
+        partida.construir(unaTrampa, unaPosicion);
     }
 
     public List<Enemigo> obtenerEnemigos () {return mapa.obtenerEnemigos();}
     public List<Parcela> obtenerParcelas () {return mapa.obtenerParcelas();}
+
 }
 
