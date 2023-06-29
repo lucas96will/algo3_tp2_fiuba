@@ -4,6 +4,7 @@ import edu.fiuba.algo3.App;
 import edu.fiuba.algo3.modelo.Cargador.Juego;
 import edu.fiuba.algo3.modelo.Defensa.Defensa;
 import edu.fiuba.algo3.modelo.Enemigo.Enemigo;
+import edu.fiuba.algo3.modelo.Excepciones.ParcelaNoPuedeContenerTrampa;
 import edu.fiuba.algo3.modelo.Factory.DefensaFactory;
 import edu.fiuba.algo3.modelo.Jugador.Jugador;
 import edu.fiuba.algo3.modelo.Mapa.Posicion;
@@ -181,6 +182,13 @@ public class ControladorDeJuego implements Initializable {
                     ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
 
                 }
+            } catch (ParcelaNoPuedeContenerTrampa e) {
+                ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
+                ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
+                datosJugadorObservable.mensajeProperty().set("CONSTRUCCION NO PERMITIDA");
+                PanelDatos.obtenerControladorMensaje().animar();
+                System.out.println(e.getMessage());
+                return;
             } catch (RuntimeException e) {
                 ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
                 ControladorDeSonido.getInstance().reproducirEfecto("sonido_jugador_al_no_poder_comprar.mp3");
