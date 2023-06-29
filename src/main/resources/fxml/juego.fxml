@@ -15,7 +15,7 @@
                     minWidth="-Infinity" prefWidth="1080.0"/>
       </AnchorPane>
       <AnchorPane fx:id="datosJugador" prefHeight="1080.0" prefWidth="840.0">
-         <VBox fx:id="vBoxDatos" alignment="TOP_CENTER" prefHeight="572.0" prefWidth="352.0"
+         <VBox fx:id="vBoxDatos" alignment="TOP_CENTER" prefHeight="572.0" prefWidth="500.0"
                style="-fx-padding: 10px; -fx-spacing: 10px;"/>
          <AnchorPane fx:id="botonera" layoutY="553.0" prefHeight="150.0" prefWidth="352.0"/>
          <ImageView fx:id="configuracion" fitHeight="40.0" fitWidth="200.0" onMouseClicked="#configuracion"

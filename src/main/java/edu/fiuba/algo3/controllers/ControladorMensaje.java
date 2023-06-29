@@ -40,7 +40,7 @@ public class ControladorMensaje implements Initializable {
         mensajeBox.setTranslateX(10);
         mensajeBox.setTranslateY(40);
         mensaje.setOpacity(0);
-        mensaje.setPrefWidth(500);
+        mensaje.setPrefWidth(600);
         return mensajeBox;
     }
 
