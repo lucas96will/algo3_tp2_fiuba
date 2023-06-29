@@ -172,7 +172,7 @@ public class ControladorDeJuego implements Initializable {
                     TrampaDeArena trampa = new TrampaDeArena();
                     Juego.getInstance().construir(trampa, pos);
                     trampasConstruidas.add(parcelaBackground);
-                    elementosMapaObservable.agregarTrampaProperty(parcelaBackground.imageProperty());
+                    elementosMapaObservable.agregarImagenTrampa(parcelaBackground);
                     ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
                 } else {
                     DefensaFactory factoryDefensa = new DefensaFactory();
