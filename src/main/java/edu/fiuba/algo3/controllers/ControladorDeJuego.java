@@ -166,21 +166,20 @@ public class ControladorDeJuego implements Initializable {
             parcelaBackground.setImage(new Image(Objects.requireNonNull(getClass().getResource("/images/" + construible + ".png")).toString()));
             parcelaBackground.setFitHeight(47.5);
             parcelaBackground.setFitWidth(47.5);
+            Button botonConstruir = (Button) getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
 
             try {
                 if (construible.equals("TrampaDeArena")) {
                     TrampaDeArena trampa = new TrampaDeArena();
                     Juego.getInstance().construir(trampa, pos);
                     trampasConstruidas.add(parcelaBackground);
-                    elementosMapaObservable.agregarImagenTrampa(parcelaBackground);
-                    ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
+                    elementosMapaObservable.agregarImagenTrampa(parcelaBackground, botonConstruir);
                 } else {
                     DefensaFactory factoryDefensa = new DefensaFactory();
                     Defensa defensa = factoryDefensa.obtenerDefensa(construible, pos);
                     Jugador.getInstance().comprar(defensa);
                     Juego.getInstance().construir(defensa);
-                    ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
-
+                    elementosMapaObservable.agregarImagenTorre(parcelaBackground, botonConstruir, pos);
                 }
             } catch (ParcelaNoPuedeContenerTrampa e) {
                 ocultarOpcionesConstruir(btnDefensas, opcionesGrid);
@@ -198,10 +197,11 @@ public class ControladorDeJuego implements Initializable {
                 return;
             }
 
-
+            ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
             GridPane.setValignment(parcelaBackground, VPos.CENTER);
             GridPane.setHalignment(parcelaBackground, HPos.CENTER);
-            (Objects.requireNonNull(getNodeFromGridPane(mapaGrid, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila()))).setMouseTransparent(true);
+            Objects.requireNonNull(botonConstruir).setMouseTransparent(true);
+
             mapaGrid.add(parcelaBackground, lugarDeConstruccion.obtenerColumna(), lugarDeConstruccion.obtenerFila());
             actualizarCreditosObservables();
             actualizarDefensasObservables();
@@ -317,14 +317,14 @@ public class ControladorDeJuego implements Initializable {
             animador.start();
             try {
                 eliminarImagenEnemigosAntesDeTerminarTurno();
-                elementosMapaObservable.actualizarTrampas();
+                elementosMapaObservable.actualizarTrampas(mapaGrid);
                 Juego.getInstance().terminarTurno();
                 agregarImagenEnemigosLuegoDeTerminarTurno();
                 eliminarImagenesDeTorresDestruidas();
                 datosJugadorObservable.actualizar();
                 return;
             } catch (RuntimeException e) {
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage() + e.getClass());
             }
 
             new PantallaFinal(App.getInstance(), App.obtenerStage());
@@ -349,32 +349,14 @@ public class ControladorDeJuego implements Initializable {
 
     private void eliminarImagenesDeTorresDestruidas() {
         List<Defensa> defensasEliminadas = Jugador.getInstance().obtenerDefensasEliminadas();
-        Posicion posicionALimpiar;
-        while (!defensasEliminadas.isEmpty()) {
-            datosJugadorObservable.mensajeProperty().set("TORRE DESTRUIDA");
-            PanelDatos.obtenerControladorMensaje().animar();
-            posicionALimpiar = defensasEliminadas.get(0).obtenerPosicion();
-            Button botoncito = ((Button) getNodeFromGridPane(mapaGrid, posicionALimpiar.obtenerColumna(), posicionALimpiar.obtenerFila()));
-            Objects.requireNonNull(botoncito).setMouseTransparent(false);
-            eliminarImagenEn(posicionALimpiar);
-            defensasEliminadas.remove(0);
+        if(defensasEliminadas.isEmpty()){
+            return;
         }
-    }
-
-    private void eliminarImagenEn(Posicion pos) {
-        List<Node> children = mapaGrid.getChildren();
-        ImageView imagenAEliminar = null;
-
-        for(Node nodo : children) {
-            int columna = GridPane.getColumnIndex(nodo);
-            int fila = GridPane.getRowIndex(nodo);
-            if(columna == pos.obtenerColumna() && fila == pos.obtenerFila() && nodo instanceof ImageView) {
-                imagenAEliminar = (ImageView) nodo;
-                break;
-            }
+        datosJugadorObservable.mensajeProperty().set("TORRE DESTRUIDA");
+        for(Defensa def : defensasEliminadas){
+            elementosMapaObservable.eliminarTorre(def.obtenerPosicion(), mapaGrid);
         }
-
-        mapaGrid.getChildren().remove(imagenAEliminar);
+        defensasEliminadas.clear();
     }
 
     public EventHandler<MouseEvent> configuracion() {
