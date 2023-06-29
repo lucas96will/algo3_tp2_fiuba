@@ -11,6 +11,7 @@ import edu.fiuba.algo3.modelo.Parcela.Pasarela.TrampaDeArena;
 import edu.fiuba.algo3.modelo.Partida.ContadorTurnos;
 import edu.fiuba.algo3.modelo.Posicionable.Posicionable;
 import edu.fiuba.algo3.view.*;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,6 +45,8 @@ public class ControladorDeJuego implements Initializable {
     private Posicion lugarDeConstruccion;
     private VBox opcionesConfiguracion;
     DatosJugadorObservable datosJugadorObservable;
+    List<ImageView> trampasConstruidas = new ArrayList<>();
+    private ElementosMapaObservable elementosMapaObservable;
     @FXML
     private StackPane ventana;
     @FXML
@@ -60,11 +63,11 @@ public class ControladorDeJuego implements Initializable {
     private StackPane display;
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         datosJugadorObservable = new DatosJugadorObservable();
+        elementosMapaObservable = new ElementosMapaObservable();
         Jugador jugador = Jugador.getInstance();
         configurarDatosJugador((App.class.getResource("/images/Nombre.png")), jugador.obtenerNombreJugador(), datosJugadorObservable.nombreProperty());
         configurarDatosJugador((App.class.getResource("/images/Vida.png")), String.valueOf(jugador.obtenerVidaJugador()), datosJugadorObservable.vidaJugadorProperty());
@@ -165,9 +168,10 @@ public class ControladorDeJuego implements Initializable {
 
             try {
                 if (construible.equals("TrampaDeArena")) {
-
                     TrampaDeArena trampa = new TrampaDeArena();
                     Juego.getInstance().construir(trampa, pos);
+                    trampasConstruidas.add(parcelaBackground);
+                    elementosMapaObservable.agregarTrampaProperty(parcelaBackground.imageProperty());
                     ControladorDeSonido.getInstance().reproducirEfecto("sonido_torre_construida.mp3");
                 } else {
                     DefensaFactory factoryDefensa = new DefensaFactory();
@@ -305,7 +309,7 @@ public class ControladorDeJuego implements Initializable {
             animador.start();
             try {
                 eliminarImagenEnemigosAntesDeTerminarTurno();
-
+                elementosMapaObservable.actualizarTrampas();
                 Juego.getInstance().terminarTurno();
                 agregarImagenEnemigosLuegoDeTerminarTurno();
                 eliminarImagenesDeTorresDestruidas();
