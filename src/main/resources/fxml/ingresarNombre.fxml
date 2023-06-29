@@ -9,28 +9,27 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorDeIngresarNombre">
-    <children>
-        <ImageView fitHeight="1080.0" fitWidth="1920.0">
-            <image>
-                <Image url="@../images/Background.jpg" />
-            </image>
-         <effect>
-            <ColorAdjust brightness="0.21" hue="0.02" />
-         </effect>
-        </ImageView>
-        <Pane layoutX="612.5" layoutY="515.0" prefHeight="50.0" prefWidth="695.0" style="-fx-background-color: rgb(255, 206, 91)rgb(255, 206, 91); -fx-background-radius: 10;">
-         <children>
-              <TextField fx:id="nombre" layoutX="200.0" layoutY="11.0" prefHeight="31.0" prefWidth="484.0">
-                  <font>
-                      <Font size="15.0" />
-                  </font>
-              </TextField>
-              <Label id="nombreLabel" layoutX="14.0" layoutY="10.0" prefHeight="30.0" prefWidth="186.0" text="Ingrese el nombre:" textFill="WHITE">
-                  <font>
-                      <Font name="System Bold" size="20.0" />
-                  </font>
-              </Label>
-         </children></Pane>
-    </children>
+<AnchorPane fx:id="anchorPane" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorDeIngresarNombre">
+    <ImageView fitHeight="1080.0" fitWidth="1920.0">
+        <effect>
+            <ColorAdjust brightness="0.21" hue="0.02"/>
+        </effect>
+        <Image url="@../images/Background.jpg"/>
+    </ImageView>
+    <Pane layoutX="613.0" layoutY="490.0" prefHeight="90.0" prefWidth="695.0"
+          style="-fx-background-color: rgb(255, 206, 91)rgb(255, 206, 91); -fx-background-radius: 10;">
+        <TextField fx:id="nombre" layoutX="200.0" layoutY="15.0" prefHeight="60.0" prefWidth="484.0"
+                   style="-fx-background-radius: 10;">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </TextField>
+        <Label id="nombreLabel" layoutX="14.0" layoutY="14.0" prefHeight="60.0" prefWidth="186.0"
+               text="Ingrese el nombre:" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
+    </Pane>
 </AnchorPane>

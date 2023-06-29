@@ -7,28 +7,22 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="ventana" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorDeJuego">
-   <children>
-      <HBox fx:id="divide" prefHeight="1080.0" prefWidth="1920.0">
-         <children>
-            <AnchorPane fx:id="mapa" maxWidth="1080.0" prefWidth="1080.0">
-               <children>
-                  <StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1080.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="datosJugador" prefHeight="1080.0" prefWidth="840.0">
-               <children>
-                  <VBox fx:id="vBoxDatos" alignment="TOP_CENTER" prefHeight="572.0" prefWidth="352.0" style="-fx-padding: 10px; -fx-spacing: 10px;" />
-                  <AnchorPane fx:id="botonera" layoutY="553.0" prefHeight="150.0" prefWidth="352.0" />
-                  <ImageView fx:id="configuracion" fitHeight="40.0" fitWidth="200.0" onMouseClicked="#configuracion" pickOnBounds="true" preserveRatio="true" translateX="793.0" translateY="10.0">
-                     <image>
-                        <Image url="@../images/botonConfiguracionMadera.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </children>
-      </HBox>
-      <StackPane fx:id="display" prefHeight="1080.0" prefWidth="1920.0" />
-   </children>
+<StackPane fx:id="ventana" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.fiuba.algo3.controllers.ControladorDeJuego">
+   <HBox fx:id="divide" prefHeight="1080.0" prefWidth="1920.0">
+      <AnchorPane fx:id="mapa" maxWidth="1080.0" prefWidth="1080.0">
+         <StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                    minWidth="-Infinity" prefWidth="1080.0"/>
+      </AnchorPane>
+      <AnchorPane fx:id="datosJugador" prefHeight="1080.0" prefWidth="840.0">
+         <VBox fx:id="vBoxDatos" alignment="TOP_CENTER" prefHeight="572.0" prefWidth="352.0"
+               style="-fx-padding: 10px; -fx-spacing: 10px;"/>
+         <AnchorPane fx:id="botonera" layoutY="553.0" prefHeight="150.0" prefWidth="352.0"/>
+         <ImageView fx:id="configuracion" fitHeight="40.0" fitWidth="200.0" onMouseClicked="#configuracion"
+                    pickOnBounds="true" preserveRatio="true" translateX="793.0" translateY="10.0">
+            <Image url="@../images/botonConfiguracionMadera.png"/>
+         </ImageView>
+      </AnchorPane>
+   </HBox>
+   <StackPane fx:id="display" prefHeight="1080.0" prefWidth="1920.0"/>
 </StackPane>

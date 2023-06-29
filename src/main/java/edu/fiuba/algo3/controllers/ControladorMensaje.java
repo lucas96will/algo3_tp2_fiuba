@@ -7,11 +7,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -40,6 +38,7 @@ public class ControladorMensaje implements Initializable {
         mensaje.setTextFill(Color.RED);
         mensaje.setFont(new Font("System Bold", 25));
         mensajeBox.setTranslateX(10);
+        mensajeBox.setTranslateY(40);
         mensaje.setOpacity(0);
         mensaje.setPrefWidth(500);
         return mensajeBox;
